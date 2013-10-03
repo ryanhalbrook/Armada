@@ -1,29 +1,29 @@
 /** Defines a rectangle within the game's "grid" **/
 
 public class Rectangle {
-    int x, int y, width, height;
+    int x, y, width, height;
     
     /**
         Returns true if the two rectangles overlap
     **/
     public boolean overlaps(Rectangle r) {
-        
+        return false; // STUB
     }
     
     /**
         Returns the distance between this and another rectangle.
     **/
     public int distance(Rectangle r) {
-        
+        return 50; // STUB
     }
     
-    public int getX() {}
-    public int getY() {}
-    public int getWidth() {}
-    public int getHeight() {}
+    public int getX() { return x; }
+    public int getY() { return y; }
+    public int getWidth() { return width; }
+    public int getHeight() { return height; }
     
-    public void setX(int x) {}
-    public void setY(int y) {}
-    public void setWidth(int width) {}
-    public void setHeight(int height) {}
+    public void setX(int x) { this.x = x; }
+    public void setY(int y) { this.y = y;}
+    public void setWidth(int width) { this.width = width; }
+    public void setHeight(int height) {this.height = height; }
 }

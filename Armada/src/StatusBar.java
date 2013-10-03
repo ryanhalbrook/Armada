@@ -7,14 +7,14 @@ public class StatusBar extends Element {
     DynamicElement client; // The client is the item that this status bar represents.
     Rectangle gridRect; // The position and size of this element.
     
-    public Element(DynamicElement client) {
+    public StatusBar(DynamicElement client) {
         calcGridRect();
     }
     
     public void draw() {
         calcGridRect();
         int hull = client.getHull();
-        int engines = client.getEngines();
+        int engines = client.getEngine();
         
         // Drawing code goes here.
     }
@@ -23,7 +23,7 @@ public class StatusBar extends Element {
     Calculate the grid rect based on the location of the "client". Keeps the status
     bar next to the client.
     **/
-    private calcGridRect() {
+    private void calcGridRect() {
     
     }
 }
