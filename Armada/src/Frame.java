@@ -29,19 +29,19 @@ public class Frame extends JFrame {
 	}
 	
 	private void initialDisplay(){
-		p=new ArmadaPanel();
+		//p=new ArmadaPanel();
 		img = new ImageIcon("space.png");
 		JLabel j = new JLabel(img);
-		p.add(j);
+		//p.add(j);
 		//p.setSize(800,800);
-		p.setBackground(Color.black);
-		p.setSize(img.getIconWidth(),img.getIconHeight());
+		//p.setBackground(Color.black);
+		//p.setSize(img.getIconWidth(),img.getIconHeight());
 		//p.setLocation(-3000, -3000);
-		add(p);
+		//add(p);
 		
 		
 		setBackground(Color.BLACK);
-		setDefaultCloseOperation(3);
+		//setDefaultCloseOperation(3);
 		setSize(800,800);
 		setVisible(true);
 	}

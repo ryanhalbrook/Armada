@@ -1,5 +1,5 @@
 import java.awt.Graphics;
-
+import java.util.*;
 /*
  * Grid paints, moves, stores, and keeps track of everything visual on the panel
  * ie, ships, planets, everything below the frame/menus and above the background
@@ -8,8 +8,12 @@ import java.awt.Graphics;
  */
 public class Grid {
 
-	Grid(){
-		
+    ArrayList<Element> elements;
+
+    public Grid() {}
+
+	public Grid(ArrayList<Element> elements) {
+		this.elements = elements;
 	}
 	
 	/*
@@ -52,6 +56,10 @@ public class Grid {
 	 * draws everything on the Grid
 	 */
 	public void draw(Graphics g){
-		
+	System.out.println("Drawing");
+		for (Element e : elements) {
+		    System.out.print(e);
+		    e.draw(g);
+		}
 	}
 }

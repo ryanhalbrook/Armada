@@ -1,3 +1,5 @@
+import java.awt.*;
+
 /*
  * DynamicElement is a child class that is for Elements that have stats
  * There should be another child for extending a tree into the realm of visuals such as lasers to show an attack but these 
@@ -9,6 +11,8 @@ public class Element {
 	protected int width, height;
 	//orientation
 	//image
+	
+	public void draw(Graphics g) {}
 	
 	public Element(){
 		

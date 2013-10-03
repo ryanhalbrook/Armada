@@ -1,4 +1,4 @@
-import java.awt.Graphics;
+import java.awt.*;
 
 
 /*
@@ -33,7 +33,9 @@ public class DynamicElement extends Element {
 	}
 	
 	public void draw(Graphics g){
-		
+	System.out.println("Drawing element");
+	    g.setColor(Color.GREEN);
+		g.fillRect(x, y, width, height);
 	}
 
 	public int getRange() {

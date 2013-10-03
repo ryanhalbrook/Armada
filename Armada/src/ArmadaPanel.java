@@ -1,26 +1,46 @@
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-
-import javax.swing.JPanel;
+import java.awt.*;
+import javax.swing.*;
 /*
  * ArmadaPanel take in mouse input to allow user to click on objects
  * displays all objects present on Grid
+ 
+ * Responsible for drawing game elements and dispatching mouse and keyboard events.
  */
 
 public class ArmadaPanel extends JPanel implements MouseListener {
 
 	Frame f;
-	Grid g;
+	Grid grid;
 	int turn;
 	Menu focusMenu;
+	ApplicationManager am;
 	
-	public void ArmadaPanel(Frame in){
+	public ArmadaPanel(ApplicationManager am, GameManager gm) {
+	    grid = new Grid(gm.getElements());
+	    this.am = am;
+	    addMouseListener(this);
+	}
+	
+	public ArmadaPanel(JFrame in, ApplicationManager am) {
+	this.am = am;
+		turn = 1;
+		addMouseListener(this);
+	}
+	public ArmadaPanel(Frame in, ApplicationManager am){
+	this.am = am;
 		turn = 1;
 		f=in;
 	}
 	
 	public int turn(){
 		return turn;
+	}
+	
+	public void paintComponent(Graphics g) {
+	    
+	    if (grid != null) grid.draw(g);
 	}
 	
 	/*
@@ -37,7 +57,7 @@ public class ArmadaPanel extends JPanel implements MouseListener {
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+		repaint();
 	}
 
 	@Override
