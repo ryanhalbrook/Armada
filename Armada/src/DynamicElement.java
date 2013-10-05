@@ -26,7 +26,7 @@ public class DynamicElement extends Element {
 	}
 	
 	public void takeDamage(DynamicElement de){
-		hull -= de.getDamage();
+		hull -= de.getWeapons();
 	}
 	
 	/*
@@ -117,6 +117,9 @@ public class DynamicElement extends Element {
 	public void setWeapons(int weap) {
 		weapons = weap;
 	}
+	
+	public int getWeapons() {
+		return weapons;
 	}
 	
 }
