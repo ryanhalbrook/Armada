@@ -11,6 +11,17 @@ public class DynamicElement extends Element {
 	
 	public DynamicElement(int a, int b, int w, int h, String img, int r, int maxH, int maxE, int s, int all, int t, int weap){
 		super(a,b,w,h,img);
+		switch(all){
+		case 1:
+			setImage(img+"_red");
+			break;
+		case 2:
+			setImage(img+"_blue");
+			break;
+		default:
+			break;
+		}
+		
 		range = r;
 		hull = maxH;
 		maxHull = maxH;
@@ -22,7 +33,17 @@ public class DynamicElement extends Element {
 		weapons = weap;
 	}
 	public DynamicElement(int a, int b, int w, int h, double an, String img, int r, int maxH, int maxE, int s, int all, int t, int weap){
-		super(a,b,w,h,an,img);
+		super(a,b,w,h,img);
+		switch(all){
+		case 1:
+			setImage(img+"_red");
+			break;
+		case 2:
+			setImage(img+"_blue");
+			break;
+		default:
+			break;
+		}
 		range = r;
 		hull = maxH;
 		maxHull = maxH;
