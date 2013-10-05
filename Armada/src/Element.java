@@ -9,6 +9,7 @@ public class Element {
     
 	protected int x,y;
 	protected int width, height;
+	protected double angle; //in degrees, 0 to 360
 	//orientation
 	//image
 	
@@ -19,6 +20,14 @@ public class Element {
 		y = b;
 		width = w;
 		height = h;
+		angle=0;
+	}
+	public Element(int a, int b, int w, int h,double an){
+		x = a;
+		y = b;
+		width = w;
+		height = h;
+		angle=an;
 	}
 	/*
 	 * this method is intended to be a script.  It will change the orientation of the Element and location of the Element over a few
@@ -54,7 +63,7 @@ public class Element {
 	public void setX(int a) {
 	    x = a;
 	}
-
+	
 	public int getY() {
 		return y;
 	}
@@ -79,4 +88,11 @@ public class Element {
 		height = h;
 	}
 	
+	public double getAngle(){
+		return angle;
+	}
+	
+	public double setAngle(double a){
+		angle=a;
+	}
 }
