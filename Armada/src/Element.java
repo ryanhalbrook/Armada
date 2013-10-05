@@ -11,23 +11,24 @@ public class Element {
 	protected int width, height;
 	protected double angle; //in degrees, 0 to 360
 	//orientation
-	//image
+	protected String image;	//image
 	
 	
-	
-	public Element(int a, int b, int w, int h){
+	public Element(int a, int b, int w, int h, String img){
 		x = a;
 		y = b;
 		width = w;
 		height = h;
 		angle=0;
+		image=img;
 	}
-	public Element(int a, int b, int w, int h,double an){
+	public Element(int a, int b, int w, int h,double an,String img){
 		x = a;
 		y = b;
 		width = w;
 		height = h;
 		angle=an;
+		image=img;
 	}
 	/*
 	 * this method is intended to be a script.  It will change the orientation of the Element and location of the Element over a few
@@ -92,7 +93,14 @@ public class Element {
 		return angle;
 	}
 	
-	public double setAngle(double a){
+	public void setAngle(double a){
 		angle=a;
+	}
+	
+	public String getImage(){
+		return image;
+	}
+	public void setImage(String img){
+		image=img;
 	}
 }

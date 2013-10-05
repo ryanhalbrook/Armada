@@ -9,11 +9,20 @@ public class DynamicElement extends Element {
 
 	protected int range, hull, maxHull, engine, maxEngine, speed, alliance, targetable, weapons;
 	
-	public DynamicElement(int a, int b, int w, int h, int r, int maxH, int maxE, int s, int all, int t, int weap){
-		x = a;
-		y = b;
-		width = w;
-		height = h;
+	public DynamicElement(int a, int b, int w, int h, String img, int r, int maxH, int maxE, int s, int all, int t, int weap){
+		super(a,b,w,h,img);
+		range = r;
+		hull = maxH;
+		maxHull = maxH;
+		engine = maxE;
+		maxEngine = maxE;
+		speed = s;
+		alliance = all;
+		targetable = t;
+		weapons = weap;
+	}
+	public DynamicElement(int a, int b, int w, int h, double an, String img, int r, int maxH, int maxE, int s, int all, int t, int weap){
+		super(a,b,w,h,an,img);
 		range = r;
 		hull = maxH;
 		maxHull = maxH;
