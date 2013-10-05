@@ -7,14 +7,26 @@ import java.awt.*;
 
 public class DynamicElement extends Element {
 
-	protected int range, hull, maxHull, engine, maxEngine, speed, alliance, targetable;
+	protected int range, hull, maxHull, engine, maxEngine, speed, alliance, targetable, weapons;
 	
-	public DynamicElement(){
-		
+	public DynamicElement(int a, int b, int w, int h, int r, int maxH, int maxE, int s, int all, int t, int weap){
+		x = a;
+		y = b;
+		width = w;
+		height = h;
+		range = r;
+		hull = maxH;
+		maxHull = maxH;
+		engine = maxE;
+		maxEngine = maxE;
+		speed = s;
+		alliance = all;
+		targetable = t;
+		weapons = weap;
 	}
 	
 	public void takeDamage(DynamicElement de){
-		
+		hull -= de.getDamage();
 	}
 	
 	/*
@@ -42,64 +54,69 @@ public class DynamicElement extends Element {
 		return range;
 	}
 
-	public void setRange(int range) {
-		this.range = range;
+	public void setRange(int r) {
+		range = r;
 	}
 
 	public int getHull() {
 		return hull;
 	}
 
-	public void setHull(int hull) {
-		this.hull = hull;
+	public void setHull(int h) {
+		hull = h;
 	}
 
 	public int getMaxHull() {
 		return maxHull;
 	}
 
-	public void setMaxHull(int maxHull) {
-		this.maxHull = maxHull;
+	public void setMaxHull(int maxH) {
+		maxHull = maxH;
 	}
 
 	public int getEngine() {
 		return engine;
 	}
 
-	public void setEngine(int engine) {
-		this.engine = engine;
+	public void setEngine(int e) {
+		engine = e;
 	}
 
 	public int getMaxEngine() {
 		return maxEngine;
 	}
 
-	public void setMaxEngine(int maxEngine) {
-		this.maxEngine = maxEngine;
+	public void setMaxEngine(int maxE) {
+		maxEngine = maxE;
 	}
 
 	public int getSpeed() {
 		return speed;
 	}
 
-	public void setSpeed(int speed) {
-		this.speed = speed;
+	public void setSpeed(int s) {
+		speed = s;
 	}
 
 	public int getAlliance() {
 		return alliance;
 	}
 
-	public void setAlliance(int alliance) {
-		this.alliance = alliance;
+	public void setAlliance(int all) {
+		alliance = all;
 	}
 
 	public int getTargetable() {
 		return targetable;
 	}
 
-	public void setTargetable(int targetable) {
-		this.targetable = targetable;
+	public void setTargetable(int t) {
+		targetable = t;
+	}
+	
+	public void setWeapons(int weap) {
+		weapons = weap;
+	}
 	}
 	
 }

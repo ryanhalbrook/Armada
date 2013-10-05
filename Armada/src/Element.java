@@ -14,8 +14,11 @@ public class Element {
 	
 	public void draw(Graphics g) {}
 	
-	public Element(){
-		
+	public Element(int a, int b, int w, int h){
+		x = a;
+		y = b;
+		width = w;
+		height = h;
 	}
 	/*
 	 * this method is intended to be a script.  It will change the orientation of the Element and location of the Element over a few
@@ -34,32 +37,32 @@ public class Element {
 		return x;
 	}
 
-	public void setX(int x) {
-		this.x = x;
+	public void setX(int a) {
+	    x = a;
 	}
 
 	public int getY() {
 		return y;
 	}
 
-	public void setY(int y) {
-		this.y = y;
+	public void setY(int b) {
+		y = b;
 	}
 
 	public int getWidth() {
 		return width;
 	}
 
-	public void setWidth(int width) {
-		this.width = width;
+	public void setWidth(int w) {
+		width = w;
 	}
 
 	public int getHeight() {
 		return height;
 	}
 
-	public void setHeight(int height) {
-		this.height = height;
+	public void setHeight(int h) {
+		height = h;
 	}
 	
 }
