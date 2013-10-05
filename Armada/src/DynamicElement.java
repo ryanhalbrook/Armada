@@ -55,8 +55,10 @@ public class DynamicElement extends Element {
 		weapons = weap;
 	}
 	
-	public void takeDamage(DynamicElement de){
-		hull -= de.getWeapons();
+	public void takeDamage(DynamicElement de, string choice){
+		update();
+		if (choice.equals(engine)) engine -= de.getWeapons();
+		else hull -= de.getWeapons();
 	}
 	
 	/*
@@ -77,6 +79,13 @@ public class DynamicElement extends Element {
 	public void draw(Graphics g){
 	    g.setColor(Color.GREEN);
 		g.fillRect(x, y, width, height);
+	}
+	
+	public boolean withinRange(DynamicElement de) {
+		update();
+		int distance = (int)((de.getX()^2+de.getY()^2)^(1/2) - (getX()^2 + getY()^2)^(1/2));
+		if (distance < 0) distance = -distance;
+		return distance <= range;
 	}
 
 	public int getRange() {
