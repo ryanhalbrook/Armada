@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.event.MouseEvent;
 import java.util.*;
 /*
  * Grid paints, moves, stores, and keeps track of everything visual on the panel
@@ -8,12 +9,24 @@ import java.util.*;
  */
 public class Grid {
 
-    ArrayList<Element> elements;
+    private ArrayList<Element> elements;
+    private  ArrayList<Menu> menus;
+    private  int mode = 0;
+    private  Element activeE;
 
-    public Grid() {}
+    public Grid() {
+    	elements = new ArrayList<Element>();
+    	menus = new ArrayList<Menu>();
+		Ship s = new Ship(1);
+		s.setX(130);
+		s.setY(130);
+		s.setWidth(130);
+		s.setHeight(160);
+		elements.add(s);
+    }
 
 	public Grid(ArrayList<Element> elements) {
-		this.elements = elements;
+		
 	}
 	
 	/*
@@ -22,6 +35,39 @@ public class Grid {
 	 */
 	public boolean inRange(DynamicElement e1, DynamicElement e2){
 		return e1.getRange() > distance(e1,e2);
+	}
+	
+	
+	/*
+	 * received upon any click on ArmadaPanel
+	 */
+	public void click(int inX, int inY){
+		if(mode == 0){
+			if(menus != null && menus.size() != 0){
+				for (Menu m : menus) {
+					//if(m.isIn(inX,inY)){
+					//	m.click();
+					//}
+				}
+			}
+			if(elements != null && elements.size() != 0){
+				for (Element e : elements) {
+					if(e.isIn(inX,inY)){
+						activeE=e;
+						mode = 1;
+						menus.add(e.getMenu());
+						return;
+					}
+				}
+			}
+		}
+		/////
+		if(mode == 1){
+			//move
+			activeE.move(inX, inY);
+			mode=0;
+			
+		}
 	}
 	
 	/*
@@ -56,10 +102,16 @@ public class Grid {
 	 * draws everything on the Grid
 	 */
 	public void draw(Graphics g){
-	System.out.println("Drawing");
-		for (Element e : elements) {
-		    System.out.print(e);
+		System.out.println("Drawing");
+		if(elements != null && elements.size() != 0){
+			for (Element e : elements) {
 		    e.draw(g);
+			}
+		}
+		if(menus != null && menus.size() != 0){
+			for (Menu m : menus) {
+			    m.draw(g);
+			}
 		}
 	}
 }

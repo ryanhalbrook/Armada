@@ -16,18 +16,22 @@ public class ApplicationManager {
         window.setSize(1000,700);
         window.add(mainPanel);
         window.setVisible(true);
+        window.setMinimumSize(new Dimension(700,500));
     }
     
     public void startGame() {
         gm = new GameManager();
         window.remove(mainPanel);
         mainPanel = new ArmadaPanel(this,gm);
-        ImageIcon img = new ImageIcon("space.png");
-		JLabel j = new JLabel(img);
-		mainPanel.add(j);
+        //ImageIcon img = new ImageIcon("space.png");
+		//JLabel j = new JLabel(img);
+		//mainPanel.add(j);
 		window.add(mainPanel);
-		window.pack();
-		window.setSize(1000,700);
+		//int w = window.getWidth();
+		//int h = window.getHeight();
+		window.repaint();
+		
+		//window.setSize(w,h);
     }
     
     public void endGame() {

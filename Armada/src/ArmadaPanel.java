@@ -18,9 +18,10 @@ public class ArmadaPanel extends JPanel implements MouseListener {
 	ApplicationManager am;
 	
 	public ArmadaPanel(ApplicationManager am, GameManager gm) {
-	    grid = new Grid(gm.getElements());
+	    //grid = new Grid(gm.getElements());
 	    this.am = am;
 	    addMouseListener(this);
+	    grid = new Grid();
 	}
 	
 	public ArmadaPanel(JFrame in, ApplicationManager am) {
@@ -58,6 +59,10 @@ public class ArmadaPanel extends JPanel implements MouseListener {
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		repaint();
+		System.out.println("Clicked");
+		int xx = (int)arg0.getPoint().getX();
+		int yy = (int)arg0.getPoint().getY();
+		grid.click(xx,yy);
 	}
 
 	@Override

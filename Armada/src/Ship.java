@@ -1,3 +1,5 @@
+import java.awt.Point;
+
 
 public class Ship extends DynamicElement{
 
@@ -29,6 +31,19 @@ public class Ship extends DynamicElement{
 	 */
 	public void receiveItem(Item i){
 		
+	}
+	
+	public boolean isIn(int inX, int inY){
+		if(inX >(this.x) && inX < (this.x+width) && inY>(this.y) && inY < (this.y+height)){
+			return true;
+		}
+		return false;
+		
+	}
+	
+	public void move(int inX, int inY){
+		x=inX;
+		y=inY;
 	}
 	
 	public int getCargo() {

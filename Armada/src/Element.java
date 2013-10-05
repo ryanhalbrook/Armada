@@ -12,7 +12,7 @@ public class Element {
 	//orientation
 	//image
 	
-	public void draw(Graphics g) {}
+	
 	
 	public Element(int a, int b, int w, int h){
 		x = a;
@@ -26,6 +26,20 @@ public class Element {
 	 */
 	public void move(int Xin, int Yin){
 		
+	}
+	
+	
+	public void draw(Graphics g) {
+		g.fillRect(x,y, width, height);
+	}
+	
+	public boolean isIn(int inX, int inY){
+		return false;
+		
+	}
+	
+	public Menu getMenu(){
+		return new Menu();
 	}
 	
 	public void setLocation(int Xin, int Yin){
