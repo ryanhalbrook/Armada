@@ -1,0 +1,27 @@
+import java.awt.Graphics;
+
+import javax.swing.JPanel;
+
+public class TestPanel extends JPanel {
+	
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		int x=200;
+		int y=200;
+		int w=50;
+		int h=50;
+		double an=45;
+		String img="fighter";
+		int s=100;
+		int all = 1;
+		DynamicElement de = new DynamicElement(x,y,w,h,an,img,0,0,0,s,all,0,0);
+		DynamicAnimation a = new DynamicAnimation(de);
+		public void paintComponent(Graphics g){
+			System.out.print(de.getAngle());
+			a.draw(g);
+			a.move(300, 0, 2000, this, g);
+		}
+	
+}

@@ -1,0 +1,77 @@
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+
+
+
+import javax.imageio.ImageIO;
+import javax.swing.JComponent;
+
+
+public class DynamicAnimation {
+	
+	private DynamicElement e;
+	BufferedImage image;
+	
+	public DynamicAnimation(DynamicElement el){
+		e=el;
+		loadImage(e.getImage());
+	}
+	
+	private void loadImage(String img) {
+		
+		try{
+			File f= new File("image/"+img+".png");
+			image= ImageIO.read(f);
+		}
+		catch(IOException e){
+			e.printStackTrace();
+			System.out.println("IMAGE COULD NOT BE FOUND");
+		}
+	}
+	public void draw(Graphics g){
+		g.drawImage(image, e.getX(), e.getY(), e.getWidth(), e.getHeight(), null);
+	}
+	public void move(int x, int y, long t, JComponent j, Graphics g){
+		int deltaX = x-e.getX();
+		int deltaY = y-e.getY();
+		double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
+		double deltaA;
+		if(x<0)
+			angle+=180;
+		if(angle<0)
+			angle=360-angle;
+		if(Math.abs(e.getAngle()-angle)<180)
+			deltaA=e.getAngle()-angle;
+		else
+			deltaA=angle-e.getAngle();
+		
+	}
+	
+	public DynamicElement getDE() {
+		return e;
+	}
+
+	public void setDE(DynamicElement e) {
+		this.e = e;
+	}
+
+	public static void main(String[] args) {
+		int x=200;
+		int y=200;
+		int w=50;
+		int h=50;
+		double an=45;
+		String img="boarding";
+		int s=100;
+		int all = 1;
+		DynamicElement de = new DynamicElement(x,y,w,h,an,img,0,0,0,s,all,0,0);
+		DynamicAnimation a = new DynamicAnimation(de);
+		System.out.println("Set up Complete! Image = "+de.getImage());
+
+	}
+
+	
+}

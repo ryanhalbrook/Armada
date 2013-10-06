@@ -1,0 +1,147 @@
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.Shape;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+
+
+
+
+
+
+
+
+
+
+
+
+import javax.imageio.ImageIO;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+
+public class DynamicAnimation {
+	
+	private DynamicElement e;
+	private BufferedImage image;
+	private AffineTransform at;
+	private final int imageWidth, imageHeight;
+	public DynamicAnimation(DynamicElement el){
+		e=el;
+		at= new AffineTransform();
+		loadImage(e.getImage());
+		imageWidth=image.getWidth();
+		imageHeight=image.getHeight();
+	}
+	
+	private void loadImage(String img) {
+		
+		try{
+			File f= new File("image/"+img+".png");
+			image= ImageIO.read(f);
+		}
+		catch(IOException e){
+			e.printStackTrace();
+			System.out.println("IMAGE COULD NOT BE FOUND");
+		}
+	}
+	public void draw(Graphics g){
+		Graphics2D g2 = (Graphics2D)g;
+		AffineTransform ori = g2.getTransform();
+		
+		at.translate(e.getX(), e.getY());
+		at.rotate(Math.toRadians(e.getAngle()));
+		at.translate(-e.getWidth()/2,-e.getHeight()/2);
+		at.scale(e.getWidth()/(double)imageWidth, e.getHeight()/(double)imageHeight);
+		g2.drawImage(image, at, null);
+		
+		/*g2.setTransform(ori);
+		AffineTransform rotate = new AffineTransform();
+		Rectangle rect = new Rectangle(0, 0, 50, 50);
+		rotate.translate(e.getX(), e.getY());
+		g2.transform(rotate);
+		rotate.setToRotation(Math.toRadians(45));
+		rotate.translate(-rect.getWidth()/2, -rect.getHeight()/2);
+		
+		g2.transform(rotate);
+		g2.draw(rect);
+		*/
+		at=ori;
+	}
+	public void move(int x, int y, long t, JComponent j, Graphics g){
+		int deltaX = x-e.getX();
+		int deltaY = y-e.getY();
+		double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
+		double deltaA;
+		System.out.println("Angle="+angle);
+		if(angle<0)
+			angle=360+angle;
+		
+		angle-=e.getAngle();
+		if(angle>=0&&angle<=180)
+			deltaA=angle;
+		else if(angle<0&&angle>-180)
+			deltaA=angle;
+		else if(angle<-180)
+			deltaA=360+angle;
+		else
+			deltaA=angle-360;
+		/*
+		if(angle-e.getAngle()<180 && angle-e.getAngle()>=0)
+			deltaA=angle-e.getAngle();
+		else{
+			deltaA=-((360-angle)+e.getAngle());
+			if(deltaA<-360)
+				deltaA+=360;
+		}
+		*/
+		System.out.println("Angle="+angle);
+		while(Math.abs(e.getAngle())<Math.abs(deltaA))
+		{
+			System.out.println("a= "+e.getAngle()+" deltaA= "+deltaA);
+			rotate(deltaA,t/2,g);
+        	j.repaint();
+        	try {
+				Thread.sleep(10);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+        }
+		
+	}
+	private void rotate(double maxA,long t, Graphics g){
+		e.setAngle(e.getAngle()+maxA/t);
+		draw(g);
+
+	}
+	public DynamicElement getDE() {
+		return e;
+	}
+
+	public void setDE(DynamicElement e) {
+		this.e = e;
+	}
+
+	public static void main(String[] args) {
+		
+		JFrame frame = new JFrame("Animation Test");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		int frameSize=400;
+		TestPanel tp = new TestPanel();
+		frame.getContentPane().add( BorderLayout.CENTER, tp );
+		frame.setSize( frameSize, frameSize );
+        frame.setVisible(true);
+        
+        
+	}
+	
+
+	
+}

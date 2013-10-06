@@ -1,0 +1,109 @@
+import java.awt.BorderLayout;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+
+
+
+
+
+
+
+import javax.imageio.ImageIO;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+
+public class DynamicAnimation {
+	
+	private DynamicElement e;
+	private BufferedImage image;
+	private AffineTransform at;
+	public DynamicAnimation(DynamicElement el){
+		e=el;
+		at= new AffineTransform();
+		loadImage(e.getImage());
+	}
+	
+	private void loadImage(String img) {
+		
+		try{
+			File f= new File("image/"+img+".png");
+			image= ImageIO.read(f);
+		}
+		catch(IOException e){
+			e.printStackTrace();
+			System.out.println("IMAGE COULD NOT BE FOUND");
+		}
+	}
+	public void draw(Graphics g){
+		Graphics2D g2 = (Graphics2D)g;
+		at.translate(e.getX()-e.getWidth()/2, e.getY()-e.getHeight()/2);
+		at.scale(e.getWidth()/(double)image.getWidth(), e.getHeight()/(double)image.getHeight());
+		
+		at.rotate(Math.toRadians(e.getAngle()));
+
+		g2.drawImage(image, at, null);
+	}
+/*	public void move(int x, int y, long t, JComponent j, Graphics g){
+		int deltaX = x-e.getX();
+		int deltaY = y-e.getY();
+		double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
+		double deltaA;
+		if(x<0)
+			angle+=180;
+		if(angle<0)
+			angle=360-angle;
+		if(Math.abs(e.getAngle()-angle)<180)
+			deltaA=e.getAngle()-angle;
+		else
+			deltaA=angle-e.getAngle();
+		
+	}
+*/	
+	public DynamicElement getDE() {
+		return e;
+	}
+
+	public void setDE(DynamicElement e) {
+		this.e = e;
+	}
+
+	public static void main(String[] args) {
+		
+		JFrame frame = new JFrame("Animation Test");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		int frameSize=400;
+		JPanel jp = new JPanel(){
+			/**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			int x=200;
+			int y=200;
+			int w=50;
+			int h=50;
+			double an=45;
+			String img="fighter";
+			int s=100;
+			int all = 1;
+			DynamicElement de = new DynamicElement(x,y,w,h,an,img,0,0,0,s,all,0,0);
+			DynamicAnimation a = new DynamicAnimation(de);
+			public void paintComponent(Graphics g){
+				a.draw(g);
+			}
+		};
+		frame.getContentPane().add( BorderLayout.CENTER, jp );
+		frame.setSize( frameSize, frameSize );
+        frame.setVisible(true);
+        
+        
+	}
+
+	
+}

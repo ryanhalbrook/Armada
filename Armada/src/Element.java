@@ -12,6 +12,7 @@ public class Element {
 	protected double angle; //in degrees, 0 to 360
 	//orientation
 	protected String image;	//image
+	protected int index;//for Element ID in Array or ArrayList
 	
 	
 	public Element(int a, int b, int w, int h, String img){
@@ -21,6 +22,7 @@ public class Element {
 		height = h;
 		angle=0;
 		image=img;
+		index=-1;
 	}
 	public Element(int a, int b, int w, int h,double an,String img){
 		x = a;
@@ -29,6 +31,7 @@ public class Element {
 		height = h;
 		angle=an;
 		image=img;
+		index=-1;
 	}
 	/*
 	 * this method is intended to be a script.  It will change the orientation of the Element and location of the Element over a few
@@ -102,5 +105,11 @@ public class Element {
 	}
 	public void setImage(String img){
 		image=img;
+	}
+	public int getIndex(){
+		return index;
+	}
+	public void setIndex(int i){
+		index=i;
 	}
 }

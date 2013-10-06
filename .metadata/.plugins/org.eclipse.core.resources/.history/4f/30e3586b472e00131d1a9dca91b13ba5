@@ -1,0 +1,86 @@
+import java.awt.BorderLayout;
+import java.awt.Graphics;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
+public class TestPanel extends JPanel {
+	
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		int x=200;
+		int y=200;
+		int w=50;
+		int h=50;
+		double an=45;
+		String img="fighter";
+		int s=100;
+		int all = 1;
+		
+		private int mvTime=200;//includes rotation time
+		private int status=0;//0=draw DE on its coord. 1=rotate DE. 2= move DE to new coord.
+		private int moveX=300;
+		private int moveY=0;
+
+		
+		DynamicElement de = new DynamicElement(x,y,w,h,an,img,0,0,0,s,all,0,0);
+		DynamicAnimationHelper da = new DynamicAnimationHelper(de);
+		
+		public void move(int x, int y, int t){
+			mvTime=t;
+			moveX=x;
+			moveY=y;
+			status=1;
+			while(status==1)
+			{
+	        	repaint();
+	        	try {
+	        		Thread.sleep(10);
+	        	} catch (InterruptedException e) {
+	        		e.printStackTrace();
+	        	}
+			}
+		}
+		public void paintComponent(Graphics g){
+			switch(status){
+			case 0:
+				da.draw(g);
+				break;
+			case 1:
+				rotate(da.calcRotationAngle(moveX, moveY),g);
+				break;
+			case 2:
+				moveHelper(moveX,moveY,g);
+			}
+		}
+		public void rotate(double ang,Graphics g){
+			double angle=ang;
+			if((angle>0 && ang>0)||(angle<0 &&ang<0))
+			{
+				System.out.println("a= "+angle+" deltaA= "+ang+" angle=" +de.getAngle());
+				de.setAngle(de.getAngle()+ang/(mvTime/2));
+				da.draw(g);
+	        	angle-=ang/(mvTime/2);
+	        	
+	        }
+			else
+				status=2;
+		}
+		public void moveHelper(int x, int y, Graphics g){
+			
+		}
+		public static void main(String[] args) {
+			
+			JFrame frame = new JFrame("Animation Test");
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			int frameSize=400;
+			TestPanel tp = new TestPanel();
+			frame.getContentPane().add( BorderLayout.CENTER, tp );
+			frame.setSize( frameSize, frameSize );
+	        frame.setVisible(true);
+	        
+	        tp.move(300,0,200);
+		}
+}
