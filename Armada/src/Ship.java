@@ -37,7 +37,9 @@ public class Ship extends DynamicElement{
 	 * given an item, it will
 	 */
 	public void receiveItem(Item i){
-		
+		if (i.getIdentity() == 0) list[0][1]++;
+		else if (i.getIdentity() == 1) list[0][2]++;
+		else if (i.getIdentity() == 2) list[0][3]++;
 	}
 	
 	public boolean isIn(int inX, int inY){
