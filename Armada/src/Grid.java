@@ -26,7 +26,7 @@ public class Grid {
     }
 
 	public Grid(ArrayList<Element> elements) {
-		
+		this.elements = elements;
 	}
 	
 	/*

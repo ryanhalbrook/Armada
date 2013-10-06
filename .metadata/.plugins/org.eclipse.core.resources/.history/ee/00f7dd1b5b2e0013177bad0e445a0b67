@@ -54,9 +54,13 @@ public class DynamicElement extends Element {
 		targetable = t;
 		weapons = weap;
 	}
+<<<<<<< HEAD
 
 	public void takeDamage(DynamicElement de, String choice){
-
+=======
+	
+	public void takeDamage(DynamicElement de, string choice){
+>>>>>>> 3771728278c7fc75188d704b88b46521d17eaec5
 		update();
 		if (choice.equals(engine)) engine -= de.getWeapons();
 		else hull -= de.getWeapons();
@@ -89,6 +93,12 @@ public class DynamicElement extends Element {
 		return distance <= range;
 	}
 
+	public boolean withinRange(DynamicElement de) {
+		update();
+		int distance = (int)((de.getX()^2+de.getY()^2)^(1/2) - (getX()^2 + getY()^2)^(1/2));
+		if (distance < 0) distance = -distance;
+		return distance <= range;
+	}
 
 	public int getRange() {
 		return range;
