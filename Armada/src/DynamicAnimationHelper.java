@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 /* @Author: Yun Suk Chang
- * @Version: 100513
+ * @Version: 100613
  * 
  * Class that helps animation of moving and rotating.
  * 
@@ -18,6 +18,9 @@ import javax.imageio.ImageIO;
  * 							   (scales automatically according to given height and width)
  * 			 getters and setters for DE
  *           isIn(int x, int y) - checks if the parameter coord. is occupied by DE
+ *           rotate(double angleLeft, int rotationAngle, Graphics g) -rotates ship
+ *           moveHelper(int x, int y, int time, Graphics g) - moves the ship little by little to dest
+ *           getters and setters for moveXLeft, moveYLeft, angleLeft <- used for moving/rotating the ship little by little
  */
 
 public class DynamicAnimationHelper{
@@ -26,7 +29,10 @@ public class DynamicAnimationHelper{
 	private BufferedImage image;
 	private AffineTransform at;
 	private int imageWidth, imageHeight;
-	
+	private double angleLeft;
+	private int moveXLeft;
+	private int moveYLeft;
+	private double[] moveVar;//for moving the ship more accurately
 
 	
 	public DynamicAnimationHelper(DynamicElement el){
@@ -35,7 +41,10 @@ public class DynamicAnimationHelper{
 		loadImage(e.getImage());
 		imageWidth=image.getWidth();
 		imageHeight=image.getHeight();
-		
+		angleLeft=0;
+		moveXLeft=0;
+		moveYLeft=0;
+		moveVar= new double[2];
 	}
 	
 	private void loadImage(String img) {
@@ -93,7 +102,89 @@ public class DynamicAnimationHelper{
 		return deltaA;
 		
 	}
+	public boolean rotate(double ra, int t, Graphics g){
+		
+		if(ra!=0 && angleLeft/ra>0)
+		{
+			e.setAngle(e.getAngle()+ra/(t/2));
+			
+        	angleLeft-=ra/(t/2);
+        	return true;
+        }
+		else
+			return false;
+	}
+	public boolean moveHelper(int dx, int dy, int t, Graphics g){
+		boolean doneMovingX=false;
+		boolean doneMovingY=false;
+		if(dx!=0 && (double)moveXLeft/dx>0){
+			moveVar[0]+=dx/((double)t/2);
+			int temp=0;
+			if(Math.abs(moveVar[0])<0)
+				temp=0;
+			else{
+				temp=(int)moveVar[0];
+				moveVar[0]-=temp;
+			}
+			e.setX(e.getX()+temp);
+			
+			moveXLeft-=temp;
+		}
+		else
+			doneMovingX=true;
+		if(dy!=0 && (double)moveYLeft/dy>0){
+			
+			moveVar[1]+=dy/((double)t/2);
+			
+			int temp2=0;
+			if(Math.abs(moveVar[1])<0)
+				temp2=0;
+			else{
+				temp2=(int)moveVar[1];
+				moveVar[1]-=temp2;
+			}
+			
+			e.setY(e.getY()+temp2);
+			
+			moveYLeft-=temp2;
+		}
+		else
+			doneMovingY=true;
+		System.out.println("xl= "+moveXLeft+" yl= "+moveYLeft);
+		if ((doneMovingY&&doneMovingX)){
+			moveVar[0]=0;
+			moveVar[1]=0;
+			return false;
+		}
+		return true;
+			
+		
+	}
 	
+	public double getAngleLeft() {
+		return angleLeft;
+	}
+
+	public void setAngleLeft(double angleLeft) {
+		this.angleLeft = angleLeft;
+	}
+
+	public int getMoveXLeft() {
+		return moveXLeft;
+	}
+
+	public void setMoveXLeft(int moveXLeft) {
+		this.moveXLeft = moveXLeft;
+	}
+
+	public int getMoveYLeft() {
+		return moveYLeft;
+	}
+
+	public void setMoveYLeft(int moveYLeft) {
+		this.moveYLeft = moveYLeft;
+	}
+
 	public DynamicElement getDE() {
 		return e;
 	}
