@@ -1,6 +1,10 @@
 import java.awt.*;
 import javax.swing.*;
 
+/**
+Manages the overall state of the application. Responsible for switching between the game
+screen and the main menu screen.
+*/
 public class ApplicationManager {
     JPanel mainPanel;
     JFrame window = new JFrame();

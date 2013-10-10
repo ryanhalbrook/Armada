@@ -1,11 +1,9 @@
-import java.awt.Graphics;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.*;
 /*
  * Grid paints, moves, stores, and keeps track of everything visual on the panel
  * ie, ships, planets, everything below the frame/menus and above the background
- *  
- * 
  */
 public class Grid {
 
@@ -13,6 +11,7 @@ public class Grid {
     private  ArrayList<Menu> menus;
     private  int mode = 0;
     private  Element activeE;
+    private Rectangle viewRegion = new Rectangle(0, 0, 500,500); //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
 
     public Grid() {
     	elements = new ArrayList<Element>();
@@ -23,6 +22,17 @@ public class Grid {
 		s.setWidth(130);
 		s.setHeight(160);
 		elements.add(s);
+    }
+    
+    public void moveViewRegion(int x, int y) {
+        viewRegion.setX(viewRegion.getX()+x);
+        viewRegion.setY(viewRegion.getY()+y);
+        if (viewRegion.getX() < 0) viewRegion.setX(0);
+        if (viewRegion.getY() < 0) viewRegion.setY(0);
+    }
+    
+    public Rectangle getViewRegion() {
+        return viewRegion;
     }
 
 	public Grid(ArrayList<Element> elements) {
@@ -51,6 +61,8 @@ public class Grid {
 				}
 			}
 			if(elements != null && elements.size() != 0){
+			inX += viewRegion.getX(); inY += viewRegion.getY();
+			System.out.println("x, y:" + inX + ", " + inY);
 				for (Element e : elements) {
 					if(e.isIn(inX,inY)){
 						activeE=e;
@@ -64,6 +76,7 @@ public class Grid {
 		/////
 		if(mode == 1){
 			//move
+			inX += viewRegion.getX(); inY += viewRegion.getY();
 			activeE.move(inX, inY);
 			mode=0;
 			
@@ -104,7 +117,7 @@ public class Grid {
 	public void draw(Graphics g){
 		if(elements != null && elements.size() != 0){
 			for (Element e : elements) {
-		    e.draw(g);
+		    e.draw(g, viewRegion);
 			}
 		}
 		if(menus != null && menus.size() != 0){
@@ -112,5 +125,14 @@ public class Grid {
 			    m.draw(g);
 			}
 		}
-	}
+		
+		g.setColor(Color.WHITE);
+		g.fillRect(30, 100, 25, 25);
+		int x = (int)(viewRegion.getX() / 25.0);
+		int y = (int)(viewRegion.getY() / 25.0);
+		g.setColor(Color.BLACK);
+		g.fillRect(30+x, 100+y, 5, 5);
+		g.setColor(Color.WHITE);
+		if (mode == 1) g.drawString("Move initiated", 30, 135);
+	} // End of draw
 }

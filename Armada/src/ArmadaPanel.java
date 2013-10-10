@@ -1,5 +1,4 @@
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
 /*
@@ -9,7 +8,7 @@ import javax.swing.*;
  * Responsible for drawing game elements and dispatching mouse and keyboard events.
  */
 
-public class ArmadaPanel extends JPanel implements MouseListener {
+public class ArmadaPanel extends JPanel implements MouseListener, KeyListener {
 
     ApplicationManager am;
 	Frame f;
@@ -21,18 +20,51 @@ public class ArmadaPanel extends JPanel implements MouseListener {
 	    //grid = new Grid(gm.getElements());
 	    this.am = am;
 	    addMouseListener(this);
+	    addKeyListener(this);
 	    grid = new Grid();
+	    this.setFocusable(true);
+	    this.requestFocus();
+	    this.requestFocusInWindow();
 	}
-	
+	/*
 	public ArmadaPanel(JFrame in, ApplicationManager am) {
 	this.am = am;
 		turn = 1;
 		addMouseListener(this);
+		addKeyListener(this);
+		this.setFocusable(true);
+	    this.requestFocus();
 	}
 	public ArmadaPanel(Frame in, ApplicationManager am){
 	this.am = am;
 		turn = 1;
 		f=in;
+	}
+	*/
+	public void keyPressed(KeyEvent evt) {
+	    System.out.println("Key pressed");
+	    if(evt.getKeyCode() == KeyEvent.VK_LEFT) {
+	        grid.moveViewRegion(-100, 0);
+	        System.out.println("Left key");
+	        repaint();
+	    } else if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
+	        grid.moveViewRegion(100, 0);
+	        repaint();
+	    } else if (evt.getKeyCode() == KeyEvent.VK_UP) {
+	        grid.moveViewRegion(0, -100);
+	        repaint();
+	    } else if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+	        grid.moveViewRegion(0, 100);
+	        repaint();
+	    }
+	}
+	
+	public void keyTyped(KeyEvent evt) {
+	//System.out.println("Key event");
+	}
+	
+	public void keyReleased(KeyEvent evt) {
+	//System.out.println("Key event");
 	}
 	
 	public int turn(){
@@ -43,6 +75,8 @@ public class ArmadaPanel extends JPanel implements MouseListener {
 	    g.setColor(Color.BLACK);
 	    g.fillRect(0, 0, this.getWidth(), this.getHeight());
 	    if (grid != null) grid.draw(g);
+	    g.setColor(Color.WHITE);
+	    g.drawString("Showing Region: (" + grid.getViewRegion().getX() + ", " + grid.getViewRegion().getY() + ", " + this.getWidth() + ", " + this.getHeight() + ")", 30, 30);    	
 	}
 	
 	/*
@@ -61,6 +95,7 @@ public class ArmadaPanel extends JPanel implements MouseListener {
 		// TODO Auto-generated method stub
 		repaint();
 		System.out.println("Clicked");
+		this.requestFocus();
 		int xx = (int)arg0.getPoint().getX();
 		int yy = (int)arg0.getPoint().getY();
 		grid.click(xx,yy);

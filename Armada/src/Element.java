@@ -42,8 +42,8 @@ public class Element {
 	}
 	
 	
-	public void draw(Graphics g) {
-		g.fillRect(x,y, width, height);
+	public void draw(Graphics g, Rectangle viewRegion) {
+		g.fillRect(x+viewRegion.getX(),y+viewRegion.getY(), width, height);
 	}
 	
 	public boolean isIn(int inX, int inY){

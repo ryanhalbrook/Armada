@@ -79,9 +79,9 @@ public class DynamicElement extends Element {
 
 	}
 
-	public void draw(Graphics g){
+	public void draw(Graphics g, Rectangle viewRect){
 	    g.setColor(Color.GREEN);
-		g.fillRect(x, y, width, height);
+		g.fillRect(x-viewRect.getX(), y-viewRect.getY(), width, height);
 	}
 	
 	public boolean withinRange(DynamicElement de) {
