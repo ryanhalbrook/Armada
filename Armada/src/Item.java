@@ -5,13 +5,13 @@ public class Item {
 	
 	private int identity;
 	
-	public string getDescription() {
+	public String getDescription() {
 		if (identity == 0) return "";
 		
 		else if (identity == 1) return "";
 			
 		else if (identity == 2) return "";
-		
+		return "";
 	}
 	
 	public int getPrice() {
@@ -19,7 +19,8 @@ public class Item {
 		
 		else if (identity == 1) return 0;
 		
-		else if (ideneity == 2) return 0;
+		else if (identity == 2) return 0;
+		return 0;
 	}
 	
 	public int getIdentity() {

@@ -17,12 +17,12 @@ public class Grid {
     public Grid() {
     	elements = new ArrayList<Element>();
     	menus = new ArrayList<Menu>();
-		Ship s = new Ship(1);
-		s.setX(130);
-		s.setY(130);
-		s.setWidth(130);
-		s.setHeight(160);
-		elements.add(s);
+		//Ship s = new Ship(1);
+		//s.setX(130);
+		//s.setY(130);
+		//s.setWidth(130);
+		//s.setHeight(160);
+		//elements.add(s);
     }
 
 	public Grid(ArrayList<Element> elements) {
@@ -102,7 +102,6 @@ public class Grid {
 	 * draws everything on the Grid
 	 */
 	public void draw(Graphics g){
-		System.out.println("Drawing");
 		if(elements != null && elements.size() != 0){
 			for (Element e : elements) {
 		    e.draw(g);

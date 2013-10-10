@@ -13,7 +13,7 @@ public class Element {
 	//orientation
 	protected String image;	//image
 	protected int index;//for Element ID in Array or ArrayList
-	
+	public Element() {}
 	
 	public Element(int a, int b, int w, int h, String img){
 		x = a;
@@ -48,7 +48,6 @@ public class Element {
 	
 	public boolean isIn(int inX, int inY){
 		return false;
-		
 	}
 	
 	public Menu getMenu(){

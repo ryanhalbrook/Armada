@@ -64,19 +64,7 @@ public class ArmadaPanel extends JPanel implements MouseListener {
 		int yy = (int)arg0.getPoint().getY();
 		grid.click(xx,yy);
 	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	/*
 	 * (non-Javadoc)
 	 * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
@@ -87,11 +75,12 @@ public class ArmadaPanel extends JPanel implements MouseListener {
 		// TODO Auto-generated method stub
 		
 	}
-
+	
+    @Override
+	public void mouseEntered(MouseEvent arg0) {}
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseExited(MouseEvent arg0) {}
+	@Override
+	public void mouseReleased(MouseEvent arg0) {}
 
 }

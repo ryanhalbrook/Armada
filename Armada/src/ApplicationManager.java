@@ -30,7 +30,6 @@ public class ApplicationManager {
 		//int w = window.getWidth();
 		//int h = window.getHeight();
 		window.repaint();
-		
 		//window.setSize(w,h);
     }
     
