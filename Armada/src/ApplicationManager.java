@@ -1,45 +1,50 @@
 import java.awt.*;
 import javax.swing.*;
+
 public class ApplicationManager {
     JPanel mainPanel;
     JFrame window = new JFrame();
     GameManager gm = null;
-    boolean gameActive = false;
+    
+    static final int DEFAULT_WINDOW_WIDTH = 1000;
+    static final int DEFAULT_WINDOW_HEIGHT = 700;
+    
+    static final int MIN_WINDOW_WIDTH = 700;
+    static final int MIN_WINDOW_HEIGHT = 500;
     
     public ApplicationManager() {
         mainPanel = new MainMenuPanel(this);
-        
+        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.add(mainPanel);
+        enforceDefaultWindowSize();
+        window.setMinimumSize(new Dimension(MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT));
     }
     
-    public void init() {
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setSize(1000,700);
-        window.add(mainPanel);
+    public void start() {
         window.setVisible(true);
-        window.setMinimumSize(new Dimension(700,500));
     }
     
     public void startGame() {
         gm = new GameManager();
-        window.remove(mainPanel);
-        mainPanel = new ArmadaPanel(this,gm);
-        //ImageIcon img = new ImageIcon("space.png");
-		//JLabel j = new JLabel(img);
-		//mainPanel.add(j);
-		window.add(mainPanel);
-		//int w = window.getWidth();
-		//int h = window.getHeight();
-		window.repaint();
-		//window.setSize(w,h);
+        swapPanel(new ArmadaPanel(this,gm));
     }
     
     public void endGame() {
         gm = null;
+        swapPanel(new MainMenuPanel(this));
+    }
+    
+    private void swapPanel(JPanel p) {
+        if (p == null) return;
+        
         window.remove(mainPanel);
-        mainPanel = new MainMenuPanel(this);
-        window.add(mainPanel);
+        window.add(p);
         window.pack();
-        window.setSize(1000,700);
+        enforceDefaultWindowSize();
+    }
+    
+    private void enforceDefaultWindowSize() {
+        if (window != null) window.setSize(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
     }
     
 }

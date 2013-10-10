@@ -11,11 +11,11 @@ import javax.swing.*;
 
 public class ArmadaPanel extends JPanel implements MouseListener {
 
+    ApplicationManager am;
 	Frame f;
 	Grid grid;
-	int turn;
 	Menu focusMenu;
-	ApplicationManager am;
+	int turn;
 	
 	public ArmadaPanel(ApplicationManager am, GameManager gm) {
 	    //grid = new Grid(gm.getElements());
