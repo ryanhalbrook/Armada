@@ -8,7 +8,7 @@ import javax.swing.*;
  * Responsible for drawing game elements and dispatching mouse and keyboard events.
  */
 
-public class ArmadaPanel extends JPanel implements MouseListener, KeyListener {
+public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, MouseMotionListener {
 
     ApplicationManager am;
 	Frame f;
@@ -21,6 +21,7 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener {
 	    this.am = am;
 	    addMouseListener(this);
 	    addKeyListener(this);
+	    addMouseMotionListener(this);
 	    grid = new Grid();
 	    this.setFocusable(true);
 	    this.requestFocus();
@@ -65,6 +66,15 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener {
 	
 	public void keyReleased(KeyEvent evt) {
 	//System.out.println("Key event");
+	}
+	
+	public void mouseDragged(MouseEvent evt) {
+	    
+	}
+	
+	public void mouseMoved(MouseEvent evt) {
+	    grid.mouseMoved(evt.getX(), evt.getY());
+	    repaint();
 	}
 	
 	public int turn(){

@@ -13,6 +13,9 @@ public class Grid {
     private  Element activeE;
     private Rectangle viewRegion = new Rectangle(0, 0, 500,500); //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
 
+    private int currentX = 0;
+    private int currentY = 0;
+
     public Grid() {
     	elements = new ArrayList<Element>();
     	menus = new ArrayList<Menu>();
@@ -47,6 +50,10 @@ public class Grid {
 		return e1.getRange() > distance(e1,e2);
 	}
 	
+	public void mouseMoved(int x, int y) {
+	    currentX = x;
+	    currentY = y;
+	}
 	
 	/*
 	 * received upon any click on ArmadaPanel
@@ -133,6 +140,11 @@ public class Grid {
 		g.setColor(Color.BLACK);
 		g.fillRect(30+x, 100+y, 5, 5);
 		g.setColor(Color.WHITE);
-		if (mode == 1) g.drawString("Move initiated", 30, 135);
+		if (mode == 1) {
+		    int shipX = activeE.getX();
+		    int shipY = activeE.getY();
+		    g.drawLine(shipX-viewRegion.getX(), shipY-viewRegion.getY(), currentX, currentY);
+		    g.drawString("Move initiated", 30, 145);
+		}
 	} // End of draw
 }
