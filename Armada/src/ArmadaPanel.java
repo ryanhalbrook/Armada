@@ -65,6 +65,8 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	        repaint();
 	    } else if (evt.getKeyCode() == KeyEvent.VK_Q) {
 	        am.endGame();
+	    } else if (evt.getKeyCode() == KeyEvent.VK_C) {
+	        grid.cancelMove();
 	    }
 	}
 	

@@ -43,6 +43,10 @@ public class Grid {
 		this.elements = elements;
 	}
 	
+	public void cancelMove() {
+	    mode = 0;
+	}
+	
 	/*
 	 * @param e1 DynamicElement who's range is used for calculation
 	 * @param e2 DynamicElement which is calculated to be within range of DynamicElement e1
