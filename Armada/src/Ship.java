@@ -23,6 +23,10 @@ public class Ship extends DynamicElement{
 	    super();
 	}
 	
+	public Ship(int inX, int inY, int w, int h, String img, int all){
+		super(inX,inY, w, h, img, all);
+	}
+	
 	/*
 	 * @param a The alliance of the ship. 0 for neutral, 1 for p1, 2 for p2
 	 */
@@ -46,13 +50,6 @@ public class Ship extends DynamicElement{
 		else if (i.getIdentity() == 2) list[0][3]++;
 	}
 	
-	public boolean isIn(int inX, int inY){
-		if(inX >(this.x) && inX < (this.x+width) && inY>(this.y) && inY < (this.y+height)){
-			return true;
-		}
-		return false;
-		
-	}
 	
 	public void move(int inX, int inY){
 		x=inX;

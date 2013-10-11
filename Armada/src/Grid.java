@@ -8,23 +8,23 @@ import java.util.*;
 public class Grid {
 
     private ArrayList<Element> elements;
+    private ArrayList<DynamicElement> delements;
     private  ArrayList<Menu> menus;
     private  int mode = 0;
-    private  Element activeE;
+    private  DynamicElement activeE;
+    private ArmadaPanel ap;
     private Rectangle viewRegion = new Rectangle(0, 0, 500,500); //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
 
     private int currentX = 0;
     private int currentY = 0;
 
-    public Grid() {
+    public Grid(ArmadaPanel inAP) {
     	elements = new ArrayList<Element>();
+    	delements = new ArrayList<DynamicElement>();
     	menus = new ArrayList<Menu>();
-		Ship s = new Ship(1);
-		s.setX(130);
-		s.setY(130);
-		s.setWidth(130);
-		s.setHeight(160);
-		elements.add(s);
+		Ship s = new Ship(80,80,80,80,"fighter",1);
+		delements.add(s);
+		ap = inAP;
     }
     
     public void moveViewRegion(int x, int y) {
@@ -67,14 +67,16 @@ public class Grid {
 					//}
 				}
 			}
-			if(elements != null && elements.size() != 0){
+			if(delements != null && delements.size() != 0){
 			inX += viewRegion.getX(); inY += viewRegion.getY();
 			System.out.println("x, y:" + inX + ", " + inY);
-				for (Element e : elements) {
-					if(e.isIn(inX,inY)){
-						activeE=e;
+				for (DynamicElement d : delements) {
+					System.out.println("looking for ship 1");
+					if(d.isIn(inX,inY)){
+						System.out.println("looking for ship 2");
+						activeE=d;
 						mode = 1;
-						menus.add(e.getMenu());
+						menus.add(d.getMenu());
 						return;
 					}
 				}
@@ -84,7 +86,7 @@ public class Grid {
 		if(mode == 1){
 			//move
 			inX += viewRegion.getX(); inY += viewRegion.getY();
-			activeE.move(inX, inY);
+			activeE.moveTo(inX, inY,ap.getGraphics(),viewRegion);
 			mode=0;
 			
 		}
@@ -122,9 +124,9 @@ public class Grid {
 	 * draws everything on the Grid
 	 */
 	public void draw(Graphics g){
-		if(elements != null && elements.size() != 0){
-			for (Element e : elements) {
-		    e.draw(g, viewRegion);
+		if(delements != null && delements.size() != 0){
+			for (DynamicElement de : delements) {
+				de.draw(g, viewRegion);
 			}
 		}
 		if(menus != null && menus.size() != 0){

@@ -1,3 +1,5 @@
+
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
@@ -23,7 +25,7 @@ import javax.imageio.ImageIO;
  *           getters and setters for moveXLeft, moveYLeft, angleLeft <- used for moving/rotating the ship little by little
  */
 
-public class DynamicAnimationHelper{
+public class DynamicAnimationHelper implements Runnable{
 	
 	private DynamicElement e;
 	private BufferedImage image;
@@ -67,11 +69,11 @@ public class DynamicAnimationHelper{
 		return (x<e.getX()+e.getWidth()/2 && x>e.getX()-e.getWidth()/2) && 
 				(y<e.getY()+e.getWidth()/2 && y>e.getY()-e.getWidth()/2);
 	}
-	public void draw(Graphics g){
+	public void draw(Graphics g, Rectangle viewRect){
 		Graphics2D g2 = (Graphics2D)g;
 		AffineTransform ori = g2.getTransform();
-		
-		at.translate(e.getX(), e.getY());
+		//g.fillRect(x-viewRect.getX(), y-viewRect.getY(), width, height);
+		at.translate((e.getX()-viewRect.getX()), e.getY()-viewRect.getY());
 		at.rotate(Math.toRadians(e.getAngle()));
 		at.translate(-e.getWidth()/2,-e.getHeight()/2);
 		at.scale(e.getWidth()/(double)imageWidth, e.getHeight()/(double)imageHeight);
@@ -79,6 +81,8 @@ public class DynamicAnimationHelper{
 		
 		
 		at=ori;
+		g.setColor(Color.CYAN);
+		g.fillOval(e.getX(), e.getY(), 5, 5);
 	}
 	//Returns direction and angle the dynamic element needs to turn
 	public double calcRotationAngle(int x, int y){
@@ -102,7 +106,7 @@ public class DynamicAnimationHelper{
 		return deltaA;
 		
 	}
-	public boolean rotate(double ra, int t, Graphics g){
+	public boolean rotate(double ra, int t){
 		
 		if(ra!=0 && angleLeft/ra>0)
 		{
@@ -114,7 +118,8 @@ public class DynamicAnimationHelper{
 		else
 			return false;
 	}
-	public boolean moveHelper(int dx, int dy, int t, Graphics g){
+	
+	public boolean moveHelper(int dx, int dy, int t){
 		boolean doneMovingX=false;
 		boolean doneMovingY=false;
 		if(dx!=0 && (double)moveXLeft/dx>0){
@@ -161,6 +166,51 @@ public class DynamicAnimationHelper{
 		
 	}
 	
+	public void moveTo(int inX, int inY, Graphics g, Rectangle viewRect){
+		//////
+			System.out.println("moving to: " + inX + ", " + inY);
+			int mvTime=100;
+			int moveX=inX;
+			int moveY=inY;
+			int status=1;
+			double ra = calcRotationAngle(moveX, moveY);
+			int deltaX=moveX-e.getX();
+			int deltaY=moveY-e.getY();
+			setAngleLeft(ra);
+			setMoveXLeft(deltaX);
+			setMoveYLeft(deltaY);
+			while(status!=0)
+			{
+				//System.out.println("a= "+getAngleLeft()+" deltaA= "+ra+" angle=" +e.getAngle());
+				//System.out.println("xl= "+getMoveXLeft()+" dx= "+deltaX+" x= "+e.getX());
+				//System.out.println("yl= "+getMoveYLeft()+" dy= "+deltaY+" y= "+e.getY());
+				if(status==1&&!rotate(ra, mvTime)){
+					status=2;
+				}
+				else if(status==2 && !moveHelper(deltaX, deltaY, mvTime)){
+					status=0;
+				}
+	        	try {
+	        		Thread.sleep(10);
+	        	} catch (InterruptedException e) {
+	        		e.printStackTrace();
+	        	}
+	        	draw(g, viewRect);
+			}
+			double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
+			if(angle<0)
+				angle=360+angle;
+			e.setAngle(angle);
+			e.setX(moveX);
+			e.setY(moveY);
+			setAngleLeft(0);
+			setMoveXLeft(0);
+			setMoveYLeft(0);
+		
+		///////////
+		
+	}
+	
 	public double getAngleLeft() {
 		return angleLeft;
 	}
@@ -191,6 +241,12 @@ public class DynamicAnimationHelper{
 
 	public void setDE(DynamicElement e) {
 		this.e = e;
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

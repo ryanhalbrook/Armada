@@ -8,6 +8,7 @@ import java.awt.*;
 public class DynamicElement extends Element {
 
 	protected int range, hull, maxHull, engine, maxEngine, speed, alliance, targetable, weapons;
+	protected DynamicAnimationHelper dah; 
 
     public DynamicElement() {}
 
@@ -33,7 +34,25 @@ public class DynamicElement extends Element {
 		alliance = all;
 		targetable = t;
 		weapons = weap;
+		dah = new DynamicAnimationHelper(this);
 	}
+	
+	public DynamicElement(int inX, int inY, int w, int h, String img, int all){
+		super(inX,inY,w,h,img);
+		switch(all){
+		case 1:
+			setImage(img+"_red");
+			break;
+		case 2:
+			setImage(img+"_blue");
+			break;
+		default:
+			break;
+		}
+		alliance=all;
+		dah = new DynamicAnimationHelper(this);
+	}
+	
 	public DynamicElement(int a, int b, int w, int h, double an, String img, int r, int maxH, int maxE, int s, int all, int t, int weap){
 		super(a,b,w,h, an,img);
 		switch(all){
@@ -55,6 +74,7 @@ public class DynamicElement extends Element {
 		alliance = all;
 		targetable = t;
 		weapons = weap;
+		dah = new DynamicAnimationHelper(this);
 	}
 
 	public void takeDamage(DynamicElement de, String choice){
@@ -71,7 +91,11 @@ public class DynamicElement extends Element {
 
 	}
 
-
+	public boolean isIn(int inX, int inY){
+		System.out.println("I got called");
+		return dah.isIn(inX, inY);
+	}
+	
 	/*
 	 * updates all stats
 	 */
@@ -79,9 +103,17 @@ public class DynamicElement extends Element {
 
 	}
 
+	public void moveTo(int inX, int inY, Graphics g, Rectangle viewRect){
+		dah.moveTo(inX,inY,g,viewRect);
+	}
+	
 	public void draw(Graphics g, Rectangle viewRect){
-	    g.setColor(Color.GREEN);
-		g.fillRect(x-viewRect.getX(), y-viewRect.getY(), width, height);
+		if(dah ==null){
+			g.setColor(Color.GREEN);
+			g.fillRect(x-viewRect.getX(), y-viewRect.getY(), width, height);
+			return;
+		}
+	    dah.draw(g, viewRect);
 	}
 	
 	public boolean withinRange(DynamicElement de) {
@@ -104,6 +136,7 @@ public class DynamicElement extends Element {
 		return hull;
 	}
 
+	
 	public void setHull(int h) {
 		hull = h;
 	}
