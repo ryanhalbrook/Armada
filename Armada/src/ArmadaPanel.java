@@ -8,12 +8,13 @@ import javax.swing.*;
  * Responsible for drawing game elements and dispatching mouse and keyboard events.
  */
 
-public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, MouseMotionListener {
+public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener {
 
     ApplicationManager am;
 	Frame f;
 	Grid grid;
 	Menu focusMenu;
+	Timer refreshTimer = new Timer(1, this);
 	int turn;
 	
 	public ArmadaPanel(ApplicationManager am, GameManager gm) {
@@ -22,10 +23,15 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	    addMouseListener(this);
 	    addKeyListener(this);
 	    addMouseMotionListener(this);
-	    grid = new Grid();
+	    grid = new Grid(this);
 	    this.setFocusable(true);
 	    this.requestFocus();
 	    this.requestFocusInWindow();
+	    refreshTimer.start();
+	}
+	
+	public void actionPerformed(ActionEvent evt) {
+	    repaint();
 	}
 	/*
 	public ArmadaPanel(JFrame in, ApplicationManager am) {
