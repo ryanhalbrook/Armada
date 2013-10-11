@@ -5,6 +5,7 @@ import java.io.*;
 import java.awt.image.*;
 import javax.imageio.ImageIO;
 import java.awt.geom.*;
+import javax.swing.border.*;
 
 public class MainMenuPanel extends JPanel implements ActionListener{
     JButton startButton = new JButton("Start Game");
@@ -17,8 +18,13 @@ public class MainMenuPanel extends JPanel implements ActionListener{
     this.am = am;
         startButton.addActionListener(this);
         exitButton.addActionListener(this);
-        this.add(startButton);
-        this.add(exitButton);
+        JPanel buttonsPanel = new JPanel();
+        this.setLayout(new BorderLayout());
+        buttonsPanel.add(startButton);
+        buttonsPanel.add(exitButton);
+        buttonsPanel.setBorder(new EmptyBorder(10,400,250,10));
+        buttonsPanel.setOpaque(false);
+        this.add(buttonsPanel, BorderLayout.SOUTH);
         //this.setBackground(Color.BLACK);
         File f = new File("ArmadaLogo.jpg");
         backgroundImage = loadImage(f);

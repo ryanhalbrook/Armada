@@ -15,6 +15,7 @@ public class Grid {
     private ArmadaPanel ap;
     private Rectangle viewRegion = new Rectangle(0, 0, 500,500); //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
 
+
     private int currentX = 0;
     private int currentY = 0;
 
