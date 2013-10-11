@@ -109,12 +109,7 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		repaint();
-		System.out.println("Clicked");
-		this.requestFocus();
-		int xx = (int)arg0.getPoint().getX();
-		int yy = (int)arg0.getPoint().getY();
-		grid.click(xx,yy);
+		
 	}
 	
 	/*
@@ -125,7 +120,12 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	 */
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		
+		repaint();
+		System.out.println("Clicked");
+		this.requestFocus();
+		int xx = (int)arg0.getPoint().getX();
+		int yy = (int)arg0.getPoint().getY();
+		grid.click(xx,yy);
 	}
 	
     @Override
