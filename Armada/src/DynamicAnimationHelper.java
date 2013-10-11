@@ -35,7 +35,9 @@ public class DynamicAnimationHelper implements Runnable{
 	private int moveXLeft;
 	private int moveYLeft;
 	private double[] moveVar;//for moving the ship more accurately
-
+	private boolean moving;
+	
+	private final double ANGLE_PER_FRAME=1;
 	
 	public DynamicAnimationHelper(DynamicElement el){
 		e=el;
@@ -47,6 +49,7 @@ public class DynamicAnimationHelper implements Runnable{
 		moveXLeft=0;
 		moveYLeft=0;
 		moveVar= new double[2];
+		moving = false;
 	}
 	
 	private void loadImage(String img) {
@@ -66,6 +69,8 @@ public class DynamicAnimationHelper implements Runnable{
 		imageHeight=image.getHeight();
 	}
 	public boolean isIn(int x, int y){
+		if(moving)
+			return false;
 		return (x<e.getX()+e.getWidth()/2 && x>e.getX()-e.getWidth()/2) && 
 				(y<e.getY()+e.getWidth()/2 && y>e.getY()-e.getWidth()/2);
 	}
@@ -104,13 +109,20 @@ public class DynamicAnimationHelper implements Runnable{
 		return deltaA;
 		
 	}
-	public boolean rotate(double ra, int t){
+	public boolean rotate(double ra){
 		
 		if(ra!=0 && angleLeft/ra>0)
 		{
-			e.setAngle(e.getAngle()+ra/(t/2));
+			moving=true;
+			if(ra<0){
+				e.setAngle(e.getAngle()-ANGLE_PER_FRAME);
+				angleLeft+=ANGLE_PER_FRAME;
+			}
+			else{
+				e.setAngle(e.getAngle()+ANGLE_PER_FRAME);
+				angleLeft-=ANGLE_PER_FRAME;
+			}
 			
-        	angleLeft-=ra/(t/2);
         	return true;
         }
 		else
@@ -121,7 +133,7 @@ public class DynamicAnimationHelper implements Runnable{
 		boolean doneMovingX=false;
 		boolean doneMovingY=false;
 		if(dx!=0 && (double)moveXLeft/dx>0){
-			moveVar[0]+=dx/((double)t/2);
+			moveVar[0]+=dx/((double)t);
 			int temp=0;
 			if(Math.abs(moveVar[0])<0)
 				temp=0;
@@ -137,7 +149,7 @@ public class DynamicAnimationHelper implements Runnable{
 			doneMovingX=true;
 		if(dy!=0 && (double)moveYLeft/dy>0){
 			
-			moveVar[1]+=dy/((double)t/2);
+			moveVar[1]+=dy/((double)t);
 			
 			int temp2=0;
 			if(Math.abs(moveVar[1])<0)
@@ -157,6 +169,7 @@ public class DynamicAnimationHelper implements Runnable{
 		if ((doneMovingY&&doneMovingX)){
 			moveVar[0]=0;
 			moveVar[1]=0;
+			moving=false;
 			return false;
 		}
 		return true;

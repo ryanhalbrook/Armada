@@ -17,7 +17,7 @@ public class MoveAnimation implements Runnable {
 	@Override
 	public void run() {
 		System.out.println("moving to: " + x + ", " + y);
-		int mvTime=100;
+		int mvTime=200;
 		int moveX=x;
 		int moveY=y;
 		int status=1;
@@ -32,7 +32,7 @@ public class MoveAnimation implements Runnable {
 			//System.out.println("a= "+getAngleLeft()+" deltaA= "+ra+" angle=" +e.getAngle());
 			//System.out.println("xl= "+getMoveXLeft()+" dx= "+deltaX+" x= "+e.getX());
 			//System.out.println("yl= "+getMoveYLeft()+" dy= "+deltaY+" y= "+e.getY());
-			if(status==1&&!de.getDAH().rotate(ra, mvTime)){
+			if(status==1&&!de.getDAH().rotate(ra)){
 				status=2;
 			}
 			else if(status==2 && !de.getDAH().moveHelper(deltaX, deltaY, mvTime)){
