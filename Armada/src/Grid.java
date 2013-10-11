@@ -129,6 +129,11 @@ public class Grid {
 	 * draws everything on the Grid
 	 */
 	public void draw(Graphics g){
+	    if (mode != 1) {
+	        ap.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+	    } else {
+	        ap.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+	    }
 	    Graphics2D g2d = (Graphics2D)g;
 	    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		if(delements != null && delements.size() != 0){
@@ -150,13 +155,18 @@ public class Grid {
 		g.fillRect(30+x, 100+y, 5, 5);
 		g.setColor(Color.GREEN);
 		if (mode == 1) {
+		    
 		    int shipX = activeE.getX();
 		    int shipY = activeE.getY();
 		    Stroke s = g2d.getStroke();
 		    float array[] = {10.0f};
 		    g2d.setStroke(new BasicStroke(5.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1.0f, array, 0.0f));
 		    g.drawLine(shipX-viewRegion.getX(), shipY-viewRegion.getY(), currentX, currentY);
+		    int radius = 20;
+		    
+		    g.drawOval(currentX-radius, currentY-radius, radius*2, radius*2);
 		    g2d.setStroke(s);
+		    
 		    g.drawString("Move initiated", 30, 145);
 		}
 	} // End of draw
