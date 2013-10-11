@@ -10,8 +10,8 @@ public class ApplicationManager {
     JFrame window = new JFrame();
     GameManager gm = null;
     
-    static final int DEFAULT_WINDOW_WIDTH = 1000;
-    static final int DEFAULT_WINDOW_HEIGHT = 700;
+    static final int DEFAULT_WINDOW_WIDTH = 960;
+    static final int DEFAULT_WINDOW_HEIGHT = 540;
     
     static final int MIN_WINDOW_WIDTH = 700;
     static final int MIN_WINDOW_HEIGHT = 500;
@@ -34,6 +34,7 @@ public class ApplicationManager {
     }
     
     public void endGame() {
+        System.out.println("Ending game");
         gm = null;
         swapPanel(new MainMenuPanel(this));
     }
@@ -42,7 +43,9 @@ public class ApplicationManager {
         if (p == null) return;
         
         window.remove(mainPanel);
-        window.add(p);
+        mainPanel = null;
+        mainPanel = p;
+        window.add(mainPanel);
         window.pack();
         enforceDefaultWindowSize();
     }
