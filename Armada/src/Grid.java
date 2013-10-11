@@ -86,7 +86,7 @@ public class Grid {
 		if(mode == 1){
 			//move
 			inX += viewRegion.getX(); inY += viewRegion.getY();
-			activeE.moveTo(inX, inY,ap.getGraphics(),viewRegion);
+			activeE.moveTo(inX, inY);
 			mode=0;
 			
 		}

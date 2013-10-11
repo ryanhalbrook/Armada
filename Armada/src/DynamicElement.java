@@ -53,6 +53,7 @@ public class DynamicElement extends Element {
 		dah = new DynamicAnimationHelper(this);
 	}
 	
+	
 	public DynamicElement(int a, int b, int w, int h, double an, String img, int r, int maxH, int maxE, int s, int all, int t, int weap){
 		super(a,b,w,h, an,img);
 		switch(all){
@@ -91,6 +92,10 @@ public class DynamicElement extends Element {
 
 	}
 
+	public DynamicAnimationHelper getDAH(){
+		return dah;
+	}
+	
 	public boolean isIn(int inX, int inY){
 		System.out.println("I got called");
 		return dah.isIn(inX, inY);
@@ -103,8 +108,8 @@ public class DynamicElement extends Element {
 
 	}
 
-	public void moveTo(int inX, int inY, Graphics g, Rectangle viewRect){
-		dah.moveTo(inX,inY,g,viewRect);
+	public void moveTo(int inX, int inY){
+		dah.moveTo(inX,inY);
 	}
 	
 	public void draw(Graphics g, Rectangle viewRect){

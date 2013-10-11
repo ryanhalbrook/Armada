@@ -81,8 +81,6 @@ public class DynamicAnimationHelper implements Runnable{
 		
 		
 		at=ori;
-		g.setColor(Color.CYAN);
-		g.fillOval(e.getX(), e.getY(), 5, 5);
 	}
 	//Returns direction and angle the dynamic element needs to turn
 	public double calcRotationAngle(int x, int y){
@@ -166,48 +164,8 @@ public class DynamicAnimationHelper implements Runnable{
 		
 	}
 	
-	public void moveTo(int inX, int inY, Graphics g, Rectangle viewRect){
-		//////
-			System.out.println("moving to: " + inX + ", " + inY);
-			int mvTime=100;
-			int moveX=inX;
-			int moveY=inY;
-			int status=1;
-			double ra = calcRotationAngle(moveX, moveY);
-			int deltaX=moveX-e.getX();
-			int deltaY=moveY-e.getY();
-			setAngleLeft(ra);
-			setMoveXLeft(deltaX);
-			setMoveYLeft(deltaY);
-			while(status!=0)
-			{
-				//System.out.println("a= "+getAngleLeft()+" deltaA= "+ra+" angle=" +e.getAngle());
-				//System.out.println("xl= "+getMoveXLeft()+" dx= "+deltaX+" x= "+e.getX());
-				//System.out.println("yl= "+getMoveYLeft()+" dy= "+deltaY+" y= "+e.getY());
-				if(status==1&&!rotate(ra, mvTime)){
-					status=2;
-				}
-				else if(status==2 && !moveHelper(deltaX, deltaY, mvTime)){
-					status=0;
-				}
-	        	try {
-	        		Thread.sleep(10);
-	        	} catch (InterruptedException e) {
-	        		e.printStackTrace();
-	        	}
-	        	draw(g, viewRect);
-			}
-			double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
-			if(angle<0)
-				angle=360+angle;
-			e.setAngle(angle);
-			e.setX(moveX);
-			e.setY(moveY);
-			setAngleLeft(0);
-			setMoveXLeft(0);
-			setMoveYLeft(0);
-		
-		///////////
+	public void moveTo(int inX, int inY){
+		MoveAnimation move = new MoveAnimation(e,inX,inY);
 		
 	}
 	
