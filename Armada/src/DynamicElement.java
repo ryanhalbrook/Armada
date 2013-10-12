@@ -97,6 +97,9 @@ public class DynamicElement extends Element {
 		de.update();
 		update();
 		engine -= de.getWeapons();
+		if(engine <= 0){
+			engine=0;
+		}
 	}
 
 	/*
