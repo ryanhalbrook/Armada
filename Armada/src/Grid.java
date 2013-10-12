@@ -153,14 +153,14 @@ public class Grid {
 		int y = (int)(viewRegion.getY() / 25.0);
 		g.setColor(Color.BLACK);
 		g.fillRect(30+x, 100+y, 5, 5);
-		g.setColor(Color.GREEN);
+		g.setColor(Color.CYAN);
 		if (mode == 1) {
 		    
 		    int shipX = activeE.getX();
 		    int shipY = activeE.getY();
 		    Stroke s = g2d.getStroke();
 		    float array[] = {10.0f};
-		    g2d.setStroke(new BasicStroke(5.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1.0f, array, 0.0f));
+		    g2d.setStroke(new BasicStroke(2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1.0f, array, 0.0f));
 		    g.drawLine(shipX-viewRegion.getX(), shipY-viewRegion.getY(), currentX, currentY);
 		    int radius = 20;
 		    
