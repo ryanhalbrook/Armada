@@ -25,6 +25,7 @@ public class Ship extends DynamicElement{
 	
 	public Ship(int inX, int inY, int w, int h, String img, int all){
 		super(inX,inY, w, h, img, all);
+		
 	}
 	
 	/*

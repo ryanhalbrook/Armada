@@ -9,6 +9,8 @@ public class DynamicElement extends Element {
 
 	protected int range, hull, maxHull, engine, maxEngine, speed, alliance, targetable, weapons;
 	protected DynamicAnimationHelper dah; 
+	protected HealthBar hb;
+	protected boolean dead;
 
     public DynamicElement() {}
 
@@ -37,6 +39,7 @@ public class DynamicElement extends Element {
 		dah = new DynamicAnimationHelper(this);
 	}
 	
+	//use this one
 	public DynamicElement(int inX, int inY, int w, int h, String img, int all){
 		super(inX,inY,w,h,img);
 		switch(all){
@@ -50,7 +53,9 @@ public class DynamicElement extends Element {
 			break;
 		}
 		alliance=all;
+		targetable=1;
 		dah = new DynamicAnimationHelper(this);
+		hb = new HealthBar(this);
 	}
 	
 	
@@ -78,11 +83,20 @@ public class DynamicElement extends Element {
 		dah = new DynamicAnimationHelper(this);
 	}
 
-	public void takeDamage(DynamicElement de, String choice){
-
+	public void hullTakeDamage(DynamicElement de){
+		de.update();
 		update();
-		if (choice.equals(engine)) engine -= de.getWeapons();
-		else hull -= de.getWeapons();
+		hull -= de.getWeapons();
+		if(hull <= 0){
+			hull=0;
+			dead=true;
+		}
+	}
+	
+	public void engineTakeDamage(DynamicElement de){
+		de.update();
+		update();
+		engine -= de.getWeapons();
 	}
 
 	/*
@@ -97,7 +111,6 @@ public class DynamicElement extends Element {
 	}
 	
 	public boolean isIn(int inX, int inY){
-		System.out.println("I got called");
 		return dah.isIn(inX, inY);
 	}
 	
@@ -119,6 +132,8 @@ public class DynamicElement extends Element {
 			return;
 		}
 	    dah.draw(g, viewRect);
+	    hb.draw(g,viewRect);
+	    
 	}
 	
 	public boolean withinRange(DynamicElement de) {
@@ -200,6 +215,14 @@ public class DynamicElement extends Element {
 
 	public int getWeapons() {
 		return weapons;
+	}
+
+	public boolean isDead() {
+		return dead;
+	}
+
+	public void setDead(boolean dead) {
+		this.dead = dead;
 	}
 
 }

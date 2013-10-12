@@ -23,8 +23,10 @@ public class Grid {
     	elements = new ArrayList<Element>();
     	delements = new ArrayList<DynamicElement>();
     	menus = new ArrayList<Menu>();
-		Ship s = new Ship(80,80,80,80,"fighter",1);
+		Ship s = new NormalShip(130,130,1);
 		delements.add(s);
+		Ship s2 = new NormalShip(160,160,2);
+		delements.add(s2);
 		ap = inAP;
     }
     
@@ -55,6 +57,10 @@ public class Grid {
 		return e1.getRange() > distance(e1,e2);
 	}
 	
+	public void setMode(int i){
+		mode=i;
+	}
+	
 	public void mouseMoved(int x, int y) {
 	    currentX = x;
 	    currentY = y;
@@ -64,7 +70,7 @@ public class Grid {
 	 * received upon any click on ArmadaPanel
 	 */
 	public void click(int inX, int inY){
-		if(mode == 0){
+		if(mode == 0 || activeE==null){
 			if(menus != null && menus.size() != 0){
 				for (Menu m : menus) {
 					//if(m.isIn(inX,inY)){
@@ -80,7 +86,7 @@ public class Grid {
 					if(d.isIn(inX,inY)){
 						System.out.println("looking for ship 2");
 						activeE=d;
-						mode = 1;
+						//mode = 1;
 						menus.add(d.getMenu());
 						return;
 					}
@@ -88,12 +94,53 @@ public class Grid {
 			}
 		}
 		/////
+		if(activeE==null){
+			return;
+		}
 		if(mode == 1){
 			//move
 			inX += viewRegion.getX(); inY += viewRegion.getY();
 			activeE.moveTo(inX, inY);
 			mode=0;
-			
+			//activeE=null;
+			return;
+		}
+		if(mode == 2){
+			//attack
+			if(delements != null && delements.size() != 0){
+				inX += viewRegion.getX(); inY += viewRegion.getY();
+				//System.out.println("x, y:" + inX + ", " + inY);
+					for (DynamicElement d : delements) {
+						//System.out.println("looking for ship 1");
+						if(d.isIn(inX,inY) && d.getAlliance()!=activeE.getAlliance()){
+							//System.out.println("looking for ship 2");
+							d.hullTakeDamage(activeE);
+							System.out.println("Hull now at: "+d.getHull());
+							if(d.isDead()){
+								delements.remove(d);
+							}
+							mode = 0;
+							return;
+						}
+					}
+				}
+		}
+		if(mode == 3){
+			//attack
+			if(delements != null && delements.size() != 0){
+				inX += viewRegion.getX(); inY += viewRegion.getY();
+				//System.out.println("x, y:" + inX + ", " + inY);
+					for (DynamicElement d : delements) {
+						//System.out.println("looking for ship 1");
+						if(d.isIn(inX,inY) && d.getAlliance()!=activeE.getAlliance()){
+							//System.out.println("looking for ship 2");
+							d.engineTakeDamage(activeE);
+							System.out.println("Engines now at: "+d.getEngine());
+							mode = 0;
+							return;
+						}
+					}
+				}
 		}
 	}
 	
@@ -129,7 +176,7 @@ public class Grid {
 	 * draws everything on the Grid
 	 */
 	public void draw(Graphics g){
-	    if (mode != 1) {
+	    if (mode == 0) {
 	        ap.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	    } else {
 	        ap.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
@@ -154,7 +201,7 @@ public class Grid {
 		g.setColor(Color.BLACK);
 		g.fillRect(30+x, 100+y, 5, 5);
 		g.setColor(Color.CYAN);
-		if (mode == 1) {
+		if (mode != 0 && activeE!=null) {
 		    
 		    int shipX = activeE.getX();
 		    int shipY = activeE.getY();
@@ -167,7 +214,21 @@ public class Grid {
 		    g.drawOval(currentX-radius, currentY-radius, radius*2, radius*2);
 		    g2d.setStroke(s);
 		    
-		    g.drawString("Move initiated", 30, 145);
+		    switch(mode){
+		    case 0:
+		    	g.drawString("No ship selected", 30, 145);
+		    	break;
+		    case 1:
+		    	g.drawString("Move initiated", 30, 145);
+		    	break;
+		    case 2:
+		    	g.drawString("Attacking Hull", 30, 145);
+		    	break;
+		    case 3:
+		    	g.drawString("Attacking Engine", 30, 145);
+		    	break;
+		    }
+		    
 		}
 	} // End of draw
 }
