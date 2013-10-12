@@ -59,6 +59,9 @@ public class Grid {
 	
 	public void setMode(int i){
 		mode=i;
+		if(mode==0){
+			activeE=null;
+		}
 	}
 	
 	public void mouseMoved(int x, int y) {
@@ -101,8 +104,7 @@ public class Grid {
 			//move
 			inX += viewRegion.getX(); inY += viewRegion.getY();
 			activeE.moveTo(inX, inY);
-			mode=0;
-			//activeE=null;
+			setMode(0);
 			return;
 		}
 		if(mode == 2){
