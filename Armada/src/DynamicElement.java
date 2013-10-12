@@ -109,7 +109,7 @@ public class DynamicElement extends Element {
 	public void startOfTurn(){
 		moved=0;
 		canAttack=true;
-		//canMove=true;
+		canMove=true;
 	}
 
 	public DynamicAnimationHelper getDAH(){
@@ -128,7 +128,7 @@ public class DynamicElement extends Element {
 	}
 
 	public boolean withinMovement(int inX, int inY){
-		if(distanceFrom(inX,inY) < (int)((double)(speed-moved)*(double)((double)engine/(double)maxEngine))){
+		if(distanceFrom(inX,inY) < (int)((double)(speed)*(double)((double)engine/(double)maxEngine))-moved){
 			return true;
 		}
 		return false;
@@ -137,7 +137,7 @@ public class DynamicElement extends Element {
 	public void moveTo(int inX, int inY){
 		dah.moveTo(inX,inY);
 		moved+=distanceFrom(inX,inY);
-		if(moved > speed){
+		if(moved >= (int)((double)(speed)*(double)((double)engine/(double)maxEngine))){
 			canMove=false;
 		}
 	}
