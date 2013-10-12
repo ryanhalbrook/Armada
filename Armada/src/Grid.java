@@ -10,7 +10,7 @@ public class Grid {
     private ArrayList<Element> elements;
     private ArrayList<DynamicElement> delements;
     private  ArrayList<Menu> menus;
-    private  int mode = 0;
+    private  int mode = 0, turn = 1;
     private  DynamicElement activeE;
     private ArmadaPanel ap;
     private Rectangle viewRegion = new Rectangle(0, 0, 500,500); //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
@@ -73,7 +73,7 @@ public class Grid {
 	 * received upon any click on ArmadaPanel
 	 */
 	public void click(int inX, int inY){
-		if(mode == 0 || activeE==null){
+		if(mode == 0 || activeE==null){//selecting a menu
 			if(menus != null && menus.size() != 0){
 				for (Menu m : menus) {
 					//if(m.isIn(inX,inY)){
@@ -81,13 +81,13 @@ public class Grid {
 					//}
 				}
 			}
-			if(delements != null && delements.size() != 0){
-			inX += viewRegion.getX(); inY += viewRegion.getY();
-			System.out.println("x, y:" + inX + ", " + inY);
+			if(delements != null && delements.size() != 0){//selecting a ship
+				inX += viewRegion.getX(); inY += viewRegion.getY();
+				System.out.println("x, y:" + inX + ", " + inY);
 				for (DynamicElement d : delements) {
-					System.out.println("looking for ship 1");
-					if(d.isIn(inX,inY)){
-						System.out.println("looking for ship 2");
+					//System.out.println("looking for ship 1");
+					if(d.isIn(inX,inY) && d.getAlliance()==turn){
+						//System.out.println("looking for ship 2");
 						activeE=d;
 						//mode = 1;
 						menus.add(d.getMenu());
@@ -103,24 +103,27 @@ public class Grid {
 		if(mode == 1){
 			//move
 			inX += viewRegion.getX(); inY += viewRegion.getY();
-			activeE.moveTo(inX, inY);
-			setMode(0);
+			if(activeE.withinMovement(inX,inY) && activeE.canMove()){
+				activeE.moveTo(inX, inY);
+				setMode(0);
+			}
 			return;
 		}
 		if(mode == 2){
-			//attack
-			if(delements != null && delements.size() != 0){
+			//attack hull
+			if(delements != null && delements.size() != 0 && activeE.canAttack()){
 				inX += viewRegion.getX(); inY += viewRegion.getY();
 				//System.out.println("x, y:" + inX + ", " + inY);
 					for (DynamicElement d : delements) {
 						//System.out.println("looking for ship 1");
-						if(d.isIn(inX,inY) && d.getAlliance()!=activeE.getAlliance()){
+						if(d.isIn(inX,inY) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(d)){
 							//System.out.println("looking for ship 2");
 							d.hullTakeDamage(activeE);
 							System.out.println("Hull now at: "+d.getHull());
 							if(d.isDead()){
 								delements.remove(d);
 							}
+							activeE.setCanAttack(false);
 							mode = 0;
 							return;
 						}
@@ -128,8 +131,8 @@ public class Grid {
 				}
 		}
 		if(mode == 3){
-			//attack
-			if(delements != null && delements.size() != 0){
+			//attack engine
+			if(delements != null && delements.size() != 0 && activeE.canAttack()){
 				inX += viewRegion.getX(); inY += viewRegion.getY();
 				//System.out.println("x, y:" + inX + ", " + inY);
 					for (DynamicElement d : delements) {
@@ -138,6 +141,7 @@ public class Grid {
 							//System.out.println("looking for ship 2");
 							d.engineTakeDamage(activeE);
 							System.out.println("Engines now at: "+d.getEngine());
+							activeE.setCanAttack(false);
 							mode = 0;
 							return;
 						}
@@ -151,6 +155,10 @@ public class Grid {
 	 */
 	public int distance(DynamicElement e1, DynamicElement e2){
 		return (int)Math.sqrt(Math.pow(Math.abs((double)e1.getY()-(double)e2.getY()),2) + Math.pow(Math.abs((double)e1.getX()-(double)e2.getX()),2));
+	}
+	
+	public int distance(DynamicElement e1, int inX, int inY){
+		return (int)Math.sqrt(Math.pow(Math.abs((double)e1.getY()-(double)inY),2) + Math.pow(Math.abs((double)e1.getX()-(double)inX),2));
 	}
 	
 	/*
@@ -172,6 +180,29 @@ public class Grid {
 	 */
 	public void add(DynamicElement de){
 		
+	}
+	
+	public void toggleTurn(){
+		if(turn==1){
+			turn=2;
+		}
+		else{
+			turn=1;	
+		}
+		startTurn();		
+	}
+	
+	public void startTurn(){
+		setMode(0);
+		if(delements != null && delements.size() != 0){//selecting a ship
+			for (DynamicElement d : delements) {
+				//System.out.println("looking for ship 1");
+				if(d.getAlliance()==turn){
+					d.startOfTurn();
+					return;
+				}
+			}
+		}
 	}
 	
 	/*
@@ -202,7 +233,19 @@ public class Grid {
 		int y = (int)(viewRegion.getY() / 25.0);
 		g.setColor(Color.BLACK);
 		g.fillRect(30+x, 100+y, 5, 5);
-		g.setColor(Color.CYAN);
+		if(turn==1){
+			g.setColor(Color.RED);
+			g.drawString("Player 1's turn - Press ESC to end turn", 30, 15);
+		}
+		else{
+			g.setColor(Color.BLUE);
+			g.drawString("Player 2's turn  - Press ESC to end turn", 30, 15);
+		}
+		if(activeE!=null){
+			g.setColor(Color.WHITE);
+			g.drawString("Ship selected: 1-Move; 2-Attack Hull; 3-Attack Engines; 0-Unselect;", 30, 45);
+		}
+		
 		if (mode != 0 && activeE!=null) {
 		    
 		    int shipX = activeE.getX();
@@ -210,11 +253,24 @@ public class Grid {
 		    Stroke s = g2d.getStroke();
 		    float array[] = {10.0f};
 		    g2d.setStroke(new BasicStroke(2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1.0f, array, 0.0f));
+		    if(mode==1 && activeE!=null && activeE.withinMovement(currentX + viewRegion.getX(),currentY + viewRegion.getY()) && activeE.canMove()){
+		    	g.setColor(Color.BLUE);
+		    }
+		    else if(mode == 1 && activeE!=null){
+		    	g.setColor(Color.RED);
+		    }
+		    else if((mode == 2 || mode == 3) && activeE!=null && activeE.withinRange(currentX + viewRegion.getX(),currentY + viewRegion.getY()) && activeE.canAttack()){
+		    	g.setColor(Color.YELLOW);
+		    }
+		    else if((mode == 2 || mode == 3) && activeE!=null){
+		    	g.setColor(Color.RED);
+		    }
 		    g.drawLine(shipX-viewRegion.getX(), shipY-viewRegion.getY(), currentX, currentY);
 		    int radius = 20;
 		    
 		    g.drawOval(currentX-radius, currentY-radius, radius*2, radius*2);
 		    g2d.setStroke(s);
+		    
 		    
 		    switch(mode){
 		    case 0:
@@ -230,6 +286,7 @@ public class Grid {
 		    	g.drawString("Attacking Engine", 30, 145);
 		    	break;
 		    }
+		    
 		    
 		}
 	} // End of draw

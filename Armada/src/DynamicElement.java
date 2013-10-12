@@ -8,9 +8,10 @@ import java.awt.*;
 public class DynamicElement extends Element {
 
 	protected int range, hull, maxHull, engine, maxEngine, speed, alliance, targetable, weapons;
+	protected int moved = 0;
 	protected DynamicAnimationHelper dah; 
 	protected HealthBar hb;
-	protected boolean dead;
+	protected boolean dead=false, canMove=true, canAttack=true;
 
     public DynamicElement() {}
 
@@ -106,7 +107,9 @@ public class DynamicElement extends Element {
 	 * performs certain start of turn jobs. Ex: a planet checks if it should update its alliance based off of docked ships; A planet pays the Player; A ship comes out of cloaking; etc
 	 */
 	public void startOfTurn(){
-
+		moved=0;
+		canAttack=true;
+		canMove=true;
 	}
 
 	public DynamicAnimationHelper getDAH(){
@@ -124,8 +127,23 @@ public class DynamicElement extends Element {
 
 	}
 
+	public boolean withinMovement(int inX, int inY){
+		if(distanceFrom(inX,inY) < speed-moved){
+			return true;
+		}
+		return false;
+	}
+	
 	public void moveTo(int inX, int inY){
 		dah.moveTo(inX,inY);
+		moved+=distanceFrom(inX,inY);
+		if(moved > speed){
+			canMove=false;
+		}
+	}
+	
+	public int distanceFrom(int inX, int inY){
+		return (int)Math.sqrt(Math.pow(Math.abs((double)y-(double)inY),2) + Math.pow(Math.abs((double)x-(double)inX),2));
 	}
 	
 	public void draw(Graphics g, Rectangle viewRect){
@@ -139,11 +157,14 @@ public class DynamicElement extends Element {
 	    
 	}
 	
+	public boolean withinRange(int inX, int inY) {
+		update();
+		return distanceFrom(inX,inY) <= range;
+	}
+	
 	public boolean withinRange(DynamicElement de) {
 		update();
-		int distance = (int)((de.getX()^2+de.getY()^2)^(1/2) - (getX()^2 + getY()^2)^(1/2));
-		if (distance < 0) distance = -distance;
-		return distance <= range;
+		return distanceFrom(de.getX(),de.getY()) <= range;
 	}
 
 
@@ -226,6 +247,22 @@ public class DynamicElement extends Element {
 
 	public void setDead(boolean dead) {
 		this.dead = dead;
+	}
+
+	public boolean canMove() {
+		return canMove;
+	}
+
+	public void setCanMove(boolean canMove) {
+		this.canMove = canMove;
+	}
+
+	public boolean canAttack() {
+		return canAttack;
+	}
+
+	public void setCanAttack(boolean canAttack) {
+		this.canAttack = canAttack;
 	}
 
 }
