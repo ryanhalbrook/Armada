@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Encapsulate field &apos;DynamicAnimation.e&apos; in &apos;DynamicAnimation&apos;&#x0D;&#x0A;- Original project: &apos;Armada&apos;&#x0D;&#x0A;- Original element: &apos;DynamicAnimation.e&apos;&#x0D;&#x0A;- Getter method name: &apos;getDE&apos;&#x0D;&#x0A;- Setter method name: &apos;setDE&apos;&#x0D;&#x0A;- Field visibility: &apos;public&apos;&#x0D;&#x0A;- Use getter and setter methods in declaring type" comments="false" declaring="true" description="Encapsulate field &apos;e&apos;" flags="589830" getter="getDE" id="org.eclipse.jdt.ui.self.encapsulate" input="/src&lt;{DynamicAnimation.java[DynamicAnimation^e" insertion="0" setter="setDE" stamp="1381002976168" version="1.0" visibility="1"/>
-</session>

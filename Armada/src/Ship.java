@@ -19,6 +19,8 @@ public class Ship extends DynamicElement{
 	
 	protected int cargo, maxCargo;
 	
+	
+	
 	public Ship(int team) {
 	    super();
 	}
@@ -27,21 +29,15 @@ public class Ship extends DynamicElement{
 		super(inX,inY, w, h, img, all);
 		
 	}
-	
+	public Ship(int inX, int inY, int w, int h, double an, String img, int all){
+		super(inX,inY, w, h,an, img, all);
+		
+	}
 	/*
 	 * @param a The alliance of the ship. 0 for neutral, 1 for p1, 2 for p2
 	 */
 	 
-	public Ship(int a, int b, int w, int h, String img, int r,
-			int maxH, int maxE, int s, int all, int t, int weap) {
-		super(a, b, w, h, img, r, maxH, maxE, s, all, t, weap);
-		
-	}
-	public Ship(int a, int b, int w, int h, double an, String img, int r,
-			int maxH, int maxE, int s, int all, int t, int weap) {
-		super(a, b, w, h, an, img, r, maxH, maxE, s, all, t, weap);
-		
-	}
+	
 	/*
 	 * given an item, it will
 	 */

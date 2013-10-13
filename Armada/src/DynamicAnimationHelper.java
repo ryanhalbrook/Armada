@@ -2,7 +2,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -10,9 +9,9 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 /* @Author: Yun Suk Chang
- * @Version: 100613
+ * @Version: 101313
  * 
- * Class that helps animation of moving and rotating.
+ * Class that helps animation of moving, rotating and attacking.
  * 
  * Contains: calcRotation(int x, int y) - for calculating direction and angle the dynamic element needs to turn
  * 			 changeImage(String imageName)
@@ -23,9 +22,10 @@ import javax.imageio.ImageIO;
  *           rotate(double angleLeft, int rotationAngle, Graphics g) -rotates ship
  *           moveHelper(int x, int y, int time, Graphics g) - moves the ship little by little to dest
  *           getters and setters for moveXLeft, moveYLeft, angleLeft <- used for moving/rotating the ship little by little
+ *           moveTo methods for moving/attacking thread
  */
 
-public class DynamicAnimationHelper implements Runnable{
+public class DynamicAnimationHelper{
 	
 	private DynamicElement e;
 	private BufferedImage image;
@@ -37,7 +37,7 @@ public class DynamicAnimationHelper implements Runnable{
 	private double[] moveVar;//for moving the ship more accurately
 	private boolean moving;
 	
-	private final double ANGLE_PER_FRAME=1;
+	private final double ANGLE_PER_FRAME=2;
 	
 	public DynamicAnimationHelper(DynamicElement el){
 		e=el;
@@ -177,8 +177,20 @@ public class DynamicAnimationHelper implements Runnable{
 		
 	}
 	
+	public void setMoving(boolean moving) {
+		this.moving = moving;
+	}
+
 	public void moveTo(int inX, int inY){
 		MoveAnimation move = new MoveAnimation(e,inX,inY);
+		
+	}
+	public void moveTo(int inX, int inY,int t){
+		MoveAnimation move = new MoveAnimation(e,inX,inY,t);
+		
+	}
+	public void moveTo(int inX, int inY,int t,int m){
+		MoveAnimation move = new MoveAnimation(e,inX,inY,t,m);
 		
 	}
 	
@@ -214,10 +226,6 @@ public class DynamicAnimationHelper implements Runnable{
 		this.e = e;
 	}
 
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
-	}
+	
 
 }

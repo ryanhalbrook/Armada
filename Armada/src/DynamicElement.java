@@ -12,33 +12,11 @@ public class DynamicElement extends Element {
 	protected DynamicAnimationHelper dah; 
 	protected HealthBar hb;
 	protected boolean dead=false, canMove=true, canAttack=true;
+	
+	protected DynamicElement laser1,laser2,owner=null,target=null;
+	protected boolean attacking = false;
 
-    public DynamicElement() {}
-
-	public DynamicElement(int a, int b, int w, int h, String img, int r, int maxH, int maxE, int s, int all, int t, int weap){
-		super(a,b,w,h,img);
-		switch(all){
-		case 1:
-			setImage(img+"_red");
-			break;
-		case 2:
-			setImage(img+"_blue");
-			break;
-		default:
-			break;
-		}
-
-		range = r;
-		hull = maxH;
-		maxHull = maxH;
-		engine = maxE;
-		maxEngine = maxE;
-		speed = s;
-		alliance = all;
-		targetable = t;
-		weapons = weap;
-		dah = new DynamicAnimationHelper(this);
-	}
+	public DynamicElement(){}
 	
 	//use this one
 	public DynamicElement(int inX, int inY, int w, int h, String img, int all){
@@ -55,13 +33,14 @@ public class DynamicElement extends Element {
 		}
 		alliance=all;
 		targetable=1;
+		
 		dah = new DynamicAnimationHelper(this);
+		if(all!=0){
 		hb = new HealthBar(this);
+		}
 	}
-	
-	
-	public DynamicElement(int a, int b, int w, int h, double an, String img, int r, int maxH, int maxE, int s, int all, int t, int weap){
-		super(a,b,w,h, an,img);
+	public DynamicElement(int inX, int inY, int w, int h, double angle, String img, int all){
+		super(inX,inY,w,h,angle,img);
 		switch(all){
 		case 1:
 			setImage(img+"_red");
@@ -72,17 +51,17 @@ public class DynamicElement extends Element {
 		default:
 			break;
 		}
-		range = r;
-		hull = maxH;
-		maxHull = maxH;
-		engine = maxE;
-		maxEngine = maxE;
-		speed = s;
-		alliance = all;
-		targetable = t;
-		weapons = weap;
+		alliance=all;
+		targetable=1;
+		
 		dah = new DynamicAnimationHelper(this);
+		if(all!=0){
+		hb = new HealthBar(this);
+		}
 	}
+	
+	
+	
 
 	public void hullTakeDamage(DynamicElement de){
 		de.update();
@@ -92,6 +71,9 @@ public class DynamicElement extends Element {
 			hull=0;
 			dead=true;
 		}
+		de.attack(this);
+	
+		
 	}
 	
 	public void engineTakeDamage(DynamicElement de){
@@ -101,6 +83,7 @@ public class DynamicElement extends Element {
 		if(engine <= 0){
 			engine=0;
 		}
+		de.attack(this);
 	}
 
 	/*
@@ -142,6 +125,46 @@ public class DynamicElement extends Element {
 		}
 	}
 	
+	public void attack(DynamicElement de){
+		target=de;
+		this.getDAH().moveTo(de.getX(), de.getY(), 100, 3);
+	}
+	public DynamicElement getTarget() {
+		return target;
+	}
+
+	public void setTarget(DynamicElement target) {
+		this.target = target;
+	}
+
+	public DynamicElement getLaser1() {
+		return laser1;
+	}
+
+	public void setLaser1(DynamicElement laser1) {
+		this.laser1 = laser1;
+	}
+
+	public DynamicElement getLaser2() {
+		return laser2;
+	}
+
+	public void setLaser2(DynamicElement laser2) {
+		this.laser2 = laser2;
+	}
+
+	
+	public DynamicElement getOwner(){
+		return owner;
+	}
+	public void setOwner(DynamicElement de){
+		owner=de;
+	}
+	public void setAttack(boolean b){
+		attacking=b;
+	}
+	
+	
 	public int distanceFrom(int inX, int inY){
 		return (int)Math.sqrt(Math.pow(Math.abs((double)y-(double)inY),2) + Math.pow(Math.abs((double)x-(double)inX),2));
 	}
@@ -153,7 +176,12 @@ public class DynamicElement extends Element {
 			return;
 		}
 	    dah.draw(g, viewRect);
-	    hb.draw(g,viewRect);
+	    if(hb!=null)
+	    	hb.draw(g,viewRect);
+	    if(attacking){
+	    	laser1.draw(g, viewRect);
+	    	laser2.draw(g, viewRect);
+	    }
 	    
 	}
 	
