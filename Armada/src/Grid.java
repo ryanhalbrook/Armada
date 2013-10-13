@@ -91,10 +91,11 @@ public class Grid {
 						activeE=d;
 						//mode = 1;
 						menus.add(d.getMenu());
-						return;
+						
 					}
 				}
 			}
+			
 		}
 		/////
 		if(activeE==null){
@@ -120,9 +121,7 @@ public class Grid {
 							//System.out.println("looking for ship 2");
 							d.hullTakeDamage(activeE);
 							System.out.println("Hull now at: "+d.getHull());
-							if(d.isDead()){
-								delements.remove(d);
-							}
+							
 							activeE.setCanAttack(false);
 							mode = 0;
 							return;
@@ -148,6 +147,7 @@ public class Grid {
 					}
 				}
 		}
+		
 	}
 	
 	/*
@@ -216,7 +216,14 @@ public class Grid {
 	    }
 	    Graphics2D g2d = (Graphics2D)g;
 	    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+	    
 		if(delements != null && delements.size() != 0){
+			for (int i=0;i<delements.size();i++) {
+				if(delements.get(i).isDead()){
+					delements.remove(i);
+					i--;
+				}
+			}
 			for (DynamicElement de : delements) {
 				de.draw(g, viewRegion);
 			}

@@ -193,7 +193,12 @@ public class DynamicAnimationHelper{
 		MoveAnimation move = new MoveAnimation(e,inX,inY,t,m);
 		
 	}
-	
+	public void attack(DynamicElement att,DynamicElement target,String attacked){
+		AttackAnimation aa = new AttackAnimation(att,target,attacked);
+	}
+	public void attack(DynamicElement att,DynamicElement target,int mode,String attacked){
+		AttackAnimation aa = new AttackAnimation(att,target,mode,attacked);
+	}
 	public double getAngleLeft() {
 		return angleLeft;
 	}

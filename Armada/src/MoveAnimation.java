@@ -4,7 +4,7 @@ import java.awt.Graphics;
 public class MoveAnimation implements Runnable {
 
 	protected DynamicElement de;
-	protected int x,y,t,mode;//0= rotate&move, 1= rotate only, 2=move only, 3= attack animation
+	protected int x,y,t,mode;//0= rotate&move, 1= rotate only, 2=move only
 	
 	
 	public MoveAnimation(DynamicElement inDE, int inX, int inY){
@@ -65,13 +65,13 @@ public class MoveAnimation implements Runnable {
 			//System.out.println("a= "+getAngleLeft()+" deltaA= "+ra+" angle=" +e.getAngle());
 			//System.out.println("xl= "+getMoveXLeft()+" dx= "+deltaX+" x= "+e.getX());
 			//System.out.println("yl= "+getMoveYLeft()+" dy= "+deltaY+" y= "+e.getY());
-			if((mode==0||mode==1||mode==3)&&status==1&&!de.getDAH().rotate(ra)){
+			if((mode==0||mode==1)&&status==1&&!de.getDAH().rotate(ra)){
 					if(mode==0)
 						status=2;
 					else if(mode==1){
 						status=0;
 					}
-					else{
+				/*	else{
 						status=0;
 						double dx=de.getWidth()/4.0;
 						double dy=de.getHeight()/2.0;
@@ -90,7 +90,7 @@ public class MoveAnimation implements Runnable {
 						de.getLaser2().getDAH().moveTo(de.getTarget().getX(), de.getTarget().getY(),100,2);
 						de.setAttack(true);
 					}
-			}
+			*/}
 			else if(status==2 && !de.getDAH().moveHelper(deltaX, deltaY, mvTime)){
 				status=0;
 			}
@@ -106,7 +106,7 @@ public class MoveAnimation implements Runnable {
 		if(angle<0)
 			angle=360+angle;
 		de.setAngle(angle);
-		if(mode!=1&&mode!=3){
+		if(mode!=1){
 			de.setX(moveX);
 			de.setY(moveY);
 		}
@@ -114,12 +114,12 @@ public class MoveAnimation implements Runnable {
 		de.getDAH().setMoveXLeft(0);
 		de.getDAH().setMoveYLeft(0);
 		de.getDAH().setMoving(false);
-		if(de!=null&&de.getOwner()!=null){
+/*		if(de!=null&&de.getOwner()!=null){
 			de.getOwner().setAttack(false);
 			de.getOwner().setLaser1(null);
 			de.getOwner().setLaser2(null);
 		}
-		
+*/		
 	}
 
 }

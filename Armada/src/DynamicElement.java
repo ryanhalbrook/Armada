@@ -13,7 +13,7 @@ public class DynamicElement extends Element {
 	protected HealthBar hb;
 	protected boolean dead=false, canMove=true, canAttack=true;
 	
-	protected DynamicElement laser1,laser2,owner=null,target=null;
+	protected DynamicElement laser1,laser2,owner=null;//,target=null;
 	protected boolean attacking = false;
 
 	public DynamicElement(){}
@@ -64,26 +64,26 @@ public class DynamicElement extends Element {
 	
 
 	public void hullTakeDamage(DynamicElement de){
-		de.update();
+/*		de.update();
 		update();
 		hull -= de.getWeapons();
 		if(hull <= 0){
 			hull=0;
 			dead=true;
 		}
-		de.attack(this);
+*/		de.attack(this,"hull");
 	
 		
 	}
 	
 	public void engineTakeDamage(DynamicElement de){
-		de.update();
+/*		de.update();
 		update();
 		engine -= de.getWeapons();
 		if(engine <= 0){
 			engine=0;
 		}
-		de.attack(this);
+*/		de.attack(this,"engine");
 	}
 
 	/*
@@ -125,18 +125,18 @@ public class DynamicElement extends Element {
 		}
 	}
 	
-	public void attack(DynamicElement de){
-		target=de;
-		this.getDAH().moveTo(de.getX(), de.getY(), 100, 3);
+	public void attack(DynamicElement de,String attacked){
+//		target=de;
+		this.getDAH().attack(this, de, attacked);
 	}
-	public DynamicElement getTarget() {
+/*	public DynamicElement getTarget() {
 		return target;
 	}
 
 	public void setTarget(DynamicElement target) {
 		this.target = target;
 	}
-
+*/
 	public DynamicElement getLaser1() {
 		return laser1;
 	}
@@ -175,6 +175,7 @@ public class DynamicElement extends Element {
 			g.fillRect(x-viewRect.getX(), y-viewRect.getY(), width, height);
 			return;
 		}
+		if(!dead)
 	    dah.draw(g, viewRect);
 	    if(hb!=null)
 	    	hb.draw(g,viewRect);
