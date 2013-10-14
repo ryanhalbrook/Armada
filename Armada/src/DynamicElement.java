@@ -274,4 +274,8 @@ public class DynamicElement extends Element {
 		this.canAttack = canAttack;
 	}
 
+	public int getMoved() {
+		return moved;
+	}
+
 }

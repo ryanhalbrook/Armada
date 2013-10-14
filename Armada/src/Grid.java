@@ -23,9 +23,9 @@ public class Grid {
     	elements = new ArrayList<Element>();
     	delements = new ArrayList<DynamicElement>();
     	menus = new ArrayList<Menu>();
-		Ship s = new NormalShip(130,130,1);
+		Ship s = new NormalShip(750,330,1);
 		delements.add(s);
-		Ship s2 = new NormalShip(160,160,2);
+		Ship s2 = new NormalShip(160,330,2);
 		delements.add(s2);
 		ap = inAP;
     }
@@ -61,7 +61,6 @@ public class Grid {
 		mode=i;
 		if(mode==0){
 			activeE=null;
-			System.out.println("////////////NULL//////////");
 		}
 	}
 	
@@ -116,7 +115,7 @@ public class Grid {
 				//System.out.println("x, y:" + inX + ", " + inY);
 					for (DynamicElement d : delements) {
 						//System.out.println("looking for ship 1");
-						if(d.isIn(inX,inY) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(d)){
+						if(d.isIn(inX,inY) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(inX,inY)){
 							//System.out.println("looking for ship 2");
 							d.hullTakeDamage(activeE);
 							System.out.println("Hull now at: "+d.getHull());
@@ -297,5 +296,24 @@ public class Grid {
 			g.setColor(Color.WHITE);
 			g.drawString("No Ship Selected", 30, 145);
 		}
+		
+		//I intend for this part to be its own class, but I haven't decided how I want it to work with Grid yet
+		////////////
+		if(activeE != null){
+			int dx= ap.getWidth() - 150;
+			int dy= ap.getHeight() - 90;
+			g.setColor(Color.WHITE);
+			g.drawString("Hull: " + activeE.getHull(), dx, dy);
+			g.drawString("Engine: " + activeE.getEngine(), dx, dy+15);
+			g.drawString("Damage: " + activeE.getWeapons(), dx, dy+30);	
+			g.drawString("Speed: " + activeE.getSpeed(), dx, dy+45);
+			g.drawString("Movement Left: " + (activeE.getSpeed() - activeE.getMoved()), dx, dy+60);
+			g.drawString("Can Attack: " + activeE.canAttack(), dx, dy+75);	
+		}
+		
+		
+		
+		///////////
+		
 	} // End of draw
 }
