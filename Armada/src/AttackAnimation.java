@@ -122,8 +122,17 @@ public class AttackAnimation implements Runnable {
 					}
 				}
 				de.getOwner().setAttack(false);
-				de.getOwner().setLaser1(null);
-				de.getOwner().setLaser2(null);
+			/*	try {
+					Thread.sleep(10000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if(de!=null){
+					de.getOwner().setLaser1(null);
+					de.getOwner().setLaser2(null);
+				}
+			*/
 			}
 			
 		}
