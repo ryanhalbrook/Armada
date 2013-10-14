@@ -61,6 +61,7 @@ public class Grid {
 		mode=i;
 		if(mode==0){
 			activeE=null;
+			System.out.println("////////////NULL//////////");
 		}
 	}
 	
@@ -85,12 +86,10 @@ public class Grid {
 				inX += viewRegion.getX(); inY += viewRegion.getY();
 				System.out.println("x, y:" + inX + ", " + inY);
 				for (DynamicElement d : delements) {
-					//System.out.println("looking for ship 1");
 					if(d.isIn(inX,inY) && d.getAlliance()==turn){
-						//System.out.println("looking for ship 2");
 						activeE=d;
-						//mode = 1;
-						menus.add(d.getMenu());
+						return;
+						//menus.add(d.getMenu());
 						
 					}
 				}
@@ -123,7 +122,7 @@ public class Grid {
 							System.out.println("Hull now at: "+d.getHull());
 							
 							activeE.setCanAttack(false);
-							mode = 0;
+							setMode(0);
 							return;
 						}
 					}
@@ -141,7 +140,7 @@ public class Grid {
 							d.engineTakeDamage(activeE);
 							System.out.println("Engines now at: "+d.getEngine());
 							activeE.setCanAttack(false);
-							mode = 0;
+							setMode(0);
 							return;
 						}
 					}
@@ -253,23 +252,23 @@ public class Grid {
 			g.drawString("Ship selected: 1-Move; 2-Attack Hull; 3-Attack Engines; 0-Unselect;", 30, 45);
 		}
 		
-		if (mode != 0 && activeE!=null) {
+		if (activeE!=null) {
 		    
 		    int shipX = activeE.getX();
 		    int shipY = activeE.getY();
 		    Stroke s = g2d.getStroke();
 		    float array[] = {10.0f};
 		    g2d.setStroke(new BasicStroke(2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1.0f, array, 0.0f));
-		    if(mode==1 && activeE!=null && activeE.withinMovement(currentX + viewRegion.getX(),currentY + viewRegion.getY()) && activeE.canMove()){
+		    if(mode==1 && activeE.withinMovement(currentX + viewRegion.getX(),currentY + viewRegion.getY()) && activeE.canMove()){
 		    	g.setColor(Color.BLUE);
 		    }
 		    else if(mode == 1 && activeE!=null){
 		    	g.setColor(Color.RED);
 		    }
-		    else if((mode == 2 || mode == 3) && activeE!=null && activeE.withinRange(currentX + viewRegion.getX(),currentY + viewRegion.getY()) && activeE.canAttack()){
+		    else if((mode == 2 || mode == 3) && activeE.withinRange(currentX + viewRegion.getX(),currentY + viewRegion.getY()) && activeE.canAttack()){
 		    	g.setColor(Color.YELLOW);
 		    }
-		    else if((mode == 2 || mode == 3) && activeE!=null){
+		    else if((mode == 2 || mode == 3)){
 		    	g.setColor(Color.RED);
 		    }
 		    g.drawLine(shipX-viewRegion.getX(), shipY-viewRegion.getY(), currentX, currentY);
@@ -281,7 +280,7 @@ public class Grid {
 		    
 		    switch(mode){
 		    case 0:
-		    	g.drawString("No ship selected", 30, 145);
+		    	g.drawString("No Move Selected", 30, 145);
 		    	break;
 		    case 1:
 		    	g.drawString("Move initiated", 30, 145);
@@ -292,9 +291,11 @@ public class Grid {
 		    case 3:
 		    	g.drawString("Attacking Engine", 30, 145);
 		    	break;
-		    }
-		    
-		    
+		    }   
+		}
+		else{
+			g.setColor(Color.WHITE);
+			g.drawString("No Ship Selected", 30, 145);
 		}
 	} // End of draw
 }
