@@ -40,9 +40,14 @@ public class AttackAnimation implements Runnable {
 			int deltaX=moveX-de.getX();
 			int deltaY=moveY-de.getY();
 			de.getDAH().setAngleLeft(ra);
-			de.getDAH().setMoveXLeft(deltaX);
-			de.getDAH().setMoveYLeft(deltaY);
-			
+			if(deltaX<0)
+				de.getDAH().setMoveXLeft(deltaX+de.getWidth()/4);
+			else
+				de.getDAH().setMoveXLeft(deltaX-de.getWidth()/4);
+			if(deltaY<0)
+				de.getDAH().setMoveYLeft(deltaY+de.getWidth()/4);
+			else
+				de.getDAH().setMoveYLeft(deltaY-de.getWidth()/4);
 			if(mode==2)
 			{
 				double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
@@ -62,15 +67,15 @@ public class AttackAnimation implements Runnable {
 							mode=0;
 							double dx=de.getWidth()/4.0;
 							double dy=de.getHeight()/2.0;
-							double angle1=Math.toRadians(de.getAngle()+Math.atan2(dx, dy));
-							double angle2=Math.toRadians(de.getAngle()-Math.atan2(dx, dy));
+							double angle1=Math.toRadians(de.getAngle()+Math.toDegrees(Math.atan2(dx, dy)));
+							double angle2=Math.toRadians(de.getAngle()-Math.toDegrees(Math.atan2(dx, dy)));
 							int x1=de.getX()+ (int)(Math.sqrt(Math.pow(dx, 2)+Math.pow(dy,2))*Math.cos(angle1));
 							int y1=de.getY()+ (int)(Math.sqrt(Math.pow(dx, 2)+Math.pow(dy,2))*Math.sin(angle1));
 							int x2=de.getX()+ (int)(Math.sqrt(Math.pow(dx, 2)+Math.pow(dy,2))*Math.cos(angle2));
 							int y2=de.getY()+ (int)(Math.sqrt(Math.pow(dx, 2)+Math.pow(dy,2))*Math.sin(angle2));
 							
-							de.setLaser1(new DynamicElement(x1, y1, 40, 10, "fighter_red", 0));
-							de.setLaser2(new DynamicElement(x2, y2, 40, 10, "fighter_blue", 0));
+							de.setLaser1(new DynamicElement(x1, y1, 40, 5, "laser", 0));
+							de.setLaser2(new DynamicElement(x2, y2, 40, 5, "laser", 0));
 							de.getLaser1().setOwner(de);
 							de.getLaser2().setOwner(de);
 							de.getLaser1().getDAH().attack(de.getLaser1(),target,2,attacked);
@@ -101,7 +106,7 @@ public class AttackAnimation implements Runnable {
 				if(attacked.equals("hull")){
 					target.update();
 					de.getOwner().update();
-					target.setHull(target.getHull()-de.getOwner().getWeapons());;
+					target.setHull(target.getHull()-de.getOwner().getWeapons()/2);
 					if(target.getHull() <= 0){
 						target.setHull(0);
 						target.setDead(true);
@@ -110,7 +115,7 @@ public class AttackAnimation implements Runnable {
 				else if(attacked.equals("engine")){
 					target.update();
 					de.getOwner().update();
-					target.setEngine(target.getEngine()-de.getOwner().getWeapons());;
+					target.setEngine(target.getEngine()-de.getOwner().getWeapons()/2);
 					if(target.getEngine() <= 0){
 						target.setEngine(0);
 
