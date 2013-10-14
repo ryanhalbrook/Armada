@@ -71,26 +71,7 @@ public class MoveAnimation implements Runnable {
 					else if(mode==1){
 						status=0;
 					}
-				/*	else{
-						status=0;
-						double dx=de.getWidth()/4.0;
-						double dy=de.getHeight()/2.0;
-						double angle1=Math.toRadians(de.getAngle()+Math.atan2(dx, dy));
-						double angle2=Math.toRadians(de.getAngle()-Math.atan2(dx, dy));
-						int x1=de.getX()+ (int)(Math.sqrt(Math.pow(dx, 2)+Math.pow(dy,2))*Math.cos(angle1));
-						int y1=de.getY()+ (int)(Math.sqrt(Math.pow(dx, 2)+Math.pow(dy,2))*Math.sin(angle1));
-						int x2=de.getX()+ (int)(Math.sqrt(Math.pow(dx, 2)+Math.pow(dy,2))*Math.cos(angle2));
-						int y2=de.getY()+ (int)(Math.sqrt(Math.pow(dx, 2)+Math.pow(dy,2))*Math.sin(angle2));
-						
-						de.setLaser1(new DynamicElement(x1, y1, 40, 10, "fighter_red", 0));
-						de.setLaser2(new DynamicElement(x2, y2, 40, 10, "fighter_blue", 0));
-						de.getLaser1().setOwner(de);
-						de.getLaser2().setOwner(de);
-						de.getLaser1().getDAH().moveTo(de.getTarget().getX(), de.getTarget().getY(),100,2);
-						de.getLaser2().getDAH().moveTo(de.getTarget().getX(), de.getTarget().getY(),100,2);
-						de.setAttack(true);
-					}
-			*/}
+			}
 			else if(status==2 && !de.getDAH().moveHelper(deltaX, deltaY, mvTime)){
 				status=0;
 			}
@@ -100,7 +81,7 @@ public class MoveAnimation implements Runnable {
         	} catch (InterruptedException e) {
         		e.printStackTrace();
         	}
-        	//de.getDAH().draw(g, rect);
+        	
 		}
 		double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
 		if(angle<0)
@@ -114,12 +95,7 @@ public class MoveAnimation implements Runnable {
 		de.getDAH().setMoveXLeft(0);
 		de.getDAH().setMoveYLeft(0);
 		de.getDAH().setMoving(false);
-/*		if(de!=null&&de.getOwner()!=null){
-			de.getOwner().setAttack(false);
-			de.getOwner().setLaser1(null);
-			de.getOwner().setLaser2(null);
-		}
-*/		
+
 	}
 
 }

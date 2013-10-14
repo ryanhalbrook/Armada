@@ -26,7 +26,7 @@ public class MainMenuPanel extends JPanel implements ActionListener{
         buttonsPanel.setOpaque(false);
         this.add(buttonsPanel, BorderLayout.SOUTH);
         //this.setBackground(Color.BLACK);
-        File f = new File("ArmadaLogo.jpg");
+        File f = new File("src/ArmadaLogo.jpg");
         backgroundImage = loadImage(f);
     }
     public void actionPerformed(ActionEvent evt) {

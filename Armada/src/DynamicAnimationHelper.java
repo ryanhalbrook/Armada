@@ -38,6 +38,7 @@ public class DynamicAnimationHelper{
 	private boolean moving;
 	
 	private final double ANGLE_PER_FRAME=2;
+	private final double MOVE_PER_FRAME=5;
 	
 	public DynamicAnimationHelper(DynamicElement el){
 		e=el;
@@ -150,6 +151,60 @@ public class DynamicAnimationHelper{
 		if(dy!=0 && (double)moveYLeft/dy>0){
 			
 			moveVar[1]+=dy/((double)t);
+			
+			int temp2=0;
+			if(Math.abs(moveVar[1])<0)
+				temp2=0;
+			else{
+				temp2=(int)moveVar[1];
+				moveVar[1]-=temp2;
+			}
+			
+			e.setY(e.getY()+temp2);
+			
+			moveYLeft-=temp2;
+		}
+		else
+			doneMovingY=true;
+		System.out.println("xl= "+moveXLeft+" yl= "+moveYLeft);
+		if ((doneMovingY&&doneMovingX)){
+			moveVar[0]=0;
+			moveVar[1]=0;
+			moving=false;
+			return false;
+		}
+		return true;
+			
+		
+	}
+	
+	public boolean moveHelper2(int dx, int dy){
+		boolean doneMovingX=false;
+		boolean doneMovingY=false;
+		if(dx!=0 && (double)moveXLeft/dx>0){
+			if(dx<0)
+				moveVar[0]-=MOVE_PER_FRAME*Math.abs(Math.cos(Math.atan2(dy, dx)));
+			else
+				moveVar[0]+=MOVE_PER_FRAME*Math.abs(Math.cos(Math.atan2(dy, dx)));
+			int temp=0;
+			if(Math.abs(moveVar[0])<0)
+				temp=0;
+			else{
+				temp=(int)moveVar[0];
+				moveVar[0]-=temp;
+			}
+			e.setX(e.getX()+temp);
+			
+			moveXLeft-=temp;
+		}
+		else
+			doneMovingX=true;
+		if(dy!=0 && (double)moveYLeft/dy>0){
+			
+			if(dy<0)
+				moveVar[1]-=MOVE_PER_FRAME*Math.abs(Math.sin(Math.atan2(dy, dx)));
+			else
+				moveVar[1]+=MOVE_PER_FRAME*Math.abs(Math.sin(Math.atan2(dy, dx)));
 			
 			int temp2=0;
 			if(Math.abs(moveVar[1])<0)

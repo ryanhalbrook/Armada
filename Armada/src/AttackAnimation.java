@@ -41,13 +41,13 @@ public class AttackAnimation implements Runnable {
 			int deltaY=moveY-de.getY();
 			de.getDAH().setAngleLeft(ra);
 			if(deltaX<0)
-				de.getDAH().setMoveXLeft(deltaX+de.getWidth()/4);
+				de.getDAH().setMoveXLeft(deltaX+(int)(de.getWidth()/2.0*Math.abs(Math.cos(Math.atan2(deltaY, deltaX)))));
 			else
-				de.getDAH().setMoveXLeft(deltaX-de.getWidth()/4);
+				de.getDAH().setMoveXLeft(deltaX-(int)(de.getWidth()/2.0*Math.abs(Math.cos(Math.atan2(deltaY, deltaX)))));
 			if(deltaY<0)
-				de.getDAH().setMoveYLeft(deltaY+de.getWidth()/4);
+				de.getDAH().setMoveYLeft(deltaY+(int)(de.getWidth()/2.0*Math.abs(Math.sin(Math.atan2(deltaY, deltaX)))));
 			else
-				de.getDAH().setMoveYLeft(deltaY-de.getWidth()/4);
+				de.getDAH().setMoveYLeft(deltaY-(int)(de.getWidth()/2.0*Math.abs(Math.sin(Math.atan2(deltaY, deltaX)))));
 			if(mode==2)
 			{
 				double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
@@ -83,7 +83,7 @@ public class AttackAnimation implements Runnable {
 							de.setAttack(true);
 						
 				}
-				else if(mode==2 && !de.getDAH().moveHelper(deltaX, deltaY, mvTime)){
+				else if(mode==2 && !de.getDAH().moveHelper2(deltaX, deltaY)){
 					mode=0;
 				}
 				try {
@@ -91,7 +91,7 @@ public class AttackAnimation implements Runnable {
 	        	} catch (InterruptedException e) {
 	        		e.printStackTrace();
 	        	}
-	        	//de.getDAH().draw(g, rect);
+	        	
 			}
 			double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
 			if(angle<0)
