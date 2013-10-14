@@ -85,7 +85,7 @@ public class Grid {
 				inX += viewRegion.getX(); inY += viewRegion.getY();
 				System.out.println("x, y:" + inX + ", " + inY);
 				for (DynamicElement d : delements) {
-					if(d.isIn(inX,inY) && d.getAlliance()==turn){
+					if(d.isIn(inX,inY) /*&& d.getAlliance()==turn*/){
 						activeE=d;
 						return;
 						//menus.add(d.getMenu());
@@ -96,7 +96,7 @@ public class Grid {
 			
 		}
 		/////
-		if(activeE==null){
+		if(activeE==null || activeE.getAlliance()!=turn){
 			return;
 		}
 		if(mode == 1){
