@@ -85,7 +85,7 @@ public class Grid {
 				inX += viewRegion.getX(); inY += viewRegion.getY();
 				System.out.println("x, y:" + inX + ", " + inY);
 				for (DynamicElement d : delements) {
-					if(d.isIn(inX,inY) /*&& d.getAlliance()==turn*/){
+					if(d.isIn(inX,inY)){
 						activeE=d;
 						return;
 						//menus.add(d.getMenu());
@@ -102,7 +102,7 @@ public class Grid {
 		if(mode == 1){
 			//move
 			inX += viewRegion.getX(); inY += viewRegion.getY();
-			if(activeE.withinMovement(inX,inY) && activeE.canMove()){
+			if(activeE.withinMovement(inX,inY) && activeE.canMovePath(inX,inY, delements)){
 				activeE.moveTo(inX, inY);
 				setMode(0);
 			}
@@ -258,10 +258,10 @@ public class Grid {
 		    Stroke s = g2d.getStroke();
 		    float array[] = {10.0f};
 		    g2d.setStroke(new BasicStroke(2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1.0f, array, 0.0f));
-		    if(mode==1 && activeE.withinMovement(currentX + viewRegion.getX(),currentY + viewRegion.getY()) && activeE.canMove()){
+		    if(mode==1 && activeE.canMovePath(currentX + viewRegion.getX(),currentY + viewRegion.getY(), delements) && activeE.canMove()){
 		    	g.setColor(Color.BLUE);
 		    }
-		    else if(mode == 1 && activeE!=null){
+		    else if(mode == 1){
 		    	g.setColor(Color.RED);
 		    }
 		    else if((mode == 2 || mode == 3) && activeE.withinRange(currentX + viewRegion.getX(),currentY + viewRegion.getY()) && activeE.canAttack()){

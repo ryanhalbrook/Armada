@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.ArrayList;
 
 
 /*
@@ -61,7 +62,52 @@ public class DynamicElement extends Element {
 	}
 	
 	
-	
+	public boolean canMovePath(int inX, int inY, ArrayList<DynamicElement> delements){
+		if(this.canMove() && this.withinMovement(inX, inY)){
+			double cx = x,cy=y;
+			double s = (double)Math.abs((double)inY-(double)y)/(double)Math.abs((double)inX-(double)x);
+			while((cx<inX && x<inX) || (cx>inX && x>inX) || (cy<inY && y<inY) || (cy>inY && y>inY) ){
+				
+				for(DynamicElement d: delements){
+					System.out.println(x+", "+y+" to " + inX + ", " + inY + " at " + cx +", " + cy + " S=" + s);
+					if(d.isIn((int)cx, (int)cy) && d!=this){
+						System.out.println("false");
+						return false;
+					}
+				}
+				if(inX < x){
+					if(s>1){
+						cx -=(double)1/s;
+					}
+					else cx--;
+				}
+				else{
+					if(s>1){
+						cx += (double)1/s;
+					}
+					else cx++;
+				}
+				
+				if(inY < y){
+					if(s<1){
+						cy -=(double)s;
+					}
+					else cy--;
+				}
+				else{
+					if(s<1){
+						cy += (double)s;
+					}
+					else cy++;
+				}
+				System.out.println("true");
+					
+			}
+				return true;
+		}
+		System.out.println("false");
+		return false;
+	}
 
 	public void hullTakeDamage(DynamicElement de){
 		de.attack(this,"hull");
