@@ -60,6 +60,24 @@ public class DynamicElement extends Element {
 		hb = new HealthBar(this);
 		}
 	}
+	/*
+	 * method in making.  trying to get canMovePath() to be more efficient
+	 */
+	public boolean canMovePath2(int inX, int inY, ArrayList<DynamicElement> delements){
+		if(this.canMove() && this.withinMovement(inX, inY)){
+			Rectangle rect = new Rectangle(inX,inY,inX-x,inY-y);
+			//double cx = x,cy=y;
+			double s = (double)Math.abs((double)inX-(double)x)/(double)Math.abs((double)inY-(double)y);
+			for(DynamicElement d: delements){
+				if(rect.isIn(d.getX(), d.getY())){
+					if(rect.getWidth()<= this.getWidth() && rect.getHeight()<=this.getHeight()) return false;
+					//return canMovePath2((int)(((double)rect.getHeight()/4) * (double)s),d.getY()+rect.getHeight()/4, 3, rect.getHeight()/2);
+				}
+			}
+			return true;
+		}
+		return false;
+	}
 	
 	
 	public boolean canMovePath(int inX, int inY, ArrayList<DynamicElement> delements){
@@ -69,9 +87,9 @@ public class DynamicElement extends Element {
 			while((cx<inX && x<inX) || (cx>inX && x>inX) || (cy<inY && y<inY) || (cy>inY && y>inY) ){
 				
 				for(DynamicElement d: delements){
-					System.out.println(x+", "+y+" to " + inX + ", " + inY + " at " + cx +", " + cy + " S=" + s);
+					//System.out.println(x+", "+y+" to " + inX + ", " + inY + " at " + cx +", " + cy + " S=" + s);
 					if(d.isIn((int)cx, (int)cy) && d!=this){
-						System.out.println("false");
+						//System.out.println("false");
 						return false;
 					}
 				}
@@ -100,12 +118,12 @@ public class DynamicElement extends Element {
 					}
 					else cy++;
 				}
-				System.out.println("true");
+				//System.out.println("true");
 					
 			}
 				return true;
 		}
-		System.out.println("false");
+		//System.out.println("false");
 		return false;
 	}
 

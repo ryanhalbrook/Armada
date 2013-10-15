@@ -258,7 +258,7 @@ public class Grid {
 		    Stroke s = g2d.getStroke();
 		    float array[] = {10.0f};
 		    g2d.setStroke(new BasicStroke(2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1.0f, array, 0.0f));
-		    if(mode==1 && activeE.canMovePath(currentX + viewRegion.getX(),currentY + viewRegion.getY(), delements) && activeE.canMove()){
+		    if(mode==1 && activeE.withinMovement(currentX + viewRegion.getX(),currentY + viewRegion.getY()) && activeE.canMove()){
 		    	g.setColor(Color.BLUE);
 		    }
 		    else if(mode == 1){
