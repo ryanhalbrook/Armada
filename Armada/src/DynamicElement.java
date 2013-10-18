@@ -285,6 +285,10 @@ public class DynamicElement extends Element {
 	public int getSpeed() {
 		return speed;
 	}
+	
+	public int getAdjustedSpeed(){
+		return (int)((double)speed * ((double)engine/(double)maxEngine));
+	}
 
 	public void setSpeed(int s) {
 		speed = s;

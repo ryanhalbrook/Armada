@@ -167,7 +167,7 @@ public class Grid {
 				//System.out.println("x, y:" + inX + ", " + inY);
 					for (DynamicElement d : delements) {
 						//System.out.println("looking for ship 1");
-						if(d.isIn(inX,inY) && d.getAlliance()!=activeE.getAlliance() && d.isTargetable()){
+						if(d.isIn(inX,inY) && d.getAlliance()!=activeE.getAlliance() && d.isTargetable() && d.getEngine()>0){
 							//System.out.println("looking for ship 2");
 							d.engineTakeDamage(activeE);
 							System.out.println("Engines now at: "+d.getEngine());
@@ -341,8 +341,8 @@ public class Grid {
 			g.drawString("Hull: " + activeE.getHull(), dx, dy);
 			g.drawString("Engine: " + activeE.getEngine(), dx, dy+15);
 			g.drawString("Damage: " + activeE.getWeapons(), dx, dy+30);	
-			g.drawString("Speed: " + activeE.getSpeed(), dx, dy+45);
-			g.drawString("Movement Left: " + (activeE.getSpeed() - activeE.getMoved()), dx, dy+60);
+			g.drawString("Speed: " + activeE.getAdjustedSpeed(), dx, dy+45);
+			g.drawString("Movement Left: " + (activeE.getAdjustedSpeed() - activeE.getMoved()), dx, dy+60);
 			g.drawString("Can Attack: " + activeE.canAttack(), dx, dy+75);	
 		}
 		
