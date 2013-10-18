@@ -74,6 +74,13 @@ public class Grid {
 		activeE=temp;
 	}
 	
+	public void nextMode(){
+		mode++;
+		if(mode > 3){
+			mode=0;
+		}
+	}
+	
 	/*
 	 * @param e1 DynamicElement who's range is used for calculation
 	 * @param e2 DynamicElement which is calculated to be within range of DynamicElement e1
@@ -286,10 +293,16 @@ public class Grid {
 		    else if(mode == 1){
 		    	g.setColor(Color.RED);
 		    }
-		    else if((mode == 2 || mode == 3) && activeE.withinRange(currentX + viewRegion.getX(),currentY + viewRegion.getY()) && activeE.canAttack()){
+		    else if((mode == 2 ) && activeE.withinRange(currentX + viewRegion.getX(),currentY + viewRegion.getY()) && activeE.canAttack()){
+		    	g.setColor(new Color(250,100,0));
+		    }
+		    else if((mode == 2 )){
+		    	g.setColor(Color.RED);
+		    }
+		    else if(( mode == 3) && activeE.withinRange(currentX + viewRegion.getX(),currentY + viewRegion.getY()) && activeE.canAttack()){
 		    	g.setColor(Color.YELLOW);
 		    }
-		    else if((mode == 2 || mode == 3)){
+		    else if(( mode == 3)){
 		    	g.setColor(Color.RED);
 		    }
 		    g.drawLine(shipX-viewRegion.getX(), shipY-viewRegion.getY(), currentX, currentY);

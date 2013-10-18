@@ -48,6 +48,8 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 		f=in;
 	}
 	*/
+	
+	//this should be a switch, not a bunch of if else
 	public void keyPressed(KeyEvent evt) {
 	    System.out.println("Key pressed");
 	    if(evt.getKeyCode() == KeyEvent.VK_LEFT) {
@@ -82,7 +84,12 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	    }
 	    else if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
 	        grid.toggleTurn();
+	    }else if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
+	        grid.selectNextDEThisTurn();
+	    }else if (evt.getKeyCode() == KeyEvent.VK_SHIFT) {
+	        grid.nextMode();
 	    }
+	    
 	}
 	
 	public void keyTyped(KeyEvent evt) {
