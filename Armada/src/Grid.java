@@ -129,7 +129,7 @@ public class Grid {
 			
 		}
 		/////
-		if(activeE==null || activeE.getAlliance()!=turn){
+		if(activeE==null || activeE.getAlliance()!=turn || !activeE.isTargetable()){
 			return;
 		}
 		if(mode == 1){
@@ -137,7 +137,7 @@ public class Grid {
 			inX += viewRegion.getX(); inY += viewRegion.getY();
 			if(activeE.withinMovement(inX,inY) && activeE.canMovePath(inX,inY, delements)){
 				activeE.moveTo(inX, inY);
-				setMode(0);
+				//setMode(0);
 			}
 			return;
 		}
@@ -154,7 +154,7 @@ public class Grid {
 							System.out.println("Hull now at: "+d.getHull());
 							
 							activeE.setCanAttack(false);
-							setMode(0);
+							//setMode(0);
 							return;
 						}
 					}
@@ -172,7 +172,7 @@ public class Grid {
 							d.engineTakeDamage(activeE);
 							System.out.println("Engines now at: "+d.getEngine());
 							activeE.setCanAttack(false);
-							setMode(0);
+							//setMode(0);
 							return;
 						}
 					}
