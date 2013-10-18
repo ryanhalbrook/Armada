@@ -1,13 +1,25 @@
 /** Defines a rectangle within the game's "grid" **/
 
 public class Rectangle {
-    int x, y, width, height;
+    protected int x, y, width, height;
     
     public Rectangle(int x, int y, int width, int height) {
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
+    	if(width<0){
+    		this.x=x+width;
+    		this.width = Math.abs(width);
+    	}
+    	else{
+    		this.x=x;
+    		this.width=width;
+    	}
+    	if(height < 0){
+    		this.y=y+height;
+    		this.height = Math.abs(height);
+    	}
+    	else{
+    		this.y=y;
+    		this.height=height;
+    	}
     }
     
     /**
@@ -22,6 +34,13 @@ public class Rectangle {
     **/
     public int distance(Rectangle r) {
         return 50; // STUB
+    }
+    
+    public boolean isIn(int inX,int inY){
+    	if(inX > x && inX < x + width && inY > y && inY < y + height){
+    		return true;
+    	}
+    	return false;
     }
     
     public int getX() { return x; }
