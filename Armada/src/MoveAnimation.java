@@ -38,6 +38,7 @@ public class MoveAnimation implements Runnable {
 	
 	@Override
 	public void run() {
+		de.setTargetable(false);
 		//System.out.println("moving to: " + x + ", " + y);
 		int mvTime=t;
 		int moveX=x;
@@ -65,6 +66,7 @@ public class MoveAnimation implements Runnable {
 			//System.out.println("a= "+getAngleLeft()+" deltaA= "+ra+" angle=" +e.getAngle());
 			//System.out.println("xl= "+getMoveXLeft()+" dx= "+deltaX+" x= "+e.getX());
 			//System.out.println("yl= "+getMoveYLeft()+" dy= "+deltaY+" y= "+e.getY());
+			
 			if((mode==0||mode==1)&&status==1&&!de.getDAH().rotate(ra)){
 					if(mode==0)
 						status=2;
@@ -96,6 +98,7 @@ public class MoveAnimation implements Runnable {
 		de.getDAH().setMoveYLeft(0);
 		de.getDAH().setMoving(false);
 
+		de.setTargetable(true);
 	}
 
 }

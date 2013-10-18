@@ -10,7 +10,7 @@ public class Grid {
     private ArrayList<Element> elements;
     private ArrayList<DynamicElement> delements;
     private  ArrayList<Menu> menus;
-    private  int mode = 0, turn = 1;
+    private  int mode = 0, turn = 1, index =0;
     private  DynamicElement activeE;
     private ArmadaPanel ap;
     private Rectangle viewRegion = new Rectangle(0, 0, 500,500); //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
@@ -25,8 +25,14 @@ public class Grid {
     	menus = new ArrayList<Menu>();
 		Ship s = new NormalShip(750,330,1);
 		delements.add(s);
-		Ship s2 = new NormalShip(160,330,2);
+		Ship s2 = new NormalShip(160,330,1);
 		delements.add(s2);
+		Ship s3 = new NormalShip(260,330,2);
+		delements.add(s3);
+		Ship s4 = new NormalShip(60,330,2);
+		delements.add(s4);
+		Ship s5 = new NormalShip(220,330,2);
+		delements.add(s5);
 		ap = inAP;
     }
     
@@ -45,8 +51,27 @@ public class Grid {
 		this.elements = elements;
 	}
 	
-	public void cancelMove() {
+	public void cancelMove() {//does not deselect ship.  use setMode(0) to do that 
 	    mode = 0;
+	}
+	
+	public void selectNextDEThisTurn(){
+		if(delements == null)return;
+		if(delements.size() <=0) return;
+		int initialIndex = index;
+		DynamicElement temp = delements.get(index);
+		do{
+			index++;
+			if(index==initialIndex){//if came full circle
+				return;
+			}
+			if(delements.size() == index){//if hit end of list
+				index=0;
+			}
+			temp=delements.get(index);
+			//if(temp.getAlliance() == turn)break;
+		}while(temp.getAlliance()!=turn || !temp.isTargetable());
+		activeE=temp;
 	}
 	
 	/*
@@ -83,10 +108,11 @@ public class Grid {
 			}
 			if(delements != null && delements.size() != 0){//selecting a ship
 				inX += viewRegion.getX(); inY += viewRegion.getY();
-				System.out.println("x, y:" + inX + ", " + inY);
+				//System.out.println("x, y:" + inX + ", " + inY);
 				for (DynamicElement d : delements) {
-					if(d.isIn(inX,inY)){
+					if(d.isIn(inX,inY) && d.isTargetable()){
 						activeE=d;
+						System.out.println("Returning");
 						return;
 						//menus.add(d.getMenu());
 						
@@ -115,7 +141,7 @@ public class Grid {
 				//System.out.println("x, y:" + inX + ", " + inY);
 					for (DynamicElement d : delements) {
 						//System.out.println("looking for ship 1");
-						if(d.isIn(inX,inY) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(inX,inY)){
+						if(d.isIn(inX,inY) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(inX,inY) && d.isTargetable()){
 							//System.out.println("looking for ship 2");
 							d.hullTakeDamage(activeE);
 							System.out.println("Hull now at: "+d.getHull());
@@ -134,7 +160,7 @@ public class Grid {
 				//System.out.println("x, y:" + inX + ", " + inY);
 					for (DynamicElement d : delements) {
 						//System.out.println("looking for ship 1");
-						if(d.isIn(inX,inY) && d.getAlliance()!=activeE.getAlliance()){
+						if(d.isIn(inX,inY) && d.getAlliance()!=activeE.getAlliance() && d.isTargetable()){
 							//System.out.println("looking for ship 2");
 							d.engineTakeDamage(activeE);
 							System.out.println("Engines now at: "+d.getEngine());
@@ -195,10 +221,7 @@ public class Grid {
 		if(delements != null && delements.size() != 0){//selecting a ship
 			for (DynamicElement d : delements) {
 				//System.out.println("looking for ship 1");
-				if(d.getAlliance()==turn){
-					d.startOfTurn();
-					return;
-				}
+				d.startOfTurn();
 			}
 		}
 	}
@@ -250,7 +273,6 @@ public class Grid {
 			g.setColor(Color.WHITE);
 			g.drawString("Ship selected: 1-Move; 2-Attack Hull; 3-Attack Engines; 0-Unselect;", 30, 45);
 		}
-		
 		if (activeE!=null) {
 		    
 		    int shipX = activeE.getX();
@@ -258,7 +280,7 @@ public class Grid {
 		    Stroke s = g2d.getStroke();
 		    float array[] = {10.0f};
 		    g2d.setStroke(new BasicStroke(2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1.0f, array, 0.0f));
-		    if(mode==1 && activeE.withinMovement(currentX + viewRegion.getX(),currentY + viewRegion.getY()) && activeE.canMove()){
+		    if(mode==1 && activeE.canMovePath(currentX + viewRegion.getX(),currentY + viewRegion.getY(),delements) && activeE.canMove()){
 		    	g.setColor(Color.BLUE);
 		    }
 		    else if(mode == 1){

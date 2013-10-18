@@ -8,14 +8,14 @@ import java.util.ArrayList;
 
 public class DynamicElement extends Element {
 
-	protected int range, hull, maxHull, engine, maxEngine, speed, alliance, targetable, weapons;
+	protected int range, hull, maxHull, engine, maxEngine, speed, alliance, weapons;
 	protected int moved = 0;
 	protected DynamicAnimationHelper dah; 
 	protected HealthBar hb;
 	protected boolean dead=false, canMove=true, canAttack=true;
 	
 	protected DynamicElement laser1,laser2,owner=null;
-	protected boolean attacking = false;
+	protected boolean attacking = false, targetable = true;
 
 	public DynamicElement(){}
 	
@@ -33,7 +33,7 @@ public class DynamicElement extends Element {
 			break;
 		}
 		alliance=all;
-		targetable=1;
+		targetable=true;
 		
 		dah = new DynamicAnimationHelper(this);
 		if(all!=0){
@@ -53,7 +53,7 @@ public class DynamicElement extends Element {
 			break;
 		}
 		alliance=all;
-		targetable=1;
+		targetable=true;
 		
 		dah = new DynamicAnimationHelper(this);
 		if(all!=0){
@@ -298,11 +298,11 @@ public class DynamicElement extends Element {
 		alliance = all;
 	}
 
-	public int getTargetable() {
+	public boolean isTargetable() {
 		return targetable;
 	}
 
-	public void setTargetable(int t) {
+	public void setTargetable(boolean t) {
 		targetable = t;
 	}
 
