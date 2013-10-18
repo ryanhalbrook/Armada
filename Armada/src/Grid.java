@@ -58,6 +58,7 @@ public class Grid {
 	public void selectNextDEThisTurn(){
 		if(delements == null)return;
 		if(delements.size() <=0) return;
+		if(index >= delements.size()) index=0;
 		int initialIndex = index;
 		DynamicElement temp = delements.get(index);
 		do{
