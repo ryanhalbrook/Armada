@@ -136,6 +136,7 @@ public class Grid {
 				//System.out.println("x, y:" + inX + ", " + inY);
 				for (DynamicElement d : delements) {
 					if(d.isIn(inX,inY) && d.isTargetable()){
+					    mode = 1;
 						activeE=d;
 						System.out.println("Returning");
 						return;
@@ -333,7 +334,7 @@ public class Grid {
 		*/
 		if(activeE!=null){
 			g.setColor(Color.WHITE);
-			g.drawString("1-Move; 2-Attack Hull; 3-Attack Engines; 0-Unselect;", 5, 15);
+			g.drawString("1-Move; 2-Attack Hull; 3-Attack Engines; 4-Unselect;", 5, 15);
 		}
 		
 		if (activeE!=null) {
@@ -344,7 +345,7 @@ public class Grid {
 		    float array[] = {10.0f};
 		    g2d.setStroke(new BasicStroke(2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1.0f, array, 0.0f));
 		    if(mode==1 && activeE.canMovePath(currentX + viewRegion.getX(),currentY + viewRegion.getY(),delements) && activeE.canMove()){
-		    	g.setColor(Color.BLUE);
+		    	g.setColor(Color.GREEN);
 		    }
 		    else if(mode == 1){
 		    	g.setColor(Color.RED);
