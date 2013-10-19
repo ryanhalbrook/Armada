@@ -1,6 +1,9 @@
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.*;
+import java.io.*;
+import javax.imageio.ImageIO;
+import java.awt.image.*;
 /*
  * Grid paints, moves, stores, and keeps track of everything visual on the panel
  * ie, ships, planets, everything below the frame/menus and above the background
@@ -16,6 +19,9 @@ public class Grid {
     private Rectangle viewRegion = new Rectangle(0, 0, 500,500); //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
     Color player1Color = new Color(1.0f, 0.0f, 0.0f, 0.5f);
     Color player2Color = new Color(0.0f, 0.0f, 1.0f, 0.5f);
+    BufferedImage backgroundImage = null;
+    static final int GRID_WIDTH = 3840;
+    static final int GRID_HEIGHT = 2160;
 
     private int currentX = 0;
     private int currentY = 0;
@@ -35,6 +41,10 @@ public class Grid {
 		Ship s5 = new NormalShip(220,330,2);
 		delements.add(s5);
 		ap = inAP;
+		backgroundImage = loadImage(new File("ArmadaBackground2.jpg"));
+		if (backgroundImage == null) {
+		    backgroundImage = loadImage(new File("src/ArmadaBackground2.jpg"));
+		}
     }
     
     public void moveViewRegion(int x, int y) {
@@ -42,6 +52,12 @@ public class Grid {
         viewRegion.setY(viewRegion.getY()+y);
         if (viewRegion.getX() < 0) viewRegion.setX(0);
         if (viewRegion.getY() < 0) viewRegion.setY(0);
+        if (viewRegion.getX() + ap.getWidth() > GRID_WIDTH) {
+            viewRegion.setX(GRID_WIDTH - ap.getWidth());
+        }
+        if (viewRegion.getY() + ap.getHeight() > GRID_HEIGHT) {
+            viewRegion.setY(GRID_HEIGHT - ap.getHeight());
+        }
     }
     
     public Rectangle getViewRegion() {
@@ -235,10 +251,32 @@ public class Grid {
 		}
 	}
 	
+	private void drawMiniMap(Graphics g) {
+	    g.setColor(new Color(1.0f, 1.0f, 1.0f, 0.5f));
+		int miniMapWidth = 250;
+		int miniMapHeight = 125;
+		int x = ap.getWidth()-5-miniMapWidth;
+		int y = ap.getHeight()-5-miniMapHeight;
+		g.fillRect(x, y, miniMapWidth, miniMapHeight);
+		
+		int insetWidth = (int)((ap.getWidth() / (float)GRID_WIDTH)*(miniMapWidth*1.0));
+		int insetHeight = (int)((ap.getHeight() / (float)GRID_HEIGHT)*(miniMapHeight*1.0));
+		double dxf = (miniMapWidth*1.0)*(viewRegion.getX()/(GRID_WIDTH*1.0));
+		double dyf = (miniMapHeight*1.0)*(viewRegion.getY()/(GRID_HEIGHT*1.0));
+		
+		int dx = (int)dxf; int dy = (int)dyf;
+		g.setColor(Color.BLACK);
+		g.fillRect(x+dx, y+dy, insetWidth+1, insetHeight+1);
+	}
+	
 	/*
 	 * draws everything on the Grid
 	 */
 	public void draw(Graphics g){
+	    if (backgroundImage != null) {
+	        g.drawImage(backgroundImage, -viewRegion.getX(), -viewRegion.getY(), null);
+	    }
+	
 	    Color currentPlayerColor = Color.WHITE;
 	    String playerName = "";
 	    if (turn == 1) {
@@ -282,12 +320,7 @@ public class Grid {
 		int textWidth = fm.stringWidth(playerName);
 		g.drawString(playerName, ap.getWidth() - 5 - textWidth, 15);
 		
-		g.setColor(Color.WHITE);
-		g.fillRect(30, 100, 25, 25);
-		int x = (int)(viewRegion.getX() / 25.0);
-		int y = (int)(viewRegion.getY() / 25.0);
-		g.setColor(Color.BLACK);
-		g.fillRect(30+x, 100+y, 5, 5);
+		drawMiniMap(g);
 		/**
 		if(turn==1){
 			g.setColor(Color.RED);
@@ -374,4 +407,16 @@ public class Grid {
 		///////////
 		
 	} // End of draw
+	
+	private static BufferedImage loadImage(File f) {
+        BufferedImage bi = null;
+        try {
+            bi = ImageIO.read(f);
+        } catch (IOException e) {
+            System.out.println("Failed to load background image");
+        }
+        return bi;
+        
+    }
 }
+
