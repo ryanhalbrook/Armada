@@ -6,6 +6,7 @@ import javax.swing.JFrame;
  */
 
 public class Game {
+    static final boolean DEBUG = false;
 
 	/**
 	 * @param args

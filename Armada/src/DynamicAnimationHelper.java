@@ -166,7 +166,7 @@ public class DynamicAnimationHelper{
 		}
 		else
 			doneMovingY=true;
-		System.out.println("xl= "+moveXLeft+" yl= "+moveYLeft);
+		if (Game.DEBUG) System.out.println("xl= "+moveXLeft+" yl= "+moveYLeft);
 		if ((doneMovingY&&doneMovingX)){
 			moveVar[0]=0;
 			moveVar[1]=0;

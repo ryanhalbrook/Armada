@@ -14,7 +14,8 @@ public class Grid {
     private  DynamicElement activeE;
     private ArmadaPanel ap;
     private Rectangle viewRegion = new Rectangle(0, 0, 500,500); //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
-
+    Color player1Color = new Color(1.0f, 0.0f, 0.0f, 0.5f);
+    Color player2Color = new Color(0.0f, 0.0f, 1.0f, 0.5f);
 
     private int currentX = 0;
     private int currentY = 0;
@@ -238,6 +239,16 @@ public class Grid {
 	 * draws everything on the Grid
 	 */
 	public void draw(Graphics g){
+	    Color currentPlayerColor = Color.WHITE;
+	    String playerName = "";
+	    if (turn == 1) {
+	        currentPlayerColor = player1Color;
+	        playerName = "Player 1";
+	    } else {
+	        currentPlayerColor = player2Color;
+	        playerName = "Player 2";
+	    }
+	
 	    if (mode == 0) {
 	        ap.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	    } else {
@@ -263,12 +274,19 @@ public class Grid {
 			}
 		}
 		
+		// Current Player Indicator
+		g.setColor(currentPlayerColor);
+		g.fillRect(0, 0, ap.getWidth(), 20);
+		g.setColor(Color.WHITE);
+		g.drawString(playerName + "'s turn", 5, 15);
+		
 		g.setColor(Color.WHITE);
 		g.fillRect(30, 100, 25, 25);
 		int x = (int)(viewRegion.getX() / 25.0);
 		int y = (int)(viewRegion.getY() / 25.0);
 		g.setColor(Color.BLACK);
 		g.fillRect(30+x, 100+y, 5, 5);
+		/**
 		if(turn==1){
 			g.setColor(Color.RED);
 			g.drawString("Player 1's turn - Press ESC to end turn", 30, 15);
@@ -277,10 +295,12 @@ public class Grid {
 			g.setColor(Color.BLUE);
 			g.drawString("Player 2's turn  - Press ESC to end turn", 30, 15);
 		}
+		*/
 		if(activeE!=null){
 			g.setColor(Color.WHITE);
 			g.drawString("Ship selected: 1-Move; 2-Attack Hull; 3-Attack Engines; 0-Unselect;", 30, 45);
 		}
+		
 		if (activeE!=null) {
 		    
 		    int shipX = activeE.getX();
