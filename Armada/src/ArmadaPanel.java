@@ -16,6 +16,9 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	Menu focusMenu;
 	Timer refreshTimer = new Timer(20, this);
 	int turn;
+	boolean moveMode = false;
+	int lastX = -1;
+	int lastY = -1;
 	
 	public ArmadaPanel(ApplicationManager am, GameManager gm) {
 	    //grid = new Grid(gm.getElements());
@@ -88,6 +91,16 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	        grid.selectNextDEThisTurn();
 	    }else if (evt.getKeyCode() == KeyEvent.VK_SHIFT) {
 	        grid.nextMode();
+	    } else if (evt.getKeyCode() == KeyEvent.VK_M) {
+	        if (moveMode) {
+	            lastX = -1; lastY = -1;
+	        }
+	        moveMode = !moveMode;
+	    } else if (evt.getKeyCode() == KeyEvent.VK_CONTROL) {
+	        if (moveMode) {
+	            lastX = -1; lastY = -1;
+	        }
+	        moveMode = !moveMode;
 	    }
 	    
 	}
@@ -97,6 +110,12 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	}
 	
 	public void keyReleased(KeyEvent evt) {
+	    if (evt.getKeyCode() == KeyEvent.VK_CONTROL) {
+	        if (moveMode) {
+	            lastX = -1; lastY = -1;
+	        }
+	        moveMode = !moveMode;
+	    }
 	//System.out.println("Key event");
 	}
 	
@@ -105,8 +124,19 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	}
 	
 	public void mouseMoved(MouseEvent evt) {
-	    grid.mouseMoved(evt.getX(), evt.getY());
-	    repaint();
+	    if (!moveMode) {
+	        grid.mouseMoved(evt.getX(), evt.getY());
+	        //repaint();
+	    } else {
+	        int xVel = 50;
+	        int yVel = 50;
+	        if (lastX < 0) {
+	            lastX = evt.getX(); lastY = evt.getY();
+	        } else {
+	            grid.moveViewRegion((evt.getX()-lastX)*xVel, (evt.getY()-lastY)*yVel);
+	            lastX = evt.getX(); lastY = evt.getY();
+	        }
+	    }
 	}
 	
 	public int turn(){

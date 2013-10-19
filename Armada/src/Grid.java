@@ -252,7 +252,7 @@ public class Grid {
 	}
 	
 	private void drawMiniMap(Graphics g) {
-	    g.setColor(new Color(1.0f, 1.0f, 1.0f, 0.5f));
+	    g.setColor(new Color(1.0f, 1.0f, 1.0f, 0.1f));
 		int miniMapWidth = 250;
 		int miniMapHeight = 125;
 		int x = ap.getWidth()-5-miniMapWidth;
@@ -265,8 +265,8 @@ public class Grid {
 		double dyf = (miniMapHeight*1.0)*(viewRegion.getY()/(GRID_HEIGHT*1.0));
 		
 		int dx = (int)dxf; int dy = (int)dyf;
-		g.setColor(Color.BLACK);
-		g.fillRect(x+dx, y+dy, insetWidth+1, insetHeight+1);
+		g.setColor(Color.WHITE);
+		g.drawRect(x+dx, y+dy, insetWidth, insetHeight);
 	}
 	
 	/*
