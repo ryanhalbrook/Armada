@@ -278,7 +278,9 @@ public class Grid {
 		g.setColor(currentPlayerColor);
 		g.fillRect(0, 0, ap.getWidth(), 20);
 		g.setColor(Color.WHITE);
-		g.drawString(playerName + "'s turn", 5, 15);
+		FontMetrics fm = g.getFontMetrics();
+		int textWidth = fm.stringWidth(playerName);
+		g.drawString(playerName, ap.getWidth() - 5 - textWidth, 15);
 		
 		g.setColor(Color.WHITE);
 		g.fillRect(30, 100, 25, 25);
@@ -298,7 +300,7 @@ public class Grid {
 		*/
 		if(activeE!=null){
 			g.setColor(Color.WHITE);
-			g.drawString("Ship selected: 1-Move; 2-Attack Hull; 3-Attack Engines; 0-Unselect;", 30, 45);
+			g.drawString("1-Move; 2-Attack Hull; 3-Attack Engines; 0-Unselect;", 5, 15);
 		}
 		
 		if (activeE!=null) {
@@ -350,7 +352,7 @@ public class Grid {
 		}
 		else{
 			g.setColor(Color.WHITE);
-			g.drawString("No Ship Selected", 30, 145);
+			g.drawString("No Ship Selected", 5, 15);
 		}
 		
 		//I intend for this part to be its own class, but I haven't decided how I want it to work with Grid yet

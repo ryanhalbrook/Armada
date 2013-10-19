@@ -118,7 +118,7 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	    g.fillRect(0, 0, this.getWidth(), this.getHeight());
 	    if (grid != null) grid.draw(g);
 	    g.setColor(Color.WHITE);
-	    g.drawString("Showing Region: (" + grid.getViewRegion().getX() + ", " + grid.getViewRegion().getY() + ", " + this.getWidth() + ", " + this.getHeight() + ")", 30, 30);    	
+	    g.drawString("Showing Region: (" + grid.getViewRegion().getX() + ", " + grid.getViewRegion().getY() + ", " + this.getWidth() + ", " + this.getHeight() + ")", 5, this.getHeight()-5);    	
 	}
 	
 	/*
