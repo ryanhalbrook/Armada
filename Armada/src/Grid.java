@@ -13,6 +13,7 @@ public class Grid {
     private ArrayList<Element> elements;
     private ArrayList<DynamicElement> delements;
     private  ArrayList<Menu> menus;
+    
     private  int mode = 0, turn = 1, index =0;
     private  DynamicElement activeE;
     private ArmadaPanel ap;
@@ -20,33 +21,37 @@ public class Grid {
     Color player1Color = new Color(1.0f, 0.0f, 0.0f, 0.5f);
     Color player2Color = new Color(0.0f, 0.0f, 1.0f, 0.5f);
     BufferedImage backgroundImage = null;
+    
     static final int GRID_WIDTH = 3840;
     static final int GRID_HEIGHT = 2160;
 
+    // Mouse coordinate information
     private int currentX = 0;
     private int currentY = 0;
 
-    public Grid(ArmadaPanel inAP) {
+    // Constructor
+    public Grid(ArmadaPanel ap) {
+        this.ap = ap;
     	elements = new ArrayList<Element>();
     	delements = new ArrayList<DynamicElement>();
     	menus = new ArrayList<Menu>();
-		Ship s = new NormalShip(750,330,1);
-		delements.add(s);
-		Ship s2 = new NormalShip(160,330,1);
-		delements.add(s2);
-		Ship s3 = new NormalShip(260,330,2);
-		delements.add(s3);
-		Ship s4 = new NormalShip(60,330,2);
-		delements.add(s4);
-		Ship s5 = new NormalShip(220,330,2);
-		delements.add(s5);
-		ap = inAP;
+    	
+    	// Add some ships
+		delements.add(new NormalShip(750,330,1));
+		delements.add(new NormalShip(160,330,1));
+		delements.add(new NormalShip(260,330,2));
+		delements.add(new NormalShip(60,330,2));
+		delements.add(new NormalShip(220,330,2));
+		
 		backgroundImage = loadImage(new File("ArmadaBackground2.jpg"));
 		if (backgroundImage == null) {
 		    backgroundImage = loadImage(new File("src/ArmadaBackground2.jpg"));
 		}
     }
     
+    /**
+        Moves the viewing region. Will stop at boundaries.
+    */
     public void moveViewRegion(int x, int y) {
         viewRegion.setX(viewRegion.getX()+x);
         viewRegion.setY(viewRegion.getY()+y);
@@ -63,11 +68,7 @@ public class Grid {
     public Rectangle getViewRegion() {
         return viewRegion;
     }
-
-	public Grid(ArrayList<Element> elements) {
-		this.elements = elements;
-	}
-	
+    
 	public void cancelMove() {//does not deselect ship.  use setMode(0) to do that 
 	    mode = 0;
 	}
