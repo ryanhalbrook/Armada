@@ -47,7 +47,8 @@ public class ApplicationManager {
         mainPanel = null;
         mainPanel = p;
         window.add(mainPanel);
-        window.pack();
+        //window.pack();
+        window.validate();
         enforceDefaultWindowSize();
     }
     
