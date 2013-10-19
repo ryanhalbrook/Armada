@@ -20,6 +20,7 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	int lastX = -1;
 	int lastY = -1;
 	
+	
 	public ArmadaPanel(ApplicationManager am, GameManager gm) {
 	    //grid = new Grid(gm.getElements());
 	    this.am = am;
@@ -28,8 +29,6 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	    addMouseMotionListener(this);
 	    grid = new Grid(this);
 	    this.setFocusable(true);
-	    this.requestFocus();
-	    this.requestFocusInWindow();
 	    refreshTimer.start();
 	}
 	

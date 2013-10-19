@@ -50,6 +50,7 @@ public class ApplicationManager {
         //window.pack();
         window.validate();
         enforceDefaultWindowSize();
+        mainPanel.requestFocus();
     }
     
     private void enforceDefaultWindowSize() {
