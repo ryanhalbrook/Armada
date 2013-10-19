@@ -1,21 +1,27 @@
 import javax.swing.*;
+import javax.swing.border.*;
 import java.awt.event.*;
+import java.awt.image.*;
+import java.awt.geom.*;
 import java.awt.*;
 import java.io.*;
-import java.awt.image.*;
 import javax.imageio.ImageIO;
-import java.awt.geom.*;
-import javax.swing.border.*;
 
+/**
+A class representing the main menu of the system.
+*/
 public class MainMenuPanel extends JPanel implements ActionListener{
-    JButton startButton = new JButton("Start Game");
-    JButton exitButton = new JButton("Quit Game");
     ApplicationManager am;
+    JButton startButton = new JButton("Start Local 2 Player Game");
+    JButton exitButton = new JButton("Quit Game");
+    
     BufferedImage backgroundImage;
-    Game game;
+    static final String IMAGE_NAME = "ArmadaBackground";
     
     public MainMenuPanel(ApplicationManager am) {
-    this.am = am;
+        this.am = am;
+        
+        // Setup the buttons
         startButton.addActionListener(this);
         exitButton.addActionListener(this);
         JPanel buttonsPanel = new JPanel();
@@ -25,10 +31,16 @@ public class MainMenuPanel extends JPanel implements ActionListener{
         buttonsPanel.setBorder(new EmptyBorder(10,400,250,10));
         buttonsPanel.setOpaque(false);
         this.add(buttonsPanel, BorderLayout.SOUTH);
-        //this.setBackground(Color.BLACK);
-        File f = new File("src/ArmadaLogo.jpg");
+        
+        // Load the background image
+        File f = new File(IMAGE_NAME+ ".jpg");
         backgroundImage = loadImage(f);
+        if (backgroundImage == null) {
+            backgroundImage = loadImage(new File("src/"+IMAGE_NAME+".jpg"));
+        }
     }
+    
+    // Respond to button clicks here.
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource() == startButton) {
             am.startGame();
@@ -37,10 +49,10 @@ public class MainMenuPanel extends JPanel implements ActionListener{
         }
     }
     
+    // Draws the background image.
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D)g;
         AffineTransform at = g2d.getTransform();
-        
         if (backgroundImage != null) {
             int imageWidth = backgroundImage.getWidth();
             int panelWidth = this.getWidth();
@@ -55,7 +67,7 @@ public class MainMenuPanel extends JPanel implements ActionListener{
         g2d.setTransform(at);
     }
     
-    private BufferedImage loadImage(File f) {
+    private static BufferedImage loadImage(File f) {
         BufferedImage bi = null;
         try {
             bi = ImageIO.read(f);

@@ -19,6 +19,7 @@ public class ApplicationManager {
     public ApplicationManager() {
         mainPanel = new MainMenuPanel(this);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        window.setTitle("Armada");
         window.add(mainPanel);
         enforceDefaultWindowSize();
         window.setMinimumSize(new Dimension(MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT));
