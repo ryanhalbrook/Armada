@@ -104,22 +104,10 @@ public class AttackAnimation implements Runnable {
 			de.getDAH().setMoving(false);
 			if(de!=null&&de.getOwner()!=null){
 				if(attacked.equals("hull")){
-					target.update();
-					de.getOwner().update();
-					target.setHull(target.getHull()-de.getOwner().getWeapons()/2);
-					if(target.getHull() <= 0){
-						target.setHull(0);
-						target.setDead(true);
-					}
+					de.getOwner().attackHullHelper(target);
 				}
 				else if(attacked.equals("engine")){
-					target.update();
-					de.getOwner().update();
-					target.setEngine(target.getEngine()-de.getOwner().getWeapons()/2);
-					if(target.getEngine() <= 0){
-						target.setEngine(0);
-
-					}
+					de.getOwner().attackEngineHelper(target);
 				}
 				de.getOwner().setAttack(false);
 			/*	try {

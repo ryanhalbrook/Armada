@@ -132,10 +132,28 @@ public class DynamicElement extends Element {
 	
 		
 	}
-	
 	public void engineTakeDamage(DynamicElement de){
 		de.attack(this,"engine");
 	}
+	public synchronized void attackHullHelper(DynamicElement target){
+		target.update();
+		update();
+		target.setHull(target.getHull()-getWeapons()/2);
+		if(target.getHull() <= 0){
+			target.setHull(0);
+			target.setDead(true);
+		}
+	}
+	public synchronized void attackEngineHelper(DynamicElement target){
+		target.update();
+		update();
+		target.setEngine(target.getEngine()-getWeapons()/2);
+		if(target.getEngine() <= 0){
+			target.setEngine(0);
+		}
+	}
+	
+	
 
 	/*
 	 * performs certain start of turn jobs. Ex: a planet checks if it should update its alliance based off of docked ships; A planet pays the Player; A ship comes out of cloaking; etc
