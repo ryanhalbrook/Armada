@@ -10,18 +10,17 @@ public class DynamicElement extends Element {
 
 	protected int range, hull, maxHull, engine, maxEngine, speed, alliance, weapons;
 	protected int moved = 0;
-	protected DynamicAnimationHelper dah; 
+	
 	protected HealthBar hb;
 	protected boolean dead=false, canMove=true, canAttack=true;
 	
-	protected DynamicElement laser1,laser2,owner=null;
-	protected boolean attacking = false, targetable = true;
+	protected Element laser1,laser2;
+	protected boolean attacking = false;
 
 	public DynamicElement(){}
 	
 	//use this one
 	public DynamicElement(int inX, int inY, int w, int h, String img, int all){
-		super(inX,inY,w,h,img);
 		switch(all){
 		case 1:
 			setImage(img+"_red");
@@ -32,10 +31,16 @@ public class DynamicElement extends Element {
 		default:
 			break;
 		}
+		x = inX;
+		y = inY;
+		width = w;
+		height = h;
+		angle=0;
+		index=-1;
 		alliance=all;
 		targetable=true;
+		ah=new DynamicAnimationHelper(this);
 		
-		dah = new DynamicAnimationHelper(this);
 		if(all!=0){
 		hb = new HealthBar(this);
 		}
@@ -54,8 +59,8 @@ public class DynamicElement extends Element {
 		}
 		alliance=all;
 		targetable=true;
+		ah=new DynamicAnimationHelper(this);
 		
-		dah = new DynamicAnimationHelper(this);
 		if(all!=0){
 		hb = new HealthBar(this);
 		}
@@ -164,12 +169,10 @@ public class DynamicElement extends Element {
 		canMove=true;
 	}
 
-	public DynamicAnimationHelper getDAH(){
-		return dah;
-	}
+	
 	
 	public boolean isIn(int inX, int inY){
-		return dah.isIn(inX, inY);
+		return ah.isIn(inX, inY);
 	}
 	
 	/*
@@ -187,7 +190,7 @@ public class DynamicElement extends Element {
 	}
 	
 	public void moveTo(int inX, int inY){
-		dah.moveTo(inX,inY);
+		ah.moveTo(inX,inY);
 		moved+=distanceFrom(inX,inY);
 		if(moved >= (int)((double)(speed)*(double)((double)engine/(double)maxEngine))){
 			canMove=false;
@@ -198,30 +201,29 @@ public class DynamicElement extends Element {
 
 		this.getDAH().attack(this, de, attacked);
 	}
-
-	public DynamicElement getLaser1() {
+	
+	public DynamicAnimationHelper getDAH(){
+		return (DynamicAnimationHelper) ah;
+	}
+	
+	public Element getLaser1() {
 		return laser1;
 	}
 
-	public void setLaser1(DynamicElement laser1) {
+	public void setLaser1(Element laser1) {
 		this.laser1 = laser1;
 	}
 
-	public DynamicElement getLaser2() {
+	public Element getLaser2() {
 		return laser2;
 	}
 
-	public void setLaser2(DynamicElement laser2) {
+	public void setLaser2(Element laser2) {
 		this.laser2 = laser2;
 	}
 
 	
-	public DynamicElement getOwner(){
-		return owner;
-	}
-	public void setOwner(DynamicElement de){
-		owner=de;
-	}
+	
 	public void setAttack(boolean b){
 		attacking=b;
 	}
@@ -232,13 +234,13 @@ public class DynamicElement extends Element {
 	}
 	
 	public void draw(Graphics g, Rectangle viewRect){
-		if(dah ==null){
+		if(ah ==null){
 			g.setColor(Color.GREEN);
 			g.fillRect(x-viewRect.getX(), y-viewRect.getY(), width, height);
 			return;
 		}
 		if(!dead)
-	    dah.draw(g, viewRect);
+	    ah.draw(g, viewRect);
 	    if(hb!=null)
 	    	hb.draw(g,viewRect);
 	    if(attacking){
@@ -320,13 +322,7 @@ public class DynamicElement extends Element {
 		alliance = all;
 	}
 
-	public boolean isTargetable() {
-		return targetable;
-	}
-
-	public void setTargetable(boolean t) {
-		targetable = t;
-	}
+	
 
 	public void setWeapons(int weap) {
 		weapons = weap;

@@ -3,12 +3,12 @@ import java.awt.Graphics;
 
 public class MoveAnimation implements Runnable {
 
-	protected DynamicElement de;
+	protected Element e;
 	protected int x,y,t,mode;//0= rotate&move, 1= rotate only, 2=move only
 	
 	
-	public MoveAnimation(DynamicElement inDE, int inX, int inY){
-		de=inDE;
+	public MoveAnimation(Element inE, int inX, int inY){
+		e=inE;
 		x=inX;
 		y=inY;
 		t=100;
@@ -17,8 +17,8 @@ public class MoveAnimation implements Runnable {
 		move.start();
 	}
 	
-	public MoveAnimation(DynamicElement inDE, int inX, int inY, int t){
-		de=inDE;
+	public MoveAnimation(Element inE, int inX, int inY, int t){
+		e=inE;
 		x=inX;
 		y=inY;
 		this.t=t;
@@ -26,8 +26,8 @@ public class MoveAnimation implements Runnable {
 		Thread move = new Thread(this);
 		move.start();
 	}
-	public MoveAnimation(DynamicElement inDE, int inX, int inY, int t,int m){
-		de=inDE;
+	public MoveAnimation(Element inE, int inX, int inY, int t,int m){
+		e=inE;
 		x=inX;
 		y=inY;
 		this.t=t;
@@ -38,26 +38,26 @@ public class MoveAnimation implements Runnable {
 	
 	@Override
 	public void run() {
-		de.setTargetable(false);
+		e.setTargetable(false);
 		//System.out.println("moving to: " + x + ", " + y);
 		int mvTime=t;
 		int moveX=x;
 		int moveY=y;
 		int status=1;
-		double ra = de.getDAH().calcRotationAngle(moveX, moveY);
-		int deltaX=moveX-de.getX();
-		int deltaY=moveY-de.getY();
-		de.getDAH().setAngleLeft(ra);
-		de.getDAH().setMoveXLeft(deltaX);
-		de.getDAH().setMoveYLeft(deltaY);
+		double ra = e.getAH().calcRotationAngle(moveX, moveY);
+		int deltaX=moveX-e.getX();
+		int deltaY=moveY-e.getY();
+		e.getAH().setAngleLeft(ra);
+		e.getAH().setMoveXLeft(deltaX);
+		e.getAH().setMoveYLeft(deltaY);
 		
 		if(mode==2)
 		{
 			double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
 			if(angle<0)
 				angle=360+angle;
-			de.setAngle(angle);
-			de.getDAH().setAngleLeft(0);
+			e.setAngle(angle);
+			e.getAH().setAngleLeft(0);
 			status=2;
 		}
 		
@@ -67,14 +67,14 @@ public class MoveAnimation implements Runnable {
 			//System.out.println("xl= "+getMoveXLeft()+" dx= "+deltaX+" x= "+e.getX());
 			//System.out.println("yl= "+getMoveYLeft()+" dy= "+deltaY+" y= "+e.getY());
 			
-			if((mode==0||mode==1)&&status==1&&!de.getDAH().rotate(ra)){
+			if((mode==0||mode==1)&&status==1&&!e.getAH().rotate(ra)){
 					if(mode==0)
 						status=2;
 					else if(mode==1){
 						status=0;
 					}
 			}
-			else if(status==2 && !de.getDAH().moveHelper(deltaX, deltaY, mvTime)){
+			else if(status==2 && !e.getAH().moveHelper(deltaX, deltaY, mvTime)){
 				status=0;
 			}
 			
@@ -88,17 +88,17 @@ public class MoveAnimation implements Runnable {
 		double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
 		if(angle<0)
 			angle=360+angle;
-		de.setAngle(angle);
+		e.setAngle(angle);
 		if(mode!=1){
-			de.setX(moveX);
-			de.setY(moveY);
+			e.setX(moveX);
+			e.setY(moveY);
 		}
-		de.getDAH().setAngleLeft(0);
-		de.getDAH().setMoveXLeft(0);
-		de.getDAH().setMoveYLeft(0);
-		de.getDAH().setMoving(false);
+		e.getAH().setAngleLeft(0);
+		e.getAH().setMoveXLeft(0);
+		e.getAH().setMoveYLeft(0);
+		e.getAH().setMoving(false);
 
-		de.setTargetable(true);
+		e.setTargetable(true);
 	}
 
 }

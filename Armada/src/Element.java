@@ -13,6 +13,10 @@ public class Element {
 	//orientation
 	protected String image;	//image
 	protected int index;//for Element ID in Array or ArrayList
+	protected boolean  targetable = false;
+	protected AnimationHelper ah; 
+	protected Element owner=null;
+	
 	public Element() {}
 	
 	public Element(int a, int b, int w, int h, String img){
@@ -23,6 +27,8 @@ public class Element {
 		angle=0;
 		image=img;
 		index=-1;
+		targetable = false;
+		ah = new AnimationHelper(this);
 	}
 	public Element(int a, int b, int w, int h,double an,String img){
 		x = a;
@@ -32,18 +38,21 @@ public class Element {
 		angle=an;
 		image=img;
 		index=-1;
+		targetable = false;
+		ah = new AnimationHelper(this);
 	}
 	/*
 	 * this method is intended to be a script.  It will change the orientation of the Element and location of the Element over a few
 	 * seconds in order to show it moving as an animation 
 	 */
-	public void move(int Xin, int Yin){
-		
+	public void move(int inX, int inY){
+		ah.moveTo(inX,inY);
 	}
 	
 	
 	public void draw(Graphics g, Rectangle viewRegion) {
-		g.fillRect(x+viewRegion.getX(),y+viewRegion.getY(), width, height);
+		ah.draw(g, viewRegion);
+		//g.fillRect(x+viewRegion.getX(),y+viewRegion.getY(), width, height);
 	}
 	
 	public boolean isIn(int inX, int inY){
@@ -58,7 +67,22 @@ public class Element {
 		x=Xin;
 		y=Yin;
 	}
+	public boolean isTargetable() {
+		return targetable;
+	}
 
+	public void setTargetable(boolean t) {
+		targetable = t;
+	}
+	public AnimationHelper getAH(){
+		return ah;
+	}
+	public Element getOwner(){
+		return owner;
+	}
+	public void setOwner(Element e){
+		owner=e;
+	}
 	public int getX() {
 		return x;
 	}

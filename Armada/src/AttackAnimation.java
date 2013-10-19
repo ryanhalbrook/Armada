@@ -3,11 +3,12 @@ public class AttackAnimation implements Runnable {
 
 
 
-		protected DynamicElement de,target;
+		protected Element de;
+		protected DynamicElement target;
 		protected int x,y,mode;
 		protected String attacked;
 		
-		public AttackAnimation(DynamicElement att, DynamicElement target, String attacked){
+		public AttackAnimation(Element att, DynamicElement target, String attacked){
 			de=att;
 			x=target.getX();
 			y=target.getY();
@@ -18,7 +19,7 @@ public class AttackAnimation implements Runnable {
 			move.start();
 		}
 		
-		public AttackAnimation(DynamicElement att, DynamicElement target, int m, String attacked){
+		public AttackAnimation(Element att, DynamicElement target, int m, String attacked){
 			de=att;
 			x=target.getX();
 			y=target.getY();
@@ -36,25 +37,25 @@ public class AttackAnimation implements Runnable {
 			int mvTime=100;
 			int moveX=x;
 			int moveY=y;
-			double ra = de.getDAH().calcRotationAngle(moveX, moveY);
+			double ra = de.getAH().calcRotationAngle(moveX, moveY);
 			int deltaX=moveX-de.getX();
 			int deltaY=moveY-de.getY();
-			de.getDAH().setAngleLeft(ra);
+			de.getAH().setAngleLeft(ra);
 			if(deltaX<0)
-				de.getDAH().setMoveXLeft(deltaX+(int)(de.getWidth()/2.0*Math.abs(Math.cos(Math.atan2(deltaY, deltaX)))));
+				de.getAH().setMoveXLeft(deltaX+(int)(de.getWidth()/2.0*Math.abs(Math.cos(Math.atan2(deltaY, deltaX)))));
 			else
-				de.getDAH().setMoveXLeft(deltaX-(int)(de.getWidth()/2.0*Math.abs(Math.cos(Math.atan2(deltaY, deltaX)))));
+				de.getAH().setMoveXLeft(deltaX-(int)(de.getWidth()/2.0*Math.abs(Math.cos(Math.atan2(deltaY, deltaX)))));
 			if(deltaY<0)
-				de.getDAH().setMoveYLeft(deltaY+(int)(de.getWidth()/2.0*Math.abs(Math.sin(Math.atan2(deltaY, deltaX)))));
+				de.getAH().setMoveYLeft(deltaY+(int)(de.getWidth()/2.0*Math.abs(Math.sin(Math.atan2(deltaY, deltaX)))));
 			else
-				de.getDAH().setMoveYLeft(deltaY-(int)(de.getWidth()/2.0*Math.abs(Math.sin(Math.atan2(deltaY, deltaX)))));
+				de.getAH().setMoveYLeft(deltaY-(int)(de.getWidth()/2.0*Math.abs(Math.sin(Math.atan2(deltaY, deltaX)))));
 			if(mode==2)
 			{
 				double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
 				if(angle<0)
 					angle=360+angle;
 				de.setAngle(angle);
-				de.getDAH().setAngleLeft(0);
+				de.getAH().setAngleLeft(0);
 			}
 			
 			while(mode!=0)
@@ -62,7 +63,7 @@ public class AttackAnimation implements Runnable {
 				//System.out.println("a= "+getAngleLeft()+" deltaA= "+ra+" angle=" +e.getAngle());
 				//System.out.println("xl= "+getMoveXLeft()+" dx= "+deltaX+" x= "+e.getX());
 				//System.out.println("yl= "+getMoveYLeft()+" dy= "+deltaY+" y= "+e.getY());
-				if(mode==1&&!de.getDAH().rotate(ra)){
+				if(mode==1&&!de.getAH().rotate(ra)&&de instanceof DynamicElement){
 						
 							mode=0;
 							double dx=de.getWidth()/4.0;
@@ -74,16 +75,16 @@ public class AttackAnimation implements Runnable {
 							int x2=de.getX()+ (int)(Math.sqrt(Math.pow(dx, 2)+Math.pow(dy,2))*Math.cos(angle2));
 							int y2=de.getY()+ (int)(Math.sqrt(Math.pow(dx, 2)+Math.pow(dy,2))*Math.sin(angle2));
 							
-							de.setLaser1(new DynamicElement(x1, y1, 40, 5, "laser", 0));
-							de.setLaser2(new DynamicElement(x2, y2, 40, 5, "laser", 0));
-							de.getLaser1().setOwner(de);
-							de.getLaser2().setOwner(de);
-							de.getLaser1().getDAH().attack(de.getLaser1(),target,2,attacked);
-							de.getLaser2().getDAH().attack(de.getLaser2(),target,2,attacked);
-							de.setAttack(true);
+							((DynamicElement)de).setLaser1(new Element(x1, y1, 40, 5, 0,"laser"));
+							((DynamicElement)de).setLaser2(new Element(x2, y2, 40, 5, 0,"laser"));
+							((DynamicElement)de).getLaser1().setOwner(de);
+							((DynamicElement)de).getLaser2().setOwner(de);
+							((DynamicElement)de).getDAH().attack(((DynamicElement)de).getLaser1(),target,2,attacked);
+							((DynamicElement)de).getDAH().attack(((DynamicElement)de).getLaser2(),target,2,attacked);
+							((DynamicElement)de).setAttack(true);
 						
 				}
-				else if(mode==2 && !de.getDAH().moveHelper2(deltaX, deltaY)){
+				else if(mode==2 && !de.getAH().moveHelper2(deltaX, deltaY)){
 					mode=0;
 				}
 				try {
@@ -98,18 +99,18 @@ public class AttackAnimation implements Runnable {
 				angle=360+angle;
 			de.setAngle(angle);
 			
-			de.getDAH().setAngleLeft(0);
-			de.getDAH().setMoveXLeft(0);
-			de.getDAH().setMoveYLeft(0);
-			de.getDAH().setMoving(false);
-			if(de!=null&&de.getOwner()!=null){
+			de.getAH().setAngleLeft(0);
+			de.getAH().setMoveXLeft(0);
+			de.getAH().setMoveYLeft(0);
+			de.getAH().setMoving(false);
+			if(de!=null&&de.getOwner()!=null&&de.getOwner() instanceof DynamicElement){
 				if(attacked.equals("hull")){
-					de.getOwner().attackHullHelper(target);
+					((DynamicElement)(de.getOwner())).attackHullHelper(target);
 				}
 				else if(attacked.equals("engine")){
-					de.getOwner().attackEngineHelper(target);
+					((DynamicElement)(de.getOwner())).attackEngineHelper(target);
 				}
-				de.getOwner().setAttack(false);
+				((DynamicElement)(de.getOwner())).setAttack(false);
 			/*	try {
 					Thread.sleep(10000);
 				} catch (InterruptedException e) {
