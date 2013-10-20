@@ -124,6 +124,7 @@ public class Grid {
 	 * received upon any click on ArmadaPanel
 	 */
 	public void click(int inX, int inY){
+		System.out.println("Clicked: ("+inX+", "+inY+")");
 		if(mode == 0 || activeE==null){//selecting a menu
 			if(menus != null && menus.size() != 0){
 				for (Menu m : menus) {

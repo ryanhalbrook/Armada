@@ -2,6 +2,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -74,8 +75,81 @@ public class AnimationHelper{
 	public boolean isIn(int x, int y){
 		if(moving)
 			return false;
-		return (x<e.getX()+e.getWidth()/2 && x>e.getX()-e.getWidth()/2) && 
-				(y<e.getY()+e.getWidth()/2 && y>e.getY()-e.getWidth()/2);
+		if(e.getAngle()==0||e.getAngle()==180)
+			return (x<e.getX()+e.getWidth()/2.0 && x>e.getX()-e.getWidth()/2.0) && 
+					(y<e.getY()+e.getHeight()/2.0 && y>e.getY()-e.getHeight()/2.0);
+		if(e.getAngle()==90||e.getAngle()==270)
+			return (x<e.getX()+e.getHeight()/2.0 && x>e.getX()-e.getHeight()/2.0) && 
+					(y<e.getY()+e.getWidth()/2.0 && y>e.getY()-e.getWidth()/2.0);
+		
+		double rectAngle = Math.atan2(e.getHeight()/2.0, e.getWidth()/2.0);
+		double halfRectDiagonalLen=Math.sqrt(Math.pow(e.getWidth()/2.0,2)+Math.pow(e.getHeight()/2.0,2));
+		double radAngle = Math.toRadians(e.getAngle());
+		double x1 =halfRectDiagonalLen*Math.cos(radAngle+rectAngle);
+		double y1 =halfRectDiagonalLen*Math.sin(radAngle+rectAngle);
+		double x2 = halfRectDiagonalLen*Math.cos(radAngle-rectAngle);
+		double y2 =halfRectDiagonalLen*Math.sin(radAngle-rectAngle);
+		if(x1<0)
+			x1-=0.5;
+		else
+			x1+=0.5;
+		if(x2<0)
+			x2-=0.5;
+		else
+			x2+=0.5;
+		if(y1<0)
+			y1-=0.5;
+		else
+			y1+=0.5;
+		if(y2<0)
+			y2-=0.5;
+		else
+			y2+=0.5;
+		
+	
+		Point[] rectPoints = new Point[4];
+		rectPoints[0]=new Point(e.getX()+(int)x1,e.getY()+(int)y1);
+		rectPoints[1]=new Point(e.getX()+(int)x2,e.getY()+(int)y2);
+		rectPoints[2]=new Point(e.getX()+(int)(x1*-1),e.getY()+(int)(y1*-1));
+		rectPoints[3]=new Point(e.getX()+(int)(x2*-1),e.getY()+(int)(y2*-1));
+
+		int maxX=(int) Math.max(rectPoints[0].getX(), Math.max(rectPoints[1].getX(),Math.max(rectPoints[2].getX(),rectPoints[3].getX())));
+		int maxY=(int) Math.max(rectPoints[0].getY(), Math.max(rectPoints[1].getY(),Math.max(rectPoints[2].getY(),rectPoints[3].getY())));
+		int minX=(int) Math.min(rectPoints[0].getX(), Math.min(rectPoints[1].getX(),Math.min(rectPoints[2].getX(),rectPoints[3].getX())));
+		int minY=(int) Math.min(rectPoints[0].getY(), Math.min(rectPoints[1].getY(),Math.min(rectPoints[2].getY(),rectPoints[3].getY())));
+		
+		Point[] rectPoints2 =new Point[4];
+		for(int i=0;i<rectPoints.length;i++){
+			if((int)(rectPoints[i].getX())==minX)
+				rectPoints2[0]=rectPoints[i];
+			else if((int)(rectPoints[i].getY())==minY)
+				rectPoints2[1]=rectPoints[i];
+			else if((int)(rectPoints[i].getX())==maxX)
+				rectPoints2[2]=rectPoints[i];
+			else
+				rectPoints2[3]=rectPoints[i];
+		}
+		rectPoints=rectPoints2;
+		
+		double m_a = (rectPoints[1].getY()-rectPoints[0].getY())/((double)(rectPoints[1].getX()-rectPoints[0].getX()));
+		double y_a = m_a*x + rectPoints[1].getY()-m_a*rectPoints[1].getX();
+		double m_b = (rectPoints[2].getY()-rectPoints[1].getY())/((double)(rectPoints[2].getX()-rectPoints[1].getX()));
+		double y_b = m_b*x + rectPoints[2].getY()-m_b*rectPoints[2].getX();
+		double m_c = (rectPoints[3].getY()-rectPoints[2].getY())/((double)(rectPoints[3].getX()-rectPoints[2].getX()));
+		double y_c = m_c*x + rectPoints[3].getY()-m_c*rectPoints[3].getX();
+		double m_d = (rectPoints[0].getY()-rectPoints[3].getY())/((double)(rectPoints[0].getX()-rectPoints[3].getX()));
+		double y_d = m_d*x + rectPoints[0].getY()-m_d*rectPoints[0].getX();
+	
+		
+		if(rectPoints[3].getX()>rectPoints[1].getX())
+			return ( (x>=rectPoints[0].getX() && x<=rectPoints[1].getX()) && (y<=y_d && y>=y_a) )
+					||( (x>=rectPoints[1].getX() && x<=rectPoints[3].getX()) && (y<=y_d && y>=y_b) )
+					||( (x>=rectPoints[3].getX() && x<=rectPoints[2].getX()) && (y<=y_c && y>=y_b) );
+		else
+			return ( (x>=rectPoints[0].getX() && x<=rectPoints[3].getX()) && (y<=y_d && y>=y_a) )
+					||( (x>=rectPoints[3].getX() && x<=rectPoints[1].getX()) && (y<=y_c && y>=y_a) )
+					||( (x>=rectPoints[1].getX() && x<=rectPoints[2].getX()) && (y<=y_c && y>=y_b) );
+	
 	}
 	public void draw(Graphics g, Rectangle viewRect){
 		Graphics2D g2 = (Graphics2D)g;
@@ -86,7 +160,6 @@ public class AnimationHelper{
 		at.translate(-e.getWidth()/2,-e.getHeight()/2);
 		at.scale(e.getWidth()/(double)imageWidth, e.getHeight()/(double)imageHeight);
 		g2.drawImage(image, at, null);
-		
 		
 		at=ori;
 	}
@@ -104,7 +177,7 @@ public class AnimationHelper{
 			deltaA=angle;
 		else if(angle<0&&angle>-180)
 			deltaA=angle;
-		else if(angle<-180)
+		else if(angle<=-180)
 			deltaA=360+angle;
 		else
 			deltaA=angle-360;
