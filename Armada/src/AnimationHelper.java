@@ -7,6 +7,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
@@ -93,8 +94,9 @@ public class AnimationHelper{
 	private void loadImage(String img) {
 		
 		try{
-			File f= new File("image/"+img+".png");
-			image= ImageIO.read(f);
+			//File f= new File("image/"+img+".png");
+			URL url = this.getClass().getClassLoader().getResource("image/"+img+".png");
+			image= ImageIO.read(url);
 		}
 		catch(IOException e){
 			e.printStackTrace();

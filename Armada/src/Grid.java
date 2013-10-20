@@ -40,6 +40,8 @@ public class Grid {
     	elements = new ArrayList<Element>();
     	delements = new ArrayList<DynamicElement>();
     	menus = new ArrayList<Menu>();
+    	SoundEffect.init();
+    	SoundEffect.volume=SoundEffect.Volume.LOW;
     	
     	// Add some ships
 		delements.add(new NormalShip(750,330,1));
@@ -57,7 +59,7 @@ public class Grid {
     }
     private void loadSampleImage(){
     	try{
-			File f= new File("image/"+"saturn"+".png");
+			File f= new File("src/image/"+"saturn"+".png");
 			img= ImageIO.read(f);
 		}
 		catch(IOException e){
@@ -317,6 +319,7 @@ public class Grid {
 		if(delements != null && delements.size() != 0){
 			for (int i=0;i<delements.size();i++) {
 				if(delements.get(i).isDead()){
+					SoundEffect.EXPLODE.play();
 					delements.remove(i);
 					i--;
 				}
