@@ -2,7 +2,9 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.*;
 import java.io.*;
+
 import javax.imageio.ImageIO;
+
 import java.awt.image.*;
 /*
  * Grid paints, moves, stores, and keeps track of everything visual on the panel
@@ -28,6 +30,9 @@ public class Grid {
     // Mouse coordinate information
     private int currentX = 0;
     private int currentY = 0;
+    
+    //Sample Image
+    BufferedImage img;
 
     // Constructor
     public Grid(ArmadaPanel ap) {
@@ -47,8 +52,19 @@ public class Grid {
 		if (backgroundImage == null) {
 		    backgroundImage = loadImage(new File("src/ArmadaBackground2.jpg"));
 		}
+		//Testing Static draw
+		loadSampleImage();
     }
-    
+    private void loadSampleImage(){
+    	try{
+			File f= new File("image/"+"saturn"+".png");
+			img= ImageIO.read(f);
+		}
+		catch(IOException e){
+			e.printStackTrace();
+			System.out.println("IMAGE COULD NOT BE FOUND");
+		}
+    }
     /**
         Moves the viewing region. Will stop at boundaries.
     */
@@ -405,7 +421,7 @@ public class Grid {
 			g.drawString("Can Attack: " + activeE.canAttack(), dx, dy+75);	
 		}
 		
-		AnimationHelper.draw(400, 400, 100, 100, 50, "saturn", g, viewRegion);
+		AnimationHelper.draw(400, 400, 100, 100, 50, img, g, viewRegion);
 		
 		///////////
 		

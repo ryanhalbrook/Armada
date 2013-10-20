@@ -55,19 +55,12 @@ public class AnimationHelper{
 		moving = false;
 	}
 	
-	public static void draw(int x,int y,int w,int h,String img, Graphics g, Rectangle viewRect){
-		BufferedImage image=null;
+	public static void draw(int x,int y,int w,int h,BufferedImage image, Graphics g, Rectangle viewRect){
+		
 		Graphics2D g2 = (Graphics2D)g;
-		AffineTransform ori = g2.getTransform();
+		
 		AffineTransform at= new AffineTransform();
-		try{
-			File f= new File("image/"+img+".png");
-			image= ImageIO.read(f);
-		}
-		catch(IOException e){
-			e.printStackTrace();
-			System.out.println("IMAGE COULD NOT BE FOUND");
-		}
+		
 		int imageWidth=image.getWidth();
 		int imageHeight=image.getHeight();
 		
@@ -78,21 +71,13 @@ public class AnimationHelper{
 		at.scale(w/(double)imageWidth, h/(double)imageHeight);
 		g2.drawImage(image, at, null);
 		
-		at=ori;
+		
 	}
-	public static void draw(int x,int y,int w,int h,double a,String img, Graphics g, Rectangle viewRect){
-		BufferedImage image=null;
+	public static void draw(int x,int y,int w,int h,double a,BufferedImage image, Graphics g, Rectangle viewRect){
+
 		Graphics2D g2 = (Graphics2D)g;
-		AffineTransform ori = g2.getTransform();
 		AffineTransform at= new AffineTransform();
-		try{
-			File f= new File("image/"+img+".png");
-			image= ImageIO.read(f);
-		}
-		catch(IOException e){
-			e.printStackTrace();
-			System.out.println("IMAGE COULD NOT BE FOUND");
-		}
+		
 		int imageWidth=image.getWidth();
 		int imageHeight=image.getHeight();
 		
@@ -102,8 +87,7 @@ public class AnimationHelper{
 		at.translate(-w/2.0,-h/2.0);
 		at.scale(w/(double)imageWidth, h/(double)imageHeight);
 		g2.drawImage(image, at, null);
-		
-		at=ori;
+
 	}
 	
 	private void loadImage(String img) {
@@ -126,6 +110,9 @@ public class AnimationHelper{
 	public boolean isIn(int x, int y){
 		if(moving)
 			return false;
+		//return (x<e.getX()+e.getWidth()/2.0 && x>e.getX()-e.getWidth()/2.0) && 
+		//		(y<e.getY()+e.getHeight()/2.0 && y>e.getY()-e.getHeight()/2.0);
+		
 		if(e.getAngle()==0||e.getAngle()==180)
 			return (x<e.getX()+e.getWidth()/2.0 && x>e.getX()-e.getWidth()/2.0) && 
 					(y<e.getY()+e.getHeight()/2.0 && y>e.getY()-e.getHeight()/2.0);
