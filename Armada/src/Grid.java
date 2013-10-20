@@ -405,7 +405,7 @@ public class Grid {
 			g.drawString("Can Attack: " + activeE.canAttack(), dx, dy+75);	
 		}
 		
-		
+		AnimationHelper.draw(400, 400, 100, 100, 50, "saturn", g, viewRegion);
 		
 		///////////
 		

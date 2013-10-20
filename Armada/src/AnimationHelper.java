@@ -55,6 +55,57 @@ public class AnimationHelper{
 		moving = false;
 	}
 	
+	public static void draw(int x,int y,int w,int h,String img, Graphics g, Rectangle viewRect){
+		BufferedImage image=null;
+		Graphics2D g2 = (Graphics2D)g;
+		AffineTransform ori = g2.getTransform();
+		AffineTransform at= new AffineTransform();
+		try{
+			File f= new File("image/"+img+".png");
+			image= ImageIO.read(f);
+		}
+		catch(IOException e){
+			e.printStackTrace();
+			System.out.println("IMAGE COULD NOT BE FOUND");
+		}
+		int imageWidth=image.getWidth();
+		int imageHeight=image.getHeight();
+		
+		//g.fillRect(x-viewRect.getX(), y-viewRect.getY(), width, height);
+		at.translate((x-viewRect.getX()), y-viewRect.getY());
+		//at.rotate(Math.toRadians(e.getAngle()));
+		at.translate(-w/2.0,-h/2.0);
+		at.scale(w/(double)imageWidth, h/(double)imageHeight);
+		g2.drawImage(image, at, null);
+		
+		at=ori;
+	}
+	public static void draw(int x,int y,int w,int h,double a,String img, Graphics g, Rectangle viewRect){
+		BufferedImage image=null;
+		Graphics2D g2 = (Graphics2D)g;
+		AffineTransform ori = g2.getTransform();
+		AffineTransform at= new AffineTransform();
+		try{
+			File f= new File("image/"+img+".png");
+			image= ImageIO.read(f);
+		}
+		catch(IOException e){
+			e.printStackTrace();
+			System.out.println("IMAGE COULD NOT BE FOUND");
+		}
+		int imageWidth=image.getWidth();
+		int imageHeight=image.getHeight();
+		
+		//g.fillRect(x-viewRect.getX(), y-viewRect.getY(), width, height);
+		at.translate((x-viewRect.getX()), y-viewRect.getY());
+		at.rotate(Math.toRadians(a));
+		at.translate(-w/2.0,-h/2.0);
+		at.scale(w/(double)imageWidth, h/(double)imageHeight);
+		g2.drawImage(image, at, null);
+		
+		at=ori;
+	}
+	
 	private void loadImage(String img) {
 		
 		try{
@@ -170,7 +221,7 @@ public class AnimationHelper{
 		//g.fillRect(x-viewRect.getX(), y-viewRect.getY(), width, height);
 		at.translate((e.getX()-viewRect.getX()), e.getY()-viewRect.getY());
 		at.rotate(Math.toRadians(e.getAngle()));
-		at.translate(-e.getWidth()/2,-e.getHeight()/2);
+		at.translate(-e.getWidth()/2.0,-e.getHeight()/2.0);
 		at.scale(e.getWidth()/(double)imageWidth, e.getHeight()/(double)imageHeight);
 		g2.drawImage(image, at, null);
 		
