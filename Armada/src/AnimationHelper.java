@@ -117,6 +117,7 @@ public class AnimationHelper{
 		int maxY=(int) Math.max(rectPoints[0].getY(), Math.max(rectPoints[1].getY(),Math.max(rectPoints[2].getY(),rectPoints[3].getY())));
 		int minX=(int) Math.min(rectPoints[0].getX(), Math.min(rectPoints[1].getX(),Math.min(rectPoints[2].getX(),rectPoints[3].getX())));
 		int minY=(int) Math.min(rectPoints[0].getY(), Math.min(rectPoints[1].getY(),Math.min(rectPoints[2].getY(),rectPoints[3].getY())));
+			
 		
 		Point[] rectPoints2 =new Point[4];
 		for(int i=0;i<rectPoints.length;i++){
@@ -130,6 +131,18 @@ public class AnimationHelper{
 				rectPoints2[3]=rectPoints[i];
 		}
 		rectPoints=rectPoints2;
+		for(int i=0;i<rectPoints.length;i++){
+			System.out.println(rectPoints[i]);
+			if(rectPoints[i]==null){
+				if(maxX-minX==e.getWidth())
+					return (x<e.getX()+e.getWidth()/2.0 && x>e.getX()-e.getWidth()/2.0) && 
+							(y<e.getY()+e.getHeight()/2.0 && y>e.getY()-e.getHeight()/2.0);
+				else
+					return (x<e.getX()+e.getHeight()/2.0 && x>e.getX()-e.getHeight()/2.0) && 
+							(y<e.getY()+e.getWidth()/2.0 && y>e.getY()-e.getWidth()/2.0);
+			}
+		}
+		
 		
 		double m_a = (rectPoints[1].getY()-rectPoints[0].getY())/((double)(rectPoints[1].getX()-rectPoints[0].getX()));
 		double y_a = m_a*x + rectPoints[1].getY()-m_a*rectPoints[1].getX();
