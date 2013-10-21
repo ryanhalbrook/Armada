@@ -123,7 +123,7 @@ public class Grid {
 	public void nextMode(){
 		mode++;
 		if(mode > 3){
-			mode=0;
+			mode=1;
 		}
 	}
 	
@@ -276,11 +276,13 @@ public class Grid {
 		else{
 			turn=1;	
 		}
+		setMode(1);
 		startTurn();		
 	}
 	
 	public void startTurn(){
-		setMode(0);
+		activeE=null;
+		mode=1;
 		if(delements != null && delements.size() != 0){//selecting a ship
 			for (DynamicElement d : delements) {
 				//System.out.println("looking for ship 1");
@@ -369,6 +371,7 @@ public class Grid {
 		
 		//I intend for this part to be its own class, but I haven't decided how I want it to work with Grid yet
 		////////////
+		/*
 		if(activeE != null){
 			int dx= ap.getWidth() - 150;
 			int dy= ap.getHeight() - 90;
@@ -379,7 +382,7 @@ public class Grid {
 			g.drawString("Speed: " + activeE.getAdjustedSpeed(), dx, dy+45);
 			g.drawString("Movement Left: " + (activeE.getAdjustedSpeed() - activeE.getMoved()), dx, dy+60);
 			g.drawString("Can Attack: " + activeE.canAttack(), dx, dy+75);	
-		}
+		}*/
 		
 		//AnimationHelper.draw(400, 400, 100, 100, 50, img, g, viewRegion);
 		
@@ -408,6 +411,9 @@ public class Grid {
 	}
 	public ArrayList<DynamicElement> getDelements() {
 		return delements;
+	}
+	public ArmadaPanel getAp() {
+		return ap;
 	}
 }
 

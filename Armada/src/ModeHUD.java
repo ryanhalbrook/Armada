@@ -17,13 +17,11 @@ public class ModeHUD extends HUD{
 	
 	public ModeHUD(Grid gr){
 		super(5,45,100,100,gr);
-		
 	}
 	
 	public void draw(Graphics g){
-		System.out.println("Drawing level 1");
+		if(grid == null)return;
 		if (grid.getActiveE()!=null) {
-			System.out.println("Drawing level 2");
 			Graphics2D g2d = (Graphics2D)g;
 		    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 				    
@@ -37,19 +35,21 @@ public class ModeHUD extends HUD{
 		    }
 		    else if(grid.getMode() == 1){
 		    	g.setColor(Color.RED);
-		    	g.drawString("Out of range or colision detected", 5, 60);
+		    	g.drawString("Out of range or colision detected", x, y+g.getFontMetrics().getHeight());
 		    }
 		    else if((grid.getMode() == 2 ) && grid.getActiveE().withinRange(grid.getCurrentX() + grid.getViewRegion().getX(),grid.getCurrentY() + grid.getViewRegion().getY()) && grid.getActiveE().canAttack()){
 		    	g.setColor(new Color(250,100,0));
 		    }
 		    else if((grid.getMode() == 2 )){
 		    	g.setColor(Color.RED);
+		    	g.drawString("Out of range or out of shots this turn", x, y+g.getFontMetrics().getHeight());
 		    }
 		    else if(( grid.getMode() == 3) && grid.getActiveE().withinRange(grid.getCurrentX() + grid.getViewRegion().getX(),grid.getCurrentY() + grid.getViewRegion().getY()) && grid.getActiveE().canAttack()){
 		    	g.setColor(Color.YELLOW);
 		    }
 		    else if(( grid.getMode() == 3)){
 		    	g.setColor(Color.RED);
+		    	g.drawString("Out of range or out of shots this turn", x, y+g.getFontMetrics().getHeight());
 		    }
 		    g.drawLine(shipX-grid.getViewRegion().getX(), shipY-grid.getViewRegion().getY(), grid.getCurrentX(), grid.getCurrentY());
 		    int radius = 20;
@@ -57,25 +57,24 @@ public class ModeHUD extends HUD{
 		    g.drawOval(grid.getCurrentX()-radius, grid.getCurrentY()-radius, radius*2, radius*2);
 		    g2d.setStroke(s);
 		    
-		    
 		    switch(grid.getMode()){
 		    case 0:
-		    	g.drawString("No Move Selected", 5, 45);
+		    	g.drawString("No Move Selected", x, y);
 		    	break;
 		    case 1:
-		    	g.drawString("Move initiated", 5, 45);
+		    	g.drawString("Move initiated", x, y);
 		    	break;
 		    case 2:
-		    	g.drawString("Attacking Hull", 5, 45);
+		    	g.drawString("Attacking Hull", x, y);
 		    	break;
 		    case 3:
-		    	g.drawString("Attacking Engine", 5, 45);
+		    	g.drawString("Attacking Engine", x, y);
 		    	break;
-		    }   
+		    }  
 		}
 		else{
 			g.setColor(Color.WHITE);
-			g.drawString("No Ship Selected", 5, 15);
+			g.drawString("No Ship Selected", x, y);
 		}
 	}
 
