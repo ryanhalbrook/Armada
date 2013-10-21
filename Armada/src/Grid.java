@@ -29,8 +29,7 @@ public class Grid {
     private  DynamicElement activeE;
     private ArmadaPanel ap;
     private Rectangle viewRegion = new Rectangle(0, 0, 500,500); //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
-    Color player1Color = new Color(1.0f, 0.0f, 0.0f, 0.5f);
-    Color player2Color = new Color(0.0f, 0.0f, 1.0f, 0.5f);
+    
     BufferedImage backgroundImage = null;
     
     static final int GRID_WIDTH = 3840;
@@ -148,6 +147,11 @@ public class Grid {
 		if(mode==0){
 			activeE=null;
 		}
+		if (mode == 0) {
+	        ap.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+	    } else {
+	        ap.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+	    }
 	}
 	
 	public void mouseMoved(int x, int y) {
@@ -207,8 +211,6 @@ public class Grid {
 						if(d.isIn(inX,inY) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(inX,inY) && d.isTargetable()){
 							//System.out.println("looking for ship 2");
 							d.hullTakeDamage(activeE);
-							System.out.println("Hull now at: "+d.getHull());
-							
 							activeE.setCanAttack(false);
 							//setMode(0);
 							return;
@@ -313,33 +315,24 @@ public class Grid {
 	 * draws everything on the Grid
 	 */
 	public void draw(Graphics g){
-	    if (backgroundImage != null) {
+	    drawBackground(g);
+	    drawAllDelements(g);
+		hud.draw(g);
+		//drawMiniMap(g);
+	} // End of draw
+	
+	private void drawBackground(Graphics g){
+		if (backgroundImage != null) {
 	        g.drawImage(backgroundImage, -viewRegion.getX(), -viewRegion.getY(), null);
 	    }
+	}
 	
-	    Color currentPlayerColor = Color.WHITE;
-	    String playerName = "";
-	    if (turn == 1) {
-	        currentPlayerColor = player1Color;
-	        playerName = "Player 1";
-	    } else {
-	        currentPlayerColor = player2Color;
-	        playerName = "Player 2";
-	    }
-	
-	    if (mode == 0) {
-	        ap.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-	    } else {
-	        ap.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
-	    }
-	    Graphics2D g2d = (Graphics2D)g;
-	    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-	    
+	private void drawAllDelements(Graphics g){
 		if(delements != null && delements.size() != 0){
 			for (int i=0;i<delements.size();i++) {
 				if(delements.get(i).isDead()){
 					SoundEffect.EXPLODE.play();
-					if((double)Math.random() > (double)0.75){
+					if((double)Math.random() >= (double)0.75){//25% chance of playing the scream
 						SoundEffect.SCREAM.play();
 					}
 					delements.remove(i);
@@ -350,29 +343,7 @@ public class Grid {
 				de.draw(g, viewRegion);
 			}
 		}
-		if(menus != null && menus.size() != 0){
-			for (Menu m : menus) {
-			    m.draw(g);
-			}
-		}
-		
-		// Current Player Indicator
-		g.setColor(currentPlayerColor);
-		g.fillRect(0, 0, ap.getWidth(), 20);
-		g.setColor(Color.WHITE);
-		FontMetrics fm = g.getFontMetrics();
-		int textWidth = fm.stringWidth(playerName);
-		g.drawString(playerName, ap.getWidth() - 5 - textWidth, 15);
-		
-		hud.draw(g);
-		drawMiniMap(g);
-		if(activeE!=null){
-			g.setColor(Color.WHITE);
-			g.drawString("1-Move | 2-Attack Hull | 3-Attack Engines | 4-Unselect", 5, 15);
-		}
-		
-		
-	} // End of draw
+	}
 	
 	private static BufferedImage loadImage(File f) {
         BufferedImage bi = null;
@@ -398,6 +369,12 @@ public class Grid {
 	}
 	public ArmadaPanel getAp() {
 		return ap;
+	}
+	public int getWidth(){
+		return GRID_WIDTH;
+	}
+	public int getHeight(){
+		return GRID_HEIGHT;
 	}
 }
 

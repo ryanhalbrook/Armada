@@ -28,11 +28,11 @@ public class HUD extends Rectangle{
 		case 0: return;
 		case 1:
 			x=5;
-			y=45;
+			y=TurnHUD.BAR_HEIGHT;
 			break;
 		case 2:
 			x = grid.getAp().getWidth()-this.width;
-			y=45;
+			y=TurnHUD.BAR_HEIGHT;
 			break;
 		case 3:
 			x = 5;

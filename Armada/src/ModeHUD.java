@@ -36,21 +36,21 @@ public class ModeHUD extends HUD{
 		    }
 		    else if(grid.getMode() == 1){
 		    	g.setColor(Color.RED);
-		    	g.drawString("Out of range or colision detected", x, y+g.getFontMetrics().getHeight());
+		    	g.drawString("Out of range or colision detected", x, y+g.getFontMetrics().getHeight()*2);
 		    }
 		    else if((grid.getMode() == 2 ) && grid.getActiveE().withinRange(grid.getCurrentX() + grid.getViewRegion().getX(),grid.getCurrentY() + grid.getViewRegion().getY()) && grid.getActiveE().canAttack()){
 		    	g.setColor(new Color(250,100,0));
 		    }
 		    else if((grid.getMode() == 2 )){
 		    	g.setColor(Color.RED);
-		    	g.drawString("Out of range or out of shots this turn", x, y+g.getFontMetrics().getHeight());
+		    	g.drawString("Out of range or out of shots this turn", x, y+g.getFontMetrics().getHeight()*2);
 		    }
 		    else if(( grid.getMode() == 3) && grid.getActiveE().withinRange(grid.getCurrentX() + grid.getViewRegion().getX(),grid.getCurrentY() + grid.getViewRegion().getY()) && grid.getActiveE().canAttack()){
 		    	g.setColor(Color.YELLOW);
 		    }
 		    else if(( grid.getMode() == 3)){
 		    	g.setColor(Color.RED);
-		    	g.drawString("Out of range or out of shots this turn", x, y+g.getFontMetrics().getHeight());
+		    	g.drawString("Out of range or out of shots this turn", x, y+g.getFontMetrics().getHeight()*2);
 		    }
 		    g.drawLine(shipX-grid.getViewRegion().getX(), shipY-grid.getViewRegion().getY(), grid.getCurrentX(), grid.getCurrentY());
 		    int radius = 20;
@@ -60,22 +60,22 @@ public class ModeHUD extends HUD{
 		    
 		    switch(grid.getMode()){
 		    case 0:
-		    	g.drawString("No Move Selected", x, y);
+		    	g.drawString("No Move Selected", x, y+g.getFontMetrics().getHeight());
 		    	break;
 		    case 1:
-		    	g.drawString("Move initiated", x, y);
+		    	g.drawString("Move initiated", x, y+g.getFontMetrics().getHeight());
 		    	break;
 		    case 2:
-		    	g.drawString("Attacking Hull", x, y);
+		    	g.drawString("Attacking Hull", x, y+g.getFontMetrics().getHeight());
 		    	break;
 		    case 3:
-		    	g.drawString("Attacking Engine", x, y);
+		    	g.drawString("Attacking Engine", x, y+g.getFontMetrics().getHeight());
 		    	break;
 		    }  
 		}
 		else{
 			g.setColor(Color.WHITE);
-			g.drawString("No Ship Selected", x, y);
+			g.drawString("No Ship Selected", x, y+g.getFontMetrics().getHeight());
 		}
 	}
 
