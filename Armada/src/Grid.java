@@ -339,6 +339,9 @@ public class Grid {
 			for (int i=0;i<delements.size();i++) {
 				if(delements.get(i).isDead()){
 					SoundEffect.EXPLODE.play();
+					if((double)Math.random() > (double)0.75){
+						SoundEffect.SCREAM.play();
+					}
 					delements.remove(i);
 					i--;
 				}

@@ -45,6 +45,7 @@ public class DynamicElement extends Element {
 		hb = new HealthBar(this);
 		}
 	}
+	
 	public DynamicElement(int inX, int inY, int w, int h, double angle, String img, int all){
 		super(inX,inY,w,h,angle,img);
 		switch(all){
