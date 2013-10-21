@@ -42,7 +42,7 @@ public class DynamicElement extends Element {
 		ah=new DynamicAnimationHelper(this);
 		
 		if(all!=0){
-		hb = new HealthBar(this);
+			hb = new HealthBar(this);
 		}
 	}
 	

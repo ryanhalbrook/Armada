@@ -7,7 +7,7 @@ public class TurnHUD extends HUD{
 
 	private Color player1Color = new Color(1.0f, 0.0f, 0.0f, 0.5f);
     private Color player2Color = new Color(0.0f, 0.0f, 1.0f, 0.5f);
-	static int BAR_HEIGHT= 60;
+	static int BAR_HEIGHT= 20;
     
 	public TurnHUD(Grid gr) {
 		super(0, 0, 2000, BAR_HEIGHT, gr);

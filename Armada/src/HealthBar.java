@@ -11,7 +11,10 @@ public class HealthBar {
 	}
 	
 	public void draw(Graphics g, Rectangle viewRect){
-		if(de.getAlliance()==1){
+		if(de.getAlliance()==0){
+			g.setColor(Color.GREEN);
+		}
+		else if(de.getAlliance()==1){
 			g.setColor(Color.RED);
 		}
 		else if(de.getAlliance()==2){
@@ -21,7 +24,10 @@ public class HealthBar {
 	    g.fillRect(de.getX()-viewRect.getX() - (de.getWidth()/2) -1, de.getY()-viewRect.getY() - de.getHeight()/2 -1 -10, de.getWidth()+3, 4);
 	    g.setColor(Color.BLACK);
 		g.fillRect(de.getX()-viewRect.getX() - (de.getWidth()/2), de.getY()-viewRect.getY() - de.getHeight()/2 -10, de.getWidth(), 2);
-		if(de.getAlliance()==1){
+		if(de.getAlliance()==0){
+			g.setColor(Color.GREEN);
+		}
+		else if(de.getAlliance()==1){
 			g.setColor(Color.RED);
 		}
 		else if(de.getAlliance()==2){
@@ -29,7 +35,9 @@ public class HealthBar {
 		}
 		g.fillRect(de.getX()-viewRect.getX() - (de.getWidth()/2), de.getY()-viewRect.getY() - de.getHeight()/2-10, (int)((double)de.getWidth()*(double)((double)de.getHull()/(double)de.getMaxHull())), 2);
 		
-		
+		if(de.getAlliance()==0){
+			return;
+		}
 		if(de.getAlliance()==1){
 			g.setColor(new Color(250,100,0));
 		}

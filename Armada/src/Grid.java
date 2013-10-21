@@ -57,6 +57,8 @@ public class Grid {
 		delements.add(new NormalShip(260,330,2));
 		delements.add(new NormalShip(60,330,2));
 		delements.add(new NormalShip(220,330,2));
+		delements.add(new Planet());
+		//delements.add(new Planet());
 		
 		backgroundImage = loadImage(new File("ArmadaBackground2.jpg"));
 		if (backgroundImage == null) {
@@ -179,7 +181,6 @@ public class Grid {
 					if(d.isIn(inX,inY) && d.isTargetable()){
 					    mode = 1;
 						activeE=d;
-						System.out.println("Returning");
 						return;
 						//menus.add(d.getMenu());
 						
@@ -293,24 +294,6 @@ public class Grid {
 		}
 	}
 	
-	private void drawMiniMap(Graphics g) {
-	    g.setColor(new Color(1.0f, 1.0f, 1.0f, 0.1f));
-		int miniMapWidth = 250;
-		int miniMapHeight = 125;
-		int x = ap.getWidth()-5-miniMapWidth;
-		int y = ap.getHeight()-5-miniMapHeight;
-		g.fillRect(x, y, miniMapWidth, miniMapHeight);
-		
-		int insetWidth = (int)((ap.getWidth() / (float)GRID_WIDTH)*(miniMapWidth*1.0));
-		int insetHeight = (int)((ap.getHeight() / (float)GRID_HEIGHT)*(miniMapHeight*1.0));
-		double dxf = (miniMapWidth*1.0)*(viewRegion.getX()/(GRID_WIDTH*1.0));
-		double dyf = (miniMapHeight*1.0)*(viewRegion.getY()/(GRID_HEIGHT*1.0));
-		
-		int dx = (int)dxf; int dy = (int)dyf;
-		g.setColor(Color.WHITE);
-		g.drawRect(x+dx, y+dy, insetWidth, insetHeight);
-	}
-	
 	/*
 	 * draws everything on the Grid
 	 */
@@ -318,8 +301,7 @@ public class Grid {
 	    drawBackground(g);
 	    drawAllDelements(g);
 		hud.draw(g);
-		//drawMiniMap(g);
-	} // End of draw
+	} 
 	
 	private void drawBackground(Graphics g){
 		if (backgroundImage != null) {
