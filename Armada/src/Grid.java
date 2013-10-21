@@ -369,25 +369,6 @@ public class Grid {
 		}
 		
 		
-		//I intend for this part to be its own class, but I haven't decided how I want it to work with Grid yet
-		////////////
-		/*
-		if(activeE != null){
-			int dx= ap.getWidth() - 150;
-			int dy= ap.getHeight() - 90;
-			g.setColor(Color.WHITE);
-			g.drawString("Hull: " + activeE.getHull(), dx, dy);
-			g.drawString("Engine: " + activeE.getEngine(), dx, dy+15);
-			g.drawString("Damage: " + activeE.getWeapons(), dx, dy+30);	
-			g.drawString("Speed: " + activeE.getAdjustedSpeed(), dx, dy+45);
-			g.drawString("Movement Left: " + (activeE.getAdjustedSpeed() - activeE.getMoved()), dx, dy+60);
-			g.drawString("Can Attack: " + activeE.canAttack(), dx, dy+75);	
-		}*/
-		
-		//AnimationHelper.draw(400, 400, 100, 100, 50, img, g, viewRegion);
-		
-		///////////
-		
 	} // End of draw
 	
 	private static BufferedImage loadImage(File f) {

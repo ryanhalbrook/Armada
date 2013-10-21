@@ -16,7 +16,7 @@ public class ModeHUD extends HUD{
 	}
 	
 	public ModeHUD(Grid gr, int t){
-		super(5,45,200,100,gr, t);
+		super(5,45,200,40,gr, t);
 	}
 	
 	public void draw(Graphics g){
