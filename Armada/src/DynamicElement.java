@@ -70,13 +70,9 @@ public class DynamicElement extends Element {
 	 */
 	public boolean canMovePath2(int inX, int inY, ArrayList<DynamicElement> delements){
 		if(this.canMove() && this.withinMovement(inX, inY)){
-			Rectangle rect = new Rectangle(inX,inY,inX-x,inY-y);
-			//double cx = x,cy=y;
-			double s = (double)Math.abs((double)inX-(double)x)/(double)Math.abs((double)inY-(double)y);
 			for(DynamicElement d: delements){
-				if(rect.isIn(d.getX(), d.getY())){
-					if(rect.getWidth()<= this.getWidth() && rect.getHeight()<=this.getHeight()) return false;
-					//return canMovePath2((int)(((double)rect.getHeight()/4) * (double)s),d.getY()+rect.getHeight()/4, 3, rect.getHeight()/2);
+				if(d.isIn(inX, inY) || d.distanceFrom(inX, inY) < d.getWidth() + this.getWidth()/2){
+					return false;
 				}
 			}
 			return true;

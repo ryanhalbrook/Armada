@@ -174,7 +174,7 @@ public class Grid {
 		if(mode == 1){
 			//move
 			inX += viewRegion.getX(); inY += viewRegion.getY();
-			if(activeE.withinMovement(inX,inY) && activeE.canMovePath(inX,inY, delements)){
+			if(activeE.withinMovement(inX,inY) && activeE.canMovePath2(inX,inY, delements)){
 				activeE.moveTo(inX, inY);
 				//setMode(0);
 			}
@@ -365,11 +365,12 @@ public class Grid {
 		    Stroke s = g2d.getStroke();
 		    float array[] = {10.0f};
 		    g2d.setStroke(new BasicStroke(2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1.0f, array, 0.0f));
-		    if(mode==1 && activeE.canMovePath(currentX + viewRegion.getX(),currentY + viewRegion.getY(),delements) && activeE.canMove()){
+		    if(mode==1 && activeE.canMovePath2(currentX + viewRegion.getX(),currentY + viewRegion.getY(),delements) && activeE.canMove()){
 		    	g.setColor(Color.GREEN);
 		    }
 		    else if(mode == 1){
 		    	g.setColor(Color.RED);
+		    	g.drawString("Out of range or colision detected", 5, 60);
 		    }
 		    else if((mode == 2 ) && activeE.withinRange(currentX + viewRegion.getX(),currentY + viewRegion.getY()) && activeE.canAttack()){
 		    	g.setColor(new Color(250,100,0));
@@ -392,16 +393,16 @@ public class Grid {
 		    
 		    switch(mode){
 		    case 0:
-		    	g.drawString("No Move Selected", 30, 145);
+		    	g.drawString("No Move Selected", 5, 45);
 		    	break;
 		    case 1:
-		    	g.drawString("Move initiated", 30, 145);
+		    	g.drawString("Move initiated", 5, 45);
 		    	break;
 		    case 2:
-		    	g.drawString("Attacking Hull", 30, 145);
+		    	g.drawString("Attacking Hull", 5, 45);
 		    	break;
 		    case 3:
-		    	g.drawString("Attacking Engine", 30, 145);
+		    	g.drawString("Attacking Engine", 5, 45);
 		    	break;
 		    }   
 		}
@@ -424,7 +425,7 @@ public class Grid {
 			g.drawString("Can Attack: " + activeE.canAttack(), dx, dy+75);	
 		}
 		
-		AnimationHelper.draw(400, 400, 100, 100, 50, img, g, viewRegion);
+		//AnimationHelper.draw(400, 400, 100, 100, 50, img, g, viewRegion);
 		
 		///////////
 		

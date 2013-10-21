@@ -14,7 +14,7 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	Frame f;
 	Grid grid;
 	Menu focusMenu;
-	Timer refreshTimer = new Timer(20, this);
+	Timer refreshTimer = new Timer(30, this);
 	int turn;
 	boolean moveMode = false;
 	int lastX = -1;
