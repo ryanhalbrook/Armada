@@ -1,0 +1,82 @@
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Stroke;
+
+
+public class ModeHUD extends HUD{
+
+	
+	
+	public ModeHUD(int x, int y, int width, int height) {
+		super(x, y, width, height);
+		// TODO Auto-generated constructor stub
+	}
+	
+	public ModeHUD(Grid gr){
+		super(5,45,100,100,gr);
+		
+	}
+	
+	public void draw(Graphics g){
+		System.out.println("Drawing level 1");
+		if (grid.getActiveE()!=null) {
+			System.out.println("Drawing level 2");
+			Graphics2D g2d = (Graphics2D)g;
+		    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+				    
+		    int shipX = grid.getActiveE().getX();
+		    int shipY = grid.getActiveE().getY();
+		    Stroke s = g2d.getStroke();
+		    float array[] = {10.0f};
+		    g2d.setStroke(new BasicStroke(2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1.0f, array, 0.0f));
+		    if(grid.getMode()==1 && grid.getActiveE().canMovePath2(grid.getCurrentX() + grid.getViewRegion().getX(),grid.getCurrentY() + grid.getViewRegion().getY(),grid.getDelements()) && grid.getActiveE().canMove()){
+		    	g.setColor(Color.GREEN);
+		    }
+		    else if(grid.getMode() == 1){
+		    	g.setColor(Color.RED);
+		    	g.drawString("Out of range or colision detected", 5, 60);
+		    }
+		    else if((grid.getMode() == 2 ) && grid.getActiveE().withinRange(grid.getCurrentX() + grid.getViewRegion().getX(),grid.getCurrentY() + grid.getViewRegion().getY()) && grid.getActiveE().canAttack()){
+		    	g.setColor(new Color(250,100,0));
+		    }
+		    else if((grid.getMode() == 2 )){
+		    	g.setColor(Color.RED);
+		    }
+		    else if(( grid.getMode() == 3) && grid.getActiveE().withinRange(grid.getCurrentX() + grid.getViewRegion().getX(),grid.getCurrentY() + grid.getViewRegion().getY()) && grid.getActiveE().canAttack()){
+		    	g.setColor(Color.YELLOW);
+		    }
+		    else if(( grid.getMode() == 3)){
+		    	g.setColor(Color.RED);
+		    }
+		    g.drawLine(shipX-grid.getViewRegion().getX(), shipY-grid.getViewRegion().getY(), grid.getCurrentX(), grid.getCurrentY());
+		    int radius = 20;
+		    
+		    g.drawOval(grid.getCurrentX()-radius, grid.getCurrentY()-radius, radius*2, radius*2);
+		    g2d.setStroke(s);
+		    
+		    
+		    switch(grid.getMode()){
+		    case 0:
+		    	g.drawString("No Move Selected", 5, 45);
+		    	break;
+		    case 1:
+		    	g.drawString("Move initiated", 5, 45);
+		    	break;
+		    case 2:
+		    	g.drawString("Attacking Hull", 5, 45);
+		    	break;
+		    case 3:
+		    	g.drawString("Attacking Engine", 5, 45);
+		    	break;
+		    }   
+		}
+		else{
+			g.setColor(Color.WHITE);
+			g.drawString("No Ship Selected", 5, 15);
+		}
+	}
+
+}

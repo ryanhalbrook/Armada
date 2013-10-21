@@ -1,4 +1,12 @@
-import java.awt.*;
+
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.FontMetrics;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+import java.awt.Stroke;
 import java.awt.event.MouseEvent;
 import java.util.*;
 import java.io.*;
@@ -12,6 +20,7 @@ import java.awt.image.*;
  */
 public class Grid {
 
+	private HUDmanager hud = new HUDmanager(this);
     private ArrayList<Element> elements;
     private ArrayList<DynamicElement> delements;
     private  ArrayList<Menu> menus;
@@ -116,6 +125,14 @@ public class Grid {
 		if(mode > 3){
 			mode=0;
 		}
+	}
+	
+	public int getCurrentX(){
+		return currentX;
+	}
+	
+	public int getCurrentY(){
+		return currentY;
 	}
 	
 	/*
@@ -342,74 +359,13 @@ public class Grid {
 		int textWidth = fm.stringWidth(playerName);
 		g.drawString(playerName, ap.getWidth() - 5 - textWidth, 15);
 		
+		hud.draw(g);
 		drawMiniMap(g);
-		/**
-		if(turn==1){
-			g.setColor(Color.RED);
-			g.drawString("Player 1's turn - Press ESC to end turn", 30, 15);
-		}
-		else{
-			g.setColor(Color.BLUE);
-			g.drawString("Player 2's turn  - Press ESC to end turn", 30, 15);
-		}
-		*/
 		if(activeE!=null){
 			g.setColor(Color.WHITE);
 			g.drawString("1-Move | 2-Attack Hull | 3-Attack Engines | 4-Unselect", 5, 15);
 		}
 		
-		if (activeE!=null) {
-		    
-		    int shipX = activeE.getX();
-		    int shipY = activeE.getY();
-		    Stroke s = g2d.getStroke();
-		    float array[] = {10.0f};
-		    g2d.setStroke(new BasicStroke(2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1.0f, array, 0.0f));
-		    if(mode==1 && activeE.canMovePath2(currentX + viewRegion.getX(),currentY + viewRegion.getY(),delements) && activeE.canMove()){
-		    	g.setColor(Color.GREEN);
-		    }
-		    else if(mode == 1){
-		    	g.setColor(Color.RED);
-		    	g.drawString("Out of range or colision detected", 5, 60);
-		    }
-		    else if((mode == 2 ) && activeE.withinRange(currentX + viewRegion.getX(),currentY + viewRegion.getY()) && activeE.canAttack()){
-		    	g.setColor(new Color(250,100,0));
-		    }
-		    else if((mode == 2 )){
-		    	g.setColor(Color.RED);
-		    }
-		    else if(( mode == 3) && activeE.withinRange(currentX + viewRegion.getX(),currentY + viewRegion.getY()) && activeE.canAttack()){
-		    	g.setColor(Color.YELLOW);
-		    }
-		    else if(( mode == 3)){
-		    	g.setColor(Color.RED);
-		    }
-		    g.drawLine(shipX-viewRegion.getX(), shipY-viewRegion.getY(), currentX, currentY);
-		    int radius = 20;
-		    
-		    g.drawOval(currentX-radius, currentY-radius, radius*2, radius*2);
-		    g2d.setStroke(s);
-		    
-		    
-		    switch(mode){
-		    case 0:
-		    	g.drawString("No Move Selected", 5, 45);
-		    	break;
-		    case 1:
-		    	g.drawString("Move initiated", 5, 45);
-		    	break;
-		    case 2:
-		    	g.drawString("Attacking Hull", 5, 45);
-		    	break;
-		    case 3:
-		    	g.drawString("Attacking Engine", 5, 45);
-		    	break;
-		    }   
-		}
-		else{
-			g.setColor(Color.WHITE);
-			g.drawString("No Ship Selected", 5, 15);
-		}
 		
 		//I intend for this part to be its own class, but I haven't decided how I want it to work with Grid yet
 		////////////
@@ -441,5 +397,17 @@ public class Grid {
         return bi;
         
     }
+	public DynamicElement getActiveE() {
+		return activeE;
+	}
+	public int getMode() {
+		return mode;
+	}
+	public int getTurn() {
+		return turn;
+	}
+	public ArrayList<DynamicElement> getDelements() {
+		return delements;
+	}
 }
 
