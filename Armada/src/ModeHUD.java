@@ -15,12 +15,13 @@ public class ModeHUD extends HUD{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ModeHUD(Grid gr){
-		super(5,45,100,100,gr);
+	public ModeHUD(Grid gr, int t){
+		super(5,45,200,100,gr, t);
 	}
 	
 	public void draw(Graphics g){
 		if(grid == null)return;
+		this.updateLocation();
 		if (grid.getActiveE()!=null) {
 			Graphics2D g2d = (Graphics2D)g;
 		    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);

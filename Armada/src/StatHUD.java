@@ -9,22 +9,21 @@ public class StatHUD extends HUD{
 		// TODO Auto-generated constructor stub
 	}
 
-	public StatHUD(Grid gr){
-		super(5,45,100,100,gr);
+	public StatHUD(Grid gr, int t){
+		super(5,45,120,100,gr, t);
 	}
 	
 	public void draw(Graphics g){
 		if(grid==null)return;
+		this.updateLocation();
 		if(grid.getActiveE() != null){
-			int dx= grid.getAp().getWidth() - 120;
-			int dy= grid.getAp().getHeight() - 215;
 			g.setColor(Color.WHITE);
-			g.drawString("Hull: " + grid.getActiveE().getHull(), dx, dy);
-			g.drawString("Engine: " + grid.getActiveE().getEngine(), dx, dy+15);
-			g.drawString("Damage: " + grid.getActiveE().getWeapons(), dx, dy+30);	
-			g.drawString("Speed: " + grid.getActiveE().getAdjustedSpeed(), dx, dy+45);
-			g.drawString("Movement Left: " + (grid.getActiveE().getAdjustedSpeed() - grid.getActiveE().getMoved()), dx, dy+60);
-			g.drawString("Can Attack: " + grid.getActiveE().canAttack(), dx, dy+75);	
+			g.drawString("Hull: " + grid.getActiveE().getHull(), x, y);
+			g.drawString("Engine: " + grid.getActiveE().getEngine(), x, y+g.getFontMetrics().getHeight());
+			g.drawString("Damage: " + grid.getActiveE().getWeapons(), x, y+g.getFontMetrics().getHeight()*2);	
+			g.drawString("Speed: " + grid.getActiveE().getAdjustedSpeed(), x, y+g.getFontMetrics().getHeight()*3);
+			g.drawString("Movement Left: " + (grid.getActiveE().getAdjustedSpeed() - grid.getActiveE().getMoved()), x, y+g.getFontMetrics().getHeight()*4);
+			g.drawString("Can Attack: " + grid.getActiveE().canAttack(), x, y+g.getFontMetrics().getHeight()*5);	
 		}
 	}
 	

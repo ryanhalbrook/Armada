@@ -4,6 +4,7 @@ import java.awt.Graphics;
 public class HUD extends Rectangle{
 
 	protected Grid grid;
+	protected int location;//0=static, 1+ is dynamic, 1= top left, 2= top right, 3 = bot left, 4 = bot right.  NEEDS TO BE IMPLIMENTED
 	
 	public HUD(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -13,6 +14,34 @@ public class HUD extends Rectangle{
 	public HUD(int x, int y, int width, int height, Grid gr){
 		super(x,y,width,height);
 		grid=gr;
+	}
+	
+	public HUD(int x, int y, int width, int height, Grid gr, int l){
+		super(x,y,width,height);
+		grid=gr;
+		location = l;
+	}
+	
+	public void updateLocation(){
+		if(grid==null)return;
+		switch(location){
+		case 0: return;
+		case 1:
+			x=5;
+			y=45;
+			break;
+		case 2:
+			x = grid.getAp().getWidth()-this.width;
+			y=45;
+			break;
+		case 3:
+			x = 5;
+			y = grid.getAp().getHeight() - this.height;
+			break;
+		case 4:
+			x = grid.getAp().getWidth()-this.width;
+			y = grid.getAp().getHeight() - this.height;
+		}
 	}
 	
 	public void draw(Graphics g){

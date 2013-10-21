@@ -12,8 +12,8 @@ public class HUDmanager {
 	public HUDmanager(Grid gr){
 		grid = gr;
 		huds = new ArrayList<HUD>();
-		mode = new ModeHUD(gr);
-		stat = new StatHUD(gr);
+		mode = new ModeHUD(gr, 1);
+		stat = new StatHUD(gr, 2);
 		huds.add(mode);
 		huds.add(stat);
 	}
