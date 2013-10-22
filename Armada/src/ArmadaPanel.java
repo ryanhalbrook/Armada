@@ -33,6 +33,7 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	}
 	
 	public void actionPerformed(ActionEvent evt) {
+		grid.updateViewRegion();
 	    repaint();
 	}
 	/*

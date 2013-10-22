@@ -57,8 +57,8 @@ public class Grid {
 		delements.add(new NormalShip(260,330,2));
 		delements.add(new NormalShip(60,330,2));
 		delements.add(new NormalShip(220,330,2));
-		//delements.add(new Planet());
-		//delements.add(new Planet());
+		delements.add(new Planet());
+		delements.add(new Planet());
 		
 		backgroundImage = loadImage(new File("ArmadaBackground2.jpg"));
 		if (backgroundImage == null) {
@@ -134,6 +134,11 @@ public class Grid {
 	
 	public int getCurrentY(){
 		return currentY;
+	}
+	
+	public void updateViewRegion(){
+		viewRegion.setWidth(ap.getWidth());
+		viewRegion.setHeight(ap.getHeight());
 	}
 	
 	/*

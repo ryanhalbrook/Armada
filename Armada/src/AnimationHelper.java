@@ -205,6 +205,7 @@ public class AnimationHelper{
 	
 	}
 	public void draw(Graphics g, Rectangle viewRect){
+		if(!viewRect.isIn(e.getX(), e.getY())) return;
 		Graphics2D g2 = (Graphics2D)g;
 		AffineTransform ori = g2.getTransform();
 		//g.fillRect(x-viewRect.getX(), y-viewRect.getY(), width, height);
