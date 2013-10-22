@@ -1,3 +1,5 @@
+import java.awt.Graphics;
+
 
 public class Planet extends DynamicElement{
 
@@ -24,10 +26,8 @@ public class Planet extends DynamicElement{
 		//hb = new HealthBar(this);
 	}
 	
-	private void setRandomImage(){
+	private void setRandomImage(){		
 		int i = (int)(1 + Math.random() *15 );
-		//setImage("fighter_red");
 		setImage("planet/" + i);
 	}
-
 }
