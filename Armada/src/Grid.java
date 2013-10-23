@@ -108,7 +108,6 @@ public class Grid {
 		int initialIndex = index;
 		DynamicElement temp = delements.get(index);
 		do{
-			System.out.println("Should only print a few times");
 			index++;
 			if(index==initialIndex){//if came full circle
 				return;
