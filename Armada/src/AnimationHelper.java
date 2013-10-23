@@ -172,7 +172,7 @@ public class AnimationHelper{
 		}
 		rectPoints=rectPoints2;
 		for(int i=0;i<rectPoints.length;i++){
-			System.out.println(rectPoints[i]);
+		//	System.out.println(rectPoints[i]);
 			if(rectPoints[i]==null){
 				if(maxX-minX==e.getWidth())
 					return (x<e.getX()+e.getWidth()/2.0 && x>e.getX()-e.getWidth()/2.0) && 
