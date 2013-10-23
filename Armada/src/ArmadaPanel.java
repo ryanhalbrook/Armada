@@ -126,7 +126,6 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	public void mouseMoved(MouseEvent evt) {
 	    if (!moveMode) {
 	        grid.mouseMoved(evt.getX(), evt.getY());
-	        //repaint();
 	    } else {
 	        int xVel = 50;
 	        int yVel = 50;

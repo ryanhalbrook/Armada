@@ -112,7 +112,7 @@ public class Grid {
 			if(index==initialIndex){//if came full circle
 				return;
 			}
-			if(delements.size() == index){//if hit end of list
+			if(delements.size() >= index){//if hit end of list
 				index=0;
 			}
 			temp=delements.get(index);
