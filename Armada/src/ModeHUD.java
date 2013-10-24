@@ -24,7 +24,7 @@ public class ModeHUD extends HUD{
 		this.updateLocation();
 		if (grid.getActiveE()!=null) {
 			Graphics2D g2d = (Graphics2D)g;
-		    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		    
 				    
 		    int shipX = grid.getActiveE().getX();
 		    int shipY = grid.getActiveE().getY();
