@@ -92,7 +92,9 @@ public class AnimationHelper{
 	}
 	
 	private void loadImage(String img) {
-		
+	    //System.out.println(img);
+		image = ImageLoader.getImage(img+".png");
+		/*
 		try{
 			//File f= new File("image/"+img+".png");
 			URL url = this.getClass().getClassLoader().getResource("image/"+img+".png");
@@ -102,6 +104,7 @@ public class AnimationHelper{
 			e.printStackTrace();
 			System.out.println("IMAGE COULD NOT BE FOUND");
 		}
+		*/
 		
 	}
 	public void changeImage(String img){

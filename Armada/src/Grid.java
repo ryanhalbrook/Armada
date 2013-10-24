@@ -68,14 +68,8 @@ public class Grid {
 		loadSampleImage();
     }
     private void loadSampleImage(){
-    	try{
-			File f= new File("src/image/"+"saturn"+".png");
-			img= ImageIO.read(f);
-		}
-		catch(IOException e){
-			e.printStackTrace();
-			System.out.println("IMAGE COULD NOT BE FOUND");
-		}
+        img = ImageLoader.getImage("saturn.png");
+
     }
     /**
         Moves the viewing region. Will stop at boundaries.
@@ -261,13 +255,6 @@ public class Grid {
 	 */
 	public DynamicElement getDynamicElementAt(int x, int y){
 		return new DynamicElement();
-	}
-	
-	/*
-	 * adds Animation to the Grid, but separate from the DynamicElements so it cannot be selected
-	 */
-	public void add(Animation a){
-		
 	}
 	
 	/*

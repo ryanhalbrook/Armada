@@ -8,7 +8,6 @@ screen and the main menu screen.
 public class ApplicationManager {
     JPanel mainPanel;
     JFrame window = new JFrame();
-    GameManager gm = null;
     
     static final int DEFAULT_WINDOW_WIDTH = 960;
     static final int DEFAULT_WINDOW_HEIGHT = 540;
@@ -30,13 +29,10 @@ public class ApplicationManager {
     }
     
     public void startGame() {
-        gm = new GameManager();
-        swapPanel(new ArmadaPanel(this,gm));
+        swapPanel(new ArmadaPanel(this));
     }
     
     public void endGame() {
-        System.out.println("Ending game");
-        gm = null;
         swapPanel(new MainMenuPanel(this));
     }
     
@@ -47,9 +43,7 @@ public class ApplicationManager {
         mainPanel = null;
         mainPanel = p;
         window.add(mainPanel);
-        //window.pack();
         window.validate();
-        enforceDefaultWindowSize();
         mainPanel.requestFocus();
     }
     

@@ -34,10 +34,15 @@ public class MainMenuPanel extends JPanel implements ActionListener{
         
         // Load the background image
         File f = new File(IMAGE_NAME+ ".jpg");
+        
+        backgroundImage = ImageLoader.getImage(IMAGE_NAME+".jpg");
+        if (backgroundImage == null) System.out.println("Failed to load main menu image");
+        /*
         backgroundImage = loadImage(f);
         if (backgroundImage == null) {
             backgroundImage = loadImage(new File("src/"+IMAGE_NAME+".jpg"));
         }
+        */
     }
     
     // Respond to button clicks here.
@@ -62,18 +67,21 @@ public class MainMenuPanel extends JPanel implements ActionListener{
             g2d.drawImage(backgroundImage, 0, 0, null);
         } else {
             System.out.println("Repainting");
-            repaint();
+            //repaint();
         }
         g2d.setTransform(at);
     }
     
     private static BufferedImage loadImage(File f) {
         BufferedImage bi = null;
+        
+        /*
         try {
             bi = ImageIO.read(f);
         } catch (IOException e) {
             System.out.println("Failed to load main menu image");
         }
+        */
         return bi;
         
     }

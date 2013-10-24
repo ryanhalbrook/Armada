@@ -11,7 +11,6 @@ import javax.swing.*;
 public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener {
 
     ApplicationManager am;
-	Frame f;
 	Grid grid;
 	Menu focusMenu;
 	Timer refreshTimer = new Timer(30, this);
@@ -20,15 +19,12 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	int lastX = -1;
 	int lastY = -1;
 	
-	
-	public ArmadaPanel(ApplicationManager am, GameManager gm) {
-	    //grid = new Grid(gm.getElements());
+	public ArmadaPanel(ApplicationManager am) {
 	    this.am = am;
 	    addMouseListener(this);
 	    addKeyListener(this);
 	    addMouseMotionListener(this);
 	    grid = new Grid(this);
-	    this.setFocusable(true);
 	    refreshTimer.start();
 	}
 	
@@ -36,78 +32,70 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 		grid.updateViewRegion();
 	    repaint();
 	}
-	/*
-	public ArmadaPanel(JFrame in, ApplicationManager am) {
-	this.am = am;
-		turn = 1;
-		addMouseListener(this);
-		addKeyListener(this);
-		this.setFocusable(true);
-	    this.requestFocus();
-	}
-	public ArmadaPanel(Frame in, ApplicationManager am){
-	this.am = am;
-		turn = 1;
-		f=in;
-	}
-	*/
-	
-	//this should be a switch, not a bunch of if else
+
 	public void keyPressed(KeyEvent evt) {
-	    System.out.println("Key pressed");
-	    if(evt.getKeyCode() == KeyEvent.VK_LEFT) {
-	        grid.moveViewRegion(-100, 0);
-	        System.out.println("Left key");
-	        repaint();
-	    } else if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
-	        grid.moveViewRegion(100, 0);
-	        repaint();
-	    } else if (evt.getKeyCode() == KeyEvent.VK_UP) {
-	        grid.moveViewRegion(0, -100);
-	        repaint();
-	    } else if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
-	        grid.moveViewRegion(0, 100);
-	        repaint();
-	    } else if (evt.getKeyCode() == KeyEvent.VK_Q) {
-	        am.endGame();
-	    } else if (evt.getKeyCode() == KeyEvent.VK_C) {
-	        grid.cancelMove();
-	    }else if (evt.getKeyCode() == KeyEvent.VK_4) {
-	    	System.out.println("Mode 0");
-	        grid.setMode(0);
-	    }else if (evt.getKeyCode() == KeyEvent.VK_1) {
-	    	System.out.println("Mode 1");
-	        grid.setMode(1);
-	    }else if (evt.getKeyCode() == KeyEvent.VK_2) {
-	    	System.out.println("Mode 2");
-	        grid.setMode(2);
-	    }else if (evt.getKeyCode() == KeyEvent.VK_3) {
-	    	System.out.println("Mode 3");
-	        grid.setMode(3);
-	    }
-	    else if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
-	        grid.toggleTurn();
-	    }else if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
-	        grid.selectNextDEThisTurn();
-	    }else if (evt.getKeyCode() == KeyEvent.VK_SHIFT) {
-	        grid.nextMode();
-	    } else if (evt.getKeyCode() == KeyEvent.VK_M) {
-	        if (moveMode) {
-	            lastX = -1; lastY = -1;
-	        }
-	        moveMode = !moveMode;
-	    } else if (evt.getKeyCode() == KeyEvent.VK_CONTROL) {
-	        if (moveMode) {
-	            lastX = -1; lastY = -1;
-	        }
-	        moveMode = !moveMode;
-	    }
+	    int keycode = evt.getKeyCode();
 	    
+	    switch (keycode) {
+	        case KeyEvent.VK_LEFT:
+	            grid.moveViewRegion(-100, 0);
+	            repaint();
+	        break;
+	        case KeyEvent.VK_RIGHT:
+	            grid.moveViewRegion(100, 0);
+	            repaint();
+	        break;
+	        case KeyEvent.VK_UP:
+	            grid.moveViewRegion(0, -100);
+	            repaint();
+	        break;
+	        case KeyEvent.VK_DOWN:
+	            grid.moveViewRegion(0, 100);
+	            repaint();
+	        break;
+	        case KeyEvent.VK_Q:
+	            am.endGame();
+	        break;
+	        case KeyEvent.VK_C:
+	            grid.cancelMove();
+	        break;
+	        case KeyEvent.VK_1:
+	            grid.setMode(1);
+	        break;
+	        case KeyEvent.VK_2:
+	            grid.setMode(2);
+	        break;
+	        case KeyEvent.VK_3:
+	            grid.setMode(3);
+	        break;
+	        case KeyEvent.VK_4:
+	            grid.setMode(0);
+	        break;
+	        case KeyEvent.VK_ESCAPE:
+	            grid.toggleTurn();
+	        break;
+	        case KeyEvent.VK_SPACE:
+	            grid.selectNextDEThisTurn();
+	        break;
+	        case KeyEvent.VK_SHIFT:
+	            grid.nextMode();
+	        break;
+	        case KeyEvent.VK_M:
+	            if (moveMode) {
+	                lastX = -1; lastY = -1;
+	            }
+	            moveMode = !moveMode;
+	        break;
+	        case KeyEvent.VK_CONTROL:
+	            if (moveMode) {
+	                lastX = -1; lastY = -1;
+	            }
+	            moveMode = !moveMode;
+	        break;
+	    }
 	}
 	
-	public void keyTyped(KeyEvent evt) {
-	//System.out.println("Key event");
-	}
+	
 	
 	public void keyReleased(KeyEvent evt) {
 	    if (evt.getKeyCode() == KeyEvent.VK_CONTROL) {
@@ -116,11 +104,7 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	        }
 	        moveMode = !moveMode;
 	    }
-	//System.out.println("Key event");
-	}
 	
-	public void mouseDragged(MouseEvent evt) {
-	    
 	}
 	
 	public void mouseMoved(MouseEvent evt) {
@@ -162,10 +146,7 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	}
 	
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseClicked(MouseEvent arg0) {}
 	
 	/*
 	 * (non-Javadoc)
@@ -174,8 +155,6 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	 * Else, it is forwarded to the MenuLoader.
 	 */
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		//System.out.println("Clicked");
 		if(arg0.getButton() == MouseEvent.BUTTON3){
 			grid.setMode(0);
 		}
@@ -191,5 +170,7 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	public void mouseExited(MouseEvent arg0) {}
 	@Override
 	public void mouseReleased(MouseEvent arg0) {}
+	public void keyTyped(KeyEvent evt) {}
+	public void mouseDragged(MouseEvent evt) {}
 
 }

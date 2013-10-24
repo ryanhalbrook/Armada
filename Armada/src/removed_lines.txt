@@ -1,0 +1,99 @@
+	/*
+	public ArmadaPanel(JFrame in, ApplicationManager am) {
+	this.am = am;
+		turn = 1;
+		addMouseListener(this);
+		addKeyListener(this);
+		this.setFocusable(true);
+	    this.requestFocus();
+	}
+	public ArmadaPanel(Frame in, ApplicationManager am){
+	this.am = am;
+		turn = 1;
+		f=in;
+	}
+	*/
+	
+	//System.out.println("Key event");
+	
+	//System.out.println("Key event");
+	
+	// TODO Auto-generated method stub
+	//System.out.println("Clicked");
+	
+	// TODO Auto-generated method stub
+	
+	//System.out.println("Key pressed");
+	
+	
+	if(evt.getKeyCode() == KeyEvent.VK_LEFT) {
+	        grid.moveViewRegion(-100, 0);
+	        System.out.println("Left key");
+	        repaint();
+	    } else if (evt.getKeyCode() == KeyEvent.VK_RIGHT) {
+	        grid.moveViewRegion(100, 0);
+	        repaint();
+	    } else if (evt.getKeyCode() == KeyEvent.VK_UP) {
+	        
+	    } else if (evt.getKeyCode() == KeyEvent.VK_DOWN) {
+	        
+	    } else if (evt.getKeyCode() == KeyEvent.VK_Q) {
+	        am.endGame();
+	    } else if (evt.getKeyCode() == KeyEvent.VK_C) {
+	        grid.cancelMove();
+	    }else if (evt.getKeyCode() == KeyEvent.VK_4) {
+	    	System.out.println("Mode 0");
+	        grid.setMode(0);
+	    }else if (evt.getKeyCode() == KeyEvent.VK_1) {
+	    	System.out.println("Mode 1");
+	        grid.setMode(1);
+	    }else if (evt.getKeyCode() == KeyEvent.VK_2) {
+	    	System.out.println("Mode 2");
+	        grid.setMode(2);
+	    }else if (evt.getKeyCode() == KeyEvent.VK_3) {
+	    	System.out.println("Mode 3");
+	        grid.setMode(3);
+	    }
+	    else if (evt.getKeyCode() == KeyEvent.VK_ESCAPE) {
+	        grid.toggleTurn();
+	    }else if (evt.getKeyCode() == KeyEvent.VK_SPACE) {
+	        grid.selectNextDEThisTurn();
+	    }else if (evt.getKeyCode() == KeyEvent.VK_SHIFT) {
+	        grid.nextMode();
+	    } else if (evt.getKeyCode() == KeyEvent.VK_M) {
+	        if (moveMode) {
+	            lastX = -1; lastY = -1;
+	        }
+	        moveMode = !moveMode;
+	    } else if (evt.getKeyCode() == KeyEvent.VK_CONTROL) {
+	        if (moveMode) {
+	            lastX = -1; lastY = -1;
+	        }
+	        moveMode = !moveMode;
+	    }
+	    
+	    
+	    	/*
+	 * adds Animation to the Grid, but separate from the DynamicElements so it cannot be selected
+	 
+	public void add(Animation a){
+		
+	}
+	*/
+	
+	//GameManager gm = null;
+	
+	System.out.println("Ending game");
+    //gm = null;
+    
+            /*
+    	try{
+			File f= new File("src/image/"+"saturn"+".png");
+			img= ImageIO.read(f);
+		}
+		catch(IOException e){
+			e.printStackTrace();
+			System.out.println("IMAGE COULD NOT BE FOUND");
+		}
+		*/
+	
