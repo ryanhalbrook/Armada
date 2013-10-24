@@ -20,7 +20,7 @@ import java.awt.image.*;
  */
 public class Grid {
 
-	private HUDmanager hud = new HUDmanager(this);
+	
     private ArrayList<Element> elements;
     private ArrayList<DynamicElement> delements;
     private  ArrayList<Menu> menus;
@@ -60,10 +60,6 @@ public class Grid {
 		delements.add(new Planet());
 		delements.add(new Planet());
 		
-		backgroundImage = loadImage(new File("ArmadaBackground2.jpg"));
-		if (backgroundImage == null) {
-		    backgroundImage = loadImage(new File("src/ArmadaBackground2.jpg"));
-		}
 		//Testing Static draw
 		loadSampleImage();
     }
@@ -250,20 +246,6 @@ public class Grid {
 		return (int)Math.sqrt(Math.pow(Math.abs((double)e1.getY()-(double)inY),2) + Math.pow(Math.abs((double)e1.getX()-(double)inX),2));
 	}
 	
-	/*
-	 * returns a DynamicElement at the specified location
-	 */
-	public DynamicElement getDynamicElementAt(int x, int y){
-		return new DynamicElement();
-	}
-	
-	/*
-	 * adds DynamicElement to Grid, separate from Animations
-	 */
-	public void add(DynamicElement de){
-		
-	}
-	
 	public void toggleTurn(){
 		if(turn==1){
 			turn=2;
@@ -292,9 +274,9 @@ public class Grid {
 	public void draw(Graphics g){
 	    Graphics2D g2d = (Graphics2D)g;
 	    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-	    drawBackground(g);
+	    //drawBackground(g);
 	    drawAllDelements(g);
-		hud.draw(g);
+		
 	} 
 	
 	private void drawBackground(Graphics g){

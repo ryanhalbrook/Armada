@@ -96,4 +96,27 @@
 			System.out.println("IMAGE COULD NOT BE FOUND");
 		}
 		*/
+		
+		
+			/*
+	 * returns a DynamicElement at the specified location
+	 */
+	public DynamicElement getDynamicElementAt(int x, int y){
+		return new DynamicElement();
+	}
+	
+	/*
+	 * adds DynamicElement to Grid, separate from Animations
+	 */
+	public void add(DynamicElement de){
+		
+	}
+	
+	backgroundImage = loadImage(new File("ArmadaBackground2.jpg"));
+		if (backgroundImage == null) {
+		    backgroundImage = loadImage(new File("src/ArmadaBackground2.jpg"));
+		}
+	
+	g.setColor(Color.WHITE);
+	    g.drawString("Showing Region: (" + grid.getViewRegion().getX() + ", " + grid.getViewRegion().getY() + ", " + this.getWidth() + ", " + this.getHeight() + ")", 5, this.getHeight()-5);
 	

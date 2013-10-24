@@ -1,7 +1,11 @@
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
+import java.awt.image.*;
+
 /*
+ * SCROLL DOWN FOR KEY HANDLING
+
  * ArmadaPanel take in mouse input to allow user to click on objects
  * displays all objects present on Grid
  
@@ -10,21 +14,24 @@ import javax.swing.*;
 
 public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener {
 
-    ApplicationManager am;
-	Grid grid;
-	Menu focusMenu;
-	Timer refreshTimer = new Timer(30, this);
-	int turn;
+    private HUDmanager hud = null;
+    private ApplicationManager am;
+    private BufferedImage backgroundImage = null;
+	private Grid grid;
+	private Menu focusMenu;
+	private Timer refreshTimer = new Timer(30, this);
 	boolean moveMode = false;
 	int lastX = -1;
 	int lastY = -1;
 	
 	public ArmadaPanel(ApplicationManager am) {
 	    this.am = am;
+	    backgroundImage = ImageLoader.getImage("ArmadaBackground2.jpg");
 	    addMouseListener(this);
 	    addKeyListener(this);
 	    addMouseMotionListener(this);
 	    grid = new Grid(this);
+	    hud = new HUDmanager(grid);
 	    refreshTimer.start();
 	}
 	
@@ -32,7 +39,75 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 		grid.updateViewRegion();
 	    repaint();
 	}
+	
+	public void keyReleased(KeyEvent evt) {
+	    if (evt.getKeyCode() == KeyEvent.VK_CONTROL) {
+	        if (moveMode) {
+	            lastX = -1; lastY = -1;
+	        }
+	        moveMode = !moveMode;
+	    }
+	
+	}
+	
+	public void mouseMoved(MouseEvent evt) {
+	    if (!moveMode) {
+	        grid.mouseMoved(evt.getX(), evt.getY());
+	    } else {
+	        int xVel = 50;
+	        int yVel = 50;
+	        if (lastX < 0) {
+	            lastX = evt.getX(); lastY = evt.getY();
+	        } else {
+	            grid.moveViewRegion((evt.getX()-lastX)*xVel, (evt.getY()-lastY)*yVel);
+	            lastX = evt.getX(); lastY = evt.getY();
+	        }
+	    }
+	}
 
+	public void paintComponent(Graphics g) {
+	    // Draw a black background.
+	    g.setColor(Color.BLACK);
+	    g.fillRect(0, 0, this.getWidth(), this.getHeight());
+	    
+	    // Draw the background image.
+	    if (backgroundImage != null) {
+	        g.drawImage(backgroundImage, -grid.getViewRegion().getX(), -grid.getViewRegion().getY(), null);
+	    }
+	    
+	    // Draw the grid.
+	    if (grid != null) grid.draw(g);
+	    
+	    // Draw the HUD.
+	    hud.draw(g);    	
+	}
+	
+	/*
+	 * sets the menu that will get a mouse event
+	 */
+	public void requestClick(Menu m){
+		focusMenu=m;
+	}
+	
+	public void endRequest(){
+		focusMenu=null;
+	}
+	
+	/*
+	 * (non-Javadoc)
+	 * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
+	 * if a menu is currently requesting mouse focus, the MouseEvent is forwarded to the Menu.
+	 * Else, it is forwarded to the MenuLoader.
+	 */
+	public void mousePressed(MouseEvent arg0) {
+		if(arg0.getButton() == MouseEvent.BUTTON3){
+			grid.setMode(0);
+		}
+		int xx = (int)arg0.getPoint().getX();
+		int yy = (int)arg0.getPoint().getY();
+		grid.click(xx,yy);
+	}
+	
 	public void keyPressed(KeyEvent evt) {
 	    int keycode = evt.getKeyCode();
 	    
@@ -95,75 +170,8 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	    }
 	}
 	
-	
-	
-	public void keyReleased(KeyEvent evt) {
-	    if (evt.getKeyCode() == KeyEvent.VK_CONTROL) {
-	        if (moveMode) {
-	            lastX = -1; lastY = -1;
-	        }
-	        moveMode = !moveMode;
-	    }
-	
-	}
-	
-	public void mouseMoved(MouseEvent evt) {
-	    if (!moveMode) {
-	        grid.mouseMoved(evt.getX(), evt.getY());
-	    } else {
-	        int xVel = 50;
-	        int yVel = 50;
-	        if (lastX < 0) {
-	            lastX = evt.getX(); lastY = evt.getY();
-	        } else {
-	            grid.moveViewRegion((evt.getX()-lastX)*xVel, (evt.getY()-lastY)*yVel);
-	            lastX = evt.getX(); lastY = evt.getY();
-	        }
-	    }
-	}
-	
-	public int turn(){
-		return turn;
-	}
-	
-	public void paintComponent(Graphics g) {
-	    g.setColor(Color.BLACK);
-	    g.fillRect(0, 0, this.getWidth(), this.getHeight());
-	    if (grid != null) grid.draw(g);
-	    g.setColor(Color.WHITE);
-	    g.drawString("Showing Region: (" + grid.getViewRegion().getX() + ", " + grid.getViewRegion().getY() + ", " + this.getWidth() + ", " + this.getHeight() + ")", 5, this.getHeight()-5);    	
-	}
-	
-	/*
-	 * sets the menu that will get a mouse event
-	 */
-	public void requestClick(Menu m){
-		focusMenu=m;
-	}
-	
-	public void endRequest(){
-		focusMenu=null;
-	}
-	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {}
-	
-	/*
-	 * (non-Javadoc)
-	 * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
-	 * if a menu is currently requesting mouse focus, the MouseEvent is forwarded to the Menu.
-	 * Else, it is forwarded to the MenuLoader.
-	 */
-	public void mousePressed(MouseEvent arg0) {
-		if(arg0.getButton() == MouseEvent.BUTTON3){
-			grid.setMode(0);
-		}
-		this.requestFocus();
-		int xx = (int)arg0.getPoint().getX();
-		int yy = (int)arg0.getPoint().getY();
-		grid.click(xx,yy);
-	}
-	
     @Override
 	public void mouseEntered(MouseEvent arg0) {}
 	@Override
