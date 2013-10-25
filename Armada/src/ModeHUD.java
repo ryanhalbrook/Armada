@@ -31,6 +31,7 @@ public class ModeHUD extends HUD{
 		    Stroke s = g2d.getStroke();
 		    float array[] = {10.0f};
 		    g2d.setStroke(new BasicStroke(2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1.0f, array, 0.0f));
+		    g2d.setColor(Color.WHITE);
 		    if(grid.getMode()==1 && grid.getActiveE().canMovePath2(grid.getCurrentX() + grid.getViewRegion().getX(),grid.getCurrentY() + grid.getViewRegion().getY(),grid.getDelements()) && grid.getActiveE().canMove()){
 		    	g.setColor(Color.GREEN);
 		    }
@@ -51,6 +52,12 @@ public class ModeHUD extends HUD{
 		    else if(( grid.getMode() == 3)){
 		    	g.setColor(Color.RED);
 		    	g.drawString("Out of range or out of shots this turn", x, y+g.getFontMetrics().getHeight()*2);
+		    }else if(( grid.getMode() == 4) && grid.distance(grid.getActiveE(), grid.getCurrentX() + grid.getViewRegion().getX(), (grid.getCurrentY()) + grid.getViewRegion().getY()) < 100){
+		    	g.setColor(Color.MAGENTA);
+		    }
+		    else if(( grid.getMode() == 4)){
+		    	g.setColor(Color.RED);
+		    	g.drawString("Out of docking range or already docked", x, y+g.getFontMetrics().getHeight()*2);
 		    }
 		    g.drawLine(shipX-grid.getViewRegion().getX(), shipY-grid.getViewRegion().getY(), grid.getCurrentX(), grid.getCurrentY());
 		    int radius = 20;
@@ -63,13 +70,16 @@ public class ModeHUD extends HUD{
 		    	g.drawString("No Move Selected", x, y+g.getFontMetrics().getHeight());
 		    	break;
 		    case 1:
-		    	g.drawString("Move initiated", x, y+g.getFontMetrics().getHeight());
+		    	g.drawString("Move Initiated", x, y+g.getFontMetrics().getHeight());
 		    	break;
 		    case 2:
 		    	g.drawString("Attacking Hull", x, y+g.getFontMetrics().getHeight());
 		    	break;
 		    case 3:
 		    	g.drawString("Attacking Engine", x, y+g.getFontMetrics().getHeight());
+		    	break;
+		    case 4:
+		    	g.drawString("Docking Initiated", x, y+g.getFontMetrics().getHeight());
 		    	break;
 		    }  
 		}

@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Point;
 
 
@@ -12,6 +14,7 @@ public class Ship extends DynamicElement{
 	 * The number at [row][column] represents how many of those are present
 	 */
 	private int[][] list = new int[3][10];//numbers subject to change
+	private Planet planetDocked;
 	
 	//Every ship that extends this class needs the following line, but with values assigned to each.  Whenever update() is called, the value of the corresponding stats need to be recalculated starting with these and then adding in each appropriate buff, item, and upgrade.
 	//protected final int DEFAULT_HULL, DEFAULT_MAX_HULL, DEFAULT_SPEED, DEFAULT_BOARD, DEFAULT_ENGINE, DEFAULT_MAX_ENGINE, DEFAULT_MAX_CARGO, DEFAULT_RANGE;
@@ -57,6 +60,11 @@ public class Ship extends DynamicElement{
 		return cargo;
 	}
 
+	public boolean isDocked(){
+		if(planetDocked==null)return false;
+		return true;
+	}
+	
 	public void setCargo(int cargo) {
 		this.cargo = cargo;
 	}
@@ -67,6 +75,25 @@ public class Ship extends DynamicElement{
 
 	public void setMaxCargo(int maxCargo) {
 		this.maxCargo = maxCargo;
+	}
+
+	public Planet getPlanetDocked() {
+		return planetDocked;
+	}
+
+	public void setPlanetDocked(Planet inP) {
+		if(this.planetDocked !=null && this.planetDocked != inP){
+			this.planetDocked.unDock(this);
+		}
+		this.planetDocked = inP;
+	}
+	
+	public void draw(Graphics g, Rectangle viewRect){
+		super.draw(g,viewRect);
+		if(isDocked()){
+			g.setColor(Color.WHITE);
+			g.drawString("DOCKED", x - viewRect.getX()-width/2, y - viewRect.getY() - height);
+		}
 	}
 	
 }

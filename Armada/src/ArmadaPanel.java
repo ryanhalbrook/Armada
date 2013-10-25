@@ -101,7 +101,8 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	 */
 	public void mousePressed(MouseEvent arg0) {
 		if(arg0.getButton() == MouseEvent.BUTTON3){
-			grid.setMode(0);
+			moveMode=false;
+			grid.unselect();
 		}
 		int xx = (int)arg0.getPoint().getX();
 		int yy = (int)arg0.getPoint().getY();
@@ -144,7 +145,7 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	            grid.setMode(3);
 	        break;
 	        case KeyEvent.VK_4:
-	            grid.setMode(0);
+	            grid.setMode(4);
 	        break;
 	        case KeyEvent.VK_ESCAPE:
 	            grid.toggleTurn();

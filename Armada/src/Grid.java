@@ -113,9 +113,10 @@ public class Grid {
 	
 	public void nextMode(){
 		mode++;
-		if(mode > 3){
+		if(mode > 4){
 			mode=1;
 		}
+		System.out.println("mode: " + mode);
 	}
 	
 	public int getCurrentX(){
@@ -137,6 +138,11 @@ public class Grid {
 	 */
 	public boolean inRange(DynamicElement e1, DynamicElement e2){
 		return e1.getRange() > distance(e1,e2);
+	}
+	
+	public void unselect(){
+		activeE=null;
+		mode=1;
 	}
 	
 	public void setMode(int i){
@@ -191,9 +197,10 @@ public class Grid {
 		if(mode == 1){
 			//move
 			inX += viewRegion.getX(); inY += viewRegion.getY();
-			if(activeE.withinMovement(inX,inY) && activeE.canMovePath2(inX,inY, delements)){
+			if(activeE.withinMovement(inX,inY) && activeE.canMovePath2(inX,inY, delements) && activeE instanceof Ship){
 				activeE.moveTo(inX, inY);
-				//setMode(0);
+				Ship temp = (Ship) activeE;
+				temp.setPlanetDocked(null);
 			}
 			return;
 		}
@@ -219,18 +226,33 @@ public class Grid {
 			if(delements != null && delements.size() != 0 && activeE.canAttack()){
 				inX += viewRegion.getX(); inY += viewRegion.getY();
 				//System.out.println("x, y:" + inX + ", " + inY);
-					for (DynamicElement d : delements) {
-						//System.out.println("looking for ship 1");
-						if(d.isIn(inX,inY) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(inX,inY) && d.isTargetable() && d.getEngine()>0){
-							//System.out.println("looking for ship 2");
-							d.engineTakeDamage(activeE);
-							System.out.println("Engines now at: "+d.getEngine());
-							activeE.setCanAttack(false);
-							//setMode(0);
-							return;
-						}
+				for (DynamicElement d : delements) {
+					//System.out.println("looking for ship 1");
+					if(d.isIn(inX,inY) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(inX,inY) && d.isTargetable() && d.getEngine()>0){
+						//System.out.println("looking for ship 2");
+						d.engineTakeDamage(activeE);
+						System.out.println("Engines now at: "+d.getEngine());
+						activeE.setCanAttack(false);
+						//setMode(0);
+						return;
 					}
 				}
+			}
+		}
+		if(mode == 4){
+			//docking
+			if(delements != null && delements.size() != 0){
+				inX += viewRegion.getX(); inY += viewRegion.getY();
+				for (DynamicElement d : delements) {
+					if(d.isIn(inX,inY) && (d.getAlliance()==0 || d.getAlliance() == activeE.getAlliance()) && activeE.distanceFrom(inX, inY) < 100 && d.isTargetable() && d instanceof Planet && activeE instanceof Ship){
+						System.out.println("docking attempted");
+						Planet p = (Planet)d;
+						Ship s = (Ship) activeE;
+						p.dock(s);
+						return;
+					}
+				}
+			}
 		}
 		
 	}
@@ -298,7 +320,24 @@ public class Grid {
 				}
 			}
 			for (DynamicElement de : delements) {
-				de.draw(g, viewRegion);
+				if(de instanceof Planet){
+					de.draw(g, viewRegion);
+				}
+			}
+			for (DynamicElement de : delements) {
+				if(de instanceof Ship){
+					if(de.getAlliance() !=turn){
+						de.draw(g, viewRegion);
+					}
+					
+				}
+			}
+			for (DynamicElement de : delements) {
+				if(de instanceof Ship){
+					if(de.getAlliance() ==turn){
+						de.draw(g, viewRegion);
+					}
+				}
 			}
 		}
 	}

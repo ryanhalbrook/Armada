@@ -8,7 +8,7 @@ public class NormalShip extends Ship{
 		hull=maxHull;
 		maxEngine=1000;
 		engine=maxEngine;
-		speed=300;
+		speed=300000;
 		weapons = 300;
 		range = 300;
 	}
