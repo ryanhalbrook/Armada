@@ -6,6 +6,8 @@ public class Planet extends DynamicElement{
 	
 	protected ArrayList<Ship> dockedList;
 	protected int upgradeLevel;
+	private int[][] storeList = new int[3][10];
+	private Teleporter tp;
 
 	public Planet(int a, int b, int w, int h, String img, int r,
 			int maxH, int maxE, int s, int all, int t, int weap) {
@@ -84,8 +86,36 @@ public class Planet extends DynamicElement{
 			else System.out.println("Planet can only be upgraded if one ship is docked.");
 		}
 		else if (upgradeLevel == 1) {
-			if (dockedList.size() == 1 && dockedList.get(0).alliance == 2) alliance = 2;
-			else upgradeLevel++;
+			if (dockedList.size() == 1 && dockedList.get(0).alliance != alliance) alliance = dockedList.get(0).alliance;
+			else {
+				upgradeLevel++;
+				
+			}
 		}
+		else if (upgradeLevel == 2) {
+			if (dockedList.size() == 1 && dockedList.get(0).alliance != alliance){
+				alliance = dockedList.get(0).alliance;
+				upgradeLevel = 0;
+			}
+			else {
+				upgradeLevel++;
+				storeList[0][0]++;
+				storeList[0][1]++;
+				storeList[0][2]++;
+			}
+		}
+		else if (upgradeLevel == 3) {
+			if (dockedList.size() == 1 && dockedList.get(0).alliance != alliance){
+				alliance = dockedList.get(0).alliance;
+				upgradeLevel = 0;
+			}
+			else {
+				upgradeLevel++;
+				tp = new Teleporter(x, y);
+			}
+		}
+	}
+	
+	public void purchaseStore(){
 	}
 }

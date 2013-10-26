@@ -6,9 +6,9 @@ public class Item {
 	private int identity;
 	
 	public String getDescription() {
-		if (identity == 0) return "";
+		if (identity == 0) return "New Ship Package";
 		
-		else if (identity == 1) return "";
+		else if (identity == 1) return "Repair Kit";
 			
 		else if (identity == 2) return "";
 		return "";
