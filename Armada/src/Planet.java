@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Planet extends DynamicElement{
 	
 	protected ArrayList<Ship> dockedList;
+	protected int upgradeLevel;
 
 	public Planet(int a, int b, int w, int h, String img, int r,
 			int maxH, int maxE, int s, int all, int t, int weap) {
@@ -28,6 +29,7 @@ public class Planet extends DynamicElement{
 		ah=new DynamicAnimationHelper(this);
 		alliance = 0;
 		dockedList = new ArrayList<Ship>();
+		upgradeLevel = 0;
 		//hb = new HealthBar(this);
 	}
 	
@@ -70,5 +72,20 @@ public class Planet extends DynamicElement{
 			if(d.getAlliance()!=al) return false;
 		}
 		return true;
+	}
+	
+	public void upgrade(){
+		if (alliance == 0) {
+			if (dockedList.size() == 1) {
+				alliance = dockedList.get(0).alliance;
+				upgradeLevel++;
+			}
+			else if (dockedList.size() == 0) System.out.println("Cannot upgrade unless ship is docked.");
+			else System.out.println("Planet can only be upgraded if one ship is docked.");
+		}
+		else if (upgradeLevel == 1) {
+			if (dockedList.size() == 1 && dockedList.get(0).alliance == 2) alliance = 2;
+			else upgradeLevel++;
+		}
 	}
 }
