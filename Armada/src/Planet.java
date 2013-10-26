@@ -8,6 +8,7 @@ public class Planet extends DynamicElement{
 	protected int upgradeLevel;
 	private int[][] storeList = new int[3][10];
 	private Teleporter tp;
+	private HealthBar hb;
 
 	public Planet(int a, int b, int w, int h, String img, int r,
 			int maxH, int maxE, int s, int all, int t, int weap) {
@@ -102,6 +103,7 @@ public class Planet extends DynamicElement{
 				storeList[0][0]++;
 				storeList[0][1]++;
 				storeList[0][2]++;
+				hb = new HealthBar(this);
 			}
 		}
 		else if (upgradeLevel == 3) {

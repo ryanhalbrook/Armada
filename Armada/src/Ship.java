@@ -96,4 +96,8 @@ public class Ship extends DynamicElement{
 		}
 	}
 	
+	public void upgrade() {
+		
+	}
+	
 }
