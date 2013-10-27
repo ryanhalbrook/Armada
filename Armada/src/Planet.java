@@ -6,9 +6,9 @@ public class Planet extends DynamicElement{
 	
 	protected ArrayList<Ship> dockedList;
 	protected int upgradeLevel;
-	private int[][] storeList = new int[3][10];
-	private Teleporter tp;
-	private HealthBar hb;
+	private int[][] storeList = new int[3][10]; // The store should be handled by another class
+	//private Teleporter tp; // teleport is a simple change in X and Y, there is no need for it to be an entire class
+	private HealthBar hb;//health bars don't account for the PLanet's state yet, so it isnt ready to add to the Planet yet.  Also, you forgot to add the hb to the draw method
 
 	public Planet(int a, int b, int w, int h, String img, int r,
 			int maxH, int maxE, int s, int all, int t, int weap) {
@@ -76,23 +76,25 @@ public class Planet extends DynamicElement{
 		}
 		return true;
 	}
-	
+	/*
+	 * There are far too few situations accounted for in this code and needs to be removed.
 	public void upgrade(){
 		if (alliance == 0) {
-			if (dockedList.size() == 1) {
-				alliance = dockedList.get(0).alliance;
+			if (dockedList.size() == 1) {  // What if I have more than one ship docked of the same alliance?
+				alliance = dockedList.get(0).alliance; //NEVER directly access an object's variables.  Use .getAlliance()
 				upgradeLevel++;
 			}
-			else if (dockedList.size() == 0) System.out.println("Cannot upgrade unless ship is docked.");
-			else System.out.println("Planet can only be upgraded if one ship is docked.");
+			else if (dockedList.size() == 0) System.out.println("Cannot upgrade unless ship is docked.");//I can't think of any situation in which this would happen.  If alliance==0, then the Planet shouldnt even have an upgrade option
+			else System.out.println("Planet can only be upgraded if one ship is docked.");//When did we decide that?
 		}
 		else if (upgradeLevel == 1) {
-			if (dockedList.size() == 1 && dockedList.get(0).alliance != alliance) alliance = dockedList.get(0).alliance;
+			if (dockedList.size() == 1 && dockedList.get(0).alliance != alliance) alliance = dockedList.get(0).alliance;//again, NEVER access variable directly.  Also, why is alliance being set here? It should already have an alliance. Also, this if statement doesn't make sense in general.  Why would an enemy ship be docked? Why would upgrade be called in this situation?  why, again, is there only one ship? I already have a method that you could use to check if every ship is the same alliance, so you could use that instead of assuming that there is one ship and setting it to that alliance.  Use onlyOneAllianceDocked() 
 			else {
 				upgradeLevel++;
 				
 			}
 		}
+		//at this point, I stopped commenting on why I removed this method
 		else if (upgradeLevel == 2) {
 			if (dockedList.size() == 1 && dockedList.get(0).alliance != alliance){
 				alliance = dockedList.get(0).alliance;
@@ -113,7 +115,7 @@ public class Planet extends DynamicElement{
 			}
 			else {
 				upgradeLevel++;
-				tp = new Teleporter(x, y);
+				//tp = new Teleporter(x, y);
 			}
 		}
 	}
@@ -122,5 +124,5 @@ public class Planet extends DynamicElement{
 		return upgradeLevel;
 	}
 	public void purchaseStore(){
-	}
+	}*/
 }

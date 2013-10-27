@@ -201,11 +201,18 @@ public class Grid {
 				activeE.moveTo(inX, inY);
 				Ship temp = (Ship) activeE;
 				temp.setPlanetDocked(null);
+				/*
+				 * ok, so I changed the two if's into one and commented this out because
+				 * 	1) It does not account for the planet's alliance
+				 * 	2) Checking if something is greater than a set number should be done in the class.  In 
+				 * 		this case, it should probably happen in a method called canAttack() that returns a boolean
+				 * 	3) Neither range nor damage is accounted for at this time.  These need to be specified before making the Planets attack 
 				for (DynamicElement de: delements) {
-					if (de instanceof Planet)
-						if (((Planet)de).getUpgradeLevel() >= 2 && temp.withinRange(de))
-							temp.hullTakeDamage(de);
-				}
+					if (de instanceof Planet && ((Planet)de).getUpgradeLevel() >= 2 && temp.withinRange(de)){
+						temp.hullTakeDamage(de);
+					}
+							
+				}*/
 			}
 			return;
 		}
