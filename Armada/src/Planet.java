@@ -118,6 +118,9 @@ public class Planet extends DynamicElement{
 		}
 	}
 	
+	public int getUpgradeLevel(){
+		return upgradeLevel;
+	}
 	public void purchaseStore(){
 	}
 }

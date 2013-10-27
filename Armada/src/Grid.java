@@ -201,6 +201,11 @@ public class Grid {
 				activeE.moveTo(inX, inY);
 				Ship temp = (Ship) activeE;
 				temp.setPlanetDocked(null);
+				for (DynamicElement de: delements) {
+					if (de instanceof Planet)
+						if (((Planet)de).getUpgradeLevel() >= 2 && temp.withinRange(de))
+							temp.hullTakeDamage(de);
+				}
 			}
 			return;
 		}
@@ -373,5 +378,6 @@ public class Grid {
 	public int getHeight(){
 		return GRID_HEIGHT;
 	}
+
 }
 
