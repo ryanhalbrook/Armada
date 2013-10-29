@@ -182,6 +182,7 @@ public class Grid {
 					if(d.isIn(inX,inY) && d.isTargetable()){
 					    mode = 1;
 						activeE=d;
+						activeE.update();
 						return;
 						//menus.add(d.getMenu());
 						

@@ -41,6 +41,23 @@ public class HUD extends Rectangle{
 		case 4:
 			x = grid.getAp().getWidth()-this.width;
 			y = grid.getAp().getHeight() - this.height;
+			break;
+		case 5://mid top
+			x = grid.getAp().getWidth()/2 - this.width/2;
+			y=TurnHUD.BAR_HEIGHT;
+			break;
+		case 6://mid right
+			x = grid.getAp().getWidth()-this.width;
+			y = grid.getAp().getHeight()/2 - this.height/2;
+			break;
+		case 7://mid bottom
+			x = grid.getAp().getWidth()/2 - this.width/2;
+			y = grid.getAp().getHeight() - this.height;
+			break;
+		case 8://mid left
+			x = 5;
+			y = grid.getAp().getHeight()/2 - this.height/2;
+			break;
 		}
 	}
 	

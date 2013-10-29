@@ -3,7 +3,8 @@
  */
 public class Item {
 	
-	private int identity;
+	private int identity;//id MUST be in format aaabbbb, so if i wanted an item to take spot [2][13], its id would be 002013
+	//Currently, no item above 0020029 will be supported
 	
 	public Item(int id) {
 		identity = id;
@@ -17,7 +18,7 @@ public class Item {
 		return 0;
 	}
 	
-	public int getIdentity() {
+	public int getID() {
 		return identity;
 	}
 	

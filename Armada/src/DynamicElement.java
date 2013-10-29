@@ -249,12 +249,10 @@ public class DynamicElement extends Element {
 	}
 	
 	public boolean withinRange(int inX, int inY) {
-		update();
 		return distanceFrom(inX,inY) <= range;
 	}
 	
 	public boolean withinRange(DynamicElement de) {
-		update();
 		return distanceFrom(de.getX(),de.getY()) <= range;
 	}
 

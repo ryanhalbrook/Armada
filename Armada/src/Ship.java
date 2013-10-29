@@ -13,8 +13,10 @@ public class Ship extends DynamicElement{
 	 * The columns represent each buff / item
 	 * The number at [row][column] represents how many of those are present
 	 */
-	private int[][] list = new int[3][10];//numbers subject to change
-	private Planet planetDocked;
+	protected int[][] list = new int[3][10];//numbers subject to change
+	protected Planet planetDocked;
+	protected int baseWeapons, baseSpeed, baseMaxHull, baseMaxEngine;
+	protected StatEditor se;
 	
 	//Every ship that extends this class needs the following line, but with values assigned to each.  Whenever update() is called, the value of the corresponding stats need to be recalculated starting with these and then adding in each appropriate buff, item, and upgrade.
 	//protected final int DEFAULT_HULL, DEFAULT_MAX_HULL, DEFAULT_SPEED, DEFAULT_BOARD, DEFAULT_ENGINE, DEFAULT_MAX_ENGINE, DEFAULT_MAX_CARGO, DEFAULT_RANGE;
@@ -28,9 +30,10 @@ public class Ship extends DynamicElement{
 	    super();
 	}
 	
+	//use this one
 	public Ship(int inX, int inY, int w, int h, String img, int all){
 		super(inX,inY, w, h, img, all);
-		
+		se = new StatEditor(this);
 	}
 	public Ship(int inX, int inY, int w, int h, double an, String img, int all){
 		super(inX,inY, w, h,an, img, all);
@@ -45,11 +48,14 @@ public class Ship extends DynamicElement{
 	 * given an item, it will
 	 */
 	public void receiveItem(Item i){
-		if (i.getIdentity() == 0) list[0][1]++;
-		else if (i.getIdentity() == 1) list[0][2]++;
-		else if (i.getIdentity() == 2) list[0][3]++;
 	}
 	
+	public void resetStats(){
+		weapons = baseWeapons;
+		speed= baseSpeed;
+		maxHull=baseMaxHull;
+		maxEngine=baseMaxEngine;
+	}
 	
 	public void move(int inX, int inY){
 		x=inX;
@@ -76,11 +82,29 @@ public class Ship extends DynamicElement{
 	public void setMaxCargo(int maxCargo) {
 		this.maxCargo = maxCargo;
 	}
+	
+	public void fullHealHull(){
+		System.out.println("Setting hull to: " + maxHull);
+		hull=maxHull;
+	}
+	
+	public void fullHealEngine(){
+		engine=maxEngine;
+	}
+	
+	public void fullHeal(){
+		fullHealEngine();
+		fullHealHull();
+	}
 
 	public Planet getPlanetDocked() {
 		return planetDocked;
 	}
 
+	public void incWeaponsFlat(int i){
+		weapons += i;
+	}
+	
 	public void setPlanetDocked(Planet inP) {
 		if(this.planetDocked !=null && this.planetDocked != inP){
 			this.planetDocked.unDock(this);
@@ -94,6 +118,14 @@ public class Ship extends DynamicElement{
 			g.setColor(Color.WHITE);
 			g.drawString("DOCKED", x - viewRect.getX()-width/2, y - viewRect.getY() - height);
 		}
+	}
+	
+	public void incMaxHullFlat(int i){
+		maxHull += i;
+	}
+	
+	public void update(){
+		se.update();
 	}
 	
 	public void upgrade() {
