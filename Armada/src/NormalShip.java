@@ -7,7 +7,7 @@ public class NormalShip extends Ship{
 		baseMaxHull = 1000;
 		maxHull=baseMaxHull;
 		hull=maxHull;
-		baseMaxEngine=100;
+		baseMaxEngine=1000;
 		maxEngine=baseMaxEngine;
 		engine=maxEngine;
 		baseSpeed=300;
@@ -16,7 +16,7 @@ public class NormalShip extends Ship{
 		weapons = baseWeapons;
 		range = 300;
 		//Some Examples of my testing
-		//this.addItem(new Item(ItemList.ItemNames.HullPlate));
+		//this.addItem(new Item(ItemList.ItemNames.EnginesUpgrade));
 		//Item i = new Item(ItemList.ItemNames.HullPlate);
 		//this.addItem(i);
 		//this.removeItem(i);

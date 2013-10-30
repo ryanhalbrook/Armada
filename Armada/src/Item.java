@@ -34,7 +34,7 @@ public class Item {
 				s.incWeaponsFlat(ItemList.getInt(id, ItemList.ItemStats.WeaponsFlat));
 			}
 			if(ItemList.keyInt(id, ItemList.ItemStats.EnginesFlat)){
-				s.incEnginesFlat(ItemList.getInt(id, ItemList.ItemStats.EnginesFlat));
+				s.incMaxEngineFlat(ItemList.getInt(id, ItemList.ItemStats.EnginesFlat));//you are using a method that does not exist.  Therefore, you need to implement it in Ship.  I have done so and fixed this line. Also, you needed to edit maxEngine, not engine.  And upon purchase, you should have added the value to engine, since engine is somewhat dependant on the maxEngine.  remember, engine and hull are both part of the healthbar and have a max 
 			}	
 			if(ItemList.keyInt(id, ItemList.ItemStats.SpeedFlat)){
 				s.incSpeedFlat(ItemList.getInt(id, ItemList.ItemStats.SpeedFlat));
@@ -53,6 +53,9 @@ public class Item {
 		if(ItemList.keyInt(id, ItemList.ItemStats.HullFlat)){
 			s.setHull(s.getHull() + ItemList.getInt(id, ItemList.ItemStats.HullFlat));//Upon buying some extra maxHull the ship is also healed by the added maxHull so that you DON'T have 100/100 hull then upgrade to have 100/120.  In this case, 20 is also added so that the hull will be 120/120
 		}
+		if(ItemList.keyInt(id, ItemList.ItemStats.EnginesFlat)){//This needed to be added for EnginesFlat
+			s.setEngine(s.getEngine() + ItemList.getInt(id, ItemList.ItemStats.EnginesFlat));//Upon buying some extra maxEngine the ship is also healed by the added maxEngine so that you DON'T have 100/100 engine then upgrade to have 100/120.  In this case, 20 is also added so that the engine will be 120/120
+		}
 	}
 	
 	//STEP 3 : This is the opposite as the above.  Cautious steps that may have to be taken upon removal.  Remember, the item has NOT been removed yet, this is called immediately before removal.  It is likely you wont need this
@@ -60,6 +63,11 @@ public class Item {
 		if(ItemList.keyInt(id, ItemList.ItemStats.HullFlat)){//if item has HullFlat -- if I'm removing maxHull from the ship
 			if(s.getHull() > (s.getMaxHull() - ItemList.getInt(id, ItemList.ItemStats.HullFlat))){//checks if the hull is greater than the max should be after removal.  Remember, it has not been removed yet
 				s.setHull(s.getMaxHull()  - ItemList.getInt(id, ItemList.ItemStats.HullFlat));//if the hull will be greater than its to-be max, reduce it to its to-be max
+			}
+		}
+		if(ItemList.keyInt(id, ItemList.ItemStats.EnginesFlat)){//This needed to be added for EnginesFlat
+			if(s.getEngine() > (s.getMaxEngine() - ItemList.getInt(id, ItemList.ItemStats.EnginesFlat))){
+				s.setEngine(s.getMaxEngine()  - ItemList.getInt(id, ItemList.ItemStats.EnginesFlat));
 			}
 		}
 	}

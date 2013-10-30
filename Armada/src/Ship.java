@@ -126,6 +126,13 @@ public class Ship extends DynamicElement{
 		}
 	}
 	
+	public void incSpeedFlat(int i){
+		speed += i;
+	}
+	public void incMaxEngineFlat(int i){
+		maxEngine += i;
+	}
+	
 	public void incMaxHullFlat(int i){
 		maxHull += i;
 	}
