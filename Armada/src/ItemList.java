@@ -5,11 +5,11 @@ import java.util.HashMap;
 public class ItemList {
 	//STEP 0 : Only items that edit ship stats are supported right now.  Proc items are not supported
 	public enum ItemNames{//STEP 1 : When adding a new item, add the name here.  This is what an item's id is
-		HullPlate, WeaponsUpgrade;
+		HullPlate, WeaponsUpgrade, EnginesUpgrade; SpeedUpgrade;
 	}
 	
 	public enum ItemStats{//STEP 2 : If the item uses a stat not seen here, you will need to add it to this list.  You will also have to edit the Item class (I also have instructions there) because it does not yet support the stat if it is not here
-		HullFlat /*Adds a flat value to maxHull*/, WeaponsFlat/*Adds a flat value to weapons (damage)*/, Description/*Item's description*/, Price/*Item's price*/;
+		HullFlat /*Adds a flat value to maxHull*/, WeaponsFlat/*Adds a flat value to weapons (damage)*/, EnginesFlat/*Adds a flat value to engines*/, SpeedFlat/*Adds a flat value to speed*/, Description/*Item's description*/, Price/*Item's price*/;
 	}
 	
 	private static HashMap<String, Integer> itemVals = new HashMap<String, Integer>();
@@ -27,6 +27,14 @@ public class ItemList {
 		itemVals.put(ItemNames.WeaponsUpgrade.name() + ItemStats.WeaponsFlat, 100);
 		itemVals.put(ItemList.ItemNames.WeaponsUpgrade.name() + ItemStats.Price, 100);
 		itemDescriptions.put(ItemNames.WeaponsUpgrade.name() + ItemStats.Description, "Increases Weapons by " + ItemList.getInt(ItemNames.WeaponsUpgrade, ItemStats.WeaponsFlat));
+		
+		itemVals.put(ItemNames.EnginesUpgrade.name()+ItemStats.EnginesUpgrade.name(), 100);
+		itemVals.put(ItemNames.EnginesUpgrade.name()+ItemStats.Price.name(), 100);
+		itemDescriptions.put(ItemNames.EnginesUpgrade.name())+ItemStats.Description, "Increases Engine by " + ItemList.getInt(ItemNames.EnginesUpgrade, ItemStats.EnginesFlat));
+		
+		itemVals.put(ItemNames.SpeedUpgrade.name()+ItemStats.SpeedUpgrade.name(), 100);
+		itemVals.put(ItemNames.SpeedUpgrade.name()+ItemStats.Price.name(), 100);
+		itemDescriptions.put(ItemNames.SpeedUpgrade.name())+ItemStats.Description, "Increases Speed by " + ItemList.getInt(ItemNames.SpeedUpgrade, ItemStats.SpeedFlat));
 	}
 	
 	//STEP 4 : Done!  Thats it.  Don't touch anything else

@@ -32,6 +32,12 @@ public class Item {
 			}
 			if(ItemList.keyInt(id, ItemList.ItemStats.WeaponsFlat)){
 				s.incWeaponsFlat(ItemList.getInt(id, ItemList.ItemStats.WeaponsFlat));
+			}
+			if(ItemList.keyInt(id, ItemList.ItemStats.EnginesFlat)){
+				s.incEnginesFlat(ItemList.getInt(id, ItemList.ItemStats.EnginesFlat));
+			}	
+			if(ItemList.keyInt(id, ItemList.ItemStats.SpeedFlat)){
+				s.incSpeedFlat(ItemList.getInt(id, ItemList.ItemStats.SpeedFlat));
 			}	
 		}
 		if(priority == 1){// for non-flat calculations.  ie a*b
