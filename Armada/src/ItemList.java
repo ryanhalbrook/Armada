@@ -3,7 +3,7 @@ import java.util.HashMap;
 
 
 public class ItemList {
-
+	//STEP 0 : Only items that edit ship stats are supported right now.  Proc items are not supported
 	public enum ItemNames{//STEP 1 : When adding a new item, add the name here.  This is what an item's id is
 		HullPlate, WeaponsUpgrade;
 	}
@@ -19,7 +19,7 @@ public class ItemList {
 		//STEP 3.5 : If your item does not have a particular stat, don't add it.  
 		
 		//HullPlate
-		itemVals.put(ItemNames.HullPlate.name()+ItemStats.HullFlat.name(), 100);
+		itemVals.put(ItemNames.HullPlate.name()+ItemStats.HullFlat.name(), 100);// using .name() converts the name to the string of its name which it is stored by in the HashMap.  There is no reason to worry about this though
 		itemVals.put(ItemNames.HullPlate.name()+ItemStats.Price.name(), 100);
 		itemDescriptions.put(ItemNames.HullPlate.name() + ItemStats.Description, "Increases Hull by " + ItemList.getInt(ItemNames.HullPlate, ItemStats.HullFlat));
 		
@@ -32,6 +32,8 @@ public class ItemList {
 	//STEP 4 : Done!  Thats it.  Don't touch anything else
 	//Testing : Add this item to NormalShip 2 times and remove it once to make sure the stats are correct
 	
+	
+	//DO NOT TOUCH
 	public static int getInt(ItemNames itemName, ItemStats itemStats){
 	 	return itemVals.get(itemName.name() + itemStats.name());
 	}

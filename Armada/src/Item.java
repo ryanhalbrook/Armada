@@ -11,10 +11,9 @@ public class Item {
 		this.id=id;
 	}
 
-	public String getDescription() {
-		return ItemList.getString(id, ItemList.ItemStats.Description);
-	}
 	
+	
+	//STEP 0 : If your stat does not edit the stats of the ship, skip to the bottom
 	
 	/*STEP 1 : Add the update code.  This is what the item, in general, does.  Since the order that the items are calculated is sensitive (I may go from a + b + c to a + d(b+c)) every time we 
 	* add an item we need to make sure the stats are recalculated and done so in the right order.  So make sure you put it in the right priority
@@ -62,9 +61,15 @@ public class Item {
 	//STEP 4 : Done here! Go over to ItemList and make sure your item's stats have been specified for it
 	//Testing : Add this item to NormalShip 2 times and remove it once to make sure the stats are correct
 	
+	
+	//STEP 0 : These are for asking for specific stats such as description and price.  Anything that doesn't edit the Ship.  Add your get method here
 	public int getPrice() {
 		if(!ItemList.keyInt(id, ItemList.ItemStats.Price)) return 0;
 		return ItemList.getInt(id, ItemList.ItemStats.Price);
+	}
+	
+	public String getDescription() {
+		return ItemList.getString(id, ItemList.ItemStats.Description);
 	}
 	
 	
