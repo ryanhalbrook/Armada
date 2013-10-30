@@ -272,6 +272,9 @@ public class DynamicElement extends Element {
 	
 	public void setHull(int h) {
 		hull = h;
+		if(hull <= 0){
+			dead=true;
+		}
 	}
 
 	public int getMaxHull() {

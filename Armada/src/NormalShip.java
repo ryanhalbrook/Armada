@@ -15,6 +15,11 @@ public class NormalShip extends Ship{
 		baseWeapons=300;
 		weapons = baseWeapons;
 		range = 300;
+		//Some Examples of my testing
+		//this.addItem(new Item(ItemList.ItemNames.HullPlate));
+		//Item i = new Item(ItemList.ItemNames.HullPlate);
+		//this.addItem(i);
+		//this.removeItem(i);
 	}
 
 	

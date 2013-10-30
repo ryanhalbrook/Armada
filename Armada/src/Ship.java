@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.util.ArrayList;
 
 
 public class Ship extends DynamicElement{
@@ -16,7 +17,7 @@ public class Ship extends DynamicElement{
 	protected int[][] list = new int[3][10];//numbers subject to change
 	protected Planet planetDocked;
 	protected int baseWeapons, baseSpeed, baseMaxHull, baseMaxEngine;
-	protected StatEditor se;
+	protected ArrayList<Item> items;
 	
 	//Every ship that extends this class needs the following line, but with values assigned to each.  Whenever update() is called, the value of the corresponding stats need to be recalculated starting with these and then adding in each appropriate buff, item, and upgrade.
 	//protected final int DEFAULT_HULL, DEFAULT_MAX_HULL, DEFAULT_SPEED, DEFAULT_BOARD, DEFAULT_ENGINE, DEFAULT_MAX_ENGINE, DEFAULT_MAX_CARGO, DEFAULT_RANGE;
@@ -33,7 +34,7 @@ public class Ship extends DynamicElement{
 	//use this one
 	public Ship(int inX, int inY, int w, int h, String img, int all){
 		super(inX,inY, w, h, img, all);
-		se = new StatEditor(this);
+		items=new ArrayList<Item>();
 	}
 	public Ship(int inX, int inY, int w, int h, double an, String img, int all){
 		super(inX,inY, w, h,an, img, all);
@@ -47,7 +48,12 @@ public class Ship extends DynamicElement{
 	/*
 	 * given an item, it will
 	 */
-	public void receiveItem(Item i){
+	public void addItem(Item i){
+		StatEditor.addItem(this, i);
+	}
+	
+	public void removeItem(Item i){
+		StatEditor.removeItem(this, i);
 	}
 	
 	public void resetStats(){
@@ -125,7 +131,11 @@ public class Ship extends DynamicElement{
 	}
 	
 	public void update(){
-		se.update();
+		StatEditor.update(this);
+	}
+	
+	public ArrayList<Item> getItems(){
+		return items;
 	}
 	
 	public void upgrade() {

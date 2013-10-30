@@ -1,64 +1,37 @@
+import java.util.ArrayList;
 
-public class StatEditor {
 
-	protected Ship ship;
-	protected static final int ROWS = 3, COLS=10;
-	protected int[][] items= new int [ROWS][COLS];
+public enum StatEditor {;
+
+	//protected static final int ROWS = 3, COLS=10;
+	//protected int[][] items= new int [ROWS][COLS];
 	
-	public StatEditor(Ship s){
-		ship=s;
-		//items[0][0] = 0;
-		
-		update();
-	}
+	/*public static enum ItemNames {
+		//item names
+		hull_plates, engine_booster, aux_weapons;
+
+	}*/
 	
-	public void update(){
-		//this is where item id's are translated into stat editing
-		ship.resetStats();
-		for(int i = 0; i< ROWS; i++){
-			
-			
-			for(int j = 0; j < COLS; j++){
-				
-				//Flat damage upgrade
-				if(i==0 && j==0 && items[i][j] > 0){
-					for(int h = items[i][j]; h >0; h--){
-						ship.incWeaponsFlat(100);
-					}
-				}
-				
-				//Flat max hull increase
-				if(i==0 && j==1 && items[i][j] > 0){
-					for(int h = items[i][j]; h >0; h--){
-						System.out.println("Increasing max hull");
-						ship.incMaxHullFlat(300);
-					}
-				}
-			}
-		}
-	}
-	
-	public void addItem(Item i){
-		int h =i.getID();
-		addItem(h);
-	}
-	
-	public void addItem(int id){
-		int b = id % 1000;
-		int a = (id - b) / 1000;
-		if(a>ROWS || b>COLS){
-			System.out.println("Non-existant item being added");
-			return;
-		}
-		items[a][b]++;
-		update();
-		//effects upon buying
-		switch(id){
-		case 000001:
-			ship.fullHealHull();
-			break;
+	public static void update(Ship s){
+		ArrayList<Item> items = s.getItems();
+		s.resetStats();
+		for(int j = 0; j < 3; j++){
+			for(Item i: items){
+				i.update(s,j);
+			}	
 		}
 		
-		
+	}
+	
+	public static void addItem(Ship s, Item i){
+		i.uponPurchase(s);
+		s.getItems().add(i);
+		StatEditor.update(s);
+	}
+	
+	public static void removeItem(Ship s, Item i){
+		i.uponRemoval(s);
+		s.getItems().remove(i);
+		StatEditor.update(s);
 	}
 }
