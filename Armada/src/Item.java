@@ -23,12 +23,12 @@ public class Item {
 		if(priority == 0){//For flat increases/decreases.  ie a + b
 			/*
 			 * Template: 
-			 * if(ItemList.keyInt(id, ItemList.ItemStats.[stat])){    //this checks if the stat exists for this item.  DO NOT specify an id, just use id.  This way multiple items may edit this stat
+			 * if(ItemList.keyInt(id, ItemList.ItemStats.[stat])){    //this checks if the stat exists for this item.  DO NOT specify an id, just use "id".  This way multiple items may edit this stat
 			 * 		s.[method used to edit stats]([appropriate calculations]);   // [appropriate calculations] will likely use ItemList.getInt(id, ItemList.ItemStats.[stat to use])  the [stat to use] should have been added to ItemList.ItemStats
 			 * }
 			 * I have provided commentary for my first one to show what each line is doing in context 
 			 */
-			if(ItemList.keyInt(id,ItemList.ItemStats.HullFlat)){//checks if HullFlat exists for the id
+			if(ItemList.keyInt(id,ItemList.ItemStats.HullFlat)){//checks if HullFlat (the stat) exists for the id
 				s.incMaxHullFlat(ItemList.getInt(id,ItemList.ItemStats.HullFlat));// increases the maxHull of the ship by the item's HullFlat stat.  ItemList.getInt will get the value stored in HullFlat for the particular item.  You may want to use ItemList.getString if you are getting a string
 			}
 			if(ItemList.keyInt(id, ItemList.ItemStats.WeaponsFlat)){
@@ -43,7 +43,7 @@ public class Item {
 		}
 	}
 	
-	//STEP 2 : This is for only very specific items that have an affect upon purchase that is NOT its normal update.  You most likely will skip this
+	//STEP 2 : This is for only very specific items that have an affect upon purchase that is NOT its normal update (as in, a ship stat that needs to be updated one time due to the change made in update()) .  You most likely will skip this
 	public void uponPurchase(Ship s){//immediate one time actions, such as adding some hull because of addition to maxHull
 		if(ItemList.keyInt(id, ItemList.ItemStats.HullFlat)){
 			s.setHull(s.getHull() + ItemList.getInt(id, ItemList.ItemStats.HullFlat));//Upon buying some extra maxHull the ship is also healed by the added maxHull so that you DON'T have 100/100 hull then upgrade to have 100/120.  In this case, 20 is also added so that the hull will be 120/120

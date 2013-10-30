@@ -8,7 +8,7 @@ public class ItemList {
 		HullPlate, WeaponsUpgrade;
 	}
 	
-	public enum ItemStats{//STEP 2 : If the item uses a stat not seen here, you will need to add it to this list.  You will also have to edit the Item class because it does not yet support the stat if it is not here
+	public enum ItemStats{//STEP 2 : If the item uses a stat not seen here, you will need to add it to this list.  You will also have to edit the Item class (I also have instructions there) because it does not yet support the stat if it is not here
 		HullFlat /*Adds a flat value to maxHull*/, WeaponsFlat/*Adds a flat value to weapons (damage)*/, Description/*Item's description*/, Price/*Item's price*/;
 	}
 	
