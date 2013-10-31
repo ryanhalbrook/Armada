@@ -18,8 +18,7 @@ import java.awt.image.*;
  * Grid paints, moves, stores, and keeps track of everything visual on the panel
  * ie, ships, planets, everything below the frame/menus and above the background
  */
-public class Grid {
-
+public class Grid extends ViewLayer {
 	
     private ArrayList<Element> elements;
     private ArrayList<DynamicElement> delements;
@@ -42,8 +41,11 @@ public class Grid {
     //Sample Image
     BufferedImage img;
 
+
     // Constructor
     public Grid(ArmadaPanel ap) {
+        super(new BoundingRectangle(0,0,10000,10000));
+        
         this.ap = ap;
     	elements = new ArrayList<Element>();
     	delements = new ArrayList<DynamicElement>();
@@ -165,7 +167,7 @@ public class Grid {
 	/*
 	 * received upon any click on ArmadaPanel
 	 */
-	public void click(int inX, int inY){
+	public boolean click(int inX, int inY){
 		System.out.println("Clicked: ("+inX+", "+inY+")");
 		if(mode == 0 || activeE==null){//selecting a menu
 			if(menus != null && menus.size() != 0){
@@ -183,9 +185,8 @@ public class Grid {
 					    mode = 1;
 						activeE=d;
 						activeE.update();
-						return;
 						//menus.add(d.getMenu());
-						
+						return true;
 					}
 				}
 			}
@@ -193,7 +194,7 @@ public class Grid {
 		}
 		/////
 		if(activeE==null || activeE.getAlliance()!=turn || !activeE.isTargetable()){
-			return;
+			return true;
 		}
 		if(mode == 1){
 			//move
@@ -215,7 +216,7 @@ public class Grid {
 							
 				}*/
 			}
-			return;
+			return true;
 		}
 		if(mode == 2){
 			//attack hull
@@ -229,7 +230,7 @@ public class Grid {
 							d.hullTakeDamage(activeE);
 							activeE.setCanAttack(false);
 							//setMode(0);
-							return;
+							return true;
 						}
 					}
 				}
@@ -247,7 +248,7 @@ public class Grid {
 						System.out.println("Engines now at: "+d.getEngine());
 						activeE.setCanAttack(false);
 						//setMode(0);
-						return;
+						return true;
 					}
 				}
 			}
@@ -262,12 +263,12 @@ public class Grid {
 						Planet p = (Planet)d;
 						Ship s = (Ship) activeE;
 						p.dock(s);
-						return;
+						return true;
 					}
 				}
 			}
 		}
-		
+		return false;
 	}
 	
 	/*
@@ -309,16 +310,9 @@ public class Grid {
 	public void draw(Graphics g){
 	    Graphics2D g2d = (Graphics2D)g;
 	    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-	    //drawBackground(g);
 	    drawAllDelements(g);
 		
 	} 
-	
-	private void drawBackground(Graphics g){
-		if (backgroundImage != null) {
-	        g.drawImage(backgroundImage, -viewRegion.getX(), -viewRegion.getY(), null);
-	    }
-	}
 	
 	private void drawAllDelements(Graphics g){
 		if(delements != null && delements.size() != 0){

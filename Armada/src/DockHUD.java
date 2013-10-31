@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.util.ArrayList;
 
-
 public class DockHUD extends HUD{
 	
 	private Planet p;
@@ -16,6 +15,11 @@ public class DockHUD extends HUD{
 	}
 	
 	public void draw(Graphics g){
+	    int x = r.getX();
+	    int y = r.getY();
+	    int width = r.getWidth();
+	    int height = r.getHeight();
+	    
 		if(grid.getActiveE() instanceof Planet) p = (Planet)grid.getActiveE();
 		else return;
 		if(p==null){
@@ -43,15 +47,15 @@ public class DockHUD extends HUD{
 	}
 	
 	public void updateHeight(){
-		this.setHeight( 12 + (buttons.size() * 24));
+		r.setHeight( 12 + (buttons.size() * 24));
 	}
 	
 	public void updateButtons(){
-		this.setHeight(buttons.size() * 35);
+		r.setHeight(buttons.size() * 35);
 		for(int i =0; i < buttons.size(); i++){
 			Button b = buttons.get(i);
-			b.setX(x+3);
-			b.setY(y+3+(i* 22));
+			b.setX(r.x+3);
+			b.setY(r.y+3+(i* 22));
 		}
 	}
 	
@@ -62,6 +66,10 @@ public class DockHUD extends HUD{
 	}
 	
 	public void fillButtons(){
+	    int x = r.getX();
+	    int y = r.getY();
+	    int width = r.getWidth();
+	    int height = r.getHeight();
 		buttons=new ArrayList<Button>();
 		updateLocation();
 		if(p==null)return;

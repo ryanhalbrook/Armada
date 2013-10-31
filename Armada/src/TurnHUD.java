@@ -15,6 +15,10 @@ public class TurnHUD extends HUD{
 	}
 	
 	public void draw(Graphics g){
+	    int x = r.getX();
+	    int y = r.getY();
+	    int width = r.getWidth();
+	    int height = r.getHeight();
 		Color currentPlayerColor = Color.WHITE;
 	    String playerName = "";
 	    if (grid.getTurn() == 1) {

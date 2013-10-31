@@ -8,6 +8,7 @@ public class HUDmanager {
 
 	protected ArrayList<HUD> huds;
 	protected HUD mode, stat, turn, map, items;
+	private ViewLayer viewLayer;
 	
 	public HUDmanager(Grid gr){
 		grid = gr;
@@ -17,20 +18,37 @@ public class HUDmanager {
 		turn = new TurnHUD(gr);
 		map = new MapHUD(gr,4);
 		items= new ItemListHUD(gr, 6, this);
+		mode.setName("Mode HUD");
+		stat.setName("Stat HUD");
+		turn.setName("Turn HUD");
+		items.setName("Items HUD");
+		viewLayer = new ViewLayer(new BoundingRectangle(0,0,10000, 10000));
+		viewLayer.setName("HUD Layer");
 		huds.add(mode);
 		huds.add(stat);
 		huds.add(turn);
 		huds.add(map);
 		huds.add(items);
-	}
-	
-	public void draw(Graphics g){
-		for(HUD h: huds){
-			h.draw(g);
+		for (HUD h : huds) {
+		    viewLayer.addSublayer(h);
 		}
 	}
 	
+	public ViewLayer getViewLayer() {
+	    return viewLayer;
+	}
+	
+	public void draw(Graphics g){
+	/*
+		for(HUD h: huds){
+			h.draw(g);
+		}
+		*/
+		viewLayer.draw(g);
+	}
+	
 	public boolean click(int inX, int inY){
+	    
 		if(items.click(inX,inY))return true;
 		if(map.click(inX,inY))return true;
 		return false;
@@ -38,9 +56,11 @@ public class HUDmanager {
 	
 	public void add(HUD h){
 		huds.add(h);
+		viewLayer.addSublayer(h);
 	}
 	public void remove(HUD h){
 		huds.remove(h);
+		viewLayer.removeSublayer(h);
 	}
 	
 }

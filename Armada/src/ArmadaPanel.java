@@ -20,6 +20,7 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	private Grid grid;
 	private Menu focusMenu;
 	private Timer refreshTimer = new Timer(30, this);
+	private ViewLayer mainLayer = new ViewLayer(new BoundingRectangle(0,0, this.getWidth(), this.getHeight()));
 	boolean moveMode = false;
 	int lastX = -1;
 	int lastY = -1;
@@ -31,7 +32,13 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	    addKeyListener(this);
 	    addMouseMotionListener(this);
 	    grid = new Grid(this);
+	    grid.setName("Grid Layer");
 	    hud = new HUDmanager(grid);
+	    mainLayer.setName("Main Layer");
+	   
+	    mainLayer.addSublayer(hud.getViewLayer());
+	     mainLayer.addSublayer(grid);
+	    
 	    refreshTimer.start();
 	}
 	
@@ -75,11 +82,15 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	        g.drawImage(backgroundImage, -grid.getViewRegion().getX(), -grid.getViewRegion().getY(), null);
 	    }
 	    
+	    /*
 	    // Draw the grid.
 	    if (grid != null) grid.draw(g);
 	    
 	    // Draw the HUD.
 	    hud.draw(g);    	
+	    */
+	    
+	    mainLayer.draw(g);
 	}
 	
 	/*
@@ -99,15 +110,20 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	 * if a menu is currently requesting mouse focus, the MouseEvent is forwarded to the Menu.
 	 * Else, it is forwarded to the MenuLoader.
 	 */
-	public void mousePressed(MouseEvent arg0) {
-		if(arg0.getButton() == MouseEvent.BUTTON3){
+	public void mousePressed(MouseEvent evt) {
+	
+		if(evt.getButton() == MouseEvent.BUTTON3){
 			moveMode=false;
 			grid.unselect();
 		}
-		int xx = (int)arg0.getPoint().getX();
-		int yy = (int)arg0.getPoint().getY();
+		int x = (int)evt.getPoint().getX();
+		int y = (int)evt.getPoint().getY();
+		System.out.println("Clicking main layer");
+		mainLayer.click(x, y);
+		/*
 		if(hud.click(xx,yy))return;
 		grid.click(xx,yy);
+		*/
 	}
 	
 	public void keyPressed(KeyEvent evt) {

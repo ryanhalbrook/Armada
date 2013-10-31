@@ -3,7 +3,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 
-public class ItemListHUD extends HUD{
+public class ItemListHUD extends HUD {
 
 	private Planet p;
 	private ArrayList<ItemButton> buttons;
@@ -23,6 +23,10 @@ public class ItemListHUD extends HUD{
 	}
 	
 	public void fillButtons(){
+	    int x = r.getX();
+	    int y = r.getY();
+	    int width = r.getWidth();
+	    int height = r.getHeight();
 		updateLocation();
 		System.out.println("Adding buttons");
 		buttons.add(new ItemButton(x+3, y+3, width-6, 20, grid, ItemList.ItemNames.EnginesUpgrade));
@@ -43,7 +47,7 @@ public class ItemListHUD extends HUD{
 		updateButtons();
 		
 		g.setColor(new Color(25,125,175, 150));
-		g.fillRect(x, y, width, height);
+		g.fillRect(r.x, r.y, r.width, r.height);
 		drawButtons(g);
 		if(dh !=null){
 			dh.draw(g);
@@ -77,11 +81,11 @@ public class ItemListHUD extends HUD{
 	}
 	
 	public void updateButtons(){
-		this.setHeight(4 + (buttons.size() * 22));
+		r.setHeight(4 + (buttons.size() * 22));
 		for(int i =0; i < buttons.size(); i++){
 			ItemButton b = buttons.get(i);
-			b.setX(x+3);
-			b.setY(y+3+(i* 22));
+			b.setX(r.x+3);
+			b.setY(r.y+3+(i* 22));
 		}
 	}
 	

@@ -14,12 +14,16 @@ public class StatHUD extends HUD{
 	}
 	
 	public void draw(Graphics g){
+	    int x = r.getX();
+	    int y = r.getY();
+	    int width = r.getWidth();
+	    int height = r.getHeight();
 		if(grid==null)return;
 		this.updateLocation();
 		if(grid.getActiveE() != null){
 			g.setColor(Color.WHITE);
-			g.drawString("Hull: " + grid.getActiveE().getHull()  + "/" + grid.getActiveE().getMaxHull(), x, y+g.getFontMetrics().getHeight());
-			g.drawString("Engine: " + grid.getActiveE().getEngine() + "/" + grid.getActiveE().getMaxEngine(), x, y+g.getFontMetrics().getHeight()*2);
+			g.drawString("Hull: " + grid.getActiveE().getHull(), x, y+g.getFontMetrics().getHeight());
+			g.drawString("Engine: " + grid.getActiveE().getEngine(), x, y+g.getFontMetrics().getHeight()*2);
 			g.drawString("Damage: " + grid.getActiveE().getWeapons(), x, y+g.getFontMetrics().getHeight()*3);	
 			g.drawString("Speed: " + grid.getActiveE().getAdjustedSpeed(), x, y+g.getFontMetrics().getHeight()*4);
 			g.drawString("Movement Left: " + (grid.getActiveE().getAdjustedSpeed() - grid.getActiveE().getMoved()), x, y+g.getFontMetrics().getHeight()*5);

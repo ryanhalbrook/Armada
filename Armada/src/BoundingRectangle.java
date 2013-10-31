@@ -35,6 +35,16 @@ public class BoundingRectangle {
         return 50; // STUB
     }
     
+    
+    public boolean pointInBoundingRectangle(int x, int y) {
+        return isIn(x, y);
+        /*
+        if (x-this.x == 0 || y-this.y == 0) return false;
+        if (x+this.x > this.width || y+this.y > this.height) return false;
+        return true;
+        */
+    }
+    
     public boolean isIn(int inX,int inY){
     	if(inX > x && inX < x + width && inY > y && inY < y + height){
     		return true;
