@@ -52,4 +52,18 @@ public class MapHUD extends HUD{
 		g.setColor(Color.WHITE);
 		g.drawRect(x+dx, y+dy, insetWidth, insetHeight);
 	}
+	
+	public boolean click(int inX, int inY){
+		if(this.isIn(inX, inY)){
+			System.out.println("You clicked the map");
+			int newX = inX-x;
+			int newY = inY-y;
+			double wPerc = (double)width/Grid.GRID_WIDTH;
+			double hPerc = (double)height/Grid.GRID_HEIGHT;
+			grid.getViewRegion().setX((int)(((double)newX)/wPerc)-grid.getAp().getWidth()/2);
+			grid.getViewRegion().setY((int)(((double)newY)/hPerc) -grid.getAp().getHeight()/2);
+			return true;
+		}
+		return false;
+	}
 }

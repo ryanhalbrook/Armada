@@ -76,6 +76,10 @@ public class Planet extends DynamicElement{
 		}
 		return true;
 	}
+	
+	public ArrayList<Ship> getDocked(){
+		return dockedList;
+	}
 	/*
 	 * There are far too few situations accounted for in this code and needs to be removed.
 	public void upgrade(){

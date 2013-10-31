@@ -91,4 +91,5 @@ public class Item {
 	public String getInGameName() {
 		return ItemList.getString(id, ItemList.ItemStats.InGameName);
 	}
+	
 }

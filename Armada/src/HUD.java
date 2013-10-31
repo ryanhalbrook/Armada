@@ -64,5 +64,9 @@ public class HUD extends Rectangle{
 	public void draw(Graphics g){
 		
 	}
+	
+	public boolean click(int inX, int inY){
+		return false;
+	}
 
 }

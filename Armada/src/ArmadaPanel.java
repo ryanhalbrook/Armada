@@ -106,6 +106,7 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 		}
 		int xx = (int)arg0.getPoint().getX();
 		int yy = (int)arg0.getPoint().getY();
+		if(hud.click(xx,yy))return;
 		grid.click(xx,yy);
 	}
 	
