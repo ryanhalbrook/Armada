@@ -230,7 +230,7 @@ public class DynamicElement extends Element {
 		return (int)Math.sqrt(Math.pow(Math.abs((double)y-(double)inY),2) + Math.pow(Math.abs((double)x-(double)inX),2));
 	}
 	
-	public void draw(Graphics g, Rectangle viewRect){
+	public void draw(Graphics g, BoundingRectangle viewRect){
 		if(ah ==null){
 			g.setColor(Color.GREEN);
 			g.fillRect(x-viewRect.getX(), y-viewRect.getY(), width, height);

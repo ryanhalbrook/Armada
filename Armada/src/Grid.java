@@ -28,7 +28,7 @@ public class Grid {
     private  int mode = 0, turn = 1, index =0;
     private  DynamicElement activeE;
     private ArmadaPanel ap;
-    private Rectangle viewRegion = new Rectangle(0, 0, 500,500); //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
+    private BoundingRectangle viewRegion = new BoundingRectangle(0, 0, 500,500); //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
     
     BufferedImage backgroundImage = null;
     
@@ -83,7 +83,7 @@ public class Grid {
         }
     }
     
-    public Rectangle getViewRegion() {
+    public BoundingRectangle getViewRegion() {
         return viewRegion;
     }
     

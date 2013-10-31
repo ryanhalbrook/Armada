@@ -1,9 +1,8 @@
-/** Defines a rectangle within the game's "grid" **/
 
-public class Rectangle {
+public class BoundingRectangle {
     protected int x, y, width, height;
     
-    public Rectangle(int x, int y, int width, int height) {
+    public BoundingRectangle(int x, int y, int width, int height) {
     	if(width<0){
     		this.x=x+width;
     		this.width = Math.abs(width);
@@ -23,16 +22,16 @@ public class Rectangle {
     }
     
     /**
-        Returns true if the two rectangles overlap
+        Returns true if the two BoundingRectangles overlap
     **/
-    public boolean overlaps(Rectangle r) {
+    public boolean overlaps(BoundingRectangle r) {
         return false; // STUB
     }
     
     /**
-        Returns the distance between this and another rectangle.
+        Returns the distance between this and another BoundingRectangle.
     **/
-    public int distance(Rectangle r) {
+    public int distance(BoundingRectangle r) {
         return 50; // STUB
     }
     

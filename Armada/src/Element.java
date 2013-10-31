@@ -50,7 +50,7 @@ public class Element {
 	}
 	
 	
-	public void draw(Graphics g, Rectangle viewRegion) {
+	public void draw(Graphics g, BoundingRectangle viewRegion) {
 		ah.draw(g, viewRegion);
 		//g.fillRect(x+viewRegion.getX(),y+viewRegion.getY(), width, height);
 	}

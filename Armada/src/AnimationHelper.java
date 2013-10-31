@@ -56,7 +56,7 @@ public class AnimationHelper{
 		moving = false;
 	}
 	
-	public static void draw(int x,int y,int w,int h,BufferedImage image, Graphics g, Rectangle viewRect){
+	public static void draw(int x,int y,int w,int h,BufferedImage image, Graphics g, BoundingRectangle viewRect){
 		
 		Graphics2D g2 = (Graphics2D)g;
 		
@@ -74,7 +74,7 @@ public class AnimationHelper{
 		
 		
 	}
-	public static void draw(int x,int y,int w,int h,double a,BufferedImage image, Graphics g, Rectangle viewRect){
+	public static void draw(int x,int y,int w,int h,double a,BufferedImage image, Graphics g, BoundingRectangle viewRect){
 
 		Graphics2D g2 = (Graphics2D)g;
 		AffineTransform at= new AffineTransform();
@@ -125,13 +125,13 @@ public class AnimationHelper{
 			return (x<e.getX()+e.getHeight()/2.0 && x>e.getX()-e.getHeight()/2.0) && 
 					(y<e.getY()+e.getWidth()/2.0 && y>e.getY()-e.getWidth()/2.0);
 		
-		double rectAngle = Math.atan2(e.getHeight()/2.0, e.getWidth()/2.0);
+		double BoundingRectangle = Math.atan2(e.getHeight()/2.0, e.getWidth()/2.0);
 		double halfRectDiagonalLen=Math.sqrt(Math.pow(e.getWidth()/2.0,2)+Math.pow(e.getHeight()/2.0,2));
 		double radAngle = Math.toRadians(e.getAngle());
-		double x1 =halfRectDiagonalLen*Math.cos(radAngle+rectAngle);
-		double y1 =halfRectDiagonalLen*Math.sin(radAngle+rectAngle);
-		double x2 = halfRectDiagonalLen*Math.cos(radAngle-rectAngle);
-		double y2 =halfRectDiagonalLen*Math.sin(radAngle-rectAngle);
+		double x1 =halfRectDiagonalLen*Math.cos(radAngle+BoundingRectangle);
+		double y1 =halfRectDiagonalLen*Math.sin(radAngle+BoundingRectangle);
+		double x2 = halfRectDiagonalLen*Math.cos(radAngle-BoundingRectangle);
+		double y2 =halfRectDiagonalLen*Math.sin(radAngle-BoundingRectangle);
 		if(x1<0)
 			x1-=0.5;
 		else
@@ -207,7 +207,7 @@ public class AnimationHelper{
 					||( (x>=rectPoints[1].getX() && x<=rectPoints[2].getX()) && (y<=y_c && y>=y_b) );
 	
 	}
-	public void draw(Graphics g, Rectangle viewRect){
+	public void draw(Graphics g, BoundingRectangle viewRect){
 		if(!viewRect.isIn(e.getX(), e.getY())) return;
 		Graphics2D g2 = (Graphics2D)g;
 		AffineTransform ori = g2.getTransform();

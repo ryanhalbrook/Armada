@@ -10,7 +10,7 @@ public class HealthBar {
 		de=inDE;
 	}
 	
-	public void draw(Graphics g, Rectangle viewRect){
+	public void draw(Graphics g, BoundingRectangle viewRect){
 		if(!viewRect.isIn(de.getX(), de.getY()))return;
 		if(de.getAlliance()==0){
 			g.setColor(Color.GREEN);

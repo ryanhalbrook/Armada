@@ -118,7 +118,7 @@ public class Ship extends DynamicElement{
 		this.planetDocked = inP;
 	}
 	
-	public void draw(Graphics g, Rectangle viewRect){
+	public void draw(Graphics g, BoundingRectangle viewRect){
 		super.draw(g,viewRect);
 		if(isDocked()){
 			g.setColor(Color.WHITE);

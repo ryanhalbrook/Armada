@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 
-public class Button extends Rectangle{
+public class Button extends BoundingRectangle{
 
 	protected String title;
 	protected Grid grid;

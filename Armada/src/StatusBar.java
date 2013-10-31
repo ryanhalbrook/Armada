@@ -5,7 +5,7 @@
  */
 public class StatusBar extends Element {
     DynamicElement client; // The client is the item that this status bar represents.
-    Rectangle gridRect; // The position and size of this element.
+    BoundingRectangle gridRect; // The position and size of this element.
     
     public StatusBar(DynamicElement client) {
         calcGridRect();

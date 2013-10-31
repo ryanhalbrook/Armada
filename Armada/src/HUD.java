@@ -1,7 +1,7 @@
 import java.awt.Graphics;
 
 
-public class HUD extends Rectangle{
+public class HUD extends BoundingRectangle{
 
 	protected Grid grid;
 	protected int location;//0=static, 1+ is dynamic, 1= top left, 2= top right, 3 = bot left, 4 = bot right.  NEEDS TO BE IMPLIMENTED
