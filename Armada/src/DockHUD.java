@@ -9,7 +9,7 @@ public class DockHUD extends HUD{
 	private ArrayList<Button> buttons;
 
 	public DockHUD(Grid gr, int l){
-		super(0,0,0,0,gr);
+		super(0,0,300,30,gr);
 		location = l;
 		buttons=new ArrayList<Button>();
 		fillButtons();
@@ -30,14 +30,15 @@ public class DockHUD extends HUD{
 			g.drawString("There are no docked ships", x+width/2 - g.getFontMetrics().stringWidth("There are no docked ships")/2, y+20);
 			return;
 		}
-		g.setColor(new Color(50,100,210, 75));
-		g.fillRect(x, y, width, height);
-		g.setColor(new Color(25,125,175, 75));
-		g.fillRect(x+5, y+5, width-10, height-10);
+		
 		
 		
 		fillButtons();
 		updateHeight();
+		g.setColor(new Color(50,100,210, 75));
+		g.fillRect(x, y, width, height);
+		g.setColor(new Color(25,125,175, 75));
+		g.fillRect(x+5, y+5, width-10, height-10);
 		drawButtons(g);
 	}
 	
