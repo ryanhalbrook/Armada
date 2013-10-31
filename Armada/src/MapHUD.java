@@ -60,8 +60,14 @@ public class MapHUD extends HUD{
 			int newY = inY-y;
 			double wPerc = (double)width/Grid.GRID_WIDTH;
 			double hPerc = (double)height/Grid.GRID_HEIGHT;
-			grid.getViewRegion().setX((int)(((double)newX)/wPerc)-grid.getAp().getWidth()/2);
-			grid.getViewRegion().setY((int)(((double)newY)/hPerc) -grid.getAp().getHeight()/2);
+			int xx=(int)(((double)newX)/wPerc)-grid.getAp().getWidth()/2;
+			int yy=(int)(((double)newY)/hPerc) -grid.getAp().getHeight()/2;
+			if(xx < 0) xx = 0;
+			if(yy < 0) yy = 0;
+			if(xx > Grid.GRID_WIDTH-grid.getAp().getWidth()) xx = Grid.GRID_WIDTH-grid.getAp().getWidth();
+			if(yy > Grid.GRID_HEIGHT-grid.getAp().getHeight()) yy = Grid.GRID_HEIGHT-grid.getAp().getHeight();
+			grid.getViewRegion().setX(xx);
+			grid.getViewRegion().setY(yy);
 			return true;
 		}
 		return false;
