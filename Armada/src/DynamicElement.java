@@ -72,7 +72,7 @@ public class DynamicElement extends Element {
 	public boolean canMovePath2(int inX, int inY, ArrayList<DynamicElement> delements){
 		if(this.canMove() && this.withinMovement(inX, inY)){
 			for(DynamicElement d: delements){
-				if(d.isIn(inX, inY) || d.distanceFrom(inX, inY) < d.getWidth()/2 + this.getWidth()/2){
+				if(d!=this && (d.isIn(inX, inY) || d.distanceFrom(inX, inY) < d.getWidth()/2 + this.getWidth()/2)){
 					return false;
 				}
 			}
