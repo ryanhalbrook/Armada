@@ -41,7 +41,9 @@ public class Item {
 			}	
 		}
 		if(priority == 1){// for non-flat calculations.  ie a*b
-			//nothing here yet
+			if(ItemList.keyInt(id, ItemList.ItemStats.WeaponsPercentage)){
+				s.weaponsPerInc(ItemList.getInt(id, ItemList.ItemStats.WeaponsPercentage));
+			}
 		}
 		if(priority == 2){// for calculations based on other stats.  ie damage += hull * 0.2
 			//nothing here yet
@@ -86,5 +88,7 @@ public class Item {
 		return ItemList.getString(id, ItemList.ItemStats.Description);
 	}
 	
-	
+	public String getInGameName() {
+		return ItemList.getString(id, ItemList.ItemStats.InGameName);
+	}
 }

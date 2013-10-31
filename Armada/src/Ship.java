@@ -126,6 +126,11 @@ public class Ship extends DynamicElement{
 		}
 	}
 	
+	public void weaponsPerInc(int i){
+		double d = ((double)i)/100 +1;
+		weapons *= d;
+	}
+	
 	public void incSpeedFlat(int i){
 		speed += i;
 	}
