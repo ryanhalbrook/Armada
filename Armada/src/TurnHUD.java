@@ -45,7 +45,7 @@ public class TurnHUD extends HUD{
 		
 		if(grid.getActiveE()!=null){
 			g.setColor(Color.WHITE);
-			g.drawString("1-Move | 2-Attack Hull | 3-Attack Engines | 4-Unselect", 5, 15);
+			g.drawString("1-Move | 2-Attack Hull | 3-Attack Engines | 4-Dock", 5, 15);
 		}
 	}
 
