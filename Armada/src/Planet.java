@@ -79,6 +79,11 @@ public class Planet extends DynamicElement{
 	}
 	
 	public ArrayList<Ship> getDocked(){
+		for(Ship s: dockedList){
+			if(s.isDead()){
+				dockedList.remove(s);
+			}
+		}
 		return dockedList;
 	}
 	/*
