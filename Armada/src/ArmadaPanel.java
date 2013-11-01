@@ -12,7 +12,7 @@ import java.awt.image.*;
  * Responsible for drawing game elements and dispatching mouse and keyboard events.
  */
 
-public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener {
+public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener, DynamicSizeBroadcast {
 
     private HUDmanager hud = null;
     private ApplicationManager am;
@@ -24,6 +24,14 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	boolean moveMode = false;
 	int lastX = -1;
 	int lastY = -1;
+	
+	public int getHorizontalSize() {
+	    return this.getWidth();
+	}
+	
+	public int getVerticalSize() {
+	    return this.getHeight();
+	}
 	
 	public ArmadaPanel(ApplicationManager am) {
 	    this.am = am;
@@ -37,7 +45,7 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	    mainLayer.setName("Main Layer");
 	   
 	    mainLayer.addSublayer(hud.getViewLayer());
-	     mainLayer.addSublayer(grid);
+	    mainLayer.addSublayer(grid);
 	    
 	    refreshTimer.start();
 	}
