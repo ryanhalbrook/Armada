@@ -34,14 +34,14 @@ public class TurnHUD extends HUD{
 		
 		// Draw time bar
 		double time = grid.secondsRemainingForTurn();
-		int w = (int)(grid.getAp().getWidth() * time / grid.maxSecondsForTurn());
+		int w = (int)Math.round(grid.getAp().getWidth() * time / grid.maxSecondsForTurn());
         g.setColor(new Color(0.9f, 0.9f, 0.9f, 0.6f));
         g.fillRect(0, BAR_HEIGHT - (int)(BAR_HEIGHT * 1/15), w, (int)(BAR_HEIGHT * 1/15));
 
 		g.setColor(Color.WHITE);
 		FontMetrics fm = g.getFontMetrics();
-		int textWidth = fm.stringWidth(playerName) + fm.stringWidth(" | Turn Timer: " + (int)(time/1000) + "s");
-		g.drawString(playerName + " | Turn Timer: " + (int)(time / 1000) + "s", grid.getAp().getWidth() - 5 - textWidth, 15);
+		int textWidth = fm.stringWidth(playerName) + fm.stringWidth(" | Turn Timer: " + Math.round(time/1000) + "s");
+		g.drawString(playerName + " | Turn Timer: " + Math.round(time / 1000) + "s", grid.getAp().getWidth() - 5 - textWidth, 15);
 		
 		if(grid.getActiveE()!=null){
 			g.setColor(Color.WHITE);
