@@ -77,6 +77,8 @@ public class Grid extends ViewLayer {
 		//Testing Static draw
 		loadSampleImage();
     }
+    
+    //I dont think this is needed anymore
     private void loadSampleImage(){
         img = ImageLoader.getImage("saturn.png");
 
@@ -322,7 +324,7 @@ public class Grid extends ViewLayer {
 		if(delements != null && delements.size() != 0){//selecting a ship
 			for (DynamicElement d : delements) {
 				//System.out.println("looking for ship 1");
-				d.startOfTurn();
+				d.startOfTurn(this);
 			}
 		}
 	}

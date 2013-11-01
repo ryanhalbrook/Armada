@@ -26,7 +26,7 @@ public class ModeHUD extends HUD{
 	    int height = r.getHeight();
 		if(grid == null)return;
 		this.updateLocation();
-		if (grid.getActiveE()!=null) {
+		if (grid.getActiveE()!=null && grid.getActiveE() instanceof Ship) {
 			Graphics2D g2d = (Graphics2D)g;
 		    
 				    
@@ -87,9 +87,24 @@ public class ModeHUD extends HUD{
 		    	break;
 		    }  
 		}
+		else if(grid.getActiveE() != null && grid.getActiveE() instanceof Planet){
+			Planet p = (Planet)grid.getActiveE();
+			switch(grid.getActiveE().getAlliance()){
+				case 1:
+					g.setColor(Color.RED);
+					break;
+				case 2:
+					g.setColor(Color.BLUE);
+					break;
+				default:
+					g.setColor(Color.WHITE);
+					break;
+			}
+			g.drawOval(p.getX()-p.getWidth()/2 - grid.getViewRegion().getX(), p.getY()-p.getHeight()/2 - grid.getViewRegion().getY(), p.getWidth(), p.getHeight());
+		}
 		else{
 			g.setColor(Color.WHITE);
-			g.drawString("No Ship Selected", x, y+g.getFontMetrics().getHeight());
+			g.drawString("Nothing Selected", x, y+g.getFontMetrics().getHeight());
 		}
 	}
 

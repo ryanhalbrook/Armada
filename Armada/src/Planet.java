@@ -33,6 +33,7 @@ public class Planet extends DynamicElement{
 		alliance = 0;
 		dockedList = new ArrayList<Ship>();
 		upgradeLevel = 0;
+		System.out.println(width + " " + height);
 		//hb = new HealthBar(this);
 	}
 	
@@ -49,8 +50,8 @@ public class Planet extends DynamicElement{
 		}
 	}
 	
-	public void startOfTurn(){
-		if(alliance==0 && onlyOneAllianceDocked()){
+	public void startOfTurn(Grid g){
+		if(alliance==0 && onlyOneAllianceDocked() && g.getTurn()==dockedList.get(0).getAlliance()){
 			alliance = dockedList.get(0).getAlliance();
 		}
 		if(alliance!=0){

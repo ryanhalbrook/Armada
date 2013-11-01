@@ -95,7 +95,7 @@ public class ArmadaEngine {
     
     public void startTurn(){
 	    for (DynamicElement d : delements) {
-			d.startOfTurn();
+			//d.startOfTurn();
 		}
 	}
     
