@@ -1,7 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
-
 public class HealthBar {
 
 	protected DynamicElement de;
@@ -11,6 +10,7 @@ public class HealthBar {
 	}
 	
 	public void draw(Graphics g, BoundingRectangle viewRect){
+	
 		if(!viewRect.isIn(de.getX(), de.getY()))return;
 		if(de.getAlliance()==0){
 			g.setColor(Color.GREEN);
@@ -55,7 +55,6 @@ public class HealthBar {
 			g.setColor(Color.CYAN);
 		}
 		g.fillRect(de.getX()-viewRect.getX() - (de.getWidth()/2), de.getY()-viewRect.getY() - de.getHeight()/2-2, (int)((double)de.getWidth()*(double)((double)de.getEngine()/(double)de.getMaxEngine())), 2);
-		
 		
 	}
 	

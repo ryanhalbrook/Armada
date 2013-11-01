@@ -40,7 +40,18 @@ public class Grid extends ViewLayer {
     
     //Sample Image
     BufferedImage img;
+    
+    double mseconds = 30000.0;
+    long lastTime = 0;
+    private static final double TURN_TIME = 30000.0;
 
+    public double secondsRemainingForTurn() {
+        return mseconds;
+    }
+    
+    public double maxSecondsForTurn() {
+        return TURN_TIME;
+    }
 
     // Constructor
     public Grid(ArmadaPanel ap) {
@@ -129,9 +140,19 @@ public class Grid extends ViewLayer {
 		return currentY;
 	}
 	
+	// Called very often.
 	public void updateViewRegion(){
 		viewRegion.setWidth(ap.getWidth());
 		viewRegion.setHeight(ap.getHeight());
+		if (lastTime == 0) {
+		    lastTime = new GregorianCalendar().getTimeInMillis();
+		} else {
+		    long newTime = new GregorianCalendar().getTimeInMillis();
+		    double delta = (double)(newTime - lastTime);
+		    mseconds -= delta;
+		    lastTime = newTime;
+		}
+		if (mseconds < 0.0) toggleTurn();
 	}
 	
 	/*
@@ -294,6 +315,7 @@ public class Grid extends ViewLayer {
 	}
 	
 	public void startTurn(){
+	    mseconds = TURN_TIME;
 		activeE=null;
 		mode=1;
 		if(delements != null && delements.size() != 0){//selecting a ship
@@ -309,7 +331,6 @@ public class Grid extends ViewLayer {
 	 */
 	public void draw(Graphics g){
 	    drawAllDelements(g);
-		
 	} 
 	
 	private void drawAllDelements(Graphics g){
