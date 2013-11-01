@@ -41,9 +41,10 @@ public class Grid extends ViewLayer {
     //Sample Image
     BufferedImage img;
     
-    double mseconds = 30000.0;
+    private static final double TURN_TIME = 180000.0;
+    double mseconds = TURN_TIME;
     long lastTime = 0;
-    private static final double TURN_TIME = 30000.0;
+    
 
     public double secondsRemainingForTurn() {
         return mseconds;
