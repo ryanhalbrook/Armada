@@ -47,9 +47,8 @@ public class MapHUD extends HUD{
 	    int width = r.getWidth();
 	    int height = r.getHeight();
 		updateLocation();
-		g.setColor(new Color(1.0f, 1.0f, 1.0f, 0.1f));
+		g.setColor(new Color(0.1f, 0.1f, 0.1f, 0.8f));
 		g.fillRect(x, y, width, height);
-		
 		int insetWidth = (int)((grid.getAp().getWidth() / (float)grid.getWidth())*(width*1.0));
 		int insetHeight = (int)((grid.getAp().getHeight() / (float)grid.getHeight())*(height*1.0));
 		double dxf = (width*1.0)*(grid.getViewRegion().getX()/(grid.getWidth()*1.0));

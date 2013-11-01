@@ -8,6 +8,8 @@ to respond to mouse clicks.
 
 public class ViewLayer {
 
+    private static final boolean DEBUG = false;
+
     protected BoundingRectangle r;
     protected String name;
 
@@ -43,16 +45,16 @@ public class ViewLayer {
     }
     */
     public boolean click(int x, int y) {
-        System.out.println("View Layer Clicked: " + name);
-        System.out.println("Checking " + subLayers.size() + " SubLayers");
+        if (DEBUG) System.out.println("View Layer Clicked: " + name);
+        if (DEBUG) System.out.println("Checking " + subLayers.size() + " SubLayers");
         for (ViewLayer vl : subLayers) {
-            System.out.println("Checking Layer: " + vl.getName());
+            if (DEBUG) System.out.println("Checking Layer: " + vl.getName());
             if (!vl.r.pointInBoundingRectangle(x,y)) {
-                System.out.println("Click not in BoundingRectangle");
+                if (DEBUG) System.out.println("Click not in BoundingRectangle");
             }   
             if (vl.r.pointInBoundingRectangle(x,y) && vl.click(x, y)) {
-                System.out.println("Sending click to sublayer");
-                System.out.println("");
+                if (DEBUG) System.out.println("Sending click to sublayer");
+                if (DEBUG) System.out.println("");
                 return true;
             }
         }
@@ -61,7 +63,10 @@ public class ViewLayer {
     }
     
     public void draw(Graphics g) {
-        for (ViewLayer vl : subLayers) {
+        int i = 0;
+        ViewLayer vl = null;
+        for (i=subLayers.size()-1; i>-1; i--) {
+            vl = subLayers.get(i);
             vl.draw(g);
         }
     }
