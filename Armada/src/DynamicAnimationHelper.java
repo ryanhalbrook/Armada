@@ -38,6 +38,12 @@ public class DynamicAnimationHelper extends AnimationHelper{
 	public void attack(Element att,DynamicElement target,int mode,String attacked){
 		AttackAnimation aa = new AttackAnimation(att,target,mode,attacked);
 	}
+	public void board(DynamicElement att,DynamicElement target){
+		BoardingAnimation ba = new BoardingAnimation(att,target);
+	}
+	public void board(DynamicElement att,DynamicElement target,int mode){
+		BoardingAnimation ba = new BoardingAnimation(att,target,mode);
+	}
 	
 
 }

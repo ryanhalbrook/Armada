@@ -14,8 +14,11 @@ public class DynamicElement extends Element {
 	protected HealthBar hb;
 	protected boolean dead=false, canMove=true, canAttack=true;
 	
-	protected Element laser1,laser2;
+	protected Element laser1,laser2,rope,hook;
 	protected boolean attacking = false;
+	protected boolean boarding =false;
+
+	
 
 	public DynamicElement(){}
 	
@@ -198,7 +201,9 @@ public class DynamicElement extends Element {
 
 		this.getDAH().attack(this, de, attacked);
 	}
-	
+	public void board(DynamicElement target){
+		this.getDAH().board(this, target);
+	}
 	public DynamicAnimationHelper getDAH(){
 		return (DynamicAnimationHelper) ah;
 	}
@@ -244,6 +249,10 @@ public class DynamicElement extends Element {
 	    if(attacking){
 	    	laser1.draw(g, viewRect);
 	    	laser2.draw(g, viewRect);
+	    }
+	    if(boarding){
+	    	rope.draw(g, viewRect);
+	    	hook.draw(g,viewRect);
 	    }
 	    
 	}
@@ -358,5 +367,26 @@ public class DynamicElement extends Element {
 	public int getMoved() {
 		return moved;
 	}
+	public Element getRope() {
+		return rope;
+	}
 
+	public void setRope(Element rope) {
+		this.rope = rope;
+	}
+	public boolean isBoarding() {
+		return boarding;
+	}
+
+	public void setBoarding(boolean boarding) {
+		this.boarding = boarding;
+	}
+
+	public Element getHook() {
+		return hook;
+	}
+
+	public void setHook(Element hook) {
+		this.hook = hook;
+	}
 }
