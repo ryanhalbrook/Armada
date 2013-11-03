@@ -15,6 +15,7 @@ public class DynamicElement extends Element {
 	protected boolean dead=false, canMove=true, canAttack=true;
 	
 	protected Element laser1,laser2,rope,hook;
+	protected Bridge bridge;
 	protected boolean attacking = false;
 	protected boolean boarding =false;
 
@@ -204,6 +205,10 @@ public class DynamicElement extends Element {
 	public void board(DynamicElement target){
 		this.getDAH().board(this, target);
 	}
+	public void unboard(){
+		if(bridge!=null)
+			this.getDAH().board(this, null,6);
+	}
 	public DynamicAnimationHelper getDAH(){
 		return (DynamicAnimationHelper) ah;
 	}
@@ -251,8 +256,13 @@ public class DynamicElement extends Element {
 	    	laser2.draw(g, viewRect);
 	    }
 	    if(boarding){
-	    	rope.draw(g, viewRect);
-	    	hook.draw(g,viewRect);
+	    	if(rope!=null&&rope.getWidth()!=0 )
+	    		rope.draw(g, viewRect);
+	    	if(hook!=null)
+	    		hook.draw(g,viewRect);
+	    	if(bridge!=null&&bridge.getWidth()!=0){
+	    		bridge.draw(g, viewRect);
+	    	}
 	    }
 	    
 	}
@@ -382,11 +392,21 @@ public class DynamicElement extends Element {
 		this.boarding = boarding;
 	}
 
+	
+
 	public Element getHook() {
 		return hook;
 	}
 
 	public void setHook(Element hook) {
 		this.hook = hook;
+	}
+
+	public Bridge getBridge() {
+		return bridge;
+	}
+
+	public void setBridge(Bridge bridge) {
+		this.bridge = bridge;
 	}
 }

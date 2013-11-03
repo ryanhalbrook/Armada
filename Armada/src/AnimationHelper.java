@@ -242,6 +242,26 @@ public class AnimationHelper{
 		return deltaA;
 		
 	}
+	public double calcRotationAngle(double a){
+		
+		double angle = a;
+		double deltaA;
+		if(angle<0)
+			angle=360+angle;
+		
+		angle-=e.getAngle();
+		if(angle>=0&&angle<=180)
+			deltaA=angle;
+		else if(angle<0&&angle>-180)
+			deltaA=angle;
+		else if(angle<=-180)
+			deltaA=360+angle;
+		else
+			deltaA=angle-360;
+		
+		return deltaA;
+		
+	}
 	public boolean rotate(double ra){
 		
 		if(ra!=0 && angleLeft/ra>0)
