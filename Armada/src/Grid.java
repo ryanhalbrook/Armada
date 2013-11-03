@@ -71,6 +71,7 @@ public class Grid extends ViewLayer {
 		delements.add(new NormalShip(260,330,2));
 		delements.add(new NormalShip(60,330,2));
 		delements.add(new NormalShip(220,330,2));
+		delements.add(new NormalShip(300,330,2));
 		delements.add(new Planet());
 		delements.add(new Planet());
 		
@@ -337,6 +338,7 @@ public class Grid extends ViewLayer {
 	} 
 	
 	private void drawAllDelements(Graphics g){
+		
 		if(delements != null && delements.size() != 0){
 			for (int i=0;i<delements.size();i++) {
 				if(delements.get(i).isDead()){
@@ -344,9 +346,22 @@ public class Grid extends ViewLayer {
 					if((double)Math.random() >= (double)0.75){//25% chance of playing the scream
 						SoundEffect.SCREAM.play();
 					}
+					elements.add(new Explosion(delements.get(i)));
+					
 					delements.remove(i);
 					i--;
 				}
+			}
+			for (int i=0;i<elements.size();i++){
+				if(elements.get(i) instanceof Explosion){
+					if(((Explosion)(elements.get(i))).isDone()){
+						elements.remove(i);
+						i--;
+					}
+				}
+			}
+			for(Element e:elements){
+				e.draw(g, viewRegion);
 			}
 			for (DynamicElement de : delements) {
 				if(de instanceof Planet){

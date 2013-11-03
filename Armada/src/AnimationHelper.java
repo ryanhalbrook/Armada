@@ -413,6 +413,8 @@ public class AnimationHelper{
 		this.e = e;
 	}
 
-	
+	public BufferedImage getImage(){
+		return image;
+	}
 
 }
