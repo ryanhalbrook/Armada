@@ -10,7 +10,8 @@ public class HomePlanet extends Planet {
 	
 	public HomePlanet(int alliance){
 		super();
-		hull=1000;
+		maxHull=1000;
+		hull=maxHull;
 		if(alliance == 1){
 			x=Grid.GRID_WIDTH/2;
 			y=200;
