@@ -3,6 +3,40 @@
  */
 public class Player {
     int money;
-    int playerID;
+    int alliance;
     String playerName;
+    
+    public Player(int alliance){
+    	this.alliance=alliance;
+    	money=5000;
+    	playerName="";
+    }
+
+    public void incMoney(int i){
+    	money+=i;
+    }
+    
+	public int getMoney() {
+		return money;
+	}
+
+	public void setMoney(int money) {
+		this.money = money;
+	}
+
+	public int getAlliance() {
+		return alliance;
+	}
+
+	public void setAlliance(int alliance) {
+		this.alliance = alliance;
+	}
+
+	public String getPlayerName() {
+		return playerName;
+	}
+
+	public void setPlayerName(String playerName) {
+		this.playerName = playerName;
+	}
 }

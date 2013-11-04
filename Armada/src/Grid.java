@@ -24,6 +24,8 @@ public class Grid extends ViewLayer {
     private ArrayList<DynamicElement> delements;
     private  ArrayList<Menu> menus;
     
+    private PlayerManager pm;
+    
     private  int mode = 0, turn = 1, index =0;
     private  DynamicElement activeE;
     private ArmadaPanel ap;
@@ -62,6 +64,7 @@ public class Grid extends ViewLayer {
     	elements = new ArrayList<Element>();
     	delements = new ArrayList<DynamicElement>();
     	menus = new ArrayList<Menu>();
+    	pm = new PlayerManager();
     	SoundEffect.init();
     	SoundEffect.volume=SoundEffect.Volume.LOW;
     	
@@ -392,6 +395,10 @@ public class Grid extends ViewLayer {
 				}
 			}
 		}
+	}
+	
+	public PlayerManager getPlayerManager(){
+		return pm;
 	}
 	
 	private static BufferedImage loadImage(File f) {
