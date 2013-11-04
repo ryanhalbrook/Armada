@@ -290,6 +290,14 @@ public class Grid extends ViewLayer {
 						p.dock(s);
 						return true;
 					}
+					
+					if(d.isIn(inX,inY) && d.getAlliance()!= activeE.getAlliance() && activeE.distanceFrom(inX, inY) < 100 && d.isTargetable() && d instanceof Ship && activeE instanceof Ship){
+						System.out.println("Boarding attempted");
+						Ship s = (Ship) activeE;
+						Ship t = (Ship) d;
+						s.board(t);
+						return true;
+					}
 				}
 			}
 		}
@@ -343,7 +351,7 @@ public class Grid extends ViewLayer {
 			for (int i=0;i<delements.size();i++) {
 				if(delements.get(i).isDead()){
 					SoundEffect.EXPLODE.play();
-					if((double)Math.random() >= (double)0.75){//25% chance of playing the scream
+					if((double)Math.random() >= (double)0.9){//25% chance of playing the scream
 						SoundEffect.SCREAM.play();
 					}
 					elements.add(new Explosion(delements.get(i)));
