@@ -75,8 +75,7 @@ public class Grid extends ViewLayer {
 		delements.add(new NormalShip(60,330,2));
 		delements.add(new NormalShip(220,330,2));
 		delements.add(new NormalShip(300,330,2));
-		delements.add(new Planet());
-		delements.add(new Planet());
+		Spawner.spawnPlanets(this, 400);
 		
 		//Testing Static draw
 		loadSampleImage();

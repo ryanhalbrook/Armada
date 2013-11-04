@@ -276,6 +276,9 @@ public class DynamicElement extends Element {
 		return distanceFrom(de.getX(),de.getY()) <= range;
 	}
 
+	public int distanceFrom(DynamicElement de ){
+		return this.distanceFrom(de.getX(), de.getY());
+	}
 
 	public int getRange() {
 		return range;
