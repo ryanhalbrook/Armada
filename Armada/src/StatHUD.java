@@ -17,25 +17,6 @@ public class StatHUD extends HUD{
 	public StatHUD(Grid gr, int t){
 		super(5,45,150,100,gr, t);
 	}
-	/*
-	public void draw(Graphics g){
-	    int x = r.getX();
-	    int y = r.getY();
-	    int width = r.getWidth();
-	    int height = r.getHeight();
-		if(grid==null)return;
-		this.updateLocation();
-		if(grid.getActiveE() != null){
-			g.setColor(Color.WHITE);
-			g.drawString("Hull: " + grid.getActiveE().getHull(), x, y+g.getFontMetrics().getHeight());
-			g.drawString("Engine: " + grid.getActiveE().getEngine(), x, y+g.getFontMetrics().getHeight()*2);
-			g.drawString("Damage: " + grid.getActiveE().getWeapons(), x, y+g.getFontMetrics().getHeight()*3);	
-			g.drawString("Speed: " + grid.getActiveE().getAdjustedSpeed(), x, y+g.getFontMetrics().getHeight()*4);
-			g.drawString("Movement Left: " + (grid.getActiveE().getAdjustedSpeed() - grid.getActiveE().getMoved()), x, y+g.getFontMetrics().getHeight()*5);
-			g.drawString("Can Attack: " + grid.getActiveE().canAttack(), x, y+g.getFontMetrics().getHeight()*6);	
-		}
-	}*/
-	/////////////////////////////////////////////////////////////////////
 	
 
 	public void fillButtons(){
@@ -45,9 +26,8 @@ public class StatHUD extends HUD{
 	    int width = r.getWidth();
 	    int height = r.getHeight();
 		updateLocation();
-		System.out.println("Adding buttons");
 		if(grid.getActiveE() instanceof Ship){
-			buttons.add(new Button(0,y,width,18, grid,"Hull: " + grid.getActiveE().getHull() + "/" + grid.getActiveE().getMaxHull()));
+			buttons.add(new Button(0,y,width,18, grid,"Hull: " + grid.getActiveE().getHull() + "/" + grid.getActiveE().getMaxHull()));//x and y actually don't matter
 			buttons.add(new Button(0,y,width,18, grid,"Engine: " + grid.getActiveE().getEngine() + "/" + grid.getActiveE().getMaxEngine()));
 			buttons.add(new Button(0,y,width,18, grid,"Damage: " + grid.getActiveE().getWeapons()));
 			buttons.add(new Button(0,y,width,18, grid,"Speed: " + grid.getActiveE().getAdjustedSpeed() + "/" + grid.getActiveE().getSpeed()));
@@ -61,7 +41,6 @@ public class StatHUD extends HUD{
 	
 	public void draw(Graphics g){
 		if(grid.getActiveE() != de){
-			System.out.println("Changing Ship");
 			de=grid.getActiveE();
 			updateLocation();
 			fillButtons();
@@ -78,9 +57,7 @@ public class StatHUD extends HUD{
 	}
 	
 	public void drawButtons(Graphics g){
-		System.out.println("Drawing buttons");
 		if(buttons == null){
-			System.out.println("No ship selected?");
 			return;
 		}
 		for(Button b: buttons){
@@ -98,8 +75,6 @@ public class StatHUD extends HUD{
 			b.setY(r.y+3+(i* 22));
 		}
 	}
-	
-	//////////////////////////////////////////////////////////////////////
 	
 	
 }
