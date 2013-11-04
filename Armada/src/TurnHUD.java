@@ -36,7 +36,7 @@ public class TurnHUD extends HUD{
 		double time = grid.secondsRemainingForTurn();
 		int w = (int)Math.round(grid.getAp().getWidth() * time / grid.maxSecondsForTurn());
         g.setColor(new Color(0.9f, 0.9f, 0.9f, 0.6f));
-        g.fillRect(0, BAR_HEIGHT - (int)(BAR_HEIGHT * 1/15), w, (int)(BAR_HEIGHT * 1/15));
+        g.fillRect(0, BAR_HEIGHT - (int)(BAR_HEIGHT * 1/10), w, (int)(BAR_HEIGHT * 1/10));
 
 		g.setColor(Color.WHITE);
 		FontMetrics fm = g.getFontMetrics();
