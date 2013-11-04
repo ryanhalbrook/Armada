@@ -14,6 +14,7 @@ import javax.sound.sampled.*;
 public enum SoundEffect {
    EXPLODE("explode1.wav")//explode
    , SCREAM("WilhelmScream.wav")// scream
+   , LASER("laser.wav")//laser
    //All sounds added must be in the format of the above line and come before the ";" line
    ;
    

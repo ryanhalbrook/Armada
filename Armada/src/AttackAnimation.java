@@ -75,6 +75,8 @@ public class AttackAnimation implements Runnable {
 							int x2=de.getX()+ (int)(Math.sqrt(Math.pow(dx, 2)+Math.pow(dy,2))*Math.cos(angle2));
 							int y2=de.getY()+ (int)(Math.sqrt(Math.pow(dx, 2)+Math.pow(dy,2))*Math.sin(angle2));
 							
+							SoundEffect.LASER.play();
+							//SoundEffect.LASER.play();
 							((DynamicElement)de).setLaser1(new Element(x1, y1, 40, 5, 0,"laser"));
 							((DynamicElement)de).setLaser2(new Element(x2, y2, 40, 5, 0,"laser"));
 							((DynamicElement)de).getLaser1().setOwner(de);
