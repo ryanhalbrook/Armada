@@ -64,9 +64,9 @@ public class Grid extends ViewLayer {
     	elements = new ArrayList<Element>();
     	delements = new ArrayList<DynamicElement>();
     	menus = new ArrayList<Menu>();
-    	pm = new PlayerManager();
     	SoundEffect.init();
     	SoundEffect.volume=SoundEffect.Volume.LOW;
+    	pm = new PlayerManager(this);
     	
     	// Add some ships
 		delements.add(new NormalShip(750,330,1));
@@ -401,6 +401,10 @@ public class Grid extends ViewLayer {
 		return pm;
 	}
 	
+	public Player getWinner(){
+		return pm.getWinner();
+	}
+	
 	private static BufferedImage loadImage(File f) {
         BufferedImage bi = null;
         try {
@@ -411,6 +415,11 @@ public class Grid extends ViewLayer {
         return bi;
         
     }
+	
+	public void add(DynamicElement inDE){
+		delements.add(inDE);
+	}
+	
 	public DynamicElement getActiveE() {
 		return activeE;
 	}

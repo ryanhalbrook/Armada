@@ -8,7 +8,7 @@ public class Planet extends DynamicElement{
 	protected int upgradeLevel;
 	private int[][] storeList = new int[3][10]; // The store should be handled by another class
 	//private Teleporter tp; // teleport is a simple change in X and Y, there is no need for it to be an entire class
-	private HealthBar hb;//health bars don't account for the PLanet's state yet, so it isnt ready to add to the Planet yet.  Also, you forgot to add the hb to the draw method
+	//private HealthBar hb;//health bars don't account for the PLanet's state yet, so it isnt ready to add to the Planet yet.  Also, you forgot to add the hb to the draw method
 
 	public Planet(int a, int b, int w, int h, String img, int r,
 			int maxH, int maxE, int s, int all, int t, int weap) {
@@ -34,7 +34,7 @@ public class Planet extends DynamicElement{
 		dockedList = new ArrayList<Ship>();
 		upgradeLevel = 0;
 		System.out.println(width + " " + height);
-		//hb = new HealthBar(this);
+		hb = new HealthBar(this);
 	}
 	
 	private void setRandomImage(){		

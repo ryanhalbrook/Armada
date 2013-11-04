@@ -2,12 +2,16 @@
  * should keep track of money.  Since the Grid keeps track of Ships and Planets and each of those keeps track of their alliance, it is unknown if the Player will do anything else
  */
 public class Player {
-    int money;
-    int alliance;
-    String playerName;
+	private int money;
+    private int alliance;
+    private boolean dead;
+    private String playerName;
+    private HomePlanet home;
     
     public Player(int alliance){
     	this.alliance=alliance;
+    	home = new HomePlanet(alliance);
+    	dead = false;
     	money=5000;
     	playerName="";
     }
@@ -38,5 +42,21 @@ public class Player {
 
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
+	}
+
+	public boolean isDead() {
+		return dead;
+	}
+
+	public void setDead(boolean dead) {
+		this.dead = dead;
+	}
+
+	public HomePlanet getHome() {
+		return home;
+	}
+
+	public void setHome(HomePlanet home) {
+		this.home = home;
 	}
 }

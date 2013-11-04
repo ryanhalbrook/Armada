@@ -36,6 +36,8 @@ public class HealthBar {
 		}
 		g.fillRect(de.getX()-viewRect.getX() - (de.getWidth()/2), de.getY()-viewRect.getY() - de.getHeight()/2-10, (int)((double)de.getWidth()*(double)((double)de.getHull()/(double)de.getMaxHull())), 2);
 		
+		if(de instanceof Planet)return;
+		
 		if(de.getAlliance()==0){
 			return;
 		}

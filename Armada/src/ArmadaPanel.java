@@ -21,7 +21,7 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	private Menu focusMenu;
 	private Timer refreshTimer = new Timer(30, this);
 	private ViewLayer mainLayer = new ViewLayer(new BoundingRectangle(0,0, this.getWidth(), this.getHeight()));
-	boolean moveMode = false;
+	private boolean moveMode = false, gameOn=true;
 	int lastX = -1;
 	int lastY = -1;
 	
@@ -51,8 +51,21 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	}
 	
 	public void actionPerformed(ActionEvent evt) {
+		if(!gameOn)return;
+		if(grid.getWinner()!=null){
+			//TODO add what happens when there is a winner
+			gameOn=false;
+			endGame();
+			return;
+		}
 		grid.updateViewRegion();
 	    repaint();
+	}
+	
+	public void endGame(){
+		JFrame end = new JFrame();
+		end.setBounds(100, 100, 500, 500);
+		end.setVisible(true);
 	}
 	
 	public void keyReleased(KeyEvent evt) {

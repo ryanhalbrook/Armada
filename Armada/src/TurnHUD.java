@@ -11,7 +11,6 @@ public class TurnHUD extends HUD{
     
 	public TurnHUD(Grid gr) {
 		super(0, 0, 2000, BAR_HEIGHT, gr);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public void draw(Graphics g){

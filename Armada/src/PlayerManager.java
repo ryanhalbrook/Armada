@@ -6,10 +6,14 @@ public class PlayerManager {
 	private int numPlayers;
 	private ArrayList<Player> players;
 	
-	public PlayerManager(){
+	public PlayerManager(Grid g){
 		players=new ArrayList<Player>();
-		players.add(new Player(1));
-		players.add(new Player(2));
+		Player p1 = new Player(1);
+		players.add(p1);
+		g.add(p1.getHome());
+		Player p2 = new Player(2);
+		players.add(p2);
+		g.add(p2.getHome());
 	}
 	
 	public void payPlayerMoney(int alliance, int money){
@@ -49,6 +53,24 @@ public class PlayerManager {
 				p.incMoney(-pay);
 			}
 		}
+	}
+	
+	public Player getWinner(){
+		for(Player p: players){
+			if(p.getHome().isDead()){
+				p.setDead(true);
+			}
+		}
+		for(Player p: players){
+			if(p.isDead()){
+				for(Player pp: players){
+					if(!pp.isDead()){
+						return pp;
+					}
+				}
+			}
+		}
+		return null;
 	}
 
 }
