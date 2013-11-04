@@ -146,7 +146,7 @@ public class BoardingAnimation implements Runnable{
 				int tempX=de.getRope().getX();
 				int tempY=de.getRope().getY();
 				
-				if(!(de.getRope().getAH().moveHelper(deltaX2, deltaY2,mvTime)||de.getAH().moveHelper(deltaX, deltaY,mvTime))){
+				if(!(de.getRope().getAH().moveHelper(deltaX2, deltaY2,mvTime)|de.getAH().moveHelper(deltaX, deltaY,mvTime))){
 					mode=4;
 					ra2=de.getAH().calcRotationAngle(target.getAngle());
 					de.getAH().setAngleLeft(ra2);
