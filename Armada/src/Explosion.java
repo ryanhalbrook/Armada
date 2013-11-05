@@ -17,7 +17,10 @@ public class Explosion extends Element{
 	}
 	public Explosion(DynamicElement d, int t){
 		super(d.getX(),d.getY(),d.getWidth(),d.getHeight(),d.getAngle(),IMAGE_NAME);
-		type=t;
+		if(t<0||t>7)
+			type=(int)(Math.random()*8);
+		else
+			type=t;
 	}
 	public void draw(Graphics g, BoundingRectangle viewRegion){
 		BufferedImage temp= ah.getImage().getSubimage(WIDTH*imgIndex, HEIGHT*type, WIDTH, HEIGHT);
