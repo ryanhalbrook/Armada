@@ -32,6 +32,8 @@ public class MapHUD extends HUD{
 	public void draw(Graphics g){
 	    int x = r.getX();
 	    int y = r.getY();
+	    r.setWidth((int)(grid.getAp().getWidth() * .2));
+	    r.setHeight((int)(grid.getAp().getHeight() * .2));
 	    int width = r.getWidth();
 	    int height = r.getHeight();
 		updateLocation();

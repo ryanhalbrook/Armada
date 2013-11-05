@@ -226,7 +226,6 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	public void mouseReleased(MouseEvent arg0) {}
 	public void keyTyped(KeyEvent evt) {}
 	public void mouseDragged(MouseEvent evt) {
-		
 		if(hud.getMap().isIn(evt.getX(), evt.getY())){
 			hud.getMap().moveMap(evt.getX(), evt.getY());
 		}

@@ -24,11 +24,12 @@ public class HUDmanager {
 		items.setName("Items HUD");
 		viewLayer = new ViewLayer(new BoundingRectangle(0,0,10000, 10000));
 		viewLayer.setName("HUD Layer");
-		huds.add(mode);
+		//for some reason, these are drawn in reverse order, so the first added is on top
 		huds.add(stat);
 		huds.add(turn);
 		huds.add(map);
 		huds.add(items);
+		huds.add(mode);
 		for (HUD h : huds) {
 		    viewLayer.addSublayer(h);
 		}
