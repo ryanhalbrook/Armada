@@ -204,7 +204,7 @@ public class DynamicElement extends Element {
 	}
 	public void board(DynamicElement target){
 		this.getDAH().board(this, target);
-		unboard();
+		//unboard();
 	}
 	public void unboard(){
 		if(bridge!=null)

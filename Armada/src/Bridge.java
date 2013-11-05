@@ -15,22 +15,23 @@ public class Bridge extends Element {
 	}
 	
 	public void draw(Graphics g, BoundingRectangle viewRegion){
-		int num=imgIndex/super.getWidth();
-		int tempX=x+(int)(width/2*Math.cos(angle));
-		int tempY=y+(int)(width/2*Math.sin(angle));
-		
+		int num=imgIndex/width;
+		int tempX=x+(int)(width/2*Math.cos(Math.toRadians(angle)));
+		int tempY=y+(int)(width/2*Math.sin(Math.toRadians(angle)));
+		System.out.println(imgIndex);
 		for(int i=0;i<num;i++){
-			
+			System.out.println("Called g="+g.hashCode());
 			AnimationHelper.draw(tempX, tempY, width, height, angle, ah.getImage(), g, viewRegion);
-			tempX+=(int)(width*Math.cos(angle));
-			tempY+=(int)(width*Math.sin(angle));
+			tempX+=(int)(width*Math.cos((Math.toRadians(angle))));
+			tempY+=(int)(width*Math.sin((Math.toRadians(angle))));
 		}
 		
-		if(imgIndex%super.getWidth()!=0){
-			tempX-=(int)(width/2*Math.cos(angle))+(int)(WIDTH*(imgIndex%super.getWidth())/2*Math.cos(angle));
-			tempY-=(int)(width/2*Math.sin(angle))+(int)(WIDTH*(imgIndex%super.getWidth())/2*Math.sin(angle));
-			BufferedImage temp= ah.getImage().getSubimage(0, 0, WIDTH*(imgIndex%super.getWidth()), 10);
-			AnimationHelper.draw(tempX, tempY, WIDTH*imgIndex, height, angle, temp, g, viewRegion);
+		if(imgIndex%width!=0){
+			
+			tempX-=(int)(width/2*Math.cos((Math.toRadians(angle))))+(int)(WIDTH*(imgIndex%width)/2*Math.cos((Math.toRadians(angle))));
+			tempY-=(int)(width/2*Math.sin((Math.toRadians(angle))))+(int)(WIDTH*(imgIndex%width)/2*Math.sin((Math.toRadians(angle))));
+			BufferedImage temp= ah.getImage().getSubimage(0, 0, WIDTH*(imgIndex%width), ah.getImage().getHeight());
+			AnimationHelper.draw(tempX, tempY, temp.getWidth(), temp.getHeight(), angle, temp, g, viewRegion);
 		}
 		
 		

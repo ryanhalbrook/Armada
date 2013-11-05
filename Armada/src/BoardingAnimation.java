@@ -49,6 +49,8 @@ public class BoardingAnimation implements Runnable{
 		int deltaY=moveY-de.getY();
 		int deltaX2=0,deltaY2=0,deltaX3=0,deltaY3=0;
 		
+		de.setTargetable(false);
+		
 		if(mode!=6&&Math.abs(Math.sqrt(Math.pow(deltaX, 2)+Math.pow(deltaY, 2)))+de.getWidth()/2<=10){
 			//bridge
 			mode=4;
@@ -209,21 +211,37 @@ public class BoardingAnimation implements Runnable{
 			else if(mode==5){
 				if(de.getBridge().getWidth()>=Math.sqrt(Math.pow(de.getX()-target.getX(), 2)+Math.pow(de.getY()-target.getY(), 2)))
 				{
-					mode=0;
+					mode=6;
 				}
 				else
 					de.getBridge().extend();
+				try {
+	        		Thread.sleep(100);
+	        	} catch (InterruptedException e) {
+	        		e.printStackTrace();
+	        	}
 			}
 			else if(mode==6){
+				
 				if(de.getBridge().getWidth()<=0)
 				{
 					mode=0;
 					de.setBridge(null);
 					de.setBoarding(false);
 					de.getAH().setMoving(false);
+					de.setTargetable(true);
+					
 				}
-				else
+				else{
 					de.getBridge().shorten();
+					System.out.println("mode6");
+				}
+					
+				try {
+	        		Thread.sleep(100);
+	        	} catch (InterruptedException e) {
+	        		e.printStackTrace();
+	        	}
 			}
 			try {
         		Thread.sleep(10);
