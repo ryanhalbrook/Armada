@@ -78,7 +78,10 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	
 	}
 	
+	
+	
 	public void mouseMoved(MouseEvent evt) {
+		
 	    if (!moveMode) {
 	        grid.mouseMoved(evt.getX(), evt.getY());
 	    } else {
@@ -222,6 +225,35 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	@Override
 	public void mouseReleased(MouseEvent arg0) {}
 	public void keyTyped(KeyEvent evt) {}
-	public void mouseDragged(MouseEvent evt) {}
+	public void mouseDragged(MouseEvent evt) {
+		
+		if(hud.getMap().isIn(evt.getX(), evt.getY())){
+			hud.getMap().moveMap(evt.getX(), evt.getY());
+		}
+	}
+
+	public boolean isMoveMode() {
+		return moveMode;
+	}
+
+	public void setMoveMode(boolean moveMode) {
+		this.moveMode = moveMode;
+	}
+
+	public int getLastX() {
+		return lastX;
+	}
+
+	public void setLastX(int lastX) {
+		this.lastX = lastX;
+	}
+
+	public int getLastY() {
+		return lastY;
+	}
+
+	public void setLastY(int lastY) {
+		this.lastY = lastY;
+	}
 
 }

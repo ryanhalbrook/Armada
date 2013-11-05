@@ -64,4 +64,8 @@ public class HUDmanager {
 		viewLayer.removeSublayer(h);
 	}
 	
+	public MapHUD getMap(){
+		return (MapHUD)map;
+	}
+	
 }
