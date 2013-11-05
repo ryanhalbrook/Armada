@@ -9,7 +9,7 @@ public class Spawner {
 			if(grid.getDelements() != null && grid.getDelements().size()>0 ){
 				for(int h = 0;  h<grid.getDelements().size(); h++){
 					while(!Spawner.awayFromEdge(grid, temp) || temp.distanceFrom(grid.getDelements().get(h)) < 200){
-						if(System.currentTimeMillis() - time > 50){
+						if(System.currentTimeMillis() - time > (50*Grid.GRID_HEIGHT/3000)){
 							System.out.println("PLANET SPAWNER TIMEOUT ---- DONT TRY SPAWNING SO MANY PLANETS");
 							return;
 						}

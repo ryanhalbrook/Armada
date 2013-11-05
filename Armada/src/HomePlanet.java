@@ -14,13 +14,13 @@ public class HomePlanet extends Planet {
 		hull=maxHull;
 		if(alliance == 1){
 			x=Grid.GRID_WIDTH/2;
-			y=200;
+			y=500;
 			width=100;
 			height=width;
 		}
 		if(alliance == 2){
 			x=Grid.GRID_WIDTH/2;
-			y=Grid.GRID_HEIGHT - 200;
+			y=Grid.GRID_HEIGHT - 500;
 			width=100;
 			height=width;
 		}
