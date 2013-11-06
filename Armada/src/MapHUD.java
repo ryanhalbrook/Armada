@@ -6,6 +6,8 @@ import java.util.ArrayList;
 public class MapHUD extends HUD{
 	
 	private ArrayList<DynamicElement> des;
+	private double scale = .2;
+	static final double DEFAULT_SCALE = .2;
 	
 	public MapHUD(Grid gr, int l){
 		super(0,0,250,125,gr);
@@ -32,15 +34,15 @@ public class MapHUD extends HUD{
 	public void draw(Graphics g){
 	    int x = r.getX();
 	    int y = r.getY();
-	    r.setWidth((int)(grid.getAp().getWidth() * .2));
-	    r.setHeight((int)(grid.getAp().getHeight() * .2));
+	    r.setWidth((int)(grid.getAp().getWidth() * scale));
+	    r.setHeight((int)(grid.getAp().getHeight() * scale));
 	    int width = r.getWidth();
 	    int height = r.getHeight();
 		updateLocation();
 		g.setColor(new Color(0.1f, 0.1f, 0.1f, 0.8f));
 		g.fillRect(x, y, width, height);
-		int insetWidth = (int)((grid.getAp().getWidth() / (float)grid.getWidth())*(width*1.0));
-		int insetHeight = (int)((grid.getAp().getHeight() / (float)grid.getHeight())*(height*1.0));
+		int insetWidth = (int)((grid.getViewRegion().getWidth() / (float)grid.getWidth())*(width*1.0));
+		int insetHeight = (int)((grid.getViewRegion().getHeight() / (float)grid.getHeight())*(height*1.0));
 		double dxf = (width*1.0)*(grid.getViewRegion().getX()/(grid.getWidth()*1.0));
 		double dyf = (height*1.0)*(grid.getViewRegion().getY()/(grid.getHeight()*1.0));
 		
@@ -66,6 +68,7 @@ public class MapHUD extends HUD{
 		int dx = (int)dxf; int dy = (int)dyf;
 		g.setColor(Color.WHITE);
 		g.drawRect(x+dx, y+dy, insetWidth, insetHeight);
+		
 	}
 
 	public void moveMap(int inX, int inY){
@@ -85,5 +88,20 @@ public class MapHUD extends HUD{
 	
 	public boolean isIn(int inX, int inY){
 		return r.isIn(inX, inY);
+	}
+
+	public void toggleScale(){
+		if(scale == 1){
+			scale = MapHUD.DEFAULT_SCALE;
+		}
+		else scale = 1;
+	}
+	
+	public double getScale() {
+		return scale;
+	}
+
+	public void setScale(double scale) {
+		this.scale = scale;
 	}
 }

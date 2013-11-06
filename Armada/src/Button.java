@@ -6,7 +6,7 @@ public class Button extends BoundingRectangle{
 
 	protected String title;
 	protected Grid grid;
-	protected boolean isSelected=false, clickable;
+	protected boolean isSelected=false, clickable=true;
 	
 	/*public Button(){
 		super(0,0,30,30);
@@ -21,6 +21,9 @@ public class Button extends BoundingRectangle{
 	public boolean click(int x, int y){
 		if(!clickable)return false;
 		if(this.isIn(x, y)){
+			return true;
+		}
+		if(this.isIn(grid.getCurrentX(), grid.getCurrentY())){
 			return true;
 		}
 		return false;
@@ -54,6 +57,14 @@ public class Button extends BoundingRectangle{
 
 	public void setClickable(boolean clickable) {
 		this.clickable = clickable;
+	}
+
+	public String getTitle() {
+		return title;
+	}
+
+	public void setTitle(String title) {
+		this.title = title;
 	}
 	
 }

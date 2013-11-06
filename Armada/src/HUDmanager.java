@@ -48,14 +48,14 @@ public class HUDmanager {
 		viewLayer.draw(g);
 	}
 	
-	/*
+	
 	public boolean click(int inX, int inY){
 	    
 		if(items.click(inX,inY))return true;
 		if(map.click(inX,inY))return true;
 		return false;
 	}
-	*/
+	
 	public void add(HUD h){
 		huds.add(h);
 		viewLayer.addSublayer(h);

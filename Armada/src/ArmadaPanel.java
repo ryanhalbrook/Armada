@@ -141,12 +141,14 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	public void mousePressed(MouseEvent evt) {
 	
 		if(evt.getButton() == MouseEvent.BUTTON3){
+			
 			moveMode=false;
 			grid.unselect();
 		}
 		int x = (int)evt.getPoint().getX();
 		int y = (int)evt.getPoint().getY();
 		System.out.println("Clicking main layer");
+		//hud.click(x,y);
 		mainLayer.click(x, y);
 		/*
 		if(hud.click(xx,yy))return;
@@ -201,17 +203,20 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	        case KeyEvent.VK_SHIFT:
 	            grid.nextMode();
 	        break;
-	        case KeyEvent.VK_M:
+	        /*case KeyEvent.VK_M:
 	            if (moveMode) {
 	                lastX = -1; lastY = -1;
 	            }
 	            moveMode = !moveMode;
-	        break;
+	        break;*/
 	        case KeyEvent.VK_CONTROL:
 	            if (moveMode) {
 	                lastX = -1; lastY = -1;
 	            }
 	            moveMode = !moveMode;
+	        break;
+	        case KeyEvent.VK_M:
+	            hud.getMap().toggleScale();
 	        break;
 	    }
 	}
