@@ -33,8 +33,8 @@ public class Grid extends ViewLayer {
     
     BufferedImage backgroundImage = null;
     
-    static final int GRID_WIDTH = 3840;
-    static final int GRID_HEIGHT = 2160;
+    static final int GRID_WIDTH = 38400;
+    static final int GRID_HEIGHT = 21600;
 
     // Mouse coordinate information
     private int currentX = 0;
@@ -75,7 +75,7 @@ public class Grid extends ViewLayer {
 		delements.add(new NormalShip(60,330,2));
 		delements.add(new NormalShip(220,330,2));
 		delements.add(new NormalShip(300,330,2));
-		Spawner.spawnPlanets(this, 4);
+		Spawner.spawnPlanets(this, 40);
 		
 		//Testing Static draw
 		loadSampleImage();
@@ -189,6 +189,34 @@ public class Grid extends ViewLayer {
 	public void mouseMoved(int x, int y) {
 	    currentX = x;
 	    currentY = y;
+	    
+	}
+	
+	public void update(){
+		int vel = 50;
+		if(currentX==0&&currentY==0){}
+		else{
+			if(ap.getWidth() * .03 > currentX){
+				if(viewRegion.getX() >=25){
+					viewRegion.setX(viewRegion.getX() - vel);	
+				}
+		    }
+			if(ap.getWidth() * .97 < currentX){
+		    	if(Grid.GRID_WIDTH - (viewRegion.getX()+viewRegion.getWidth()) >=25){
+					viewRegion.setX(viewRegion.getX() + vel);	
+				}
+		    }
+			if(ap.getHeight() * .03 > currentY){
+		    	if(viewRegion.getY() >=25){
+					viewRegion.setY(viewRegion.getY() - vel);	
+				}
+		    }
+			if(ap.getHeight() * .97 < currentY){
+		    	if(Grid.GRID_HEIGHT - (viewRegion.getY() + viewRegion.getHeight()) >=25){
+					viewRegion.setY(viewRegion.getY() + vel);	
+				}
+		    }	
+		}
 	}
 	
 	/*
@@ -439,6 +467,14 @@ public class Grid extends ViewLayer {
 	}
 	public int getHeight(){
 		return GRID_HEIGHT;
+	}
+
+	public void setCurrentX(int currentX) {
+		this.currentX = currentX;
+	}
+
+	public void setCurrentY(int currentY) {
+		this.currentY = currentY;
 	}
 
 }

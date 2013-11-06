@@ -59,6 +59,7 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 			return;
 		}
 		grid.updateViewRegion();
+		grid.update();
 	    repaint();
 	}
 	
@@ -226,7 +227,10 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
     @Override
 	public void mouseEntered(MouseEvent arg0) {}
 	@Override
-	public void mouseExited(MouseEvent arg0) {}
+	public void mouseExited(MouseEvent arg0) {
+		grid.setCurrentX(0);
+		grid.setCurrentY(0);
+	}
 	@Override
 	public void mouseReleased(MouseEvent arg0) {}
 	public void keyTyped(KeyEvent evt) {}

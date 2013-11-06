@@ -10,7 +10,7 @@ public class NormalShip extends Ship{
 		baseMaxEngine=1000;
 		maxEngine=baseMaxEngine;
 		engine=maxEngine;
-		baseSpeed=300;
+		baseSpeed=3000;
 		speed=baseSpeed;
 		baseWeapons=300;
 		weapons = baseWeapons;
