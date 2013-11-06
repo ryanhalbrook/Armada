@@ -45,6 +45,13 @@ public class BoundingRectangle {
         */
     }
     
+    public void setCenter(int inX, int inY){
+    	x = inX-width/2;
+    	y=inY-height/2;
+    	if(y < 0) y=0;
+    	if(x< 0) x=0;
+    }
+    
     public boolean isIn(int inX,int inY){
     	if(inX > x && inX < x + width && inY > y && inY < y + height){
     		return true;

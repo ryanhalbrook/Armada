@@ -127,7 +127,9 @@ public class Grid extends ViewLayer {
 			temp=delements.get(index);
 			//if(temp.getAlliance() == turn)break;
 		}while(temp.getAlliance()!=turn || !temp.isTargetable());
+		
 		activeE=temp;
+		viewRegion.setCenter(activeE.getX(), activeE.getY());
 	}
 	
 	public void nextMode(){
