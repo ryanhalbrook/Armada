@@ -192,6 +192,7 @@ public class Grid extends ViewLayer {
 	    
 	}
 	
+	//If you don't like this method, make a new class to do this.  Please do not overhaul the whole program.  If there are too many responsibilities here, put it in the new class.  Don't complicate things  
 	public void update(){
 		int vel = 50;
 		if(currentX==0&&currentY==0){}
