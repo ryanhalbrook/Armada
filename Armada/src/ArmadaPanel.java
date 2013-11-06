@@ -235,6 +235,8 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	public void mouseReleased(MouseEvent arg0) {}
 	public void keyTyped(KeyEvent evt) {}
 	public void mouseDragged(MouseEvent evt) {
+		grid.setCurrentX(0);
+		grid.setCurrentY(0);
 		if(hud.getMap().isIn(evt.getX(), evt.getY())){
 			hud.getMap().moveMap(evt.getX(), evt.getY());
 		}
@@ -262,6 +264,10 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 
 	public void setLastY(int lastY) {
 		this.lastY = lastY;
+	}
+
+	public HUDmanager getHud() {
+		return hud;
 	}
 
 }

@@ -230,12 +230,9 @@ public class DynamicElement extends Element {
 		this.laser2 = laser2;
 	}
 
-	
-	
 	public void setAttack(boolean b){
 		attacking=b;
 	}
-	
 	
 	public int distanceFrom(int inX, int inY){
 		return (int)Math.sqrt(Math.pow(Math.abs((double)y-(double)inY),2) + Math.pow(Math.abs((double)x-(double)inX),2));
