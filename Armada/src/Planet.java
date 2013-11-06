@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Planet extends DynamicElement{
 	
 	protected ArrayList<Ship> dockedList;
-	protected int upgradeLevel;
+	protected int upgradeLevel, worth = 250;
 	private int[][] storeList = new int[3][10]; // The store should be handled by another class
 	//private Teleporter tp; // teleport is a simple change in X and Y, there is no need for it to be an entire class
 	//private HealthBar hb;//health bars don't account for the PLanet's state yet, so it isnt ready to add to the Planet yet.  Also, you forgot to add the hb to the draw method
@@ -51,11 +51,16 @@ public class Planet extends DynamicElement{
 	}
 	
 	public void startOfTurn(Grid g){
+		for(Ship s: dockedList){
+			if(s.isDead()){
+				dockedList.remove(s);
+			}
+		}
 		if(alliance==0 && onlyOneAllianceDocked() && g.getTurn()==dockedList.get(0).getAlliance()){
 			alliance = dockedList.get(0).getAlliance();
 		}
-		if(alliance!=0){
-			//player of alliance # gets gold
+		if(alliance!=0 && alliance==g.getTurn()){
+			g.getPlayerManager().payPlayerMoney(alliance, worth);
 			System.out.println("Pay player " + alliance);
 		}
 		System.out.println("Ships docked: " + dockedList.size());
