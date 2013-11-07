@@ -14,6 +14,8 @@ import java.awt.image.*;
 
 public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener, DynamicSizeBroadcast {
 
+    private static final int DEFAULT_GRID_MOVE_RATE = 200;
+
     private HUDmanager hud = null;
     private ApplicationManager am;
     private BufferedImage backgroundImage = null;
@@ -22,6 +24,7 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	private Timer refreshTimer = new Timer(30, this);
 	private ViewLayer mainLayer = new ViewLayer(new BoundingRectangle(0,0, this.getWidth(), this.getHeight()));
 	private boolean moveMode = false, gameOn=true;
+	int gridMoveRate = DEFAULT_GRID_MOVE_RATE;
 	int lastX = -1;
 	int lastY = -1;
 	
@@ -70,13 +73,16 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	}
 	
 	public void keyReleased(KeyEvent evt) {
-	    if (evt.getKeyCode() == KeyEvent.VK_CONTROL) {
+	    int keyCode = evt.getKeyCode();
+	    if (keyCode == KeyEvent.VK_CONTROL) {
 	        if (moveMode) {
 	            lastX = -1; lastY = -1;
 	        }
 	        moveMode = !moveMode;
+	    } else if ((keyCode == KeyEvent.VK_UP) | (keyCode == KeyEvent.VK_DOWN) | (keyCode == KeyEvent.VK_LEFT) | (keyCode == KeyEvent.VK_RIGHT)) {
+	        gridMoveRate = DEFAULT_GRID_MOVE_RATE;
 	    }
-	
+	    
 	}
 	
 	
@@ -159,22 +165,22 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	
 	public void keyPressed(KeyEvent evt) {
 	    int keycode = evt.getKeyCode();
-	    
+	    gridMoveRate+=10;
 	    switch (keycode) {
 	        case KeyEvent.VK_LEFT:
-	            grid.moveViewRegion(-100, 0);
+	            grid.moveViewRegion(-gridMoveRate, 0);
 	            repaint();
 	        break;
 	        case KeyEvent.VK_RIGHT:
-	            grid.moveViewRegion(100, 0);
+	            grid.moveViewRegion(gridMoveRate, 0);
 	            repaint();
 	        break;
 	        case KeyEvent.VK_UP:
-	            grid.moveViewRegion(0, -100);
+	            grid.moveViewRegion(0, -gridMoveRate);
 	            repaint();
 	        break;
 	        case KeyEvent.VK_DOWN:
-	            grid.moveViewRegion(0, 100);
+	            grid.moveViewRegion(0, gridMoveRate);
 	            repaint();
 	        break;
 	        case KeyEvent.VK_Q:
