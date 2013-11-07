@@ -158,7 +158,7 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 		}
 		int x = (int)evt.getPoint().getX();
 		int y = (int)evt.getPoint().getY();
-		System.out.println("Clicking main layer");
+		//System.out.println("Clicking main layer");
 		//hud.click(x,y);
 		mainLayer.click(x, y);
 		/*

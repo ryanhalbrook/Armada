@@ -23,7 +23,6 @@ public class Spawner {
 			temp2.setHeight(temp.getHeight());
 			temp2.setY(Grid.GRID_HEIGHT - temp.getY());
 			temp2.setX(Grid.GRID_WIDTH - temp.getX());
-			System.out.println(temp.getX() + " " + temp.getY() + " " + temp2.getX() + " " + temp2.getY());
 			grid.add(temp);
 			grid.add(temp2);
 		}

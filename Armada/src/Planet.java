@@ -33,7 +33,6 @@ public class Planet extends DynamicElement{
 		alliance = 0;
 		dockedList = new ArrayList<Ship>();
 		upgradeLevel = 0;
-		System.out.println(width + " " + height);
 		hb = new HealthBar(this);
 	}
 	
@@ -63,12 +62,10 @@ public class Planet extends DynamicElement{
 			g.getPlayerManager().payPlayerMoney(alliance, worth);
 			System.out.println("Pay player " + alliance);
 		}
-		System.out.println("Ships docked: " + dockedList.size());
 		
 	}
 	
 	public void unDock(Ship s){
-		System.out.println("Removed " + s + " from " + this);
 		dockedList.remove(s);
 		
 	}
