@@ -33,13 +33,16 @@ public class TurnHUD extends HUD{
 		
 		// Draw time bar
 		double time = grid.secondsRemainingForTurn();
-		int w = (int)Math.round(grid.getAp().getWidth() * time / grid.maxSecondsForTurn());
+		//int w = (int)Math.round(grid.getAp().getWidth() * time / grid.maxSecondsForTurn());
+		int h = (int)Math.round(BAR_HEIGHT * time/ grid.maxSecondsForTurn());
         g.setColor(new Color(0.9f, 0.9f, 0.9f, 0.6f));
-        g.fillRect(0, BAR_HEIGHT - (int)(BAR_HEIGHT * 1/10), w, (int)(BAR_HEIGHT * 1/10));
+        g.fillRect(grid.getAp().getWidth() - 15, 0, 10, BAR_HEIGHT);
+        g.fillRect(grid.getAp().getWidth() - 15, BAR_HEIGHT - h, 10, h);
+        //g.fillRect(0, BAR_HEIGHT - (int)(BAR_HEIGHT * 1/10), w, (int)(BAR_HEIGHT * 1/10));
 
 		g.setColor(Color.WHITE);
 		FontMetrics fm = g.getFontMetrics();
-		String displayString = playerName + " | Money: " + grid.getPlayerManager().getPlayerMoney(grid.getTurn())+ " | Turn Timer: " + Math.round(time/1000)/60+ "min, " +Math.round(time/1000)%60 + "s";
+		String displayString = playerName + " | Money: " + grid.getPlayerManager().getPlayerMoney(grid.getTurn())+ " | Turn Timer: " + Math.round(time/1000)/60+ "min, " +Math.round(time/1000)%60 + "s     ";
 		int textWidth = fm.stringWidth(displayString);
 		g.drawString(displayString, grid.getAp().getWidth() - 5 - textWidth, 15);
 		
