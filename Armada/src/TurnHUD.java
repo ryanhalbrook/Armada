@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
-
 public class TurnHUD extends HUD{
 
 	private Color player1Color = new Color(1.0f, 0.0f, 0.0f, 0.5f);
@@ -42,7 +41,7 @@ public class TurnHUD extends HUD{
 
 		g.setColor(Color.WHITE);
 		FontMetrics fm = g.getFontMetrics();
-		String displayString = playerName + " | Money: " + grid.getPlayerManager().getPlayerMoney(grid.getTurn())+ " | Turn Timer: " + Math.round(time/1000)/60+ "min, " +Math.round(time/1000)%60 + "s     ";
+		String displayString = playerName + " | Money: " + grid.getPlayerManager().getPlayerMoney(grid.getTurn())+ " | Turn Timer: " + Math.round(time/1000)/60+ ":" +Math.round(time/1000)%60 + "     ";
 		int textWidth = fm.stringWidth(displayString);
 		g.drawString(displayString, grid.getAp().getWidth() - 5 - textWidth, 15);
 		
@@ -50,6 +49,8 @@ public class TurnHUD extends HUD{
 			g.setColor(Color.WHITE);
 			g.drawString("1-Move | 2-Attack Hull | 3-Attack Engines | 4-Dock", 5, 15);
 		}
+		g.setColor(Color.BLACK);
+		g.drawRect(0, 0, grid.getAp().getWidth()-1, BAR_HEIGHT);
 	}
 
 }

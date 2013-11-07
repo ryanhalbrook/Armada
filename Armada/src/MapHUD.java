@@ -68,6 +68,8 @@ public class MapHUD extends HUD{
 		int dx = (int)dxf; int dy = (int)dyf;
 		g.setColor(Color.WHITE);
 		g.drawRect(x+dx, y+dy, insetWidth, insetHeight);
+		//g.setColor(Color.RED);
+		//g.drawRect(x-1, y-1, width-1, height-1);
 		
 	}
 

@@ -104,7 +104,7 @@ public class ModeHUD extends HUD{
 		}
 		else{
 			g.setColor(Color.WHITE);
-			g.drawString("Nothing Selected", x, y+g.getFontMetrics().getHeight());
+			//g.drawString("Nothing Selected", x, y+g.getFontMetrics().getHeight());
 		}
 	}
 
