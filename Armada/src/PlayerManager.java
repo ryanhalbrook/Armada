@@ -9,9 +9,11 @@ public class PlayerManager {
 	public PlayerManager(Grid g){
 		players=new ArrayList<Player>();
 		Player p1 = new Player(1);
+		p1.setPlayerName("Player 1");
 		players.add(p1);
 		g.add(p1.getHome());
 		Player p2 = new Player(2);
+		p2.setPlayerName("Player 2");
 		players.add(p2);
 		g.add(p2.getHome());
 	}
@@ -68,6 +70,16 @@ public class PlayerManager {
 						return pp;
 					}
 				}
+			}
+		}
+		return null;
+	}
+	
+	public Player getLoser(){
+		for(Player p: players){
+			if(p.getHome().isDead()){
+				p.setDead(true);
+				return p;
 			}
 		}
 		return null;

@@ -68,6 +68,10 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	
 	public void endGame(){
 		JFrame end = new JFrame();
+		JTextArea text = new JTextArea(500,500);
+		text.setFont(text.getFont().deriveFont(28.0f));
+		text.setText(grid.getWinner().getPlayerName() + " has won! \n Now " + grid.getLoser().getPlayerName() +" has to clean the ceiling!" );
+		end.add(text);
 		end.setBounds(100, 100, 500, 500);
 		end.setVisible(true);
 	}
@@ -224,6 +228,9 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	        break;
 	        case KeyEvent.VK_M:
 	            hud.getMap().toggleScale();
+	        break;
+	        case KeyEvent.VK_S:
+	            grid.moveCheat();
 	        break;
 	    }
 	}

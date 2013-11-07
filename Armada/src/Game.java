@@ -5,7 +5,7 @@ import javax.swing.JFrame;
  * 
  */
 
-public class Game {
+public class Game{
     static final boolean DEBUG = false;
 
 	/**

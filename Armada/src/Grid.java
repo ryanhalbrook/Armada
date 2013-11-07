@@ -33,8 +33,8 @@ public class Grid extends ViewLayer {
     
     BufferedImage backgroundImage = null;
     
-    static final int GRID_WIDTH = 38400;
-    static final int GRID_HEIGHT = 21600;
+    static final int GRID_WIDTH = 38400;//3840
+    static final int GRID_HEIGHT = 21600;//2160
 
     // Mouse coordinate information
     private int currentX = 0;
@@ -108,6 +108,13 @@ public class Grid extends ViewLayer {
     
 	public void cancelMove() {//does not deselect ship.  use setMode(0) to do that 
 	    mode = 0;
+	}
+	
+	public void moveCheat(){
+		for(DynamicElement d: delements){
+			System.out.println("//////////////////////////////////////////////////");
+			d.setSpeed(99999999);
+		}
 	}
 	
 	public void selectNextDEThisTurn(){
@@ -421,6 +428,10 @@ public class Grid extends ViewLayer {
 	
 	public Player getWinner(){
 		return pm.getWinner();
+	}
+	
+	public Player getLoser(){
+		return pm.getLoser();
 	}
 	
 	private static BufferedImage loadImage(File f) {
