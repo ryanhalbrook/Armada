@@ -1,12 +1,17 @@
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+/**
+	Creates an explosion animation.
+*/
 
 public class Explosion extends Element{
-	
+	/** Establishes the string that will represent the explosion image. */
 	private static final String IMAGE_NAME="explosions";
 	private static final int NUM_FRAME=16;
+	/** Establishes the width of the explosion animation. */
 	private static final int WIDTH=64;
+	/** Establishes the height of the explosion animation. */
 	private static final int HEIGHT=64;
 	
 	private int imgIndex=0;
