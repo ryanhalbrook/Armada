@@ -3,13 +3,8 @@ import java.awt.*;
 import javax.swing.*;
 import java.awt.image.*;
 
-/*
- * SCROLL DOWN FOR KEY HANDLING
-
- * ArmadaPanel take in mouse input to allow user to click on objects
- * displays all objects present on Grid
- 
- * Responsible for drawing game elements and dispatching mouse and keyboard events.
+/**
+    Responsible for drawing game layers and dispatching mouse and keyboard events.
  */
 
 public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener, DynamicSizeBroadcast {
@@ -28,14 +23,24 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	int lastX = -1;
 	int lastY = -1;
 	
+	/**
+	    @return The horizontal size, in pixels, of this panel.
+	*/
 	public int getHorizontalSize() {
 	    return this.getWidth();
 	}
 	
+	/**
+	    @return The vertical size, in pixels, of this panel.
+	*/
 	public int getVerticalSize() {
 	    return this.getHeight();
 	}
 	
+	/**
+	    The only constructor.
+	    @param am The application manager to notify when the game is over.
+	*/
 	public ArmadaPanel(ApplicationManager am) {
 	    this.am = am;
 	    backgroundImage = ImageLoader.getImage("ArmadaBackground2.jpg");
@@ -89,10 +94,7 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	    
 	}
 	
-	
-	
 	public void mouseMoved(MouseEvent evt) {
-		
 	    if (!moveMode) {
 	        grid.mouseMoved(evt.getX(), evt.getY());
 	    } else {
@@ -108,7 +110,7 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	}
 
 	public void paintComponent(Graphics g) {
-	
+	    // Turn on anialiasing
 	    Graphics2D g2d = (Graphics2D)g;
 	    g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 	
@@ -120,15 +122,6 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	    if (backgroundImage != null) {
 	        g.drawImage(backgroundImage, -grid.getViewRegion().getX(), -grid.getViewRegion().getY(), null);
 	    }
-	    
-	    /*
-	    // Draw the grid.
-	    if (grid != null) grid.draw(g);
-	    
-	    // Draw the HUD.
-	    hud.draw(g);    	
-	    */
-	    
 	    mainLayer.draw(g);
 	}
 	
@@ -143,28 +136,18 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 		focusMenu=null;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see java.awt.event.MouseListener#mousePressed(java.awt.event.MouseEvent)
-	 * if a menu is currently requesting mouse focus, the MouseEvent is forwarded to the Menu.
-	 * Else, it is forwarded to the MenuLoader.
+	/**
+	   if a menu is currently requesting mouse focus, the MouseEvent is forwarded to the Menu.
+	   Else, it is forwarded to the MenuLoader.
 	 */
 	public void mousePressed(MouseEvent evt) {
-	
 		if(evt.getButton() == MouseEvent.BUTTON3){
-			
 			moveMode=false;
 			grid.unselect();
 		}
 		int x = (int)evt.getPoint().getX();
 		int y = (int)evt.getPoint().getY();
-		//System.out.println("Clicking main layer");
-		//hud.click(x,y);
 		mainLayer.click(x, y);
-		/*
-		if(hud.click(xx,yy))return;
-		grid.click(xx,yy);
-		*/
 	}
 	
 	public void keyPressed(KeyEvent evt) {
@@ -235,17 +218,13 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	    }
 	}
 	
-	@Override
-	public void mouseClicked(MouseEvent arg0) {}
-    @Override
-	public void mouseEntered(MouseEvent arg0) {}
-	@Override
-	public void mouseExited(MouseEvent arg0) {
+	public void mouseClicked(MouseEvent evt) {}
+	public void mouseEntered(MouseEvent evt) {}
+	public void mouseExited(MouseEvent evt) {
 		grid.setCurrentX(0);
 		grid.setCurrentY(0);
 	}
-	@Override
-	public void mouseReleased(MouseEvent arg0) {}
+	public void mouseReleased(MouseEvent evt) {}
 	public void keyTyped(KeyEvent evt) {}
 	public void mouseDragged(MouseEvent evt) {
 		grid.setCurrentX(0);
@@ -255,10 +234,17 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 		}
 	}
 
+    /**
+        @return True if moving the mouse will move the map, false otherwise.
+    */
 	public boolean isMoveMode() {
 		return moveMode;
 	}
 
+    /**
+        Sets whether moving the mouse will move the map, or allow the player to perform
+        other game actions.
+    */
 	public void setMoveMode(boolean moveMode) {
 		this.moveMode = moveMode;
 	}
