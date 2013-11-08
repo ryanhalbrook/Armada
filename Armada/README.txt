@@ -26,6 +26,11 @@ ant compile
 +Running with ANT:
 ant run
 
++Creating Javadoc documentation with ANT:
+ant javadoc
+
++Viewing Javadoc: Open the file at documentation/index.html
+
 +Compiling using UNIX-based terminal session (bash):
 cp -R image src/image
 cp -R sound src/sound
@@ -33,16 +38,6 @@ cd src
 javac *.java
 
 +Running using UNIX-based terminal session (bash):
-cd src (unless you just did the above compilation steps)
-java Game
-
-+Compiling using Windows Command Line*:
-xcopy image src\image
-xcopy sound src\sound
-cd src
-javac *.java
-
-+Running using Windows Command Line*:
 cd src (unless you just did the above compilation steps)
 java Game
 
