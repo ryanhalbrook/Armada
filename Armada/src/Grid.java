@@ -14,47 +14,37 @@ import java.io.*;
 import javax.imageio.ImageIO;
 
 import java.awt.image.*;
-/*
- * Grid paints, moves, stores, and keeps track of everything visual on the panel
- * ie, ships, planets, everything below the frame/menus and above the background
- */
+/**
+@class
+  Grid paints, moves, stores, and keeps track of everything visual on the panel
+  ie, ships, planets, everything below the frame/menus and above the background
+*/
 public class Grid extends ViewLayer {
+
+    static final int GRID_WIDTH = 38400; // The width of the grid in pixels.
+    static final int GRID_HEIGHT = 21600; // The height of the grid in pixels.
 	
     private ArrayList<Element> elements;
     private ArrayList<DynamicElement> delements;
     private  ArrayList<Menu> menus;
     
     private PlayerManager pm;
-    
-    private  int mode = 0, turn = 1, index =0;
+    private  int mode = 0, turn = 1, index = 0;
     private  DynamicElement activeE;
     private ArmadaPanel ap;
     private BoundingRectangle viewRegion = new BoundingRectangle(0, 0, 500,500); //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
     
-    BufferedImage backgroundImage = null;
-    
-    static final int GRID_WIDTH = 38400;//3840
-    static final int GRID_HEIGHT = 21600;//2160
-
     // Mouse coordinate information
     private int currentX = 0;
     private int currentY = 0;
     
-    //Sample Image
-    BufferedImage img;
-    
+    // Information for computing time remaining for current turn
     private static final double TURN_TIME = 180000.0;
-    double mseconds = TURN_TIME;
-    long lastTime = 0;
+    private double mseconds = TURN_TIME;
+    private long lastTime = 0;
     
 
-    public double secondsRemainingForTurn() {
-        return mseconds;
-    }
     
-    public double maxSecondsForTurn() {
-        return TURN_TIME;
-    }
 
     // Constructor
     public Grid(ArmadaPanel ap) {
@@ -76,16 +66,8 @@ public class Grid extends ViewLayer {
 		delements.add(new NormalShip(220,330,2));
 		delements.add(new NormalShip(300,330,2));
 		Spawner.spawnPlanets(this, 40);
-		
-		//Testing Static draw
-		loadSampleImage();
     }
     
-    //I dont think this is needed anymore
-    private void loadSampleImage(){
-        img = ImageLoader.getImage("saturn.png");
-
-    }
     /**
         Moves the viewing region. Will stop at boundaries.
     */
@@ -112,7 +94,6 @@ public class Grid extends ViewLayer {
 	
 	public void moveCheat(){
 		for(DynamicElement d: delements){
-			System.out.println("//////////////////////////////////////////////////");
 			d.setSpeed(99999999);
 		}
 	}
@@ -443,6 +424,14 @@ public class Grid extends ViewLayer {
         }
         return bi;
         
+    }
+    
+    public double secondsRemainingForTurn() {
+        return mseconds;
+    }
+    
+    public double maxSecondsForTurn() {
+        return TURN_TIME;
     }
 	
 	public void add(DynamicElement inDE){

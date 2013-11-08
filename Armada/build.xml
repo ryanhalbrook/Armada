@@ -1,4 +1,5 @@
 <!-- build file for Project Armada -->
+<!-- Sources : ant.apache.org/manual -->
 <!-- Revision 001 -->
 
 <project name="Armada" default="compile">
@@ -7,6 +8,7 @@
 <property name="build" location="build" />
 <property name="images" location="image" />
 <property name="sounds" location="sound" />
+<property name="documentation" location="documentation" />
 
 <target name="compile" description="Create a build directory with compiled code and resources.">
     <mkdir dir="${build}" />
@@ -25,6 +27,16 @@
 
 <target name="clean" description="Remove build files" >
     <delete dir="${build}" />
+    <delete dir="${documentation}" />
+</target>
+
+<target name="javadoc" depends="compile" description="Create source code documentation files" >
+    <mkdir dir="${documentation}" />
+    <javadoc sourcepath="${src}" destdir="${documentation}">
+        <fileset dir="${src}" defaultexcludes="yes">
+            <include name="*.java"/>
+        </fileset>
+    </javadoc>
 </target>
 
 </project>
