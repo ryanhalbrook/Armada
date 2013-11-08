@@ -31,6 +31,9 @@ ant javadoc
 
 +Viewing Javadoc: Open the file at documentation/index.html
 
++Cleaning up using ANT:
+ant clean
+
 +Compiling using UNIX-based terminal session (bash):
 cp -R image src/image
 cp -R sound src/sound
@@ -40,8 +43,6 @@ javac *.java
 +Running using UNIX-based terminal session (bash):
 cd src (unless you just did the above compilation steps)
 java Game
-
-*Please note: these methods have not been tested.
 
 EXPLANATION OF FOLDERS
 ======================
@@ -58,7 +59,13 @@ RECOMMENDED DATA FILE STORAGE LOCATION
 
 SYSTEM USE INSTRUCTIONS
 =======================
-At the start of Armada, you have a home base planet, a small armada and a small amount of resources. Your opponent is presented with identical objects. In order to increase the size and strength of your armada, you will conquer neutral planets to claim their resources. You will then use your acquired resources to upgrade individual ships of your armada and fortify the planets you have conquered. Meanwhile, your opponent will be doing similar tasks to upgrade his or her armada. The first player to destroy the other’s home base planet wins the game. 
+At the start of Armada, you have a home base planet, a small armada and a small amount of 
+resources. Your opponent is presented with identical objects. In order to increase the 
+size and strength of your armada, you will conquer neutral planets to claim their resources. 
+You will then use your acquired resources to upgrade individual ships of your armada and
+fortify the planets you have conquered. Meanwhile, your opponent will be doing similar 
+tasks to upgrade his or her armada. The first player to destroy the other’s home base 
+planet wins the game. 
 
 SYSTEM USE CONTROLS
 ===================
