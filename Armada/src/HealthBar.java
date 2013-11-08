@@ -5,10 +5,18 @@ public class HealthBar {
 
 	protected DynamicElement de;
 	
-	public HealthBar(DynamicElement inDE){
-		de=inDE;
+	/**
+	    Creates a health bar that can be drawn onto a Graphics object.
+	    @param de The dynamic element that this health bar is associated with.
+	*/
+	public HealthBar(DynamicElement de) {
+		this.de = de;
 	}
 	
+	/**
+	    Draws the health bar if it is inside of the given rectangular boundary
+	    @param g The graphics context to draw the health bar into.
+	*/
 	public void draw(Graphics g, BoundingRectangle viewRect){
 	
 		if(!viewRect.isIn(de.getX(), de.getY()))return;

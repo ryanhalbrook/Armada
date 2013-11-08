@@ -1,31 +1,43 @@
 import java.awt.Graphics;
 
-
+/**
+    Represents a Heads Up Display that displays information about the state of the game.
+*/
 public class HUD extends ViewLayer {
-    //protected BoundingRectangle r;
+
+    /** The grid that this HUD gets its information from. */
 	protected Grid grid;
-	protected int location;//0=static, 1+ is dynamic, 1= top left, 2= top right, 3 = bot left, 4 = bot right.  NEEDS TO BE IMPLIMENTED
+	/** The location setting to place this HUD onscreen. 0=static, 1+ is dynamic, 1= top left, 2= top right, 3 = bot left, 4 = bot right.*/
+	protected int location;
 	
+	/**
+        Basic constructor.
+	*/
 	public HUD(int x, int y, int width, int height) {
-	    //r = new BoundingRectangle(x, y, width, height);
 		super(new BoundingRectangle(x,y,width,height));
-		// TODO Auto-generated constructor stub
 	}
 	
+	/**
+	    Basic Constructor that also takes a Grid.
+	*/
 	public HUD(int x, int y, int width, int height, Grid gr){
-	    //r = new BoundingRectangle(x, y, width, height);
 		super(new BoundingRectangle(x,y,width,height));
 		grid=gr;
 	}
 	
+	/**
+	    Basic constructor that also takes a Grid and a location setting.
+	*/
 	public HUD(int x, int y, int width, int height, Grid gr, int l){
-	    //r = new BoundingRectangle(x, y, width, height);
 		super(new BoundingRectangle(x,y,width,height));
 		grid=gr;
 		location = l;
 	} 
 	
-	public void updateLocation(){
+	/**
+	    Updates the location of the HUD based on its location setting.
+	*/
+	public void updateLocation() {
 		if(grid==null)return;
 		switch(location){
 		case 0: return;
@@ -62,10 +74,6 @@ public class HUD extends ViewLayer {
 			r.y = grid.getAp().getHeight()/2 - r.height/2;
 			break;
 		}
-	}
-	
-	public void draw(Graphics g){
-		
 	}
 
 }
