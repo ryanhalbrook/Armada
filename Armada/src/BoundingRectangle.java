@@ -1,4 +1,7 @@
-
+/**
+    Defines a rectangular region. Useful for keeping track of the area
+    that something takes up on screen.
+*/
 public class BoundingRectangle {
     protected int x, y, width, height;
     

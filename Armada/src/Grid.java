@@ -1,21 +1,13 @@
 
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.FontMetrics;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
-import java.awt.Stroke;
+/* BasicStroke, Color, Cursor, FontMetrics, Graphics, Graphics2D, Stroke */
+import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.image.*;
 import java.util.*;
 import java.io.*;
-
 import javax.imageio.ImageIO;
 
-import java.awt.image.*;
 /**
-@class
   Grid paints, moves, stores, and keeps track of everything visual on the panel
   ie, ships, planets, everything below the frame/menus and above the background
 */
@@ -43,10 +35,10 @@ public class Grid extends ViewLayer {
     private double mseconds = TURN_TIME;
     private long lastTime = 0;
     
-
-    
-
-    // Constructor
+    /**
+        The only constructor
+        @param ap The ArmadaPanel object that this grid will be inside of.
+    */
     public Grid(ArmadaPanel ap) {
         super(new BoundingRectangle(0,0,10000,10000));
         
@@ -69,7 +61,9 @@ public class Grid extends ViewLayer {
     }
     
     /**
-        Moves the viewing region. Will stop at boundaries.
+        Moves the viewing region. Stops at boundaries.
+        @param x The number of pixels to move in the x direction.
+        @param y The number of pixels to move in the y direction.
     */
     public void moveViewRegion(int x, int y) {
         viewRegion.setX(viewRegion.getX()+x);
@@ -84,6 +78,9 @@ public class Grid extends ViewLayer {
         }
     }
     
+    /**
+        @return The rectangular portion of the overall grid that is being displayed.
+    */
     public BoundingRectangle getViewRegion() {
         return viewRegion;
     }
@@ -91,13 +88,19 @@ public class Grid extends ViewLayer {
 	public void cancelMove() {//does not deselect ship.  use setMode(0) to do that 
 	    mode = 0;
 	}
-	
+    
+    /**
+        Enables ships to move extremely far. Intended for debugging purposes.
+    */
 	public void moveCheat(){
 		for(DynamicElement d: delements){
 			d.setSpeed(99999999);
 		}
 	}
 	
+	/**
+	    Set the selected dynamic element to the next allowed selection.
+	*/
 	public void selectNextDEThisTurn(){
 		if(delements == null)return;
 		if(delements.size() <=0) return;
@@ -120,6 +123,9 @@ public class Grid extends ViewLayer {
 		viewRegion.setCenter(activeE.getX(), activeE.getY());
 	}
 	
+	/**
+	    Change the action mode to the next mode.
+	*/
 	public void nextMode(){
 		mode++;
 		if(mode > 4){
@@ -128,15 +134,20 @@ public class Grid extends ViewLayer {
 		System.out.println("mode: " + mode);
 	}
 	
+	/**
+	    @return The current x coordinate of the mouse cursor.
+	*/
 	public int getCurrentX(){
 		return currentX;
 	}
 	
+	/**
+	    @return The current y coordinate of the mouse cursor. 
+	*/
 	public int getCurrentY(){
 		return currentY;
 	}
 	
-	// Called very often.
 	public void updateViewRegion(){
 		viewRegion.setWidth(ap.getWidth());
 		viewRegion.setHeight(ap.getHeight());
@@ -151,7 +162,7 @@ public class Grid extends ViewLayer {
 		if (mseconds < 0.0) toggleTurn();
 	}
 	
-	/*
+	/**
 	 * @param e1 DynamicElement who's range is used for calculation
 	 * @param e2 DynamicElement which is calculated to be within range of DynamicElement e1
 	 */
@@ -159,11 +170,18 @@ public class Grid extends ViewLayer {
 		return e1.getRange() > distance(e1,e2);
 	}
 	
+	/**
+	    Deselect the selected dynamic element.
+	*/
 	public void unselect(){
 		activeE=null;
 		mode=1;
 	}
 	
+	/**
+	    Set the action mode.
+	    @param i the mode. Could be a value from 1 to 4.
+	*/
 	public void setMode(int i){
 		mode=i;
 		if(mode==0){
@@ -179,14 +197,12 @@ public class Grid extends ViewLayer {
 	public void mouseMoved(int x, int y) {
 	    currentX = x;
 	    currentY = y;
-	    
 	}
 	
-	//If you don't like this method, make a new class to do this.  Please do not overhaul the whole program.  If there are too many responsibilities here, put it in the new class.  Don't complicate things  
-	public void update(){
+	public void update() {
 		int vel = 50;
-		if(currentX==0&&currentY==0){}
-		else{
+		//if(currentX == 0 && currentY == 0) {}
+		if (!(currentX == 0) || !(currentY == 0)) {
 			if(ap.getWidth() * .03 > currentX){
 				if(viewRegion.getX() >=25){
 					viewRegion.setX(viewRegion.getX() - vel);	

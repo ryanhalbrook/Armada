@@ -32,7 +32,7 @@
 
 <target name="javadoc" depends="compile" description="Create source code documentation files" >
     <mkdir dir="${documentation}" />
-    <javadoc sourcepath="${src}" destdir="${documentation}">
+    <javadoc sourcepath="${src}" destdir="${documentation}" author="true" version="true">
         <fileset dir="${src}" defaultexcludes="yes">
             <include name="*.java"/>
         </fileset>
