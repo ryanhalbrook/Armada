@@ -16,6 +16,8 @@ public class Grid extends ViewLayer {
     static final int GRID_WIDTH = 38400; // The width of the grid in pixels.
     static final int GRID_HEIGHT = 21600; // The height of the grid in pixels.
 	
+	private ArmadaEngine engine = new ArmadaEngine();
+	
     private ArrayList<Element> elements;
     private ArrayList<DynamicElement> delements;
     private  ArrayList<Menu> menus;
@@ -231,6 +233,7 @@ public class Grid extends ViewLayer {
 	 */
 	public boolean click(int inX, int inY){
 		System.out.println("Clicked: ("+inX+", "+inY+")");
+		
 		if(mode == 0 || activeE==null){//selecting a menu
 			if(menus != null && menus.size() != 0){
 				for (Menu m : menus) {
@@ -254,77 +257,34 @@ public class Grid extends ViewLayer {
 			}
 			
 		}
-		/////
-		if(activeE==null || activeE.getAlliance()!=turn || !activeE.isTargetable()){
+		if(activeE==null || activeE.getAlliance()!=turn || !activeE.isTargetable()) {
 			return true;
 		}
-		if(mode == 1){
-			//move
+		if(mode == 1) { //move
 			inX += viewRegion.getX(); inY += viewRegion.getY();
-			if(activeE.withinMovement(inX,inY) && activeE.canMovePath2(inX,inY, delements) && activeE instanceof Ship){
-				activeE.moveTo(inX, inY);
-				Ship temp = (Ship) activeE;
-				temp.setPlanetDocked(null);
-			}
+			engine.moveDynamicElement(activeE, inX, inY, delements);
 			return true;
 		}
-		if(mode == 2){
-			//attack hull
+		if(mode == 2) { //attack hull
 			if(delements != null && delements.size() != 0 && activeE.canAttack()){
 				inX += viewRegion.getX(); inY += viewRegion.getY();
-				//System.out.println("x, y:" + inX + ", " + inY);
-					for (DynamicElement d : delements) {
-						//System.out.println("looking for ship 1");
-						if(d.isIn(inX,inY) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(inX,inY) && d.isTargetable()){
-							//System.out.println("looking for ship 2");
-							d.hullTakeDamage(activeE);
-							activeE.setCanAttack(false);
-							//setMode(0);
-							return true;
-						}
-					}
-				}
+				engine.attackHull(activeE, inX, inY, delements);
+		    }
+		    return true;
 		}
-		if(mode == 3){
-			//attack engine
+		if(mode == 3) { //attack engine
 			if(delements != null && delements.size() != 0 && activeE.canAttack()){
 				inX += viewRegion.getX(); inY += viewRegion.getY();
-				//System.out.println("x, y:" + inX + ", " + inY);
-				for (DynamicElement d : delements) {
-					//System.out.println("looking for ship 1");
-					if(d.isIn(inX,inY) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(inX,inY) && d.isTargetable() && d.getEngine()>0){
-						//System.out.println("looking for ship 2");
-						d.engineTakeDamage(activeE);
-						System.out.println("Engines now at: "+d.getEngine());
-						activeE.setCanAttack(false);
-						//setMode(0);
-						return true;
-					}
-				}
+				engine.attackEngine(activeE, inX, inY, delements);
 			}
 		}
 		if(mode == 4){
 			//docking
 			if(delements != null && delements.size() != 0){
 				inX += viewRegion.getX(); inY += viewRegion.getY();
-				for (DynamicElement d : delements) {
-					if(d.isIn(inX,inY) && (d.getAlliance()==0 || d.getAlliance() == activeE.getAlliance()) && activeE.distanceFrom(inX, inY) < 100 && d.isTargetable() && d instanceof Planet && activeE instanceof Ship){
-						System.out.println("docking attempted");
-						Planet p = (Planet)d;
-						Ship s = (Ship) activeE;
-						p.dock(s);
-						return true;
-					}
-					
-					if(d.isIn(inX,inY) && d.getAlliance()!= activeE.getAlliance() && activeE.distanceFrom(inX, inY) < 100 && d.isTargetable() && d instanceof Ship && activeE instanceof Ship){
-						System.out.println("Boarding attempted");
-						Ship s = (Ship) activeE;
-						Ship t = (Ship) d;
-						s.board(t);
-						return true;
-					}
-				}
+				engine.dock(activeE, inX, inY, delements);
 			}
+			return true;
 		}
 		return false;
 	}
@@ -485,4 +445,56 @@ public class Grid extends ViewLayer {
 	}
 
 }
+
+/*
+From click method
+if(activeE.withinMovement(inX,inY) && activeE.canMovePath2(inX,inY, delements) && activeE instanceof Ship){
+				activeE.moveTo(inX, inY);
+				Ship temp = (Ship) activeE;
+				temp.setPlanetDocked(null);
+}
+//System.out.println("x, y:" + inX + ", " + inY);
+for (DynamicElement d : delements) {
+						//System.out.println("looking for ship 1");
+						if(d.isIn(inX,inY) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(inX,inY) && d.isTargetable()){
+							//System.out.println("looking for ship 2");
+							d.hullTakeDamage(activeE);
+							activeE.setCanAttack(false);
+							//setMode(0);
+							return true;
+						}
+					}
+					
+//System.out.println("x, y:" + inX + ", " + inY);
+				for (DynamicElement d : delements) {
+					//System.out.println("looking for ship 1");
+					if(d.isIn(inX,inY) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(inX,inY) && d.isTargetable() && d.getEngine()>0){
+						//System.out.println("looking for ship 2");
+						d.engineTakeDamage(activeE);
+						System.out.println("Engines now at: "+d.getEngine());
+						activeE.setCanAttack(false);
+						//setMode(0);
+						return true;
+					}
+				}
+				
+				for (DynamicElement d : delements) {
+					if(d.isIn(inX,inY) && (d.getAlliance()==0 || d.getAlliance() == activeE.getAlliance()) && activeE.distanceFrom(inX, inY) < 100 && d.isTargetable() && d instanceof Planet && activeE instanceof Ship){
+						System.out.println("docking attempted");
+						Planet p = (Planet)d;
+						Ship s = (Ship) activeE;
+						p.dock(s);
+						return true;
+					}
+					
+					if(d.isIn(inX,inY) && d.getAlliance()!= activeE.getAlliance() && activeE.distanceFrom(inX, inY) < 100 && d.isTargetable() && d instanceof Ship && activeE instanceof Ship){
+						System.out.println("Boarding attempted");
+						Ship s = (Ship) activeE;
+						Ship t = (Ship) d;
+						s.board(t);
+						return true;
+					}
+				}
+
+*/
 
