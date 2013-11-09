@@ -44,8 +44,8 @@ public class Grid extends ViewLayer {
         
         this.ap = ap;
     	elements = new ArrayList<Element>();
-    	delements = new ArrayList<DynamicElement>();
-    	
+    	//delements = new ArrayList<DynamicElement>();
+    	delements = engine.getDynamicElements();
     	SoundEffect.init();
     	SoundEffect.volume=SoundEffect.Volume.LOW;
     	pm = new PlayerManager(this);

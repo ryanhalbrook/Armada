@@ -8,8 +8,15 @@ public class ArmadaEngine {
     private double mseconds = TURN_TIME;
     private long lastTime = 0;
     
+    private ArrayList<Element> elements;
+    private ArrayList<DynamicElement> delements;
+    
+    public ArrayList<DynamicElement> getDynamicElements() {
+        return delements;
+    }
+    
     public ArmadaEngine() {
-        
+        delements = new ArrayList<DynamicElement>();
     }
     
     public void toggleTurn() {
