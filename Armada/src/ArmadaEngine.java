@@ -94,6 +94,7 @@ public class ArmadaEngine {
         for (DynamicElement d : delements) {
 				if(d.isIn(x,y) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(x,y) && d.isTargetable()){
 						d.hullTakeDamage(activeE);
+						activeE.setCanAttack(false);
 				}
 		}
     }
