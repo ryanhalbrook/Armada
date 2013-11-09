@@ -17,7 +17,19 @@ public class ArmadaEngine {
     
     public ArmadaEngine() {
         delements = new ArrayList<DynamicElement>();
+        // Add some ships
+		delements.add(new NormalShip(750,330,1));
+		delements.add(new NormalShip(160,330,1));
+		delements.add(new NormalShip(260,330,2));
+		delements.add(new NormalShip(60,330,2));
+		delements.add(new NormalShip(220,330,2));
+		delements.add(new NormalShip(300,330,2));
+		Spawner.spawnPlanets(this, 40);
     }
+    
+    public void add(DynamicElement inDE){
+		delements.add(inDE);
+	}
     
     public void toggleTurn() {
 		if(turn==1) turn=2;
