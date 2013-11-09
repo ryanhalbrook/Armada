@@ -134,7 +134,6 @@ public class Grid extends ViewLayer {
 		if(mode > 4){
 			mode=1;
 		}
-		System.out.println("mode: " + mode);
 	}
 	
 	/**
@@ -151,7 +150,7 @@ public class Grid extends ViewLayer {
 		return currentY;
 	}
 	
-	public void updateViewRegion(){
+	public void refresh() {
 		viewRegion.setWidth(ap.getWidth());
 		viewRegion.setHeight(ap.getHeight());
 		if (lastTime == 0) {
@@ -204,7 +203,7 @@ public class Grid extends ViewLayer {
 	
 	public void update() {
 		int vel = 50;
-		//if(currentX == 0 && currentY == 0) {}
+		
 		if (!(currentX == 0) || !(currentY == 0)) {
 			if(ap.getWidth() * .03 > currentX){
 				if(viewRegion.getX() >=25){
@@ -278,15 +277,9 @@ public class Grid extends ViewLayer {
 		return false;
 	}
 	
-
-	
 	public void toggleTurn(){
-		if(turn==1){
-			turn=2;
-		}
-		else{
-			turn=1;	
-		}
+		if(turn==1) turn=2;
+		else turn=1;	
 		setMode(1);
 		startTurn();		
 	}
@@ -312,13 +305,13 @@ public class Grid extends ViewLayer {
 	
 	private void drawAllDelements(Graphics g){
 		
-		if(delements != null && delements.size() != 0){
+		if(delements != null) {
 			for (int i=0;i<delements.size();i++) {
 				if(delements.get(i).isDead()){
 					SoundEffect.EXPLODE.play();
 					if((double)Math.random() >= (double)0.9){//25% chance of playing the scream
-						SoundEffect.SCREAM.play();
-					}
+					    SoundEffect.SCREAM.play();
+					}   
 					elements.add(new Explosion(delements.get(i)));
 					
 					delements.remove(i);
@@ -326,36 +319,20 @@ public class Grid extends ViewLayer {
 				}
 			}
 			for (int i=0;i<elements.size();i++){
-				if(elements.get(i) instanceof Explosion){
+				 if(elements.get(i) instanceof Explosion){
 					if(((Explosion)(elements.get(i))).isDone()){
-						elements.remove(i);
-						i--;
+					    elements.remove(i);
+					    i--;
 					}
 				}
 			}
 			for(Element e:elements){
-				e.draw(g, viewRegion);
+			    e.draw(g, viewRegion);
 			}
 			for (DynamicElement de : delements) {
-				if(de instanceof Planet){
-					de.draw(g, viewRegion);
-				}
+			    de.draw(g, viewRegion);
 			}
-			for (DynamicElement de : delements) {
-				if(de instanceof Ship){
-					if(de.getAlliance() !=turn){
-						de.draw(g, viewRegion);
-					}
-					
-				}
-			}
-			for (DynamicElement de : delements) {
-				if(de instanceof Ship){
-					if(de.getAlliance() ==turn){
-						de.draw(g, viewRegion);
-					}
-				}
-			}
+			
 		}
 	}
 	
@@ -370,17 +347,6 @@ public class Grid extends ViewLayer {
 	public Player getLoser(){
 		return pm.getLoser();
 	}
-	
-	private static BufferedImage loadImage(File f) {
-        BufferedImage bi = null;
-        try {
-            bi = ImageIO.read(f);
-        } catch (IOException e) {
-            System.out.println("Failed to load background image");
-        }
-        return bi;
-        
-    }
     
     public double secondsRemainingForTurn() {
         return mseconds;

@@ -88,3 +88,40 @@ for (DynamicElement d : delements) {
 	
 
 */
+
+	/*
+	private static BufferedImage loadImage(File f) {
+        BufferedImage bi = null;
+        try {
+            bi = ImageIO.read(f);
+        } catch (IOException e) {
+            System.out.println("Failed to load background image");
+        }
+        return bi;
+        
+    }
+    */
+    
+    for (DynamicElement de : delements) {
+				if(de instanceof Planet){
+					de.draw(g, viewRegion);
+				}
+			}
+			for (DynamicElement de : delements) {
+				if(de instanceof Ship){
+					if(de.getAlliance() !=turn){
+						de.draw(g, viewRegion);
+					}
+					
+				}
+			}
+			for (DynamicElement de : delements) {
+				if(de instanceof Ship){
+					if(de.getAlliance() ==turn){
+						de.draw(g, viewRegion);
+					}
+				}
+			}
+			
+			
+			//if(currentX == 0 && currentY == 0) {}
