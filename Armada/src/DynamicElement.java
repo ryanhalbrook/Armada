@@ -158,7 +158,16 @@ public class DynamicElement extends Element {
 			target.setEngine(0);
 		}
 	}
+		/*
+	 * Calculates distance between the two inputs, order does not matter
+	 */
+	public int distance(DynamicElement e){
+		return (int)Math.sqrt(Math.pow(Math.abs((double)this.getY()-(double)e.getY()),2) + Math.pow(Math.abs((double)this.getX()-(double)e.getX()),2));
+	}
 	
+	public int distance(int inX, int inY){
+		return (int)Math.sqrt(Math.pow(Math.abs((double)this.getY()-(double)inY),2) + Math.pow(Math.abs((double)this.getX()-(double)inX),2));
+	}
 	
 
 	/*

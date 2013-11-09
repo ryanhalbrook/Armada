@@ -56,7 +56,7 @@ public class ModeHUD extends HUD{
 		    else if(( grid.getMode() == 3)){
 		    	g.setColor(Color.RED);
 		    	g.drawString("Out of range or out of shots this turn", x, y+g.getFontMetrics().getHeight()*2);
-		    }else if(( grid.getMode() == 4) && grid.distance(grid.getActiveE(), grid.getCurrentX() + grid.getViewRegion().getX(), (grid.getCurrentY()) + grid.getViewRegion().getY()) < 100){
+		    }else if(( grid.getMode() == 4) && grid.getActiveE().distance(grid.getCurrentX() + grid.getViewRegion().getX(), (grid.getCurrentY()) + grid.getViewRegion().getY()) < 100){
 		    	g.setColor(Color.MAGENTA);
 		    }
 		    else if(( grid.getMode() == 4)){
@@ -109,3 +109,7 @@ public class ModeHUD extends HUD{
 	}
 
 }
+
+/*
+grid.distance(grid.getActiveE(), grid.getCurrentX() + grid.getViewRegion().getX(), (grid.getCurrentY()) + grid.getViewRegion().getY()) < 100)
+*/

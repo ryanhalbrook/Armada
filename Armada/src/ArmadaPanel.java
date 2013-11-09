@@ -192,7 +192,7 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	            grid.toggleTurn();
 	        break;
 	        case KeyEvent.VK_SPACE:
-	            grid.selectNextDEThisTurn();
+	            grid.cycleActiveDE();
 	        break;
 	        case KeyEvent.VK_SHIFT:
 	            grid.nextMode();

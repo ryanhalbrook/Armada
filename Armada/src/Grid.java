@@ -23,7 +23,8 @@ public class Grid extends ViewLayer {
     private  ArrayList<Menu> menus;
     
     private PlayerManager pm;
-    private  int mode = 0, turn = 1, index = 0;
+    private  int mode = 0;
+    private int turn = 1, index = 0;
     private  DynamicElement activeE;
     private ArmadaPanel ap;
     private BoundingRectangle viewRegion = new BoundingRectangle(0, 0, 500,500); //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
@@ -87,10 +88,6 @@ public class Grid extends ViewLayer {
         return viewRegion;
     }
     
-	public void cancelMove() {//does not deselect ship.  use setMode(0) to do that 
-	    mode = 0;
-	}
-    
     /**
         Enables ships to move extremely far. Intended for debugging purposes.
     */
@@ -100,10 +97,14 @@ public class Grid extends ViewLayer {
 		}
 	}
 	
+	public void cancelMove() {//does not deselect ship.  use setMode(0) to do that 
+	    mode = 0;
+	}
+	
 	/**
 	    Set the selected dynamic element to the next allowed selection.
 	*/
-	public void selectNextDEThisTurn(){
+	public void cycleActiveDE() {
 		if(delements == null)return;
 		if(delements.size() <=0) return;
 		if(index >= delements.size()) index=0;
@@ -169,7 +170,7 @@ public class Grid extends ViewLayer {
 	 * @param e2 DynamicElement which is calculated to be within range of DynamicElement e1
 	 */
 	public boolean inRange(DynamicElement e1, DynamicElement e2){
-		return e1.getRange() > distance(e1,e2);
+		return e1.getRange() > e1.distance(e2);
 	}
 	
 	/**
@@ -232,31 +233,19 @@ public class Grid extends ViewLayer {
 	 * received upon any click on ArmadaPanel
 	 */
 	public boolean click(int inX, int inY){
-		System.out.println("Clicked: ("+inX+", "+inY+")");
-		
-		if(mode == 0 || activeE==null){//selecting a menu
-			if(menus != null && menus.size() != 0){
-				for (Menu m : menus) {
-					//if(m.isIn(inX,inY)){
-					//	m.click();
-					//}
-				}
-			}
-			if(delements != null && delements.size() != 0){//selecting a ship
-				inX += viewRegion.getX(); inY += viewRegion.getY();
-				//System.out.println("x, y:" + inX + ", " + inY);
-				for (DynamicElement d : delements) {
-					if(d.isIn(inX,inY) && d.isTargetable()){
-					    mode = 1;
-						activeE=d;
-						activeE.update();
-						//menus.add(d.getMenu());
-						return true;
-					}
-				}
-			}
 			
+	    if((mode == 0 || activeE==null) && delements != null && delements.size() != 0) { //selecting a ship
+			inX += viewRegion.getX(); inY += viewRegion.getY();
+			for (DynamicElement d : delements) {
+			    if(d.isIn(inX,inY) && d.isTargetable()) {
+				    mode = 1;
+				    activeE=d;
+				    activeE.update();
+			        return true;
+			    }
+			}
 		}
+			  
 		if(activeE==null || activeE.getAlliance()!=turn || !activeE.isTargetable()) {
 			return true;
 		}
@@ -278,7 +267,7 @@ public class Grid extends ViewLayer {
 				engine.attackEngine(activeE, inX, inY, delements);
 			}
 		}
-		if(mode == 4){
+		if(mode == 4) {
 			//docking
 			if(delements != null && delements.size() != 0){
 				inX += viewRegion.getX(); inY += viewRegion.getY();
@@ -289,16 +278,7 @@ public class Grid extends ViewLayer {
 		return false;
 	}
 	
-	/*
-	 * Calculates distance between the two inputs, order does not matter
-	 */
-	public int distance(DynamicElement e1, DynamicElement e2){
-		return (int)Math.sqrt(Math.pow(Math.abs((double)e1.getY()-(double)e2.getY()),2) + Math.pow(Math.abs((double)e1.getX()-(double)e2.getX()),2));
-	}
-	
-	public int distance(DynamicElement e1, int inX, int inY){
-		return (int)Math.sqrt(Math.pow(Math.abs((double)e1.getY()-(double)inY),2) + Math.pow(Math.abs((double)e1.getX()-(double)inX),2));
-	}
+
 	
 	public void toggleTurn(){
 		if(turn==1){
@@ -446,55 +426,5 @@ public class Grid extends ViewLayer {
 
 }
 
-/*
-From click method
-if(activeE.withinMovement(inX,inY) && activeE.canMovePath2(inX,inY, delements) && activeE instanceof Ship){
-				activeE.moveTo(inX, inY);
-				Ship temp = (Ship) activeE;
-				temp.setPlanetDocked(null);
-}
-//System.out.println("x, y:" + inX + ", " + inY);
-for (DynamicElement d : delements) {
-						//System.out.println("looking for ship 1");
-						if(d.isIn(inX,inY) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(inX,inY) && d.isTargetable()){
-							//System.out.println("looking for ship 2");
-							d.hullTakeDamage(activeE);
-							activeE.setCanAttack(false);
-							//setMode(0);
-							return true;
-						}
-					}
-					
-//System.out.println("x, y:" + inX + ", " + inY);
-				for (DynamicElement d : delements) {
-					//System.out.println("looking for ship 1");
-					if(d.isIn(inX,inY) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(inX,inY) && d.isTargetable() && d.getEngine()>0){
-						//System.out.println("looking for ship 2");
-						d.engineTakeDamage(activeE);
-						System.out.println("Engines now at: "+d.getEngine());
-						activeE.setCanAttack(false);
-						//setMode(0);
-						return true;
-					}
-				}
-				
-				for (DynamicElement d : delements) {
-					if(d.isIn(inX,inY) && (d.getAlliance()==0 || d.getAlliance() == activeE.getAlliance()) && activeE.distanceFrom(inX, inY) < 100 && d.isTargetable() && d instanceof Planet && activeE instanceof Ship){
-						System.out.println("docking attempted");
-						Planet p = (Planet)d;
-						Ship s = (Ship) activeE;
-						p.dock(s);
-						return true;
-					}
-					
-					if(d.isIn(inX,inY) && d.getAlliance()!= activeE.getAlliance() && activeE.distanceFrom(inX, inY) < 100 && d.isTargetable() && d instanceof Ship && activeE instanceof Ship){
-						System.out.println("Boarding attempted");
-						Ship s = (Ship) activeE;
-						Ship t = (Ship) d;
-						s.board(t);
-						return true;
-					}
-				}
 
-*/
 
