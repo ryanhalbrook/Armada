@@ -1,4 +1,4 @@
 public interface DynamicSizeBroadcast {
-    int getVerticalSize();
-    int getHorizontalSize();
+    int getHeight();
+    int getWidth();
 }

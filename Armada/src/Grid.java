@@ -21,11 +21,12 @@ public class Grid extends ViewLayer {
     private ArrayList<Element> elements;
     private ArrayList<DynamicElement> delements;
     
+    //private ArmadaPanel ap;
     private PlayerManager pm;
     private int mode = 0;
     private int index = 0;
     private DynamicElement activeE;
-    private ArmadaPanel ap;
+    private DynamicSizeBroadcast dsb;
     private BoundingRectangle viewRegion = new BoundingRectangle(0, 0, 500,500); //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
     
     // Mouse coordinate information
@@ -38,10 +39,10 @@ public class Grid extends ViewLayer {
         The only constructor
         @param ap The ArmadaPanel object that this grid will be inside of.
     */
-    public Grid(ArmadaPanel ap) {
+    public Grid(DynamicSizeBroadcast dsb) {
         super(new BoundingRectangle(0,0,10000,10000));
-        
-        this.ap = ap;
+        //this.ap = ap;
+        this.dsb = dsb;
     	elements = new ArrayList<Element>();
     	//delements = new ArrayList<DynamicElement>();
     	delements = engine.getDynamicElements();
@@ -69,11 +70,11 @@ public class Grid extends ViewLayer {
         viewRegion.setY(viewRegion.getY()+y);
         if (viewRegion.getX() < 0) viewRegion.setX(0);
         if (viewRegion.getY() < 0) viewRegion.setY(0);
-        if (viewRegion.getX() + ap.getWidth() > GRID_WIDTH) {
-            viewRegion.setX(GRID_WIDTH - ap.getWidth());
+        if (viewRegion.getX() + dsb.getWidth() > GRID_WIDTH) {
+            viewRegion.setX(GRID_WIDTH - dsb.getWidth());
         }
-        if (viewRegion.getY() + ap.getHeight() > GRID_HEIGHT) {
-            viewRegion.setY(GRID_HEIGHT - ap.getHeight());
+        if (viewRegion.getY() + dsb.getHeight() > GRID_HEIGHT) {
+            viewRegion.setY(GRID_HEIGHT - dsb.getHeight());
         }
     }
     
@@ -142,28 +143,28 @@ public class Grid extends ViewLayer {
 	}
 	
 	public void refresh() {
-		viewRegion.setWidth(ap.getWidth());
-		viewRegion.setHeight(ap.getHeight());
+		viewRegion.setWidth(dsb.getWidth());
+		viewRegion.setHeight(dsb.getHeight());
 		
 		int vel = 50;
 		
 		if (!(currentX == 0) || !(currentY == 0)) {
-			if(ap.getWidth() * .03 > currentX){
+			if(dsb.getWidth() * .03 > currentX){
 				if(viewRegion.getX() >=25){
 					viewRegion.setX(viewRegion.getX() - vel);	
 				}
 		    }
-			if(ap.getWidth() * .97 < currentX){
+			if(dsb.getWidth() * .97 < currentX){
 		    	if(Grid.GRID_WIDTH - (viewRegion.getX()+viewRegion.getWidth()) >=25){
 					viewRegion.setX(viewRegion.getX() + vel);	
 				}
 		    }
-			if(ap.getHeight() * .03 > currentY){
+			if(dsb.getHeight() * .03 > currentY){
 		    	if(viewRegion.getY() >=25){
 					viewRegion.setY(viewRegion.getY() - vel);	
 				}
 		    }
-			if(ap.getHeight() * .97 < currentY){
+			if(dsb.getHeight() * .97 < currentY){
 		    	if(Grid.GRID_HEIGHT - (viewRegion.getY() + viewRegion.getHeight()) >=25){
 					viewRegion.setY(viewRegion.getY() + vel);	
 				}
@@ -197,9 +198,9 @@ public class Grid extends ViewLayer {
 			activeE=null;
 		}
 		if (mode == 0) {
-	        ap.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+	        //ap.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
 	    } else {
-	        ap.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
+	        //ap.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 	    }
 	}
 	
@@ -258,19 +259,15 @@ public class Grid extends ViewLayer {
 		return false;
 	}
 	
-	public void toggleTurn(){
+	public void toggleTurn() {
 	    setMode(0);
 	    engine.toggleTurn();
 	    activeE = null;
 	    mode = 1;		
 	}
 	
-	/*
-	 * draws everything on the Grid
-	 */
-	public void draw(Graphics g){
-	    drawAllDelements(g);
-	} 
+	/* draws everything on the Grid */
+	public void draw(Graphics g){ drawAllDelements(g); } 
 	
 	private void drawAllDelements(Graphics g){
 		
@@ -341,8 +338,13 @@ public class Grid extends ViewLayer {
 	public ArrayList<DynamicElement> getDelements() {
 		return delements;
 	}
+	/*
 	public ArmadaPanel getAp() {
 		return ap;
+	}
+	*/
+	public DynamicSizeBroadcast getAp() {
+		return this.dsb;
 	}
 	public int getWidth(){
 		return GRID_WIDTH;

@@ -23,19 +23,23 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	int lastX = -1;
 	int lastY = -1;
 	
-	/**
+	/*
 	    @return The horizontal size, in pixels, of this panel.
-	*/
-	public int getHorizontalSize() {
+	
+	public int getWidth() {
 	    return this.getWidth();
 	}
 	
-	/**
-	    @return The vertical size, in pixels, of this panel.
 	*/
-	public int getVerticalSize() {
+	
+	
+	/*
+	    @return The vertical size, in pixels, of this panel.
+	
+	public int getHeightSize() {
 	    return this.getHeight();
 	}
+	*/
 	
 	/**
 	    The only constructor.
