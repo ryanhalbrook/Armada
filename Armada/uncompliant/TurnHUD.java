@@ -2,7 +2,7 @@ import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
 
-public class TurnHUD extends HUD{
+public class TurnHUD extends HUD {
 
 	private Color player1Color = new Color(1.0f, 0.0f, 0.0f, 0.5f);
     private Color player2Color = new Color(0.0f, 0.0f, 1.0f, 0.5f);

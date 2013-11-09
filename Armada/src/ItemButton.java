@@ -3,7 +3,7 @@ public class ItemButton extends Button{
 
 	private ItemList.ItemNames id;
 	
-	public ItemButton(int inX, int inY, int w, int h, Grid g, ItemList.ItemNames s) {
+	public ItemButton(int inX, int inY, int w, int h, GameController g, ItemList.ItemNames s) {
 		super(inX, inY, w, h, g, ItemList.getString(s,  ItemList.ItemStats.InGameName) + ": " + ItemList.getInt(s,ItemList.ItemStats.Price) + " gold");
 		id=s;
 	}

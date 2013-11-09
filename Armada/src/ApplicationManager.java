@@ -24,6 +24,7 @@ public class ApplicationManager {
         @see start
     */
     public ApplicationManager() {
+        
         mainPanel = new MainMenuPanel(this);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setTitle("Armada");
@@ -43,7 +44,8 @@ public class ApplicationManager {
         Switches to displaying a panel with a new game.
     */
     public void startGame() {
-        swapPanel(new ArmadaPanel(this));
+        ArmadaEngine engine = new ArmadaEngine();
+        swapPanel(new ViewLayerPanel(new ViewLayerController(new ViewLayer(new BoundingRectangle(0, 0, 1000, 1000)))));
     }
     
     /**

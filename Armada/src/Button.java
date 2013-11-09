@@ -6,7 +6,7 @@ public class Button extends BoundingRectangle{
 
 	
 	protected String title;
-	protected Grid grid;
+	protected GameController grid;
 	protected boolean isSelected=false, clickable=true;
 	
 	/*public Button(){
