@@ -20,6 +20,7 @@ public class Button extends BoundingRectangle{
 	}
 	
 	public boolean click(int x, int y){
+		System.out.println("Getting called");
 		if(!clickable)return false;
 		if(this.isIn(x, y)){
 			return true;
@@ -35,7 +36,17 @@ public class Button extends BoundingRectangle{
 			g.setColor(new Color(25,25,25, 250));
 		}
 		else if(this.isIn(grid.getCurrentX(), this.grid.getCurrentY())){
-			g.setColor(new Color(150,150,150, 200));
+			int maxBright =150;
+			int minBright=75;
+			int cycle=20;
+			int time = minBright + (int)(System.currentTimeMillis()%(((maxBright-minBright) *2)*cycle))/cycle;
+			if(time > maxBright){
+				time = maxBright - (time-maxBright);
+			}
+			if(time < 0){
+				time = minBright;
+			}
+			g.setColor(new Color(time,time, time, 200));
 		}
 		else{g.setColor(new Color(50,50,50, 200));}
 		

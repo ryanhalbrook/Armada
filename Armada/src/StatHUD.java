@@ -39,6 +39,18 @@ public class StatHUD extends HUD{
 		}
 	}
 	
+	public boolean click(int inX,int inY){
+		for(Button b: buttons){
+			if(b.click(inX,inY)){
+				return true;
+			}
+		}
+		if(r.isIn(inX, inY)){
+			return true;
+		}
+		return false;
+	}
+	
 	public void draw(Graphics g){
 		if(grid.getActiveE() != de){
 			de=grid.getActiveE();
