@@ -24,6 +24,7 @@ public class Grid extends ViewLayer {
     private int mode = 0;
     private int index = 0;
     private DynamicElement activeE;
+    private GameController gc = null;
     private DynamicSizeBroadcast dsb;
     private BoundingRectangle viewRegion = new BoundingRectangle(0, 0, 500,500); //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
     
@@ -31,21 +32,18 @@ public class Grid extends ViewLayer {
     private int currentX = 0;
     private int currentY = 0;
     
-
-    
     /**
         The only constructor
         @param ap The ArmadaPanel object that this grid will be inside of.
     */
-    public Grid(DynamicSizeBroadcast dsb) {
+    public Grid(GameController gc) {
         super(new BoundingRectangle(0,0,10000,10000));
-        this.dsb = dsb;
+        this.gc = gc;
+        this.dsb = gc.getViewSize();
     	elements = new ArrayList<Element>();
-    	
     	delements = engine.getDynamicElements();
     	SoundEffect.init();
     	SoundEffect.volume=SoundEffect.Volume.LOW;
-    	
     }
     
     /**

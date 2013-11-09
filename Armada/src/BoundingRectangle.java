@@ -4,8 +4,10 @@
 */
 public class BoundingRectangle {
     protected int x, y, width, height;
+    protected DynamicSizeBroadcast dsb;
     
     public BoundingRectangle(int x, int y, int width, int height) {
+    
     	if(width<0){
     		this.x=x+width;
     		this.width = Math.abs(width);
@@ -22,6 +24,11 @@ public class BoundingRectangle {
     		this.y=y;
     		this.height=height;
     	}
+    	
+    }
+    
+    public BoundingRectangle(int x, int y, DynamicSizeBroadcast dsb) {
+    	this.dsb = dsb;
     }
     
     /**
@@ -64,8 +71,14 @@ public class BoundingRectangle {
     
     public int getX() { return x; }
     public int getY() { return y; }
-    public int getWidth() { return width; }
-    public int getHeight() { return height; }
+    public int getWidth() { 
+        if (dsb != null) return dsb.getWidth();
+        return width; 
+    }
+    public int getHeight() { 
+        if (dsb != null) return dsb.getHeight();
+        return height; 
+    }
     
     public void setX(int x) { this.x = x; }
     public void setY(int y) { this.y = y;}

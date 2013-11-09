@@ -1,8 +1,7 @@
 public class GameController extends ViewLayerController {
-    //private HUDController hudSystem;
-    //private Grid gridSystem;
+
     private ArmadaEngine engine;
-    
+    private DynamicSizeBroadcast dsb;
     static final int GRID_WIDTH = 38400; // The width of the grid in pixels.
     static final int GRID_HEIGHT = 21600; // The height of the grid in pixels.
     
@@ -12,30 +11,30 @@ public class GameController extends ViewLayerController {
     
     private BoundingRectangle viewRegion = new BoundingRectangle(0, 0, 500,500); //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
     
-    public GameController(ArmadaEngine engine) {
+    public GameController(ArmadaEngine engine, DynamicSizeBroadcast dsb) {
         super(null);
+        this.dsb = dsb;
         this.engine = engine;
-        //hudSystem = new HUDController(this);
-        //gridSystem = new Grid();
-        viewLayer = new ViewLayer(new BoundingRectangle(0,0, 100, 100));
+        viewLayer = new ViewLayer(new BoundingRectangle(0,0, dsb));
         //viewLayer.addSublayer(hudSystem.getViewLayer());
         //viewLayer.addSublayer(gridSystem.getViewLayer());
     }
     
+    public DynamicSizeBroadcast getViewSize() {
+        return dsb;
+    }
+    
     public int getViewWidth() {
-        return 960;
+        return dsb.getWidth();
     }
     
     public int getViewHeight() {
-        return 540;
+        return dsb.getHeight();
     }
     
     public void update() {
-    /*
-		viewRegion.setWidth(ap.getWidth());
-		viewRegion.setHeight(ap.getHeight());
-		engine.refresh();
-		*/
+		viewRegion.setWidth(getViewWidth());
+		viewRegion.setHeight(getViewHeight());
 	}
     
     /**
@@ -48,10 +47,10 @@ public class GameController extends ViewLayerController {
         viewRegion.setY(viewRegion.getY()+y);
         if (viewRegion.getX() < 0) viewRegion.setX(0);
         if (viewRegion.getY() < 0) viewRegion.setY(0);
-        if (viewRegion.getX() + PANEL_WIDTH > GRID_WIDTH) {
+        if (viewRegion.getX() + getViewWidth() > GRID_WIDTH) {
             viewRegion.setX(GRID_WIDTH - getViewWidth());
         }
-        if (viewRegion.getY() + PANEL_HEIGHT > GRID_HEIGHT) {
+        if (viewRegion.getY() + getViewHeight() > GRID_HEIGHT) {
             viewRegion.setY(GRID_HEIGHT - getViewHeight());
         }
     }

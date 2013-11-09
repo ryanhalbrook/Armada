@@ -1,8 +1,6 @@
 
 public class AttackAnimation implements Runnable {
 
-
-
 		protected Element de;
 		protected DynamicElement target;
 		protected int x,y,mode;
