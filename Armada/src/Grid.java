@@ -26,7 +26,7 @@ public class Grid extends ViewLayer {
     private DynamicElement activeE;
     private GameController gc = null;
     private DynamicSizeBroadcast dsb;
-    private BoundingRectangle viewRegion = new BoundingRectangle(0, 0, 500,500); //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
+    private BoundingRectangle viewRegion = null; //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
     
     // Mouse coordinate information
     private int currentX = 0;
@@ -40,6 +40,7 @@ public class Grid extends ViewLayer {
         super(new BoundingRectangle(0,0,10000,10000));
         this.gc = gc;
         this.dsb = gc.getViewSize();
+        viewRegion = gc.getViewRegion();
     	elements = new ArrayList<Element>();
     	delements = engine.getDynamicElements();
     	SoundEffect.init();
@@ -52,23 +53,14 @@ public class Grid extends ViewLayer {
         @param y The number of pixels to move in the y direction.
     */
     public void moveViewRegion(int x, int y) {
-        viewRegion.setX(viewRegion.getX()+x);
-        viewRegion.setY(viewRegion.getY()+y);
-        if (viewRegion.getX() < 0) viewRegion.setX(0);
-        if (viewRegion.getY() < 0) viewRegion.setY(0);
-        if (viewRegion.getX() + dsb.getWidth() > GRID_WIDTH) {
-            viewRegion.setX(GRID_WIDTH - dsb.getWidth());
-        }
-        if (viewRegion.getY() + dsb.getHeight() > GRID_HEIGHT) {
-            viewRegion.setY(GRID_HEIGHT - dsb.getHeight());
-        }
+        gc.moveViewRegion(x, y);
     }
     
     /**
         @return The rectangular portion of the overall grid that is being displayed.
     */
     public BoundingRectangle getViewRegion() {
-        return viewRegion;
+        return gc.getViewRegion();
     }
     
     /**
@@ -351,4 +343,18 @@ public class Grid extends ViewLayer {
 //this.ap = ap;
 //private ArmadaPanel ap;
 //delements = new ArrayList<DynamicElement>();
+
+/*
+        viewRegion.setX(viewRegion.getX()+x);
+        viewRegion.setY(viewRegion.getY()+y);
+        if (viewRegion.getX() < 0) viewRegion.setX(0);
+        if (viewRegion.getY() < 0) viewRegion.setY(0);
+        if (viewRegion.getX() + dsb.getWidth() > GRID_WIDTH) {
+            viewRegion.setX(GRID_WIDTH - dsb.getWidth());
+        }
+        if (viewRegion.getY() + dsb.getHeight() > GRID_HEIGHT) {
+            viewRegion.setY(GRID_HEIGHT - dsb.getHeight());
+        }
+        
+        */
 

@@ -23,24 +23,6 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	int lastX = -1;
 	int lastY = -1;
 	
-	/*
-	    @return The horizontal size, in pixels, of this panel.
-	
-	public int getWidth() {
-	    return this.getWidth();
-	}
-	
-	*/
-	
-	
-	/*
-	    @return The vertical size, in pixels, of this panel.
-	
-	public int getHeightSize() {
-	    return this.getHeight();
-	}
-	*/
-	
 	/**
 	    The only constructor.
 	    @param am The application manager to notify when the game is over.
@@ -276,3 +258,22 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	}
 
 }
+
+
+	/*
+	    @return The horizontal size, in pixels, of this panel.
+	
+	public int getWidth() {
+	    return this.getWidth();
+	}
+	
+	*/
+	
+	
+	/*
+	    @return The vertical size, in pixels, of this panel.
+	
+	public int getHeightSize() {
+	    return this.getHeight();
+	}
+	*/
