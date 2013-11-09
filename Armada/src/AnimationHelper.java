@@ -4,6 +4,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -32,8 +33,8 @@ public class AnimationHelper{
 	
 	private Element e;
 	private BufferedImage image;
-	private AffineTransform at;
-	private int imageWidth, imageHeight;
+	//private AffineTransform at;
+
 	private double angleLeft;
 	private int moveXLeft;
 	private int moveYLeft;
@@ -45,10 +46,9 @@ public class AnimationHelper{
 	
 	public AnimationHelper(Element el){
 		e=el;
-		at= new AffineTransform();
+		//at= new AffineTransform();
 		loadImage(e.getImage());
-		imageWidth=image.getWidth();
-		imageHeight=image.getHeight();
+		
 		angleLeft=0;
 		moveXLeft=0;
 		moveYLeft=0;
@@ -94,6 +94,12 @@ public class AnimationHelper{
 	private void loadImage(String img) {
 	    //System.out.println(img);
 		image = ImageLoader.getImage(img+".png");
+		AffineTransform at = new AffineTransform();
+		at.scale(e.getWidth()/(double)image.getWidth(), e.getHeight()/(double)image.getHeight());
+		AffineTransformOp scaleOp = 
+		   new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+		image=scaleOp.filter(image, null);
+		
 		/*
 		try{
 			//File f= new File("image/"+img+".png");
@@ -109,8 +115,7 @@ public class AnimationHelper{
 	}
 	public void changeImage(String img){
 		loadImage(e.getImage());
-		imageWidth=image.getWidth();
-		imageHeight=image.getHeight();
+		
 	}
 	public boolean isIn(int x, int y){
 		if(moving)
@@ -210,15 +215,15 @@ public class AnimationHelper{
 	public void draw(Graphics g, BoundingRectangle viewRect){
 		if(!viewRect.isIn(e.getX(), e.getY())) return;
 		Graphics2D g2 = (Graphics2D)g;
-		AffineTransform ori = g2.getTransform();
+		AffineTransform at= new AffineTransform();
+		//AffineTransform ori = g2.getTransform();
 		//g.fillRect(x-viewRect.getX(), y-viewRect.getY(), width, height);
 		at.translate((e.getX()-viewRect.getX()), e.getY()-viewRect.getY());
 		at.rotate(Math.toRadians(e.getAngle()));
 		at.translate(-e.getWidth()/2.0,-e.getHeight()/2.0);
-		at.scale(e.getWidth()/(double)imageWidth, e.getHeight()/(double)imageHeight);
-		g2.drawImage(image, at, null);
 		
-		at=ori;
+		g2.drawImage(image, at, null);
+		//at=ori;
 	}
 	//Returns direction and angle the dynamic element needs to turn
 	public double calcRotationAngle(int x, int y){
