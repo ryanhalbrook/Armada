@@ -21,8 +21,6 @@ public class Grid extends ViewLayer {
     private ArrayList<Element> elements;
     private ArrayList<DynamicElement> delements;
     
-    //private ArmadaPanel ap;
-    private PlayerManager pm;
     private int mode = 0;
     private int index = 0;
     private DynamicElement activeE;
@@ -41,16 +39,13 @@ public class Grid extends ViewLayer {
     */
     public Grid(DynamicSizeBroadcast dsb) {
         super(new BoundingRectangle(0,0,10000,10000));
-        //this.ap = ap;
         this.dsb = dsb;
     	elements = new ArrayList<Element>();
-    	//delements = new ArrayList<DynamicElement>();
+    	
     	delements = engine.getDynamicElements();
     	SoundEffect.init();
     	SoundEffect.volume=SoundEffect.Volume.LOW;
-    	pm = new PlayerManager(this);
     	
-		
     }
     
     /**
@@ -296,15 +291,15 @@ public class Grid extends ViewLayer {
 	}
 	
 	public PlayerManager getPlayerManager(){
-		return pm;
+		return engine.getPlayerManager();
 	}
 	
 	public Player getWinner(){
-		return pm.getWinner();
+		return getPlayerManager().getWinner();
 	}
 	
 	public Player getLoser(){
-		return pm.getLoser();
+		return getPlayerManager().getLoser();
 	}
     
     public double secondsRemainingForTurn() {
@@ -355,6 +350,7 @@ public class Grid extends ViewLayer {
 	}
 
 }
-
-
+//this.ap = ap;
+//private ArmadaPanel ap;
+//delements = new ArrayList<DynamicElement>();
 

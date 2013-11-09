@@ -5,17 +5,22 @@ public class PlayerManager {
 	
 	private int numPlayers;
 	private ArrayList<Player> players;
-	
-	public PlayerManager(Grid g){
+	private ArrayList<DynamicElement> homePlanets = new ArrayList<DynamicElement>();
+
+	public PlayerManager(){
 		players=new ArrayList<Player>();
 		Player p1 = new Player(1);
 		p1.setPlayerName("Player 1");
 		players.add(p1);
-		g.add(p1.getHome());
+		homePlanets.add(p1.getHome());
 		Player p2 = new Player(2);
 		p2.setPlayerName("Player 2");
 		players.add(p2);
-		g.add(p2.getHome());
+		homePlanets.add(p2.getHome());
+	}
+	
+	public ArrayList<DynamicElement> getHomePlanets() {
+	    return homePlanets;
 	}
 	
 	public void payPlayerMoney(int alliance, int money){

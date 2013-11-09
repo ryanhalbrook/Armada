@@ -4,9 +4,11 @@ public class ArmadaEngine {
     int turn = 1;
     
     // Information for computing time remaining for current turn
-    private static final double TURN_TIME = 5000.0;
+    private static final double TURN_TIME = 500000.0;
     private double mseconds = TURN_TIME;
     private long lastTime = 0;
+    
+    private PlayerManager pm;
     
     private ArrayList<Element> elements;
     private ArrayList<DynamicElement> delements;
@@ -15,8 +17,17 @@ public class ArmadaEngine {
         return delements;
     }
     
+    public PlayerManager getPlayerManager(){
+		return pm;
+	}
+    
     public ArmadaEngine() {
+        pm = new PlayerManager();
         delements = new ArrayList<DynamicElement>();
+        for (DynamicElement d : pm.getHomePlanets()) {
+            delements.add(d);
+        }
+        
         // Add some ships
 		delements.add(new NormalShip(750,330,1));
 		delements.add(new NormalShip(160,330,1));
