@@ -20,12 +20,12 @@ public class Grid extends ViewLayer {
 	
     private ArrayList<Element> elements;
     private ArrayList<DynamicElement> delements;
-    private  ArrayList<Menu> menus;
     
     private PlayerManager pm;
-    private  int mode = 0;
-    private int turn = 1, index = 0;
-    private  DynamicElement activeE;
+    private int mode = 0;
+    //private int turn = 1, index = 0;
+    private int index = 0;
+    private DynamicElement activeE;
     private ArmadaPanel ap;
     private BoundingRectangle viewRegion = new BoundingRectangle(0, 0, 500,500); //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
     
@@ -33,10 +33,7 @@ public class Grid extends ViewLayer {
     private int currentX = 0;
     private int currentY = 0;
     
-    // Information for computing time remaining for current turn
-    private static final double TURN_TIME = 180000.0;
-    private double mseconds = TURN_TIME;
-    private long lastTime = 0;
+
     
     /**
         The only constructor
@@ -48,7 +45,7 @@ public class Grid extends ViewLayer {
         this.ap = ap;
     	elements = new ArrayList<Element>();
     	delements = new ArrayList<DynamicElement>();
-    	menus = new ArrayList<Menu>();
+    	
     	SoundEffect.init();
     	SoundEffect.volume=SoundEffect.Volume.LOW;
     	pm = new PlayerManager(this);
@@ -120,7 +117,7 @@ public class Grid extends ViewLayer {
 			}
 			temp=delements.get(index);
 			//if(temp.getAlliance() == turn)break;
-		}while(temp.getAlliance()!=turn || !temp.isTargetable());
+		}while(temp.getAlliance()!=getTurn() || !temp.isTargetable());
 		
 		activeE=temp;
 		viewRegion.setCenter(activeE.getX(), activeE.getY());
@@ -153,15 +150,7 @@ public class Grid extends ViewLayer {
 	public void refresh() {
 		viewRegion.setWidth(ap.getWidth());
 		viewRegion.setHeight(ap.getHeight());
-		if (lastTime == 0) {
-		    lastTime = new GregorianCalendar().getTimeInMillis();
-		} else {
-		    long newTime = new GregorianCalendar().getTimeInMillis();
-		    double delta = (double)(newTime - lastTime);
-		    mseconds -= delta;
-		    lastTime = newTime;
-		}
-		if (mseconds < 0.0) toggleTurn();
+		engine.refresh();
 	}
 	
 	/**
@@ -245,7 +234,7 @@ public class Grid extends ViewLayer {
 			}
 		}
 			  
-		if(activeE==null || activeE.getAlliance()!=turn || !activeE.isTargetable()) {
+		if(activeE==null || activeE.getAlliance()!=getTurn() || !activeE.isTargetable()) {
 			return true;
 		}
 		if(mode == 1) { //move
@@ -278,22 +267,14 @@ public class Grid extends ViewLayer {
 	}
 	
 	public void toggleTurn(){
-		if(turn==1) turn=2;
-		else turn=1;	
-		setMode(1);
-		startTurn();		
-	}
-	
-	public void startTurn(){
-	    mseconds = TURN_TIME;
-		activeE=null;
-		mode=1;
-		if(delements != null && delements.size() != 0){//selecting a ship
-			for (DynamicElement d : delements) {
+	    setMode(0);
+	    engine.toggleTurn();
+	    for (DynamicElement d : delements) {
 				//System.out.println("looking for ship 1");
 				d.startOfTurn(this);
-			}
 		}
+	    activeE = null;
+	    mode = 1;		
 	}
 	
 	/*
@@ -349,11 +330,11 @@ public class Grid extends ViewLayer {
 	}
     
     public double secondsRemainingForTurn() {
-        return mseconds;
+        return engine.secondsRemainingForTurn();
     }
     
     public double maxSecondsForTurn() {
-        return TURN_TIME;
+        return engine.maxSecondsForTurn();
     }
 	
 	public void add(DynamicElement inDE){
@@ -367,7 +348,7 @@ public class Grid extends ViewLayer {
 		return mode;
 	}
 	public int getTurn() {
-		return turn;
+		return engine.getTurn();
 	}
 	public ArrayList<DynamicElement> getDelements() {
 		return delements;

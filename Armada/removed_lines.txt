@@ -125,3 +125,37 @@ for (DynamicElement d : delements) {
 			
 			
 			//if(currentX == 0 && currentY == 0) {}
+			
+			
+			//private  ArrayList<Menu> menus;
+			
+			//menus = new ArrayList<Menu>();
+			
+			
+			
+			
+			public void toggleTurn(){
+		if(turn==1) turn=2;
+		else turn=1;	
+		setMode(1);
+		startTurn();		
+	}
+	
+	public void startTurn(){
+	    mseconds = TURN_TIME;
+		activeE=null;
+		mode=1;
+		if(delements != null && delements.size() != 0){//selecting a ship
+			for (DynamicElement d : delements) {
+				//System.out.println("looking for ship 1");
+				d.startOfTurn(this);
+			}
+		}
+	}
+	
+	    // Information for computing time remaining for current turn
+    private static final double TURN_TIME = 180000.0;
+    private double mseconds = TURN_TIME;
+    private long lastTime = 0;
+			
+			
