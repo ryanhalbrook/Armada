@@ -10,7 +10,7 @@ import java.awt.image.*;
 public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener, DynamicSizeBroadcast {
 
     private static final int DEFAULT_GRID_MOVE_RATE = 200;
-
+    
     private HUDmanager hud = null;
     private ApplicationManager am;
     private BufferedImage backgroundImage = null;
@@ -34,7 +34,7 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	    addKeyListener(this);
 	    addMouseMotionListener(this);
 	    ArmadaEngine engine = new ArmadaEngine();
-	    GameController gc = new GameController(engine, this);
+	    GameController gc = new GameController(am, engine, this);
 	    grid = new Grid(gc);
 	    grid.setName("Grid Layer");
 	    hud = new HUDmanager(grid);

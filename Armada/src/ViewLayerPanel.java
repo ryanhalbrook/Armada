@@ -2,21 +2,35 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
 
-public class ViewLayerPanel extends JPanel {
+public class ViewLayerPanel extends JPanel implements DynamicSizeBroadcast, ActionListener {
     private ViewLayerController viewLayerController = null;
     private boolean antialiasingEnabled = false;
     private Timer refreshTimer = null;
     
     public ViewLayerPanel() {
-        
+        super();
+    }
+    
+    public void actionPerformed(ActionEvent evt) {
+        viewLayerController.actionPerformed(evt);
+        repaint();
     }
     
     public ViewLayerPanel(ViewLayerController vlc) {
         super();
         viewLayerController = vlc;
+        
+        setViewLayerController(vlc);
+    }
+    
+    public void setViewLayerController(ViewLayerController vlc) {
+        viewLayerController = vlc;
+        
         if (viewLayerController != null) {
             this.addMouseListener(viewLayerController);
             this.addMouseMotionListener(viewLayerController);
+            refreshTimer = new Timer(30, this);
+            refreshTimer.start();
         }
     }
     

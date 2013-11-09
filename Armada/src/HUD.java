@@ -34,6 +34,10 @@ public class HUD extends ViewLayer {
 		location = l;
 	} 
 	
+	public void refresh() {
+	    updateLocation();
+	}
+	
 	/**
 	    Updates the location of the HUD based on its location setting.
 	*/

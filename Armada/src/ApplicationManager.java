@@ -46,6 +46,15 @@ public class ApplicationManager {
         swapPanel(new ArmadaPanel(this));
     }
     
+    public void startGameNewWay() {
+        ArmadaEngine engine = new ArmadaEngine();
+        ViewLayerPanel vlp = new ViewLayerPanel();
+        GameController gc = new GameController(this, engine, vlp);
+        vlp.setViewLayerController(gc);
+        vlp.setAntialiasingEnabled(true);
+        swapPanel(vlp);
+    }
+    
     /**
         Switches back to the main menu panel.
     */

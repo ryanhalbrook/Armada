@@ -13,6 +13,7 @@ A class representing the main menu of the system.
 public class MainMenuPanel extends JPanel implements ActionListener{
     ApplicationManager am;
     JButton startButton = new JButton("Start Local 2 Player Game");
+    JButton startButton2 = new JButton("Start Game new way");
     JButton exitButton = new JButton("Quit Game");
     
     BufferedImage backgroundImage;
@@ -24,10 +25,12 @@ public class MainMenuPanel extends JPanel implements ActionListener{
         // Setup the buttons
         startButton.addActionListener(this);
         exitButton.addActionListener(this);
+        startButton2.addActionListener(this);
         JPanel buttonsPanel = new JPanel();
         this.setLayout(new BorderLayout());
         buttonsPanel.add(startButton);
         buttonsPanel.add(exitButton);
+        buttonsPanel.add(startButton2);
         buttonsPanel.setBorder(new EmptyBorder(10,400,250,10));
         buttonsPanel.setOpaque(false);
         this.add(buttonsPanel, BorderLayout.SOUTH);
@@ -49,6 +52,8 @@ public class MainMenuPanel extends JPanel implements ActionListener{
     public void actionPerformed(ActionEvent evt) {
         if (evt.getSource() == startButton) {
             am.startGame();
+        } else if (evt.getSource() == startButton2) {
+            am.startGameNewWay();  
         } else if (evt.getSource() == exitButton) {
             System.exit(0);
         }
