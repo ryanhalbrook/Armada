@@ -29,15 +29,13 @@ public class ArmadaEngine {
 	    return turn;
 	}
 	
-	public double secondsRemainingForTurn() {
-        return mseconds;
-    }
-    
-    public double maxSecondsForTurn() {
-        return TURN_TIME;
-    }
+	public void enableDebugSpeed() {
+	    for(DynamicElement d: delements){
+			d.setSpeed(99999999);
+		}
+	}
 	
-	public void refresh() {
+	public double secondsRemainingForTurn() {
 	    if (lastTime == 0) {
 		    lastTime = new GregorianCalendar().getTimeInMillis();
 		} else {
@@ -47,9 +45,17 @@ public class ArmadaEngine {
 		    lastTime = newTime;
 		}
 		if (mseconds < 0.0) toggleTurn();
-	}
+        return mseconds;
+    }
+    
+    public double maxSecondsForTurn() {
+        return TURN_TIME;
+    }
 	
 	public void startTurn() {
+	    for (DynamicElement d : delements) {
+				d.startOfTurn();
+		}
 	    mseconds = TURN_TIME;
 	}
     

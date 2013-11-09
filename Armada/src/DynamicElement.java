@@ -173,7 +173,7 @@ public class DynamicElement extends Element {
 	/*
 	 * performs certain start of turn jobs. Ex: a planet checks if it should update its alliance based off of docked ships; A planet pays the Player; A ship comes out of cloaking; etc
 	 */
-	public void startOfTurn(Grid g){
+	public void startOfTurn(){
 		moved=0;
 		canAttack=true;
 		canMove=true;

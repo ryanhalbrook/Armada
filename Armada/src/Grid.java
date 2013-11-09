@@ -23,7 +23,6 @@ public class Grid extends ViewLayer {
     
     private PlayerManager pm;
     private int mode = 0;
-    //private int turn = 1, index = 0;
     private int index = 0;
     private DynamicElement activeE;
     private ArmadaPanel ap;
@@ -88,15 +87,10 @@ public class Grid extends ViewLayer {
     /**
         Enables ships to move extremely far. Intended for debugging purposes.
     */
-	public void moveCheat(){
-		for(DynamicElement d: delements){
-			d.setSpeed(99999999);
-		}
-	}
+	public void moveCheat() { engine.enableDebugSpeed(); }
 	
-	public void cancelMove() {//does not deselect ship.  use setMode(0) to do that 
-	    mode = 0;
-	}
+	//does not deselect ship.  use setMode(0) to do that 
+	public void cancelMove() { mode = 0; }
 	
 	/**
 	    Set the selected dynamic element to the next allowed selection.
@@ -150,7 +144,31 @@ public class Grid extends ViewLayer {
 	public void refresh() {
 		viewRegion.setWidth(ap.getWidth());
 		viewRegion.setHeight(ap.getHeight());
-		engine.refresh();
+		
+		int vel = 50;
+		
+		if (!(currentX == 0) || !(currentY == 0)) {
+			if(ap.getWidth() * .03 > currentX){
+				if(viewRegion.getX() >=25){
+					viewRegion.setX(viewRegion.getX() - vel);	
+				}
+		    }
+			if(ap.getWidth() * .97 < currentX){
+		    	if(Grid.GRID_WIDTH - (viewRegion.getX()+viewRegion.getWidth()) >=25){
+					viewRegion.setX(viewRegion.getX() + vel);	
+				}
+		    }
+			if(ap.getHeight() * .03 > currentY){
+		    	if(viewRegion.getY() >=25){
+					viewRegion.setY(viewRegion.getY() - vel);	
+				}
+		    }
+			if(ap.getHeight() * .97 < currentY){
+		    	if(Grid.GRID_HEIGHT - (viewRegion.getY() + viewRegion.getHeight()) >=25){
+					viewRegion.setY(viewRegion.getY() + vel);	
+				}
+		    }	
+		}
 	}
 	
 	/**
@@ -191,35 +209,9 @@ public class Grid extends ViewLayer {
 	}
 	
 	public void update() {
-		int vel = 50;
 		
-		if (!(currentX == 0) || !(currentY == 0)) {
-			if(ap.getWidth() * .03 > currentX){
-				if(viewRegion.getX() >=25){
-					viewRegion.setX(viewRegion.getX() - vel);	
-				}
-		    }
-			if(ap.getWidth() * .97 < currentX){
-		    	if(Grid.GRID_WIDTH - (viewRegion.getX()+viewRegion.getWidth()) >=25){
-					viewRegion.setX(viewRegion.getX() + vel);	
-				}
-		    }
-			if(ap.getHeight() * .03 > currentY){
-		    	if(viewRegion.getY() >=25){
-					viewRegion.setY(viewRegion.getY() - vel);	
-				}
-		    }
-			if(ap.getHeight() * .97 < currentY){
-		    	if(Grid.GRID_HEIGHT - (viewRegion.getY() + viewRegion.getHeight()) >=25){
-					viewRegion.setY(viewRegion.getY() + vel);	
-				}
-		    }	
-		}
 	}
 	
-	/*
-	 * received upon any click on ArmadaPanel
-	 */
 	public boolean click(int inX, int inY){
 			
 	    if((mode == 0 || activeE==null) && delements != null && delements.size() != 0) { //selecting a ship
@@ -269,10 +261,6 @@ public class Grid extends ViewLayer {
 	public void toggleTurn(){
 	    setMode(0);
 	    engine.toggleTurn();
-	    for (DynamicElement d : delements) {
-				//System.out.println("looking for ship 1");
-				d.startOfTurn(this);
-		}
 	    activeE = null;
 	    mode = 1;		
 	}

@@ -79,6 +79,10 @@ public class ViewLayer {
         }
     }
     
+    public void refresh() {
+        
+    }
+    
     /**
         Adds a sublayer to this layer.
         @param vl The layer to add as a sublayer.

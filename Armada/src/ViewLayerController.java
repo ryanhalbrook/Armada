@@ -7,7 +7,9 @@ public class ViewLayerController implements MouseListener, MouseMotionListener {
     public ViewLayerController(ViewLayer vl) {
         this.viewLayer = vl;
     }
-    
+    public void refresh() {
+        viewLayer.refresh();
+    }
     public void setViewLayer(ViewLayer vl) {
         this.viewLayer = vl;
     }
