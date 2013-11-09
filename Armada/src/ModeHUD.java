@@ -63,10 +63,12 @@ public class ModeHUD extends HUD{
 		    	g.setColor(Color.RED);
 		    	g.drawString("Out of docking range or already docked", x, y+g.getFontMetrics().getHeight()*2);
 		    }
-		    g.drawLine(shipX-grid.getViewRegion().getX(), shipY-grid.getViewRegion().getY(), grid.getCurrentX(), grid.getCurrentY());
-		    int radius = 20;
-		    
-		    g.drawOval(grid.getCurrentX()-radius, grid.getCurrentY()-radius, radius*2, radius*2);
+		    if(grid.getCurrentX()!=0||grid.getCurrentY()!=0){
+			    g.drawLine(shipX-grid.getViewRegion().getX(), shipY-grid.getViewRegion().getY(), grid.getCurrentX(), grid.getCurrentY());
+			    int radius = 20;
+			    g.drawOval(grid.getCurrentX()-radius, grid.getCurrentY()-radius, radius*2, radius*2);
+			    	
+		    }
 		    g2d.setStroke(s);
 		    
 		    switch(grid.getMode()){
