@@ -88,7 +88,7 @@ public class ModeHUD extends HUD{
 			    }
 		    }
 		    g2d.setStroke(s);
-		    
+		    /*
 		    switch(grid.getMode()){
 		    case 0:
 		    	g.drawString("Mode: No Move Selected", x, y+g.getFontMetrics().getHeight());
@@ -109,6 +109,7 @@ public class ModeHUD extends HUD{
 		        g.drawString("Mode: Fleet Move", x, y+g.getFontMetrics().getHeight());
 		        break;
 		    }  
+		    */
 		}
 		else if(grid.getActiveE() != null && grid.getActiveE() instanceof Planet){
 			Planet p = (Planet)grid.getActiveE();

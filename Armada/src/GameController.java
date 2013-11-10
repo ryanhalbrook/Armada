@@ -125,6 +125,10 @@ public class GameController extends ViewLayerController {
         hud.getTurnHUD().showTransition();
     }
     
+    public void showInfo(String info) {
+        ipl.showPopup(info);
+    }
+    
     public void mousePressed(MouseEvent evt) {
 		if(evt.getButton() == MouseEvent.BUTTON3){
 			moveMode=false;

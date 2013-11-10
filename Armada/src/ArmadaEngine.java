@@ -35,6 +35,9 @@ public class ArmadaEngine {
 		delements.add(new NormalShip(60,330,2));
 		delements.add(new NormalShip(220,330,2));
 		delements.add(new NormalShip(300,330,2));
+		delements.add(new NormalShip(350,330,2));
+		delements.add(new NormalShip(400,330,2));
+		delements.add(new NormalShip(450,330,2));
 		Spawner.spawnPlanets(this, 40);
     }
     

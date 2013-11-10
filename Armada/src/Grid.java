@@ -66,7 +66,10 @@ public class Grid extends ViewLayer {
     /**
         Enables ships to move extremely far. Intended for debugging purposes.
     */
-	public void moveCheat() { engine.enableDebugSpeed(); }
+	public void moveCheat() { 
+	    engine.enableDebugSpeed(); 
+	    gc.showInfo("Move Cheat Enabled");
+	}
 	
 	//does not deselect ship.  use setMode(0) to do that 
 	public void cancelMove() { mode = 0; }
