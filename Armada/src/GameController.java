@@ -125,8 +125,14 @@ public class GameController extends ViewLayerController {
         hud.getTurnHUD().showTransition();
     }
     
+    public void invalidMoveAttempt(String info) {
+        ipl.showPopup(info, new Color(0.8f, 0.0f, 0.0f));
+    }
+    /*
+        NOTE: use this sparingly, try to give the grid more info on what happened.
+    */
     public void showInfo(String info) {
-        ipl.showPopup(info);
+        ipl.showPopup(info, Color.BLUE);
     }
     
     public void mousePressed(MouseEvent evt) {

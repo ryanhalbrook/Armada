@@ -5,8 +5,12 @@ public class InformationPopupLayer extends ViewLayer {
     private boolean fadingOut = true;
     private float phase = 1.0f;
     static final int PHASE_TIME = 3000;
-    static final Color DEFAULT_COLOR = new Color(0.0f, 0.1f, 0.1f, 1.0f);
-    private Color backgroundColor = DEFAULT_COLOR;
+    static final float DEFAULT_RED = 0.0f;
+    static final float DEFAULT_GREEN = 0.1f;
+    static final float DEFAULT_BLUE = 0.1f;
+    private float red = DEFAULT_RED;
+    private float green = DEFAULT_GREEN;
+    private float blue = DEFAULT_BLUE;
     //public static InformationPopupLayer ipl;
     /*
     public static InformationPopupLayer getInstance(){
@@ -27,9 +31,13 @@ public class InformationPopupLayer extends ViewLayer {
     
     public void showPopup(String text, Color backgroundColor) {
         if (backgroundColor == null) {
-            backgroundColor = DEFAULT_COLOR;
+            red = DEFAULT_RED;
+            green = DEFAULT_GREEN;
+            blue = DEFAULT_BLUE;
         } else {
-            this.backgroundColor = backgroundColor;
+            red = backgroundColor.getRed() / 255.0f;
+            green = backgroundColor.getGreen() / 255.0f;
+            blue = backgroundColor.getBlue() / 255.0f;
         }
         this.text = text;
         phase = 0.0f;
@@ -55,7 +63,7 @@ public class InformationPopupLayer extends ViewLayer {
         } else if (phase > 0.8f) {
             alpha = (1 - phase) * 5.0f;
         }
-        g.setColor(new Color(0.0f, 0.1f, 0.1f, alpha));
+        g.setColor(new Color(red, green, blue, alpha));
         g.fillRect(this.r.getX(), this.r.getY(), this.r.getWidth(), this.r.getHeight());
         g.setColor(new Color(1.0f, 1.0f, 1.0f, alpha));
         FontMetrics fm = g.getFontMetrics();
