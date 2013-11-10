@@ -66,7 +66,12 @@ public class TurnHUD extends HUD{
 
 		g.setColor(Color.WHITE);
 		FontMetrics fm = g.getFontMetrics();
-		String displayString = playerName + " | Money: " + grid.getPlayerManager().getPlayerMoney(grid.getTurn())+ " | Turn Timer: " + Math.round(time/1000)/60+ ":" +Math.round(time/1000)%60 + "     ";
+		String displayString = playerName + " | Money: " + grid.getPlayerManager().getPlayerMoney(grid.getTurn()); 
+		
+		if(Math.round(time/1000)%60<10)
+			displayString+=" | Turn Timer: " + Math.round(time/1000)/60+ ":0" +Math.round(time/1000)%60 + "     ";
+		else
+			displayString+=" | Turn Timer: " + Math.round(time/1000)/60+ ":" +Math.round(time/1000)%60 + "     ";
 		
 		int textWidth = fm.stringWidth(displayString);
 		g.drawString(displayString, grid.getAp().getWidth() - 5 - textWidth, 15-dy);
