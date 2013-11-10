@@ -63,30 +63,48 @@ public class ModeHUD extends HUD{
 		    	g.setColor(Color.RED);
 		    	g.drawString("Out of docking range or already docked", x, y+g.getFontMetrics().getHeight()*2);
 		    }
+		    else if (( grid.getMode() == 5)) {
+		        g.setColor(new Color(0.0f, 0.9f, 1.0f));
+		    }
+		    
 		    if(grid.getCurrentX()!=0||grid.getCurrentY()!=0){
-			    g.drawLine(shipX-grid.getViewRegion().getX(), shipY-grid.getViewRegion().getY(), grid.getCurrentX(), grid.getCurrentY());
-			    int radius = 20;
-			    g.drawOval(grid.getCurrentX()-radius, grid.getCurrentY()-radius, radius*2, radius*2);
-			    	
+		        if (grid.getMode() != 5) {
+			        g.drawLine(shipX-grid.getViewRegion().getX(), shipY-grid.getViewRegion().getY(), grid.getCurrentX(), grid.getCurrentY());
+			        int radius = 20;
+			        g.drawOval(grid.getCurrentX()-radius, grid.getCurrentY()-radius, radius*2, radius*2);
+			    } else {
+			        for (DynamicElement d : grid.getDelements()) {
+			            if (d instanceof Ship && d.getAlliance()==grid.getTurn() && d.withinMovement(grid.getCurrentX(),grid.getCurrentY()) && d.isTargetable()) {
+			                shipX = d.getX();
+			                shipY = d.getY();
+			                g.drawLine(shipX-grid.getViewRegion().getX(), shipY-grid.getViewRegion().getY(), grid.getCurrentX(), grid.getCurrentY());
+			                int radius = 20;
+			                g.drawOval(grid.getCurrentX()-radius, grid.getCurrentY()-radius, radius*2, radius*2);
+			            }
+			        }
+			    }
 		    }
 		    g2d.setStroke(s);
 		    
 		    switch(grid.getMode()){
 		    case 0:
-		    	g.drawString("No Move Selected", x, y+g.getFontMetrics().getHeight());
+		    	g.drawString("Mode: No Move Selected", x, y+g.getFontMetrics().getHeight());
 		    	break;
 		    case 1:
-		    	g.drawString("Move Initiated", x, y+g.getFontMetrics().getHeight());
+		    	g.drawString("Mode: Move", x, y+g.getFontMetrics().getHeight());
 		    	break;
 		    case 2:
-		    	g.drawString("Attacking Hull", x, y+g.getFontMetrics().getHeight());
+		    	g.drawString("Mode: Attack Hull", x, y+g.getFontMetrics().getHeight());
 		    	break;
 		    case 3:
-		    	g.drawString("Attacking Engine", x, y+g.getFontMetrics().getHeight());
+		    	g.drawString("Mode: Attack Engine", x, y+g.getFontMetrics().getHeight());
 		    	break;
 		    case 4:
-		    	g.drawString("Docking Initiated", x, y+g.getFontMetrics().getHeight());
+		    	g.drawString("Mode: Docking", x, y+g.getFontMetrics().getHeight());
 		    	break;
+		    case 5:
+		        g.drawString("Mode: Fleet Move", x, y+g.getFontMetrics().getHeight());
+		        break;
 		    }  
 		}
 		else if(grid.getActiveE() != null && grid.getActiveE() instanceof Planet){

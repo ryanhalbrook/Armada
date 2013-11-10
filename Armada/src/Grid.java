@@ -240,7 +240,7 @@ public class Grid extends ViewLayer {
 		    inX += viewRegion.getX(); inY += viewRegion.getY();
 		    int counter = 0;
 		    for (DynamicElement d : delements) {
-		        if (d instanceof Ship && d.getAlliance()==engine.getTurn() && d.withinRange(inX,inY) && d.isTargetable()) {
+		        if (d instanceof Ship && d.getAlliance()==engine.getTurn() && d.withinMovement(inX,inY) && d.isTargetable()) {
 		            
 		            System.out.println("Moving");
 		            engine.moveDynamicElement(d, inX+counter-counter*50, inY-counter*50, delements);
