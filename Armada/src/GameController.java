@@ -35,13 +35,14 @@ public class GameController extends ViewLayerController {
         viewLayer = new ViewLayer(new BoundingRectangle(0,0, dsb));
         viewLayer.addSublayer(hud.getViewLayer());
 	    viewLayer.addSublayer(grid);
-        //viewLayer.addSublayer(hudSystem.getViewLayer());
-        //viewLayer.addSublayer(gridSystem.getViewLayer());
     }
     
     public void refresh() {
-        if(!gameOn)return;
+        if(!gameOn) {
+            return;
+        }
 		if(grid.getWinner()!=null){
+		    viewLayer.setDrawingEnabled(false);
 			//TODO add what happens when there is a winner
 			gameOn=false;
 			endGame();

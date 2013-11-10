@@ -13,6 +13,11 @@ public class ViewLayer {
     protected BoundingRectangle r;  
     /** A name for this layer. Intended for debugging purposes. */
     protected String name;  
+    private boolean drawingEnabled = true;
+    
+    public void setDrawingEnabled(boolean enabled) {
+        this.drawingEnabled = enabled;
+    }
     
     ArrayList<ViewLayer> subLayers;
     
@@ -71,6 +76,7 @@ public class ViewLayer {
         @param g The graphics context to do the drawing into.
     */
     public void draw(Graphics g) {
+        if (!drawingEnabled) return;
         int i = 0;
         ViewLayer vl = null;
         for (i=subLayers.size()-1; i>-1; i--) {
