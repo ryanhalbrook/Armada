@@ -65,10 +65,7 @@ public class Ship extends DynamicElement{
 		maxEngine=baseMaxEngine;
 	}
 	
-	public void move(int inX, int inY){
-		x=inX;
-		y=inY;
-	}
+	
 	public ShipAnimationHelper getSAH(){
 		return (ShipAnimationHelper)ah;
 	}
@@ -123,8 +120,15 @@ public class Ship extends DynamicElement{
 	public void undock(){
 		this.getSAH().dock(this, null,6);
 	}
+	public void setDocking(boolean b){
+		docking=b;
+	}
+	public boolean isDocking(){
+		return docking;
+	}
 	public void setPlanetDocked(Planet inP) {
 		if(this.planetDocked !=null && this.planetDocked != inP){
+			docking=true;
 			undock();
 			this.planetDocked.unDock(this);
 		}
@@ -132,6 +136,7 @@ public class Ship extends DynamicElement{
 			dock(inP);
 		this.planetDocked = inP;
 	}
+	
 	public void board(Ship target){
 		this.getSAH().board(this, target);
 		//unboard();
@@ -142,7 +147,12 @@ public class Ship extends DynamicElement{
 	}
 	public void draw(Graphics g, BoundingRectangle viewRect){
 		super.draw(g,viewRect);
-		if(isDocked()){
+		if(isDocking()){
+			if(bridge!=null&&bridge.getWidth()!=0){
+	    		bridge.draw(g, viewRect);
+	    	}
+		}
+		else if(isDocked()){
 			g.setColor(Color.WHITE);
 			g.drawString("DOCKED", x - viewRect.getX()-width/2, y - viewRect.getY() - height);
 			if(bridge!=null&&bridge.getWidth()!=0){

@@ -35,6 +35,7 @@ public class DockAnimation implements Runnable{
 		
 		ship.setTargetable(false);
 		ship.getAH().setMoving(true);
+		ship.setDocking(true);
 		
 		ship.getAH().setAngleLeft(ra);
 		while(mode!=0)
@@ -74,8 +75,7 @@ public class DockAnimation implements Runnable{
 				if(ship.getBridge().getLength()+planet.getWidth()/4>=Math.sqrt(Math.pow(ship.getX()-planet.getX(), 2)+Math.pow(ship.getY()-planet.getY(), 2)))
 				{
 					mode=0;
-					ship.getAH().setMoving(false);
-					ship.setTargetable(true);
+					
 					System.out.println("mode5");
 				}
 				else{
@@ -95,8 +95,6 @@ public class DockAnimation implements Runnable{
 					mode=0;
 					ship.setBridge(null);
 					
-					ship.getAH().setMoving(false);
-					ship.setTargetable(true);
 					System.out.println("mode6");
 				}
 				else{
@@ -122,7 +120,9 @@ public class DockAnimation implements Runnable{
 		ship.getAH().setAngleLeft(0);
 		ship.getAH().setMoveXLeft(0);
 		ship.getAH().setMoveYLeft(0);
-		
+		ship.getAH().setMoving(false);
+		ship.setTargetable(true);
+		ship.setDocking(false);
 		
 		
 	}

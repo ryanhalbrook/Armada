@@ -4,7 +4,7 @@ public class ArmadaEngine {
     int turn = 1;
     
     // Information for computing time remaining for current turn
-    private static final double TURN_TIME = 5000.0;
+    private static final double TURN_TIME = 50000.0;
     private double mseconds = TURN_TIME;
     private long lastTime = 0;
     
@@ -84,10 +84,10 @@ public class ArmadaEngine {
     
     public void moveDynamicElement(DynamicElement activeE, int x, int y, ArrayList<DynamicElement> delements) {
         if(activeE.withinMovement(x,y) && activeE.canMovePath2(x,y, delements) && activeE instanceof Ship){
-				activeE.moveTo(x, y);
 				Ship temp = (Ship) activeE;
 				if(temp.isDocked())
 					temp.setPlanetDocked(null);
+        		activeE.moveTo(x, y);
 		}
     }
     

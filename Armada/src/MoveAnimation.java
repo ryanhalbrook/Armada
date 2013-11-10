@@ -5,7 +5,7 @@ public class MoveAnimation implements Runnable {
 
 	protected Element e;
 	protected int x,y,t,mode;//0= rotate&move, 1= rotate only, 2=move only
-	
+	boolean canMove;
 	
 	public MoveAnimation(Element inE, int inX, int inY){
 		e=inE;
@@ -13,6 +13,7 @@ public class MoveAnimation implements Runnable {
 		y=inY;
 		t=100;
 		mode=0;
+		canMove=true;
 		Thread move = new Thread(this);
 		move.start();
 	}
@@ -23,6 +24,7 @@ public class MoveAnimation implements Runnable {
 		y=inY;
 		this.t=t;
 		mode=0;
+		canMove=true;
 		Thread move = new Thread(this);
 		move.start();
 	}
@@ -32,13 +34,38 @@ public class MoveAnimation implements Runnable {
 		y=inY;
 		this.t=t;
 		mode=m;
+		canMove=true;
 		Thread move = new Thread(this);
 		move.start();
 	}
+	public MoveAnimation(Ship inE, int inX, int inY){
+		e=inE;
+		x=inX;
+		y=inY;
+		t=100;
+		mode=0;
+		canMove=(!inE.isDocking());
 	
+		Thread move = new Thread(this);
+		move.start();
+	}
 	@Override
 	public void run() {
 		e.setTargetable(false);
+		
+		while(!canMove){
+			if(e instanceof Ship)
+				canMove=(!((Ship)e).isDocking());
+			else
+				break;
+			
+			try {
+        		Thread.sleep(10);
+        	} catch (InterruptedException e) {
+        		e.printStackTrace();
+        	}
+		}
+		
 		//System.out.println("moving to: " + x + ", " + y);
 		int mvTime=t;
 		int moveX=x;
@@ -50,6 +77,8 @@ public class MoveAnimation implements Runnable {
 		e.getAH().setAngleLeft(ra);
 		e.getAH().setMoveXLeft(deltaX);
 		e.getAH().setMoveYLeft(deltaY);
+		
+		
 		
 		if(mode==2)
 		{

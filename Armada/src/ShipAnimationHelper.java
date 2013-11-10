@@ -15,4 +15,7 @@ public class ShipAnimationHelper extends DynamicAnimationHelper {
 	public void dock(Ship s,Planet p,int mode){
 		DockAnimation da = new DockAnimation(s,p,mode);
 	}
+	public void moveTo(int x, int y){
+		MoveAnimation ma = new MoveAnimation((Ship)(this.getE()),x,y);
+	}
 }
