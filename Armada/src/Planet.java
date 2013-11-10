@@ -65,6 +65,22 @@ public class Planet extends DynamicElement{
 		
 	}
 	
+	public void startOfTurn(ArmadaEngine engine){
+		for(Ship s: dockedList){
+			if(s.isDead()){
+				dockedList.remove(s);
+			}
+		}
+		if(alliance==0 && onlyOneAllianceDocked() && engine.getTurn()==dockedList.get(0).getAlliance()){
+			alliance = dockedList.get(0).getAlliance();
+		}
+		if(alliance!=0 && alliance==engine.getTurn()){
+			engine.getPlayerManager().payPlayerMoney(alliance, worth);
+			System.out.println("Pay player " + alliance);
+		}
+		
+	}
+	
 	public void unDock(Ship s){
 		dockedList.remove(s);
 		

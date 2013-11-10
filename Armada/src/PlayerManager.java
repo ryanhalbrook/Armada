@@ -30,7 +30,7 @@ public class PlayerManager {
 			}
 		}
 	}
-	
+	 
 	public boolean canPay(int alliance, int pay){
 		for(Player p: players){
 			if(p.getAlliance() == alliance){

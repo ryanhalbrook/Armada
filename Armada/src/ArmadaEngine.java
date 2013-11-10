@@ -81,7 +81,12 @@ public class ArmadaEngine {
 	public void startTurn() {
 	    for (DynamicElement d : delements) {
 				d.startOfTurn();
+				if (d instanceof Planet) {
+				    Planet p = (Planet)d;
+				    p.startOfTurn(this);
+				}
 		}
+		
 	    mseconds = TURN_TIME;
 	}
     
