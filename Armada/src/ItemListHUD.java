@@ -74,7 +74,7 @@ public class ItemListHUD extends HUD {
 				activeB=b;
 				activeB.setSelected(true);
 				if(p.getDocked().size() < 1){
-					InformationPopupLayer.getInstance().showPopup("There are no docked ships");
+					//InformationPopupLayer.getInstance().showPopup("There are no docked ships");
 				}
 				return true;
 			}

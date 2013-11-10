@@ -5,6 +5,8 @@ public class InformationPopupLayer extends ViewLayer {
     private boolean fadingOut = true;
     private float phase = 1.0f;
     static final int PHASE_TIME = 3000;
+    static final Color DEFAULT_COLOR = new Color(0.0f, 0.1f, 0.1f, 1.0f);
+    private Color backgroundColor = DEFAULT_COLOR;
     //public static InformationPopupLayer ipl;
     /*
     public static InformationPopupLayer getInstance(){
@@ -20,6 +22,15 @@ public class InformationPopupLayer extends ViewLayer {
     }
     
     public void showPopup(String text) {
+        showPopup(text, null);
+    }
+    
+    public void showPopup(String text, Color backgroundColor) {
+        if (backgroundColor == null) {
+            backgroundColor = DEFAULT_COLOR;
+        } else {
+            this.backgroundColor = backgroundColor;
+        }
         this.text = text;
         phase = 0.0f;
     }
