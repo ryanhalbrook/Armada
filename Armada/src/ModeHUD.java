@@ -73,14 +73,17 @@ public class ModeHUD extends HUD{
 			        int radius = 20;
 			        g.drawOval(grid.getCurrentX()-radius, grid.getCurrentY()-radius, radius*2, radius*2);
 			    } else {
+			        int counter = 0;
 			        for (DynamicElement d : grid.getDelements()) {
 			            if (d instanceof Ship && d.getAlliance()==grid.getTurn() && d.withinMovement(grid.getCurrentX(),grid.getCurrentY()) && d.isTargetable()) {
 			                shipX = d.getX();
 			                shipY = d.getY();
-			                g.drawLine(shipX-grid.getViewRegion().getX(), shipY-grid.getViewRegion().getY(), grid.getCurrentX(), grid.getCurrentY());
+			                g.drawLine(shipX-grid.getViewRegion().getX(), shipY-grid.getViewRegion().getY(), grid.getCurrentX()-counter*50, grid.getCurrentY()-counter*50);
 			                int radius = 20;
-			                g.drawOval(grid.getCurrentX()-radius, grid.getCurrentY()-radius, radius*2, radius*2);
+			                g.drawOval(grid.getCurrentX()-counter*50-radius, grid.getCurrentY()-counter*50-radius, radius*2, radius*2);
+			                counter++;
 			            }
+			            
 			        }
 			    }
 		    }
