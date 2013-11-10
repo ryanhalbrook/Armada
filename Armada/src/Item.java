@@ -42,7 +42,28 @@ public class Item {
 		}
 		if(priority == 1){// for non-flat calculations.  ie a*b
 			if(ItemList.keyInt(id, ItemList.ItemStats.WeaponsPercentage)){
-				s.weaponsPerInc(ItemList.getInt(id, ItemList.ItemStats.WeaponsPercentage));
+				s.maxWeaponsPerInc(ItemList.getInt(id, ItemList.ItemStats.WeaponsPercentage));
+			}
+			if(ItemList.keyInt(id, ItemList.ItemStats.EnginesPercentage)){
+				s.maxEnginesPerInc(ItemList.getInt(id, ItemList.ItemStats.EnginesPercentage));
+			}
+			if(ItemList.keyInt(id, ItemList.ItemStats.HullPercentage)){
+				s.maxHullPerInc(ItemList.getInt(id, ItemList.ItemStats.HullPercentage));
+			}
+			if(ItemList.keyInt(id, ItemList.ItemStats.SpeedPercentage)){
+				s.maxSpeedPerInc(ItemList.getInt(id, ItemList.ItemStats.SpeedPercentage));
+			}
+			if(ItemList.keyInt(id, ItemList.ItemStats.SpeedOverload)){
+				s.speedPerInc(ItemList.getInt(id, ItemList.ItemStats.SpeedOverload));
+			}
+			if(ItemList.keyInt(id, ItemList.ItemStats.WeaponsOverload)){
+				s.weaponsPerInc(ItemList.getInt(id, ItemList.ItemStats.WeaponsOverload));
+			}
+			if(ItemList.keyInt(id, ItemList.ItemStats.EnginesOverload)){
+				s.enginesPerInc(ItemList.getInt(id, ItemList.ItemStats.EnginesOverload));
+			}
+			if(ItemList.keyInt(id, ItemList.ItemStats.HullOverload)){
+				s.hullPerInc(ItemList.getInt(id, ItemList.ItemStats.HullOverload));
 			}
 		}
 		if(priority == 2){// for calculations based on other stats.  ie damage += hull * 0.2

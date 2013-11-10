@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class DynamicElement extends Element {
 
-	protected int range, hull, maxHull, engine, maxEngine, speed, alliance, weapons;
+	protected int range, hull, maxHull, engine, maxEngine, speed, alliance, weapons, maxSpeed, maxWeapons;
 	protected int moved = 0;
 	
 	protected HealthBar hb;
@@ -183,6 +183,26 @@ public class DynamicElement extends Element {
 		moved=0;
 		canAttack=true;
 		canMove=true;
+		//new Overload Mechanic: subtracts a set amount from overloaded stat at the start of each turn. Currently only checks one overloaded stat because my current idea is that no ship should have more than one overload at a time.
+		//the multiple checks are necessary for a turn-based percentage subtraction from the current overloaded stat.
+		//If it's too messy or doesn't work or isn't practical, both the overloaded stat and the turn-based subtraction can be turned into flat values.
+		if (engine>maxEngine){
+			engine-=engine*.15;
+			if ((double)engine/maxEngine <= .001 || ((double)engine/maxEngine >= .85 && (double)engine/maxEngine < 1.0)) engine = maxEngine;
+		}
+		else if (hull>maxHull){
+			hull-=hull*.15;
+			if ((double)hull/maxHull <= .001 || ((double)hull/maxHull >= .85 && (double)engine/maxHull < 1.0)) hull = maxHull;
+		}	
+		else if (speed>maxSpeed){
+			speed-=speed*.15;
+			if ((double)speed/maxSpeed <= .001 || ((double)speed/maxSpeed >= .85 && (double)speed/maxSpeed < 1.0)) speed = maxSpeed;
+		}
+		else if (weapons>maxWeapons){
+			weapons-=weapons*.15;
+			if ((double)weapons/maxWeapons <= .001 || ((double)weapons/maxWeapons >= .85 && (double)weapons/maxWeapons < 1.0)) weapons = maxWeapons;
+		}
+		
 	}
 
 	

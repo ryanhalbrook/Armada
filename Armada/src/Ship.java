@@ -175,6 +175,45 @@ public class Ship extends DynamicElement{
 		weapons *= d;
 	}
 	
+	public void maxWeaponsPerInc(int i){
+		double d = ((double)i)/100 +1;
+		maxWeapons *= d;
+		weapons = maxWeapons;
+	}
+	
+	public void enginesPerInc(int i){
+		double d = ((double)i)/100 +1;
+		engine *= d;
+	}
+	
+	public void maxEnginesPerInc(int i){
+		double d = ((double)i)/100 +1;
+		maxEngine *= d;
+		engine = maxEngine;
+	}
+	
+	public void hullPerInc(int i){
+		double d = ((double)i)/100 +1;
+		hull *= d;
+	}
+	
+	public void maxHullPerInc(int i){
+		double d = ((double)i)/100 +1;
+		maxHull *= d;
+		hull = maxHull;
+	}
+	
+	public void speedPerInc(int i){
+		double d = ((double)i)/100 +1;
+		speed *= d;
+	}
+	
+	public void maxSpeedPerInc(int i){
+		double d = ((double)i)/100 +1;
+		maxSpeed *= d;
+		speed = maxSpeed;
+	}
+	
 	public void incSpeedFlat(int i){
 		speed += i;
 	}

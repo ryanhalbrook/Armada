@@ -5,12 +5,13 @@ import java.util.HashMap;
 public class ItemList {
 	//STEP 0 : Only items that edit ship stats are supported right now.  Proc items are not supported
 	public enum ItemNames{//STEP 1 : When adding a new item, add the name here.  This is what an item's id is
-		HullPlate, WeaponsUpgrade, EnginesUpgrade, SpeedUpgrade, ScalingWeaponsUpgrade;
+		HullPlate, WeaponsUpgrade, EnginesUpgrade, SpeedUpgrade, ScalingWeaponsUpgrade, ScalingEnginesUpgrade, ScalingHullUpgrade, ScalingSpeedUpgrade, OverloadHull, OverloadWeapons, OverloadEngines, OverloadSpeed;
 	}
 	
 	public enum ItemStats{//STEP 2 : If the item uses a stat not seen here, you will need to add it to this list.  You will also have to edit the Item class (I also have instructions there) because it does not yet support the stat if it is not here
 		HullFlat /*Adds a flat value to maxHull*/, WeaponsFlat/*Adds a flat value to weapons (damage)*/, EnginesFlat/*Adds a flat value to engines*/, 
-		SpeedFlat/*Adds a flat value to speed*/, WeaponsPercentage/*Adds a percentage-based boost to weapons*/, Description/*Item's description*/, Price/*Item's price*/, InGameName/*Item's in game name*/;
+		SpeedFlat/*Adds a flat value to speed*/, WeaponsPercentage/*Adds a percentage-based boost to weapons*/, EnginesPercentage/*Adds a percentage-based boost to engines*/, HullPercentage/*Adds a percentage-based boost to hull*/,
+		SpeedPercentage/*Adds a percentage-based boost to speed*/, HullOverload/*Overloads the hull*/, WeaponsOverload/*Overloads the weapons*/, EnginesOverload/*Overloads the engines*/, SpeedOverload/*Overloads the speed*/, Description/*Item's description*/, Price/*Item's price*/, InGameName/*Item's in game name*/;
 	}
 	
 	private static HashMap<String, Integer> itemVals = new HashMap<String, Integer>();
@@ -44,11 +45,53 @@ public class ItemList {
 		itemDescriptions.put(ItemNames.SpeedUpgrade.name()+ItemStats.Description, "Increases Speed by " + ItemList.getInt(ItemNames.SpeedUpgrade, ItemStats.SpeedFlat));
 		itemDescriptions.put(ItemNames.SpeedUpgrade.name() + ItemStats.InGameName, "New Rocket Boosters");
 		
-		//PercentageWeaponsUpgrade
-		itemVals.put(ItemNames.ScalingWeaponsUpgrade.name()+ItemStats.WeaponsPercentage.name(), 15);//you had ItemStats.PercentageWeaponsUpgrade - PercentageWeaponsUpgrade is a name, not a stat
+		//ScalingWeaponsUpgrade
+		itemVals.put(ItemNames.ScalingWeaponsUpgrade.name()+ItemStats.WeaponsPercentage.name(), 15);
 		itemVals.put(ItemNames.ScalingWeaponsUpgrade.name()+ItemStats.Price.name(), 100);
 		itemDescriptions.put(ItemNames.ScalingWeaponsUpgrade.name()+ItemStats.Description, "Increases Weapons by " + ItemList.getInt(ItemNames.ScalingWeaponsUpgrade, ItemStats.WeaponsPercentage) +"%");
 		itemDescriptions.put(ItemNames.ScalingWeaponsUpgrade.name() + ItemStats.InGameName, "Increased Explosive Firepower");
+		
+		//ScalingHullUpgrade
+		itemVals.put(ItemNames.ScalingHullUpgrade.name()+ItemStats.HullPercentage.name(), 15);
+		itemVals.put(ItemNames.ScalingHullUpgrade.name()+ItemStats.Price.name(), 100);
+		itemDescriptions.put(ItemNames.ScalingHullUpgrade.name()+ItemStats.Description, "Increases Hull by " + ItemList.getInt(ItemNames.ScalingHullUpgrade, ItemStats.HullPercentage) +"%");
+		itemDescriptions.put(ItemNames.ScalingHullUpgrade.name() + ItemStats.InGameName, "Increased Hull Durability");
+		
+		//ScalingEnginesUpgrade
+		itemVals.put(ItemNames.ScalingEnginesUpgrade.name()+ItemStats.EnginesPercentage.name(), 15);
+		itemVals.put(ItemNames.ScalingEnginesUpgrade.name()+ItemStats.Price.name(), 100);
+		itemDescriptions.put(ItemNames.ScalingEnginesUpgrade.name()+ItemStats.Description, "Increases Engines by " + ItemList.getInt(ItemNames.ScalingEnginesUpgrade, ItemStats.EnginesPercentage) +"%");
+		itemDescriptions.put(ItemNames.ScalingEnginesUpgrade.name() + ItemStats.InGameName, "Increased Engines Durability");
+		
+		//ScalingSpeedUpgrade
+		itemVals.put(ItemNames.ScalingSpeedUpgrade.name()+ItemStats.SpeedPercentage.name(), 15);
+		itemVals.put(ItemNames.ScalingSpeedUpgrade.name()+ItemStats.Price.name(), 100);
+		itemDescriptions.put(ItemNames.ScalingSpeedUpgrade.name()+ItemStats.Description, "Increases Speed by " + ItemList.getInt(ItemNames.ScalingSpeedUpgrade, ItemStats.SpeedPercentage) +"%");
+		itemDescriptions.put(ItemNames.ScalingSpeedUpgrade.name() + ItemStats.InGameName, "Increased Rocket Boosters Functionality");
+		
+		//new Overload Mechanic: Engines
+		itemVals.put(ItemNames.OverloadEngines.name()+ItemStats.EnginesOverload.name(), 45);
+		itemVals.put(ItemNames.OverloadEngines.name()+ItemStats.Price.name(), 150);
+		itemDescriptions.put(ItemNames.OverloadEngines.name()+ItemStats.Description, "Temporarily increases Engines by " + ItemList.getInt(ItemNames.OverloadEngines, ItemStats.EnginesOverload) +"%");
+		itemDescriptions.put(ItemNames.OverloadEngines.name() + ItemStats.InGameName, "Overloading Engines");
+		
+		//new Overload Mechanic: Speed
+		itemVals.put(ItemNames.OverloadSpeed.name()+ItemStats.SpeedOverload.name(), 45);
+		itemVals.put(ItemNames.OverloadSpeed.name()+ItemStats.Price.name(), 150);
+		itemDescriptions.put(ItemNames.OverloadSpeed.name()+ItemStats.Description, "Temporarily increases Speed by " + ItemList.getInt(ItemNames.OverloadSpeed, ItemStats.SpeedOverload) +"%");
+		itemDescriptions.put(ItemNames.OverloadSpeed.name() + ItemStats.InGameName, "Overloading Speed");
+		
+		//new Overload Mechanic: Hull
+		itemVals.put(ItemNames.OverloadHull.name()+ItemStats.HullOverload.name(), 45);
+		itemVals.put(ItemNames.OverloadHull.name()+ItemStats.Price.name(), 150);
+		itemDescriptions.put(ItemNames.OverloadHull.name()+ItemStats.Description, "Temporarily increases Hull by " + ItemList.getInt(ItemNames.OverloadHull, ItemStats.HullOverload) +"%");
+		itemDescriptions.put(ItemNames.OverloadHull.name() + ItemStats.InGameName, "Overloading Hull");
+		
+		//new Overload Mechanic: Weapons
+		itemVals.put(ItemNames.OverloadWeapons.name()+ItemStats.WeaponsOverload.name(), 45);
+		itemVals.put(ItemNames.OverloadWeapons.name()+ItemStats.Price.name(), 150);
+		itemDescriptions.put(ItemNames.OverloadWeapons.name()+ItemStats.Description, "Temporarily increases Weapons by " + ItemList.getInt(ItemNames.OverloadWeapons, ItemStats.WeaponsOverload) +"%");
+		itemDescriptions.put(ItemNames.OverloadWeapons.name() + ItemStats.InGameName, "Overloading Weapons");
 	};
 	
 	
