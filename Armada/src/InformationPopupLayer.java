@@ -5,16 +5,17 @@ public class InformationPopupLayer extends ViewLayer {
     private boolean fadingOut = true;
     private float phase = 1.0f;
     static final int PHASE_TIME = 3000;
-    public static InformationPopupLayer ipl;
-    
+    //public static InformationPopupLayer ipl;
+    /*
     public static InformationPopupLayer getInstance(){
     	if(ipl == null){
     		ipl = new InformationPopupLayer(new BoundingRectangle(0, 45, 200, 35));
     	}
     	return ipl;
     }
+    */
     
-    private InformationPopupLayer(BoundingRectangle b) {
+    public InformationPopupLayer(BoundingRectangle b) {
         super(b);
     }
     

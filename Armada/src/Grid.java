@@ -215,7 +215,7 @@ public class Grid extends ViewLayer {
 			return true;
 		}
 		if(activeE.getAlliance()!=getTurn()){
-			InformationPopupLayer.getInstance().showPopup("Can only command units under your control");
+			gc.showInfo("Can only command units under your control");
 			return true;
 		}	
 		if(mode == 1) { //move
@@ -229,7 +229,7 @@ public class Grid extends ViewLayer {
 				engine.attackHull(activeE, inX, inY, delements);
 		    }
 			else if (!activeE.canAttack()){
-				InformationPopupLayer.getInstance().showPopup("Cannot attack again this turn");
+				gc.showInfo("Cannot attack again this turn");
 			}
 		    return true;
 		}
@@ -239,7 +239,7 @@ public class Grid extends ViewLayer {
 				engine.attackEngine(activeE, inX, inY, delements);
 			}
 			else if (!activeE.canAttack()){
-				InformationPopupLayer.getInstance().showPopup("Cannot attack again this turn");
+				gc.showInfo("Cannot attack again this turn");
 			}
 		}
 		if(mode == 4) {
