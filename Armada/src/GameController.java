@@ -14,6 +14,7 @@ public class GameController extends ViewLayerController {
     private HUDmanager hud = null;
     private boolean moveMode = false, gameOn=true;
     ApplicationManager am = null;
+    private int lastTurn = 0;
     
     int lastX = -1;
 	int lastY = -1;
@@ -40,6 +41,12 @@ public class GameController extends ViewLayerController {
     
     public void refresh() {
         super.refresh();
+        int turn = grid.getTurn();
+        if (lastTurn != turn) {
+            newTurn();
+        }
+        lastTurn = turn;
+        
         if(!gameOn) {
             return;
         }
@@ -54,8 +61,6 @@ public class GameController extends ViewLayerController {
 		grid.update();
 	    //repaint();
     }
-    
-    
     
     public void endGame(){
 		JFrame end = new JFrame();
