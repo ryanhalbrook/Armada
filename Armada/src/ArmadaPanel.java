@@ -57,7 +57,7 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 			endGame();
 			return;
 		}
-		grid.refresh();
+		grid.refresh(0, 0);
 		grid.update();
 	    repaint();
 	}

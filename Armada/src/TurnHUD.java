@@ -8,15 +8,17 @@ public class TurnHUD extends HUD{
     private Color player2Color = new Color(0.0f, 0.0f, 1.0f, 0.5f);
 	static int BAR_HEIGHT= 20;
 	private float transitionPhase = 1.0f;
-	public static final float TRANSITION_MILLISECONDS = 1000;
+	public static final int TRANSITION_MILLISECONDS = 700;
 	String lastText = null;
 	public TurnHUD(Grid gr) {
 		super(0, 0, 2000, BAR_HEIGHT, gr);
 	}
 	
-	public void refresh() {
+	public void refresh(long previousTime, long currentTime) {
+	    int delta = (int)(currentTime - previousTime);
+	    float step = delta / (TRANSITION_MILLISECONDS * 1.0f);
 	    if (transitionPhase > 0.0f) {
-	        transitionPhase -= 0.04f;
+	        transitionPhase -= step;
 	    }
 	    if (transitionPhase < 0.0f) {
 	        transitionPhase = 0.0f;

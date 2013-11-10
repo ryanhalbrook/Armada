@@ -1,19 +1,27 @@
 import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
+import java.util.*;
 
 public class ViewLayerController implements KeyListener, MouseListener, MouseMotionListener, ActionListener {
     protected ViewLayer viewLayer = null;
+    private long lastTime;
     
     public void actionPerformed(ActionEvent evt) {
-        refresh();
+        if (lastTime == 0) {
+		    lastTime = new GregorianCalendar().getTimeInMillis();
+		}
+	    long newTime = new GregorianCalendar().getTimeInMillis();
+        viewLayer.refresh(lastTime, newTime);
+        refresh(lastTime, newTime);
     }
     
     public ViewLayerController(ViewLayer vl) {
         this.viewLayer = vl;
     }
-    public void refresh() {
-        viewLayer.refresh();
+    
+    protected void refresh(long previousTime, long currentTime) {
+        lastTime = currentTime;
     }
     public void setViewLayer(ViewLayer vl) {
         this.viewLayer = vl;

@@ -39,8 +39,8 @@ public class GameController extends ViewLayerController {
 	    viewLayer.addSublayer(new BackgroundImageViewLayer(new BoundingRectangle(0, 0, dsb), viewRegion, img));
     }
     
-    public void refresh() {
-        super.refresh();
+    public void refresh(long previousTime, long currentTime) {
+        super.refresh(previousTime, currentTime);
         int turn = grid.getTurn();
         if (lastTurn != turn) {
             newTurn();
@@ -57,7 +57,7 @@ public class GameController extends ViewLayerController {
 			endGame();
 			return;
 		}
-		grid.refresh();
+		grid.refresh(previousTime, currentTime);
 		grid.update();
 	    //repaint();
     }

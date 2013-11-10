@@ -85,9 +85,9 @@ public class ViewLayer {
         }
     }
     
-    public void refresh() {
+    public void refresh(long previousTime, long currentTime) {
         for (ViewLayer vl : subLayers) {
-            vl.refresh();
+            vl.refresh(previousTime, currentTime);
         }
     }
     
