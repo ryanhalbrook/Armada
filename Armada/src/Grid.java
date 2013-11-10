@@ -72,7 +72,7 @@ public class Grid extends ViewLayer {
 	}
 	
 	//does not deselect ship.  use setMode(0) to do that 
-	public void cancelMove() { mode = 0; }
+	public void cancelMove() { setMode(0);}
 	
 	/**
 	    Set the selected dynamic element to the next allowed selection.
@@ -103,10 +103,12 @@ public class Grid extends ViewLayer {
 	    Change the action mode to the next mode.
 	*/
 	public void nextMode(){
-		mode++;
-		if(mode > 4){
-			mode=1;
+		int temp = mode;
+		temp++;
+		if(temp > 4){
+			temp=1;
 		}
+		this.setMode(temp);
 	}
 	
 	/**
@@ -208,10 +210,14 @@ public class Grid extends ViewLayer {
 			    }
 			}
 		}
-			  
-		if(activeE==null || activeE.getAlliance()!=getTurn() || !activeE.isTargetable()) {
+	      
+		if(activeE==null || !activeE.isTargetable()) {
 			return true;
 		}
+		if(activeE.getAlliance()!=getTurn()){
+			InformationPopupLayer.getInstance().showPopup("Can only move command units under your control");
+			return true;
+		}	
 		if(mode == 1) { //move
 			inX += viewRegion.getX(); inY += viewRegion.getY();
 			engine.moveDynamicElement(activeE, inX, inY, delements);
@@ -222,12 +228,18 @@ public class Grid extends ViewLayer {
 				inX += viewRegion.getX(); inY += viewRegion.getY();
 				engine.attackHull(activeE, inX, inY, delements);
 		    }
+			else if (!activeE.canAttack()){
+				InformationPopupLayer.getInstance().showPopup("Cannot attack again this turn");
+			}
 		    return true;
 		}
 		if(mode == 3) { //attack engine
 			if(delements != null && delements.size() != 0 && activeE.canAttack()){
 				inX += viewRegion.getX(); inY += viewRegion.getY();
 				engine.attackEngine(activeE, inX, inY, delements);
+			}
+			else if (!activeE.canAttack()){
+				InformationPopupLayer.getInstance().showPopup("Cannot attack again this turn");
 			}
 		}
 		if(mode == 4) {
@@ -333,9 +345,8 @@ public class Grid extends ViewLayer {
 	public String getModeString() {
 	    if (mode == 0) return "No Selection";
 	    if (mode == 1) return "Move";
-	    if (mode == 1) return "Attack Hull";
-	    if (mode == 2) return "Attack Engine";
-	    if (mode == 3) return "Attack Hull";
+	    if (mode == 2) return "Attack Hull";
+	    if (mode == 3) return "Attack Engine";
 	    if (mode == 4) return "Dock";
 	    if (mode == 5) return "Move Fleet";
 	    return "Unknown Mode";

@@ -35,7 +35,7 @@ public class GameController extends ViewLayerController {
         grid = new Grid(this);
         hud = new HUDmanager(grid);
         viewLayer = new ViewLayer(new BoundingRectangle(0,0, dsb));
-        ipl = new InformationPopupLayer(new BoundingRectangle(0, 45, 200, 35));
+        ipl =  InformationPopupLayer.getInstance();
         viewLayer.addSublayer(ipl);
         viewLayer.addSublayer(hud.getViewLayer());
 	    viewLayer.addSublayer(grid);

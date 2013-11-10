@@ -5,9 +5,17 @@ public class InformationPopupLayer extends ViewLayer {
     private boolean fadingOut = true;
     private float phase = 1.0f;
     static final int PHASE_TIME = 3000;
-    public InformationPopupLayer(BoundingRectangle b) {
+    public static InformationPopupLayer ipl;
+    
+    public static InformationPopupLayer getInstance(){
+    	if(ipl == null){
+    		ipl = new InformationPopupLayer(new BoundingRectangle(0, 45, 200, 35));
+    	}
+    	return ipl;
+    }
+    
+    private InformationPopupLayer(BoundingRectangle b) {
         super(b);
-        
     }
     
     public void showPopup(String text) {
@@ -25,6 +33,10 @@ public class InformationPopupLayer extends ViewLayer {
     public boolean click(int x, int y) { return false; }
     
     public void draw(Graphics g) {
+    	if(text != null){
+    		r.width=g.getFontMetrics().stringWidth(text) + 50;
+    	}
+    	
         if (phase > 0.99f) return;
         float alpha = 1.0f;
         if (phase < 0.2f) {

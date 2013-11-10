@@ -97,6 +97,15 @@ public class ArmadaEngine {
 					temp.setPlanetDocked(null);
         		activeE.moveTo(x, y);
 		}
+        else if(!activeE.withinMovement(x,y)){
+        	InformationPopupLayer.getInstance().showPopup("Out of movement range");
+        }
+        else if(!activeE.canMovePath2(x,y, delements)){
+        	InformationPopupLayer.getInstance().showPopup("Object in the way");
+        }
+        else if(!(activeE instanceof Ship)){
+        	InformationPopupLayer.getInstance().showPopup("Only ships can move");
+        }
     }
     
     public void attackHull(DynamicElement activeE, int x, int y, ArrayList<DynamicElement> delements) {
