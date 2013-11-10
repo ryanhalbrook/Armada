@@ -38,8 +38,8 @@ public class MapHUD extends HUD{
 	    
 	    r.setWidth((int)(grid.getAp().getWidth() * scale));
 	    r.setHeight((int)(grid.getAp().getHeight() * scale));
-	    r.setX(grid.getAp().getWidth() - r.getWidth() - 10);
-	    r.setY(grid.getAp().getHeight() - r.getHeight() - 10);
+	    r.setX(grid.getAp().getWidth() - r.getWidth());
+	    r.setY(grid.getAp().getHeight() - r.getHeight());
 	    int x = r.getX();
 	    int y = r.getY();
 	    int width = r.getWidth();
@@ -80,6 +80,10 @@ public class MapHUD extends HUD{
 	}
 
 	public void moveMap(int inX, int inY){
+	/*
+	    inX += 10;
+	    inY += 10;
+	    */
 		int newX = inX-r.x;
 		int newY = inY-r.y;
 	    double wPerc = (double)r.width/Grid.GRID_WIDTH;
