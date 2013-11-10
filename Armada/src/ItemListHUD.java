@@ -28,7 +28,6 @@ public class ItemListHUD extends HUD {
 	    int width = r.getWidth();
 	    int height = r.getHeight();
 		updateLocation();
-		System.out.println("Adding buttons");
 		buttons.add(new ItemButton(x+3, y+3, width-6, 20, grid, ItemList.ItemNames.EnginesUpgrade));
 		buttons.add(new ItemButton(x+3, y+3, width-6, 20, grid, ItemList.ItemNames.HullPlate));
 		buttons.add(new ItemButton(x+3, y+3, width-6, 20, grid, ItemList.ItemNames.ScalingWeaponsUpgrade));
@@ -74,6 +73,9 @@ public class ItemListHUD extends HUD {
 				dh=new DockHUD(grid, 5);
 				activeB=b;
 				activeB.setSelected(true);
+				if(p.getDocked().size() < 1){
+					InformationPopupLayer.getInstance().showPopup("There are no docked ships");
+				}
 				return true;
 			}
 		}

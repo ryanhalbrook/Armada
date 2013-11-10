@@ -15,7 +15,7 @@ public class DockHUD extends HUD{
 	}
 	
 	public void draw(Graphics g){
-	    int x = r.getX();
+		int x = r.getX();
 	    int y = r.getY();
 	    int width = r.getWidth();
 	    int height = r.getHeight();
@@ -27,11 +27,7 @@ public class DockHUD extends HUD{
 		}
 		updateLocation();
 		if(p.getDocked().size() < 1){
-			g.setColor(Color.BLACK);
-			width= 150;
-			g.fillRect(x, y, width, 30);
-			g.setColor(Color.WHITE);
-			g.drawString("There are no docked ships", x+width/2 - g.getFontMetrics().stringWidth("There are no docked ships")/2, y+20);
+			//InformationPopupLayer.getInstance().showPopup("There are no docked ships");
 			return;
 		}
 		

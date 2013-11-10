@@ -36,7 +36,6 @@ public class InformationPopupLayer extends ViewLayer {
     	if(text != null){
     		r.width=g.getFontMetrics().stringWidth(text) + 50;
     	}
-    	
         if (phase > 0.99f) return;
         float alpha = 1.0f;
         if (phase < 0.2f) {

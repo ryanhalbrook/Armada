@@ -27,15 +27,15 @@ public class StatHUD extends HUD{
 	    int height = r.getHeight();
 		updateLocation();
 		if(grid.getActiveE() instanceof Ship){
-			buttons.add(new Button(0,y,width,18, grid,"Hull: " + grid.getActiveE().getHull() + "/" + grid.getActiveE().getMaxHull()));//x and y actually don't matter
-			buttons.add(new Button(0,y,width,18, grid,"Engine: " + grid.getActiveE().getEngine() + "/" + grid.getActiveE().getMaxEngine()));
-			buttons.add(new Button(0,y,width,18, grid,"Damage: " + grid.getActiveE().getWeapons()));
-			buttons.add(new Button(0,y,width,18, grid,"Speed: " + grid.getActiveE().getAdjustedSpeed() + "/" + grid.getActiveE().getSpeed()));
-			buttons.add(new Button(0,y,width,18, grid,"Movement Left: " + (grid.getActiveE().getAdjustedSpeed() - grid.getActiveE().getMoved())));
-			buttons.add(new Button(0,y,width,18, grid,"Can Attack: " + grid.getActiveE().canAttack()));
+			buttons.add(new Button(0,y,width,18, grid,"Hull: " + grid.getActiveE().getHull() + "/" + grid.getActiveE().getMaxHull(), false));//x and y actually don't matter
+			buttons.add(new Button(0,y,width,18, grid,"Engine: " + grid.getActiveE().getEngine() + "/" + grid.getActiveE().getMaxEngine(), false));
+			buttons.add(new Button(0,y,width,18, grid,"Damage: " + grid.getActiveE().getWeapons(), false));
+			buttons.add(new Button(0,y,width,18, grid,"Speed: " + grid.getActiveE().getAdjustedSpeed() + "/" + grid.getActiveE().getSpeed(), false));
+			buttons.add(new Button(0,y,width,18, grid,"Movement Left: " + (grid.getActiveE().getAdjustedSpeed() - grid.getActiveE().getMoved()), false));
+			buttons.add(new Button(0,y,width,18, grid,"Can Attack: " + grid.getActiveE().canAttack(), false));
 		}
 		if(grid.getActiveE() instanceof Planet){
-			buttons.add(new Button(0,y,width,18, grid,"Health: " + grid.getActiveE().getHull() + "/" + grid.getActiveE().getMaxHull()));
+			buttons.add(new Button(0,y,width,18, grid,"Health: " + grid.getActiveE().getHull() + "/" + grid.getActiveE().getMaxHull(), false));
 		}
 	}
 	
@@ -52,15 +52,10 @@ public class StatHUD extends HUD{
 	}
 	
 	public void draw(Graphics g){
-		if(grid.getActiveE() != de){
-			de=grid.getActiveE();
-			updateLocation();
-			fillButtons();
-			updateButtons();
-		}
 		if(grid.getActiveE() == null)return;
 		
 		updateLocation();
+		fillButtons();	
 		updateButtons();
 		
 		g.setColor(new Color(25,125,175, 150));

@@ -39,6 +39,9 @@ public class ArmadaEngine {
 		delements.add(new NormalShip(400,330,2));
 		delements.add(new NormalShip(450,330,2));
 		Spawner.spawnPlanets(this, 40);
+		Ship s = new NormalShip(800,800,1);
+		s.addItem(new Item(ItemList.ItemNames.OverloadSpeed));
+		delements.add(s);
     }
     
     public void add(DynamicElement inDE){
