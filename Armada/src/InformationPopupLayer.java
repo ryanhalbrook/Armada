@@ -20,7 +20,6 @@ public class InformationPopupLayer extends ViewLayer {
         int delta = (int)(currentTime - previousTime);
         float step = delta / (PHASE_TIME * 1.0f);
         if (phase < 1.0f) phase += step;
-        System.out.println("Phase: " + phase);
     }
     
     public boolean click(int x, int y) { return false; }
@@ -33,9 +32,14 @@ public class InformationPopupLayer extends ViewLayer {
         } else if (phase > 0.8f) {
             alpha = (1 - phase) * 5.0f;
         }
-        g.setColor(new Color(0.0f, 0.9f, 1.0f, alpha));
+        g.setColor(new Color(0.0f, 0.1f, 0.1f, alpha));
         g.fillRect(this.r.getX(), this.r.getY(), this.r.getWidth(), this.r.getHeight());
-        g.setColor(Color.BLACK);
-        g.drawString(text, this.r.getX(), this.r.getY()+ this.r.getHeight());
+        g.setColor(new Color(1.0f, 1.0f, 1.0f, alpha));
+        FontMetrics fm = g.getFontMetrics();
+        int textWidth = fm.stringWidth(text);
+        int textHeight = fm.getHeight();
+        int startX = this.r.getX() + (int)((this.r.getWidth() - textWidth) / 2.0);
+        int startY = this.r.getY() + (int)((this.r.getHeight() - ((this.r.getHeight() - textHeight) / 2.0)));
+        g.drawString(text, startX, startY);
     }
 }
