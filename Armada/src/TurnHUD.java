@@ -62,7 +62,12 @@ public class TurnHUD extends HUD{
 		int h = (int)Math.round(BAR_HEIGHT * time/ grid.maxSecondsForTurn());
         g.setColor(new Color(0.9f, 0.9f, 0.9f, 0.6f));
         g.fillRect(grid.getAp().getWidth() - 15, 0-dy, 10, BAR_HEIGHT);
-        g.fillRect(grid.getAp().getWidth() - 15, BAR_HEIGHT - h-dy, 10, h);
+        g.setColor(new Color(currentPlayerColor.getRed() / 255.0f, currentPlayerColor.getGreen() / 255.0f, currentPlayerColor.getBlue() / 255.0f, 0.9f));
+        for(int i = BAR_HEIGHT; i > BAR_HEIGHT - h - dy; i--) {
+            if (i % 2 == 0)
+            g.fillRect(grid.getAp().getWidth() - 15, i-dy, 10, 1);
+        }
+        //g.fillRect(grid.getAp().getWidth() - 15, BAR_HEIGHT - h-dy, 10, h);
         //g.fillRect(0, BAR_HEIGHT - (int)(BAR_HEIGHT * 1/10), w, (int)(BAR_HEIGHT * 1/10));
         Font f = g.getFont();
         g.setFont(new Font(null, Font.PLAIN, 16));
