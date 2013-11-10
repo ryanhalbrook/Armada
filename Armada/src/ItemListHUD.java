@@ -65,6 +65,7 @@ public class ItemListHUD extends HUD {
 			if(activeB!=null)activeB.setSelected(false);
 			activeB=null;
 		}
+		
 		for(ItemButton b: buttons){
 			if(b.click(inX, inY)){
 				if(activeB!=null){
@@ -79,6 +80,7 @@ public class ItemListHUD extends HUD {
 				return true;
 			}
 		}
+		
 		return false;
 	}
 	
