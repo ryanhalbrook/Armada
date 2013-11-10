@@ -4,6 +4,9 @@ import javax.swing.*;
 import java.awt.image.*;
 
 /**
+    DEPRECATED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    most of this is handled by GameController.
+    
     Responsible for drawing game layers and dispatching mouse and keyboard events.
  */
 
