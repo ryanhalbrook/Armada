@@ -267,19 +267,19 @@ public class Grid extends ViewLayer {
 		return false;
 	}
 	
-	private void handleMovementStatus(ArmadaEngine.movementStatus status) {
-	    if (status == ArmadaEngine.movementStatus.SUCCESS) gc.showInfo("Moving Ship");
-	    if (status == ArmadaEngine.movementStatus.RANGE) gc.invalidMoveAttempt("Out of Range!");
-	    if (status == ArmadaEngine.movementStatus.OBJECT_IN_PATH) gc.invalidMoveAttempt("Path obstructed!");
-	    if (status == ArmadaEngine.movementStatus.CANNOT_MOVE_PLANET) gc.invalidMoveAttempt("Planets cannot move!");
-	    if (status == ArmadaEngine.movementStatus.UNKNOWN_FAILURE) gc.invalidMoveAttempt("Invalid Move!");
+	private void handleMovementStatus(ArmadaEngine.MovementStatus status) {
+	    if (status == ArmadaEngine.MovementStatus.SUCCESS) gc.showInfo("Moving Ship");
+	    if (status == ArmadaEngine.MovementStatus.RANGE) gc.invalidMoveAttempt("Out of Range!");
+	    if (status == ArmadaEngine.MovementStatus.OBJECT_IN_PATH) gc.invalidMoveAttempt("Path obstructed!");
+	    if (status == ArmadaEngine.MovementStatus.CANNOT_MOVE_PLANET) gc.invalidMoveAttempt("Planets cannot move!");
+	    if (status == ArmadaEngine.MovementStatus.UNKNOWN_FAILURE) gc.invalidMoveAttempt("Invalid Move!");
 	}
 	
-	private void handleAttackStatus(ArmadaEngine.attackStatus status) {
-	    if (status == ArmadaEngine.attackStatus.SUCCESS) gc.showInfo("Attacking Target");
-	    if (status == ArmadaEngine.attackStatus.RANGE) gc.invalidMoveAttempt("Target out of range!");
-	    if (status == ArmadaEngine.attackStatus.BAD_TARGET) gc.invalidMoveAttempt("Target out of range!");
-	    if (status == ArmadaEngine.attackStatus.UNKNOWN_FAILURE) gc.invalidMoveAttempt("Cannot attack this!");
+	private void handleAttackStatus(ArmadaEngine.AttackStatus status) {
+	    if (status == ArmadaEngine.AttackStatus.SUCCESS) gc.showInfo("Attacking Target");
+	    if (status == ArmadaEngine.AttackStatus.RANGE) gc.invalidMoveAttempt("Target out of range!");
+	    if (status == ArmadaEngine.AttackStatus.BAD_TARGET) gc.invalidMoveAttempt("Target out of range!");
+	    if (status == ArmadaEngine.AttackStatus.UNKNOWN_FAILURE) gc.invalidMoveAttempt("Cannot attack this!");
 	}
 	
 	public void toggleTurn() {

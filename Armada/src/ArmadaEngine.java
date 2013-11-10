@@ -13,11 +13,11 @@ public class ArmadaEngine {
     private ArrayList<Element> elements;
     private ArrayList<DynamicElement> delements;
     
-    public enum movementStatus {
+    public enum MovementStatus {
         SUCCESS, OBJECT_IN_PATH, RANGE, CANNOT_MOVE_PLANET, UNKNOWN_FAILURE;
     }
     
-    public enum attackStatus {
+    public enum AttackStatus {
         SUCCESS, OUT_OF_SHOTS, RANGE, BAD_TARGET, UNKNOWN_FAILURE;
     }
     
@@ -98,59 +98,59 @@ public class ArmadaEngine {
 	    mseconds = TURN_TIME;
 	}
     
-    public movementStatus moveDynamicElement(DynamicElement activeE, int x, int y) {
+    public MovementStatus moveDynamicElement(DynamicElement activeE, int x, int y) {
         if(activeE.withinMovement(x,y) && activeE.canMovePath2(x,y, delements) && activeE instanceof Ship){
 				Ship temp = (Ship) activeE;
 				if(temp.isDocked())
 					temp.setPlanetDocked(null);
         		activeE.moveTo(x, y);
-        		return movementStatus.SUCCESS;
+        		return MovementStatus.SUCCESS;
 		}
         else if(!(activeE instanceof Ship)){
         	//InformationPopupLayer.getInstance().showPopup("Only Ships Can Move");
-        	return movementStatus.CANNOT_MOVE_PLANET;
+        	return MovementStatus.CANNOT_MOVE_PLANET;
         }
         else if(!activeE.withinMovement(x,y)){
         	//InformationPopupLayer.getInstance().showPopup("Out Of Movement Range");
-        	return movementStatus.RANGE;
+        	return MovementStatus.RANGE;
         }
         else if(!activeE.canMovePath2(x,y, delements)){
         	//InformationPopupLayer.getInstance().showPopup("Object In The Way");
-        	return movementStatus.OBJECT_IN_PATH;
+        	return MovementStatus.OBJECT_IN_PATH;
         }
-        return movementStatus.UNKNOWN_FAILURE;
+        return MovementStatus.UNKNOWN_FAILURE;
     }
     
-    public attackStatus attackHull(DynamicElement activeE, int x, int y) {
+    public AttackStatus attackHull(DynamicElement activeE, int x, int y) {
         for (DynamicElement d : delements) {
 				if(d.isIn(x,y) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(x,y) && d.isTargetable()){
 						d.hullTakeDamage(activeE);
 						activeE.setCanAttack(false);
-						return attackStatus.SUCCESS;
+						return AttackStatus.SUCCESS;
 				}
 				else if(!activeE.withinRange(x,y)){
-				    return attackStatus.RANGE;
+				    return AttackStatus.RANGE;
 					//InformationPopupLayer.getInstance().showPopup("Out Of Range");
 				}
 				
 		}
-		return attackStatus.UNKNOWN_FAILURE;
+		return AttackStatus.UNKNOWN_FAILURE;
     }
     
-    public attackStatus attackEngine(DynamicElement activeE, int x, int y) {
+    public AttackStatus attackEngine(DynamicElement activeE, int x, int y) {
         for (DynamicElement d : delements) {
 			if(d.isIn(x,y) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(x,y) && d.isTargetable() && d.getEngine()>0){
 			    d.engineTakeDamage(activeE);
 			    activeE.setCanAttack(false);
-			    return attackStatus.SUCCESS;
+			    return AttackStatus.SUCCESS;
 			}
 			else if(!activeE.withinRange(x,y)){
 				//InformationPopupLayer.getInstance().showPopup("Out Of Range");
-				return attackStatus.RANGE;
+				return AttackStatus.RANGE;
 			}
 			
 		}
-		return attackStatus.UNKNOWN_FAILURE;
+		return AttackStatus.UNKNOWN_FAILURE;
     }
     
     public void dock(DynamicElement activeE, int x, int y) {
