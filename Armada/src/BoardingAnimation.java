@@ -4,11 +4,11 @@ public class BoardingAnimation implements Runnable{
 
 
 
-	protected DynamicElement de,target;
+	protected Ship de,target;
 	protected int x,y,mode;
 	
 	
-	public BoardingAnimation(DynamicElement att, DynamicElement target){
+	public BoardingAnimation(Ship att, Ship target){
 		de=att;
 		x=target.getX();
 		y=target.getY();
@@ -19,7 +19,7 @@ public class BoardingAnimation implements Runnable{
 		board.start();
 	}
 	
-	public BoardingAnimation(DynamicElement att, DynamicElement target, int m){
+	public BoardingAnimation(Ship att, Ship target, int m){
 		de=att;
 		if(target!=null){
 			x=target.getX();

@@ -21,24 +21,26 @@ public class Ship extends DynamicElement{
 	
 	//Every ship that extends this class needs the following line, but with values assigned to each.  Whenever update() is called, the value of the corresponding stats need to be recalculated starting with these and then adding in each appropriate buff, item, and upgrade.
 	//protected final int DEFAULT_HULL, DEFAULT_MAX_HULL, DEFAULT_SPEED, DEFAULT_BOARD, DEFAULT_ENGINE, DEFAULT_MAX_ENGINE, DEFAULT_MAX_CARGO, DEFAULT_RANGE;
-	protected int board;
+
 	
 	protected int cargo, maxCargo;
-	
-	
-	
+	protected Bridge bridge;
+	protected boolean boarding =false;
+	Element rope,hook;
 	public Ship(int team) {
 	    super();
+	    ah=new ShipAnimationHelper(this);
 	}
 	
 	//use this one
 	public Ship(int inX, int inY, int w, int h, String img, int all){
 		super(inX,inY, w, h, img, all);
 		items=new ArrayList<Item>();
+		ah=new ShipAnimationHelper(this);
 	}
 	public Ship(int inX, int inY, int w, int h, double an, String img, int all){
 		super(inX,inY, w, h,an, img, all);
-		
+		ah=new ShipAnimationHelper(this);
 	}
 	/*
 	 * @param a The alliance of the ship. 0 for neutral, 1 for p1, 2 for p2
@@ -67,7 +69,12 @@ public class Ship extends DynamicElement{
 		x=inX;
 		y=inY;
 	}
-	
+	public ShipAnimationHelper getSAH(){
+		return (ShipAnimationHelper)ah;
+	}
+	public void setSAH(ShipAnimationHelper s){
+		ah=s;
+	}
 	public int getCargo() {
 		return cargo;
 	}
@@ -117,13 +124,29 @@ public class Ship extends DynamicElement{
 		}
 		this.planetDocked = inP;
 	}
-	
+	public void board(Ship target){
+		this.getSAH().board(this, target);
+		//unboard();
+	}
+	public void unboard(){
+		if(bridge!=null)
+			this.getSAH().board(this, null,6);
+	}
 	public void draw(Graphics g, BoundingRectangle viewRect){
 		super.draw(g,viewRect);
 		if(isDocked()){
 			g.setColor(Color.WHITE);
 			g.drawString("DOCKED", x - viewRect.getX()-width/2, y - viewRect.getY() - height);
 		}
+		if(boarding){
+	    	if(rope!=null&&rope.getWidth()!=0 )
+	    		rope.draw(g, viewRect);
+	    	if(hook!=null)
+	    		hook.draw(g,viewRect);
+	    	if(bridge!=null&&bridge.getWidth()!=0){
+	    		bridge.draw(g, viewRect);
+	    	}
+	    }
 	}
 	
 	public void weaponsPerInc(int i){
@@ -153,5 +176,36 @@ public class Ship extends DynamicElement{
 	public void upgrade() {
 		
 	}
+	public Element getRope() {
+		return rope;
+	}
+
+	public void setRope(Element rope) {
+		this.rope = rope;
+	}
+	public boolean isBoarding() {
+		return boarding;
+	}
+
+	public void setBoarding(boolean boarding) {
+		this.boarding = boarding;
+	}
+
 	
+
+	public Element getHook() {
+		return hook;
+	}
+
+	public void setHook(Element hook) {
+		this.hook = hook;
+	}
+
+	public Bridge getBridge() {
+		return bridge;
+	}
+
+	public void setBridge(Bridge bridge) {
+		this.bridge = bridge;
+	}
 }

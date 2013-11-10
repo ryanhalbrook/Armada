@@ -41,6 +41,7 @@ public class Element {
 		targetable = false;
 		ah = new AnimationHelper(this);
 	}
+	
 	/*
 	 * this method is intended to be a script.  It will change the orientation of the Element and location of the Element over a few
 	 * seconds in order to show it moving as an animation 

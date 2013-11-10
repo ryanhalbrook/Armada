@@ -14,10 +14,10 @@ public class DynamicElement extends Element {
 	protected HealthBar hb;
 	protected boolean dead=false, canMove=true, canAttack=true;
 	
-	protected Element laser1,laser2,rope,hook;
-	protected Bridge bridge;
+	protected Element laser1,laser2;
+	
 	protected boolean attacking = false;
-	protected boolean boarding =false;
+	
 
 	
 
@@ -51,7 +51,7 @@ public class DynamicElement extends Element {
 	}
 	
 	public DynamicElement(int inX, int inY, int w, int h, double angle, String img, int all){
-		super(inX,inY,w,h,angle,img);
+		
 		switch(all){
 		case 1:
 			setImage(img+"_red");
@@ -62,6 +62,12 @@ public class DynamicElement extends Element {
 		default:
 			break;
 		}
+		x = inX;
+		y = inY;
+		width = w;
+		height = h;
+		this.angle=angle;
+		index=-1;
 		alliance=all;
 		targetable=true;
 		ah=new DynamicAnimationHelper(this);
@@ -211,14 +217,7 @@ public class DynamicElement extends Element {
 
 		this.getDAH().attack(this, de, attacked);
 	}
-	public void board(DynamicElement target){
-		this.getDAH().board(this, target);
-		//unboard();
-	}
-	public void unboard(){
-		if(bridge!=null)
-			this.getDAH().board(this, null,6);
-	}
+	
 	public DynamicAnimationHelper getDAH(){
 		return (DynamicAnimationHelper) ah;
 	}
@@ -262,15 +261,7 @@ public class DynamicElement extends Element {
 	    	laser1.draw(g, viewRect);
 	    	laser2.draw(g, viewRect);
 	    }
-	    if(boarding){
-	    	if(rope!=null&&rope.getWidth()!=0 )
-	    		rope.draw(g, viewRect);
-	    	if(hook!=null)
-	    		hook.draw(g,viewRect);
-	    	if(bridge!=null&&bridge.getWidth()!=0){
-	    		bridge.draw(g, viewRect);
-	    	}
-	    }
+	    
 	    
 	}
 	
@@ -387,36 +378,5 @@ public class DynamicElement extends Element {
 	public int getMoved() {
 		return moved;
 	}
-	public Element getRope() {
-		return rope;
-	}
-
-	public void setRope(Element rope) {
-		this.rope = rope;
-	}
-	public boolean isBoarding() {
-		return boarding;
-	}
-
-	public void setBoarding(boolean boarding) {
-		this.boarding = boarding;
-	}
-
 	
-
-	public Element getHook() {
-		return hook;
-	}
-
-	public void setHook(Element hook) {
-		this.hook = hook;
-	}
-
-	public Bridge getBridge() {
-		return bridge;
-	}
-
-	public void setBridge(Bridge bridge) {
-		this.bridge = bridge;
-	}
 }

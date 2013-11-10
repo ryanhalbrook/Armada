@@ -3,7 +3,7 @@ public class NormalShip extends Ship{
 
 	public NormalShip(int inX, int inY, int team) {
 		super(inX,inY, 30, 30, "fighter",team);
-		ah = new DynamicAnimationHelper(this);
+		ah = new ShipAnimationHelper(this);
 		baseMaxHull = 1000;
 		maxHull=baseMaxHull;
 		hull=maxHull;
