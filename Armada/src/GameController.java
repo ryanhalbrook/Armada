@@ -16,6 +16,8 @@ public class GameController extends ViewLayerController {
     ApplicationManager am = null;
     private int lastTurn = 0;
     
+    private InformationPopupLayer ipl;
+    
     int lastX = -1;
 	int lastY = -1;
     
@@ -33,10 +35,13 @@ public class GameController extends ViewLayerController {
         grid = new Grid(this);
         hud = new HUDmanager(grid);
         viewLayer = new ViewLayer(new BoundingRectangle(0,0, dsb));
+        ipl = new InformationPopupLayer(new BoundingRectangle(0, 0, 100, 10));
+        viewLayer.addSublayer(ipl);
         viewLayer.addSublayer(hud.getViewLayer());
 	    viewLayer.addSublayer(grid);
 	    BufferedImage img = ImageLoader.getImage("ArmadaBackground2.jpg");
 	    viewLayer.addSublayer(new BackgroundImageViewLayer(new BoundingRectangle(0, 0, dsb), viewRegion, img));
+	    
     }
     
     public void refresh(long previousTime, long currentTime) {
@@ -117,6 +122,7 @@ public class GameController extends ViewLayerController {
     }
     
     public void mousePressed(MouseEvent evt) {
+        ipl.showPopup("Mouse Pressed");
 		if(evt.getButton() == MouseEvent.BUTTON3){
 			moveMode=false;
 			grid.unselect();
