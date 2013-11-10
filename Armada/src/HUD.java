@@ -77,7 +77,12 @@ public class HUD extends ViewLayer {
 			r.x = 5;
 			r.y = grid.getAp().getHeight()/2 - r.height/2;
 			break;
+		case 9:
+		    r.x = 0;
+		    r.y = 0;
+		    break;
 		}
+		
 	}
 
 }

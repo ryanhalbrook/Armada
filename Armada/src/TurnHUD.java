@@ -83,11 +83,12 @@ public class TurnHUD extends HUD{
 		
 		int textWidth = fm.stringWidth(displayString);
 		g.drawString(displayString, grid.getAp().getWidth() - 5 - textWidth, 25-dy);
-		
+		/*
 		if(grid.getActiveE()!=null){
 			g.setColor(Color.WHITE);
 			g.drawString("1-Move | 2-Attack Hull | 3-Attack Engines | 4-Dock", 5, 25);
 		}
+		*/
 		g.setColor(Color.BLACK);
 		g.drawRect(0, 0, grid.getAp().getWidth()-1, BAR_HEIGHT-dy);
 		g.setFont(f);

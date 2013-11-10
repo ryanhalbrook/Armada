@@ -20,7 +20,7 @@ public class HUDmanager {
 	public HUDmanager(Grid gr){
 		grid = gr;
 		huds = new ArrayList<HUD>();
-		mode = new ModeHUD(gr, 1);//0=default, 1 = top left, 2 = top right, 3 = bot left, 4 = bot right
+		mode = new ModeHUD(gr, 9);//0=default, 1 = top left, 2 = top right, 3 = bot left, 4 = bot right
 		stat = new StatHUD(gr, 2);
 		turn = new TurnHUD(gr);
 		map = new MapHUD(gr,4);
@@ -30,10 +30,11 @@ public class HUDmanager {
 		turn.setName("Turn HUD");
 		items.setName("Items HUD");
 		huds.add(stat);
+		huds.add(mode);
 		huds.add(turn);
 		huds.add(map);
 		huds.add(items);
-		huds.add(mode);
+		
 		initializeViewLayer();
 	}
 	
