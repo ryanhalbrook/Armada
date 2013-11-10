@@ -31,7 +31,6 @@ public class GameController extends ViewLayerController {
         this.engine = engine;
         grid = new Grid(this);
         hud = new HUDmanager(grid);
-        hud = new HUDmanager(grid);
         viewLayer = new ViewLayer(new BoundingRectangle(0,0, dsb));
         viewLayer.addSublayer(hud.getViewLayer());
 	    viewLayer.addSublayer(grid);
@@ -40,6 +39,7 @@ public class GameController extends ViewLayerController {
     }
     
     public void refresh() {
+        super.refresh();
         if(!gameOn) {
             return;
         }
@@ -54,6 +54,8 @@ public class GameController extends ViewLayerController {
 		grid.update();
 	    //repaint();
     }
+    
+    
     
     public void endGame(){
 		JFrame end = new JFrame();
@@ -103,6 +105,10 @@ public class GameController extends ViewLayerController {
     
     public int getViewHeight() {
         return dsb.getHeight();
+    }
+    
+    public void newTurn() {
+        hud.getTurnHUD().showTransition();
     }
     
     public void mousePressed(MouseEvent evt) {

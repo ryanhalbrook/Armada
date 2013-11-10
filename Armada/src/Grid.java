@@ -252,6 +252,7 @@ public class Grid extends ViewLayer {
 	}
 	
 	public void toggleTurn() {
+	    gc.newTurn();
 	    setMode(0);
 	    engine.toggleTurn();
 	    activeE = null;

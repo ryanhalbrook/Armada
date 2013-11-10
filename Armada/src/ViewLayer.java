@@ -86,7 +86,9 @@ public class ViewLayer {
     }
     
     public void refresh() {
-        
+        for (ViewLayer vl : subLayers) {
+            vl.refresh();
+        }
     }
     
     /**

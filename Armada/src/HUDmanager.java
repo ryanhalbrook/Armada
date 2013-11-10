@@ -89,6 +89,10 @@ public class HUDmanager {
 		return (MapHUD)map;
 	}
 	
+	public TurnHUD getTurnHUD() {
+	    return (TurnHUD)turn;
+	}
+	
 	/*
 	public boolean click(int inX, int inY){
 		if(items.click(inX,inY))return true;
