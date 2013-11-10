@@ -39,9 +39,6 @@ public class ArmadaEngine {
 		delements.add(new NormalShip(400,330,2));
 		delements.add(new NormalShip(450,330,2));
 		Spawner.spawnPlanets(this, 40);
-		Ship s = new NormalShip(800,800,1);
-		s.addItem(new Item(ItemList.ItemNames.OverloadSpeed));
-		delements.add(s);
     }
     
     public void add(DynamicElement inDE){
@@ -100,15 +97,16 @@ public class ArmadaEngine {
 					temp.setPlanetDocked(null);
         		activeE.moveTo(x, y);
 		}
+        else if(!(activeE instanceof Ship)){
+        	InformationPopupLayer.getInstance().showPopup("Only Ships Can Move");
+        }
         else if(!activeE.withinMovement(x,y)){
-        	InformationPopupLayer.getInstance().showPopup("Out of movement range");
+        	InformationPopupLayer.getInstance().showPopup("Out Of Movement Range");
         }
         else if(!activeE.canMovePath2(x,y, delements)){
-        	InformationPopupLayer.getInstance().showPopup("Object in the way");
+        	InformationPopupLayer.getInstance().showPopup("Object In The Way");
         }
-        else if(!(activeE instanceof Ship)){
-        	InformationPopupLayer.getInstance().showPopup("Only ships can move");
-        }
+        
     }
     
     public void attackHull(DynamicElement activeE, int x, int y, ArrayList<DynamicElement> delements) {
@@ -116,6 +114,9 @@ public class ArmadaEngine {
 				if(d.isIn(x,y) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(x,y) && d.isTargetable()){
 						d.hullTakeDamage(activeE);
 						activeE.setCanAttack(false);
+				}
+				else if(!activeE.withinRange(x,y)){
+					InformationPopupLayer.getInstance().showPopup("Out Of Range");
 				}
 		}
     }
@@ -125,6 +126,9 @@ public class ArmadaEngine {
 			if(d.isIn(x,y) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(x,y) && d.isTargetable() && d.getEngine()>0){
 			    d.engineTakeDamage(activeE);
 			    activeE.setCanAttack(false);
+			}
+			else if(!activeE.withinRange(x,y)){
+				InformationPopupLayer.getInstance().showPopup("Out Of Range");
 			}
 		}
     }
@@ -137,12 +141,24 @@ public class ArmadaEngine {
 					Ship s = (Ship) activeE;
 					p.dock(s);
 				}
+				else if(d.isIn(x,y) && d instanceof Planet && d.getAlliance() != 0 && d.getAlliance() != activeE.getAlliance()){
+					InformationPopupLayer.getInstance().showPopup("Cannot Dock At Enemy Planets");
+				}
+				else if(activeE.distanceFrom(x, y) >= 100 ){
+					InformationPopupLayer.getInstance().showPopup("Out Of Range");
+				}
 					
 				if(d.isIn(x,y) && d.getAlliance()!= activeE.getAlliance() && activeE.distanceFrom(x, y) < 100 && d.isTargetable() && d instanceof Ship && activeE instanceof Ship){
 					System.out.println("Boarding attempted");
 					Ship s = (Ship) activeE;
 					Ship t = (Ship) d;
 					s.board(t);
+				}
+				else if( d.isIn(x,y) && d.getAlliance() == activeE.getAlliance()){
+					InformationPopupLayer.getInstance().showPopup("Cannot Board Ally Ships");
+				}
+				else if(activeE.distanceFrom(x, y) >= 100 ){
+					InformationPopupLayer.getInstance().showPopup("Out Of Range");
 				}
 		}
 	}

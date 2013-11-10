@@ -215,7 +215,7 @@ public class Grid extends ViewLayer {
 			return true;
 		}
 		if(activeE.getAlliance()!=getTurn()){
-			InformationPopupLayer.getInstance().showPopup("Can only move command units under your control");
+			InformationPopupLayer.getInstance().showPopup("Can only command units under your control");
 			return true;
 		}	
 		if(mode == 1) { //move

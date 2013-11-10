@@ -15,6 +15,7 @@ public enum StatEditor {;
 	public static void update(Ship s){
 		ArrayList<Item> items = s.getItems();
 		s.resetStats();
+		if(items.size() < 1) return;
 		for(int j = 0; j < 3; j++){
 			for(Item i: items){
 				i.update(s,j);
