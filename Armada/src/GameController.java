@@ -180,6 +180,9 @@ public class GameController extends ViewLayerController {
 	        case KeyEvent.VK_4:
 	            grid.setMode(4);
 	        break;
+	        case KeyEvent.VK_5:
+	            grid.setMode(5);
+	        break;
 	        case KeyEvent.VK_ESCAPE:
 	            grid.toggleTurn();
 	        break;
