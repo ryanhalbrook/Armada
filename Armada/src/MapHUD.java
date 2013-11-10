@@ -8,6 +8,9 @@ public class MapHUD extends HUD{
 	private ArrayList<DynamicElement> des;
 	private double scale = .2;
 	static final double DEFAULT_SCALE = .2;
+	private boolean expanding = false;
+	private boolean shrinking = false;
+	public static final int SCALING_TIME = 1000; // in milliseconds
 	
 	public MapHUD(Grid gr, int l){
 		super(0,0,250,125,gr);
@@ -32,10 +35,13 @@ public class MapHUD extends HUD{
 	}
 	
 	public void draw(Graphics g){
-	    int x = r.getX();
-	    int y = r.getY();
+	    
 	    r.setWidth((int)(grid.getAp().getWidth() * scale));
 	    r.setHeight((int)(grid.getAp().getHeight() * scale));
+	    r.setX(grid.getAp().getWidth() - r.getWidth() - 10);
+	    r.setY(grid.getAp().getHeight() - r.getHeight() - 10);
+	    int x = r.getX();
+	    int y = r.getY();
 	    int width = r.getWidth();
 	    int height = r.getHeight();
 		updateLocation();
@@ -91,12 +97,38 @@ public class MapHUD extends HUD{
 	public boolean isIn(int inX, int inY){
 		return r.isIn(inX, inY);
 	}
+	
+	public void refresh(long previousTime, long currentTime) {
+	    super.refresh(previousTime, currentTime);
+	    int delta = (int)(currentTime - previousTime);
+	    float step = ( delta / (SCALING_TIME * 1.0f) ) * 8.0f;
+	    if (shrinking) {
+	        scale -= step;
+	        if (scale < DEFAULT_SCALE) {
+	            scale = DEFAULT_SCALE;
+	            shrinking = false;    
+	        }
+	        
+	    }
+	    if (expanding) {
+	        scale += step;
+	        if (scale > 0.8) {
+	            scale = 0.8;
+	            expanding = false;
+	        }
+	    }
+	}
 
 	public void toggleScale(){
-		if(scale == 1){
-			scale = MapHUD.DEFAULT_SCALE;
+	    if (shrinking || expanding) return;
+		if(scale > 0.5){
+		    
+		    shrinking = true;
+			//scale = MapHUD.DEFAULT_SCALE;
+		} else {
+		    expanding = true;
+		    //scale = 1;
 		}
-		else scale = 1;
 	}
 	
 	public double getScale() {
