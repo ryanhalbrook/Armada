@@ -8,7 +8,7 @@ import java.awt.Stroke;
 
 public class ModeHUD extends HUD{
 
-    private String[] modes = {"None", "Move (1)", "Hull (2)", "Eng (3)", "Dock(4)", "Move F.(5)"};
+    private String[] modes = {"Move (1)", "Hull (2)", "Eng (3)", "Dock(4)", "Move F.(5)"};
 	
 	public ModeHUD(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -34,12 +34,12 @@ public class ModeHUD extends HUD{
 		int selection = grid.getMode();
 		g.setColor(Color.WHITE);
 		int selectionWidth = (int)(width / 6.0f);
-		for (int i = 0; i < 6; i++) {
+		for (int i = 0; i < 5; i++) {
 		    g.drawString(modes[i], i*selectionWidth+5, y+height-15);
 		}
 		
 		
-		int startX = (selection) * selectionWidth;
+		int startX = (selection-1) * selectionWidth;
 		g.drawRect(startX, y+1, selectionWidth, height-1);
 		
 		if (grid.getActiveE()!=null && grid.getActiveE() instanceof Ship) {

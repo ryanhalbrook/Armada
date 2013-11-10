@@ -21,7 +21,7 @@ public class Grid extends ViewLayer {
     private ArrayList<Element> elements;
     private ArrayList<DynamicElement> delements;
     
-    private int mode = 0;
+    private int mode = 1;
     private int index = 0;
     private DynamicElement activeE;
     private GameController gc = null;
@@ -105,7 +105,7 @@ public class Grid extends ViewLayer {
 	public void nextMode(){
 		int temp = mode;
 		temp++;
-		if(temp > 4){
+		if(temp > 5){
 			temp=1;
 		}
 		this.setMode(temp);
@@ -168,7 +168,7 @@ public class Grid extends ViewLayer {
 	*/
 	public void unselect(){
 		activeE=null;
-		mode=1;
+		//mode=1;
 	}
 	
 	/**
