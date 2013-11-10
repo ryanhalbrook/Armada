@@ -13,15 +13,15 @@ public class HomePlanet extends Planet {
 		if(alliance == 1){
 			x=Grid.GRID_WIDTH/2;
 			y=500;
-			width=100;
-			height=width;
+			
 		}
 		if(alliance == 2){
 			x=Grid.GRID_WIDTH/2;
 			y=Grid.GRID_HEIGHT - 500;
-			width=100;
-			height=width;
+			
 		}
+		setWidth(100);
+		setHeight(100);
 		this.alliance = alliance;
 	}
 
