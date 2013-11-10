@@ -16,9 +16,12 @@ public class Explosion extends Element{
 	
 	private int imgIndex=0;
 	private int type;
+	private int w,h;
 	public Explosion(DynamicElement d){
-		super(d.getX(),d.getY(),d.getWidth(),d.getHeight(),d.getAngle(),IMAGE_NAME);
+		super(d.getX(),d.getY(),WIDTH*NUM_FRAME,HEIGHT*8,d.getAngle(),IMAGE_NAME);
 		type=(int)(Math.random()*8);
+		w=d.getWidth();
+		h=d.getHeight();
 	}
 	public Explosion(DynamicElement d, int t){
 		super(d.getX(),d.getY(),d.getWidth(),d.getHeight(),d.getAngle(),IMAGE_NAME);
@@ -29,7 +32,7 @@ public class Explosion extends Element{
 	}
 	public void draw(Graphics g, BoundingRectangle viewRegion){
 		BufferedImage temp= ah.getImage().getSubimage(WIDTH*imgIndex, HEIGHT*type, WIDTH, HEIGHT);
-		AnimationHelper.draw(x, y, width, height, angle, temp, g, viewRegion);
+		AnimationHelper.draw(x, y, w, h, angle, temp, g, viewRegion);
 		imgIndex++;
 		
 	}

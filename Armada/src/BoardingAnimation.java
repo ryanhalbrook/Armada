@@ -235,11 +235,11 @@ public class BoardingAnimation implements Runnable{
 					de.setBoarding(false);
 					de.getAH().setMoving(false);
 					de.setTargetable(true);
-					
+					System.out.println("mode6");
 				}
 				else{
 					de.getBridge().shorten();
-					System.out.println("mode6");
+					
 				}
 					
 				try {
