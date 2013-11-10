@@ -12,14 +12,14 @@ public class ViewLayerPanel extends JPanel implements DynamicSizeBroadcast, Acti
         super();
     }
     
-    public void actionPerformed(ActionEvent evt) {
-        viewLayerController.actionPerformed(evt);
-        repaint();
-    }
-    
     public ViewLayerPanel(ViewLayerController vlc) {
         super();
         setViewLayerController(vlc);
+    }
+    
+    public void actionPerformed(ActionEvent evt) {
+        viewLayerController.actionPerformed(evt);
+        repaint();
     }
     
     public void setViewLayerController(ViewLayerController vlc) {
@@ -33,8 +33,6 @@ public class ViewLayerPanel extends JPanel implements DynamicSizeBroadcast, Acti
             refreshTimer.start();
         }
     }
-    
-        
     
     public void setAntialiasingEnabled(boolean enabled) {
         antialiasingEnabled = enabled;
