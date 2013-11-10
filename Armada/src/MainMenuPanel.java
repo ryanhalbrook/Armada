@@ -12,8 +12,8 @@ A class representing the main menu of the system.
 */
 public class MainMenuPanel extends JPanel implements ActionListener{
     ApplicationManager am;
-    JButton startButton = new JButton("Start Local 2 Player Game");
-    JButton startButton2 = new JButton("Start Game new way");
+    JButton startButton = new JButton("Start Game Old Way");
+    JButton startButton2 = new JButton("Start Game");
     JButton exitButton = new JButton("Quit Game");
     
     BufferedImage backgroundImage;
@@ -28,9 +28,9 @@ public class MainMenuPanel extends JPanel implements ActionListener{
         startButton2.addActionListener(this);
         JPanel buttonsPanel = new JPanel();
         this.setLayout(new BorderLayout());
-        buttonsPanel.add(startButton);
-        buttonsPanel.add(exitButton);
         buttonsPanel.add(startButton2);
+        buttonsPanel.add(exitButton);
+        buttonsPanel.add(startButton);
         buttonsPanel.setBorder(new EmptyBorder(10,400,250,10));
         buttonsPanel.setOpaque(false);
         this.add(buttonsPanel, BorderLayout.SOUTH);

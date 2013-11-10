@@ -35,6 +35,8 @@ public class GameController extends ViewLayerController {
         viewLayer = new ViewLayer(new BoundingRectangle(0,0, dsb));
         viewLayer.addSublayer(hud.getViewLayer());
 	    viewLayer.addSublayer(grid);
+	    BufferedImage img = ImageLoader.getImage("ArmadaBackground2.jpg");
+	    viewLayer.addSublayer(new BackgroundImageViewLayer(new BoundingRectangle(0, 0, dsb), viewRegion, img));
     }
     
     public void refresh() {
