@@ -203,7 +203,7 @@ public class Grid extends ViewLayer {
 			inX += viewRegion.getX(); inY += viewRegion.getY();
 			for (DynamicElement d : delements) {
 			    if(d.isIn(inX,inY) && d.isTargetable()) {
-				    mode = 1;
+				    //mode = 1;
 				    activeE=d;
 				    activeE.update();
 			        return true;
@@ -284,7 +284,7 @@ public class Grid extends ViewLayer {
 	
 	public void toggleTurn() {
 	    gc.newTurn();
-	    setMode(0);
+	    //setMode(0);
 	    engine.toggleTurn();
 	    activeE = null;
 	    mode = 1;		
