@@ -53,7 +53,7 @@ public class BoardingAnimation implements Runnable{
 		
 		if(mode!=6&&Math.abs(Math.sqrt(Math.pow(deltaX, 2)+Math.pow(deltaY, 2)))+de.getWidth()/2<=10){
 			//bridge
-			mode=4;
+			mode=5;
 			ra2=de.getAH().calcRotationAngle(target.getAngle());
 			de.getAH().setAngleLeft(ra2);
 		}
@@ -69,12 +69,17 @@ public class BoardingAnimation implements Runnable{
 			if(mode==1&&!de.getAH().rotate(ra)){
 					
 					mode=2;
+					double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
+					if(angle<0)
+						angle=360+angle;
+					de.setAngle(angle);
+					
 					int x1 = de.getX()+(int)(de.getWidth()/2.0 * Math.cos(Math.toRadians(de.getAngle())));
 					int y1 = de.getY()+(int)(de.getWidth()/2.0 * Math.sin(Math.toRadians(de.getAngle())));
 					int x2 = de.getX()+(int)((de.getWidth()/2.0 + 5) * Math.cos(Math.toRadians(de.getAngle())));
 					int y2 = de.getY()+(int)((de.getWidth()/2.0 + 5) * Math.sin(Math.toRadians(de.getAngle())));
-					de.setRope(new Element(x1, y1, 1, 10, 0,"rope_straight"));
-					de.setHook(new Element(x2, y2, 10, 10, 0,"gold_plunger"));
+					de.setRope(new Element(x1, y1, 1, 5, 0,"rope_straight"));
+					de.setHook(new Element(x2, y2, 10, 5, 0,"gold_plunger"));
 					de.getRope().setOwner(de);
 					de.getHook().setOwner(de);
 					
@@ -84,27 +89,29 @@ public class BoardingAnimation implements Runnable{
 					deltaY2=moveY-de.getRope().getY();
 					deltaY3=moveY-de.getHook().getY();
 					
-
-					if(deltaX>0){
-						deltaX3-=(int)(5*Math.cos(Math.toRadians(de.getAngle())));
-						deltaX2-=(int)(10*Math.cos(Math.toRadians(de.getAngle())));
-						deltaX-=(int)((10+de.getWidth()/2)*Math.cos(Math.toRadians(de.getAngle())));
-					}
-					else{
-						deltaX3+=(int)(5*Math.cos(Math.toRadians(de.getAngle())));
-						deltaX2+=(int)(10*Math.cos(Math.toRadians(de.getAngle())));
-						deltaX+=(int)((10+de.getWidth()/2)*Math.cos(Math.toRadians(de.getAngle())));
-					}
-					if(deltaY>0){
-						deltaY3-=(int)(5*Math.sin(Math.toRadians(de.getAngle())));
-						deltaY2-=(int)(10*Math.sin(Math.toRadians(de.getAngle())));
+					
+					if(Math.abs(deltaX)>Math.abs(deltaY)){
+						if(target.getWidth()/2>10)
+							deltaX-=(int)((target.getWidth()/2+de.getWidth()/2)*Math.cos(Math.toRadians(de.getAngle())));
+						else
+							deltaX-=(int)((10+de.getWidth()/2)*Math.cos(Math.toRadians(de.getAngle())));
 						deltaY-=(int)((10+de.getWidth()/2)*Math.sin(Math.toRadians(de.getAngle())));
 					}
 					else{
-						deltaY3+=(int)(5*Math.sin(Math.toRadians(de.getAngle())));
-						deltaY2+=(int)(10*Math.sin(Math.toRadians(de.getAngle())));
-						deltaY+=(int)((10+de.getWidth()/2)*Math.sin(Math.toRadians(de.getAngle())));
+						if(target.getHeight()/2>10)
+							deltaY-=(int)((target.getWidth()/2+de.getWidth()/2)*Math.sin(Math.toRadians(de.getAngle())));
+						else
+							deltaY-=(int)((10+de.getWidth()/2)*Math.sin(Math.toRadians(de.getAngle())));
+						deltaX-=(int)((10+de.getWidth()/2)*Math.cos(Math.toRadians(de.getAngle())));
+						
 					}
+					
+					deltaX3-=(int)(5*Math.cos(Math.toRadians(de.getAngle())));
+					deltaX2-=(int)(10*Math.cos(Math.toRadians(de.getAngle())));
+					
+			
+					deltaY3-=(int)(5*Math.sin(Math.toRadians(de.getAngle())));
+					deltaY2-=(int)(10*Math.sin(Math.toRadians(de.getAngle())));
 					
 					de.getAH().setMoveXLeft(deltaX);
 					de.getAH().setMoveYLeft(deltaY);
@@ -115,7 +122,7 @@ public class BoardingAnimation implements Runnable{
 					de.getHook().getAH().setMoveYLeft(deltaY3);
 						
 					
-					double angle = Math.toDegrees(Math.atan2(deltaY2, deltaX2));
+					angle = Math.toDegrees(Math.atan2(deltaY2, deltaX2));
 					if(angle<0)
 						angle=360+angle;
 					de.getRope().setAngle(angle);
@@ -123,10 +130,7 @@ public class BoardingAnimation implements Runnable{
 					de.getHook().setAngle(angle);
 					de.getHook().getAH().setAngleLeft(0);
 					
-					angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
-					if(angle<0)
-						angle=360+angle;
-					de.setAngle(angle);
+					
 					
 					de.setBoarding(true);
 					
@@ -148,7 +152,7 @@ public class BoardingAnimation implements Runnable{
 				int tempX=de.getRope().getX();
 				int tempY=de.getRope().getY();
 				
-				if(!(de.getRope().getAH().moveHelper(deltaX2, deltaY2,mvTime)|de.getAH().moveHelper(deltaX, deltaY,mvTime))){
+				if(!(de.getRope().getAH().moveHelper(deltaX2, deltaY2,mvTime*2)|de.getAH().moveHelper(deltaX, deltaY,mvTime))){
 					mode=5;
 					ra2=de.getAH().calcRotationAngle(target.getAngle());
 					de.getAH().setAngleLeft(ra2);
@@ -161,7 +165,7 @@ public class BoardingAnimation implements Runnable{
 					if(de.getRope().getWidth()-dist*2>=0)
 						de.getRope().setWidth(de.getRope().getWidth()-dist*2);
 					else
-						de.getRope().setWidth(0);
+						de.getRope().setWidth(1);
 				}
 			}
 			/*else if(mode==4&&!de.getAH().rotate(ra2)){
@@ -245,7 +249,7 @@ public class BoardingAnimation implements Runnable{
 	        	}
 			}
 			try {
-        		Thread.sleep(100);
+        		Thread.sleep(10);
         	} catch (InterruptedException e) {
         		e.printStackTrace();
         	}
