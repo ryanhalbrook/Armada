@@ -86,7 +86,8 @@ public class ArmadaEngine {
         if(activeE.withinMovement(x,y) && activeE.canMovePath2(x,y, delements) && activeE instanceof Ship){
 				activeE.moveTo(x, y);
 				Ship temp = (Ship) activeE;
-				temp.setPlanetDocked(null);
+				if(temp.isDocked())
+					temp.setPlanetDocked(null);
 		}
     }
     

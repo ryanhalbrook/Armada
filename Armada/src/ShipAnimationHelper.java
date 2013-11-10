@@ -9,4 +9,10 @@ public class ShipAnimationHelper extends DynamicAnimationHelper {
 	public void board(Ship att,Ship target,int mode){
 		BoardingAnimation ba = new BoardingAnimation(att,target,mode);
 	}
+	public void dock(Ship s,Planet p){
+		DockAnimation da = new DockAnimation(s,p);
+	}
+	public void dock(Ship s,Planet p,int mode){
+		DockAnimation da = new DockAnimation(s,p,mode);
+	}
 }

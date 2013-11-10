@@ -25,7 +25,7 @@ public class Ship extends DynamicElement{
 	
 	protected int cargo, maxCargo;
 	protected Bridge bridge;
-	protected boolean boarding =false;
+	protected boolean boarding =false,docking =false;
 	Element rope,hook;
 	public Ship(int team) {
 	    super();
@@ -117,11 +117,19 @@ public class Ship extends DynamicElement{
 	public void incWeaponsFlat(int i){
 		weapons += i;
 	}
-	
+	public void dock(Planet p){
+		this.getSAH().dock(this, p);
+	}
+	public void undock(){
+		this.getSAH().dock(this, null,6);
+	}
 	public void setPlanetDocked(Planet inP) {
 		if(this.planetDocked !=null && this.planetDocked != inP){
+			undock();
 			this.planetDocked.unDock(this);
 		}
+		else
+			dock(inP);
 		this.planetDocked = inP;
 	}
 	public void board(Ship target){
@@ -137,6 +145,9 @@ public class Ship extends DynamicElement{
 		if(isDocked()){
 			g.setColor(Color.WHITE);
 			g.drawString("DOCKED", x - viewRect.getX()-width/2, y - viewRect.getY() - height);
+			if(bridge!=null&&bridge.getWidth()!=0){
+	    		bridge.draw(g, viewRect);
+	    	}
 		}
 		if(boarding){
 	    	if(rope!=null&&rope.getWidth()!=0 )

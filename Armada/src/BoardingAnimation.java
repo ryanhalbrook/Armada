@@ -51,14 +51,14 @@ public class BoardingAnimation implements Runnable{
 		
 		de.setTargetable(false);
 		
-		if(mode!=6&&Math.abs(Math.sqrt(Math.pow(deltaX, 2)+Math.pow(deltaY, 2)))+de.getWidth()/2<=10){
+/*		if(mode!=6&&Math.abs(Math.sqrt(Math.pow(deltaX, 2)+Math.pow(deltaY, 2)))+de.getWidth()/2<=10){
 			//bridge
 			mode=5;
 			ra2=de.getAH().calcRotationAngle(target.getAngle());
 			de.getAH().setAngleLeft(ra2);
 		}
 		else
-			de.getAH().setAngleLeft(ra);
+*/			de.getAH().setAngleLeft(ra);
 		
 		
 		while(mode!=0)
