@@ -120,7 +120,7 @@ public class Grid extends ViewLayer {
 		return currentY;
 	}
 	
-	public void refresh() {
+	public void refresh(long previousTime, long currentTime) {
 		viewRegion.setWidth(dsb.getWidth());
 		viewRegion.setHeight(dsb.getHeight());
 		
@@ -252,6 +252,7 @@ public class Grid extends ViewLayer {
 	}
 	
 	public void toggleTurn() {
+	    gc.newTurn();
 	    setMode(0);
 	    engine.toggleTurn();
 	    activeE = null;

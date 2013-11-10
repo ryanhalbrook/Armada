@@ -14,6 +14,7 @@ public class GameController extends ViewLayerController {
     private HUDmanager hud = null;
     private boolean moveMode = false, gameOn=true;
     ApplicationManager am = null;
+    private int lastTurn = 0;
     
     int lastX = -1;
 	int lastY = -1;
@@ -31,7 +32,6 @@ public class GameController extends ViewLayerController {
         this.engine = engine;
         grid = new Grid(this);
         hud = new HUDmanager(grid);
-        hud = new HUDmanager(grid);
         viewLayer = new ViewLayer(new BoundingRectangle(0,0, dsb));
         viewLayer.addSublayer(hud.getViewLayer());
 	    viewLayer.addSublayer(grid);
@@ -39,7 +39,14 @@ public class GameController extends ViewLayerController {
 	    viewLayer.addSublayer(new BackgroundImageViewLayer(new BoundingRectangle(0, 0, dsb), viewRegion, img));
     }
     
-    public void refresh() {
+    public void refresh(long previousTime, long currentTime) {
+        super.refresh(previousTime, currentTime);
+        int turn = grid.getTurn();
+        if (lastTurn != turn) {
+            newTurn();
+        }
+        lastTurn = turn;
+        
         if(!gameOn) {
             return;
         }
@@ -50,7 +57,7 @@ public class GameController extends ViewLayerController {
 			endGame();
 			return;
 		}
-		grid.refresh();
+		grid.refresh(previousTime, currentTime);
 		grid.update();
 	    //repaint();
     }
@@ -103,6 +110,10 @@ public class GameController extends ViewLayerController {
     
     public int getViewHeight() {
         return dsb.getHeight();
+    }
+    
+    public void newTurn() {
+        hud.getTurnHUD().showTransition();
     }
     
     public void mousePressed(MouseEvent evt) {
