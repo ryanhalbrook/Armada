@@ -220,13 +220,13 @@ public class Grid extends ViewLayer {
 		}	
 		if(mode == 1) { //move
 			inX += viewRegion.getX(); inY += viewRegion.getY();
-			engine.moveDynamicElement(activeE, inX, inY, delements);
+			engine.moveDynamicElement(activeE, inX, inY);
 			return true;
 		}
 		if(mode == 2) { //attack hull
 			if(delements != null && delements.size() != 0 && activeE.canAttack()){
 				inX += viewRegion.getX(); inY += viewRegion.getY();
-				engine.attackHull(activeE, inX, inY, delements);
+				engine.attackHull(activeE, inX, inY);
 		    }
 			else if (!activeE.canAttack()){
 				gc.invalidMoveAttempt("Cannot attack again this turn");
@@ -236,7 +236,7 @@ public class Grid extends ViewLayer {
 		if(mode == 3) { //attack engine
 			if(delements != null && delements.size() != 0 && activeE.canAttack()){
 				inX += viewRegion.getX(); inY += viewRegion.getY();
-				engine.attackEngine(activeE, inX, inY, delements);
+				engine.attackEngine(activeE, inX, inY);
 			}
 			else if (!activeE.canAttack()){
 				gc.invalidMoveAttempt("Cannot attack again this turn");
@@ -246,7 +246,7 @@ public class Grid extends ViewLayer {
 			//docking
 			if(delements != null && delements.size() != 0){
 				inX += viewRegion.getX(); inY += viewRegion.getY();
-				engine.dock(activeE, inX, inY, delements);
+				engine.dock(activeE, inX, inY);
 			}
 			return true;
 		}
@@ -259,7 +259,7 @@ public class Grid extends ViewLayer {
 		        if (d instanceof Ship && d.getAlliance()==engine.getTurn() && d.withinMovement(inX,inY) && d.isTargetable()) {
 		            
 		            System.out.println("Moving");
-		            engine.moveDynamicElement(d, inX+counter-counter*50, inY-counter*50, delements);
+		            engine.moveDynamicElement(d, inX+counter-counter*50, inY-counter*50);
 		            counter++;
 		        }
 		    }

@@ -90,7 +90,7 @@ public class ArmadaEngine {
 	    mseconds = TURN_TIME;
 	}
     
-    public void moveDynamicElement(DynamicElement activeE, int x, int y, ArrayList<DynamicElement> delements) {
+    public void moveDynamicElement(DynamicElement activeE, int x, int y) {
         if(activeE.withinMovement(x,y) && activeE.canMovePath2(x,y, delements) && activeE instanceof Ship){
 				Ship temp = (Ship) activeE;
 				if(temp.isDocked())
@@ -109,7 +109,7 @@ public class ArmadaEngine {
         
     }
     
-    public void attackHull(DynamicElement activeE, int x, int y, ArrayList<DynamicElement> delements) {
+    public void attackHull(DynamicElement activeE, int x, int y) {
         for (DynamicElement d : delements) {
 				if(d.isIn(x,y) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(x,y) && d.isTargetable()){
 						d.hullTakeDamage(activeE);
@@ -121,7 +121,7 @@ public class ArmadaEngine {
 		}
     }
     
-    public void attackEngine(DynamicElement activeE, int x, int y, ArrayList<DynamicElement> delements) {
+    public void attackEngine(DynamicElement activeE, int x, int y) {
         for (DynamicElement d : delements) {
 			if(d.isIn(x,y) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(x,y) && d.isTargetable() && d.getEngine()>0){
 			    d.engineTakeDamage(activeE);
@@ -133,7 +133,7 @@ public class ArmadaEngine {
 		}
     }
     
-    public void dock(DynamicElement activeE, int x, int y, ArrayList<DynamicElement> delements) {
+    public void dock(DynamicElement activeE, int x, int y) {
         for (DynamicElement d : delements) {
 				if(d.isIn(x,y) && (d.getAlliance()==0 || d.getAlliance() == activeE.getAlliance()) && activeE.distanceFrom(x, y) < 100 && d.isTargetable() && d instanceof Planet && activeE instanceof Ship){
 					System.out.println("docking attempted");
