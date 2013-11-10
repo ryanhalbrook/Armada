@@ -1,12 +1,13 @@
 import java.awt.Color;
 import java.awt.FontMetrics;
 import java.awt.Graphics;
+import java.awt.Font;
 
 public class TurnHUD extends HUD{
 
 	private Color player1Color = new Color(1.0f, 0.0f, 0.0f, 0.5f);
     private Color player2Color = new Color(0.0f, 0.0f, 1.0f, 0.5f);
-	static int BAR_HEIGHT= 20;
+	static int BAR_HEIGHT= 40;
 	private float transitionPhase = 1.0f;
 	public static final int TRANSITION_MILLISECONDS = 700;
 	String lastText = null;
@@ -63,7 +64,9 @@ public class TurnHUD extends HUD{
         g.fillRect(grid.getAp().getWidth() - 15, 0-dy, 10, BAR_HEIGHT);
         g.fillRect(grid.getAp().getWidth() - 15, BAR_HEIGHT - h-dy, 10, h);
         //g.fillRect(0, BAR_HEIGHT - (int)(BAR_HEIGHT * 1/10), w, (int)(BAR_HEIGHT * 1/10));
-
+        Font f = g.getFont();
+        g.setFont(new Font(null, Font.PLAIN, 16));
+        
 		g.setColor(Color.WHITE);
 		FontMetrics fm = g.getFontMetrics();
 		String displayString = playerName + " | Money: " + grid.getPlayerManager().getPlayerMoney(grid.getTurn()); 
@@ -74,14 +77,15 @@ public class TurnHUD extends HUD{
 			displayString+=" | Turn Timer: " + Math.round(time/1000)/60+ ":" +Math.round(time/1000)%60 + "     ";
 		
 		int textWidth = fm.stringWidth(displayString);
-		g.drawString(displayString, grid.getAp().getWidth() - 5 - textWidth, 15-dy);
+		g.drawString(displayString, grid.getAp().getWidth() - 5 - textWidth, 25-dy);
 		
 		if(grid.getActiveE()!=null){
 			g.setColor(Color.WHITE);
-			g.drawString("1-Move | 2-Attack Hull | 3-Attack Engines | 4-Dock", 5, 15);
+			g.drawString("1-Move | 2-Attack Hull | 3-Attack Engines | 4-Dock", 5, 25);
 		}
 		g.setColor(Color.BLACK);
 		g.drawRect(0, 0, grid.getAp().getWidth()-1, BAR_HEIGHT-dy);
+		g.setFont(f);
 	}
 
 }
