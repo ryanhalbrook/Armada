@@ -105,6 +105,7 @@ public class Element {
 
 	public void setWidth(int w) {
 		width = w;
+		ah.setImageWidth(w);
 	}
 
 	public int getHeight() {
@@ -113,6 +114,7 @@ public class Element {
 
 	public void setHeight(int h) {
 		height = h;
+		ah.setImageWidth(h);
 	}
 	
 	public double getAngle(){

@@ -73,8 +73,8 @@ public class BoardingAnimation implements Runnable{
 					int y1 = de.getY()+(int)(de.getWidth()/2.0 * Math.sin(Math.toRadians(de.getAngle())));
 					int x2 = de.getX()+(int)((de.getWidth()/2.0 + 5) * Math.cos(Math.toRadians(de.getAngle())));
 					int y2 = de.getY()+(int)((de.getWidth()/2.0 + 5) * Math.sin(Math.toRadians(de.getAngle())));
-					de.setRope(new Element(x1, y1, 1, 5, 0,"rope_straight"));
-					de.setHook(new Element(x2, y2, 10, 5, 0,"gold_plunger"));
+					de.setRope(new Element(x1, y1, 1, 10, 0,"rope_straight"));
+					de.setHook(new Element(x2, y2, 10, 10, 0,"gold_plunger"));
 					de.getRope().setOwner(de);
 					de.getHook().setOwner(de);
 					
@@ -149,11 +149,12 @@ public class BoardingAnimation implements Runnable{
 				int tempY=de.getRope().getY();
 				
 				if(!(de.getRope().getAH().moveHelper(deltaX2, deltaY2,mvTime)|de.getAH().moveHelper(deltaX, deltaY,mvTime))){
-					mode=4;
+					mode=5;
 					ra2=de.getAH().calcRotationAngle(target.getAngle());
 					de.getAH().setAngleLeft(ra2);
 					de.setRope(null);
 					de.setHook(null);
+					de.setBridge(new Bridge(de.getX(), de.getY(),de.getAngle()));
 				}
 				else{
 					int dist = (int)Math.sqrt(Math.pow(tempX-de.getRope().getX(), 2)+Math.pow(tempY-de.getRope().getY(), 2));
@@ -163,7 +164,7 @@ public class BoardingAnimation implements Runnable{
 						de.getRope().setWidth(0);
 				}
 			}
-			else if(mode==4&&!de.getAH().rotate(ra2)){
+			/*else if(mode==4&&!de.getAH().rotate(ra2)){
 				mode=5;
 				//int x1 = de.getX()+(int)(de.getHeight()/2.0 * Math.cos(Math.toRadians(de.getAngle())));
 				//int y1 = de.getY()+(int)(de.getHeight()/2.0 * Math.sin(Math.toRadians(de.getAngle())));
@@ -207,9 +208,9 @@ public class BoardingAnimation implements Runnable{
 				}
 					
 				de.setBridge(new Bridge(de.getX(), de.getY(),angle));
-			}
+			}*/
 			else if(mode==5){
-				if(de.getBridge().getWidth()>=Math.sqrt(Math.pow(de.getX()-target.getX(), 2)+Math.pow(de.getY()-target.getY(), 2)))
+				if(de.getBridge().getLength()>=Math.sqrt(Math.pow(de.getX()-target.getX(), 2)+Math.pow(de.getY()-target.getY(), 2)))
 				{
 					mode=6;
 				}
@@ -223,7 +224,7 @@ public class BoardingAnimation implements Runnable{
 			}
 			else if(mode==6){
 				
-				if(de.getBridge().getWidth()<=0)
+				if(de.getBridge().getLength()<=0)
 				{
 					mode=0;
 					de.setBridge(null);
@@ -244,7 +245,7 @@ public class BoardingAnimation implements Runnable{
 	        	}
 			}
 			try {
-        		Thread.sleep(10);
+        		Thread.sleep(100);
         	} catch (InterruptedException e) {
         		e.printStackTrace();
         	}

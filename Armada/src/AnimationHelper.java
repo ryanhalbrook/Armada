@@ -115,7 +115,20 @@ public class AnimationHelper{
 	}
 	public void changeImage(String img){
 		loadImage(e.getImage());
-		
+	}
+	public void setImageWidth(int w){
+		AffineTransform at = new AffineTransform();
+		at.scale(w/(double)image.getWidth(), 1);
+		AffineTransformOp scaleOp = 
+		   new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+		image=scaleOp.filter(image, null);
+	}
+	public void setImageHeight(int h){
+		AffineTransform at = new AffineTransform();
+		at.scale(1, h/(double)image.getHeight());
+		AffineTransformOp scaleOp = 
+		   new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+		image=scaleOp.filter(image, null);
 	}
 	public boolean isIn(int x, int y){
 		if(moving)
@@ -222,6 +235,19 @@ public class AnimationHelper{
 		at.rotate(Math.toRadians(e.getAngle()));
 		at.translate(-e.getWidth()/2.0,-e.getHeight()/2.0);
 		
+		g2.drawImage(image, at, null);
+		//at=ori;
+	}
+	public void draw(int width,int height, Graphics g, BoundingRectangle viewRect){
+		if(!viewRect.isIn(e.getX(), e.getY())) return;
+		Graphics2D g2 = (Graphics2D)g;
+		AffineTransform at= new AffineTransform();
+		//AffineTransform ori = g2.getTransform();
+		//g.fillRect(x-viewRect.getX(), y-viewRect.getY(), width, height);
+		at.translate((e.getX()-viewRect.getX()), e.getY()-viewRect.getY());
+		at.rotate(Math.toRadians(e.getAngle()));
+		at.translate(-e.getWidth()/2.0,-e.getHeight()/2.0);
+		at.scale(width/(double)image.getWidth(), height/(double)image.getHeight());
 		g2.drawImage(image, at, null);
 		//at=ori;
 	}

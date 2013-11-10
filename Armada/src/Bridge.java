@@ -3,19 +3,19 @@ import java.awt.image.BufferedImage;
 
 
 public class Bridge extends Element {
-	private static final String IMAGE_NAME="bridge";
+	private static final String IMAGE_NAME="lightbridge";
 	
-	private static final int WIDTH=1;
+	private int length=1;
 	//private static final int HEIGHT=480;
 	
-	private int imgIndex;
+	
 	public Bridge(int x2, int y2, double a){
-		super(x2,y2,14,10,a,IMAGE_NAME);
-		imgIndex=0;
+		super(x2,y2,1,10,a,IMAGE_NAME);
+		
 	}
 	
 	public void draw(Graphics g, BoundingRectangle viewRegion){
-		int num=imgIndex/width;
+		/*int num=imgIndex/width;
 		int tempX=x+(int)(width/2*Math.cos(Math.toRadians(angle)));
 		int tempY=y+(int)(width/2*Math.sin(Math.toRadians(angle)));
 		System.out.println(imgIndex);
@@ -33,17 +33,17 @@ public class Bridge extends Element {
 			BufferedImage temp= ah.getImage().getSubimage(0, 0, WIDTH*(imgIndex%width), ah.getImage().getHeight());
 			AnimationHelper.draw(tempX, tempY, temp.getWidth(), temp.getHeight(), angle, temp, g, viewRegion);
 		}
-		
-		
+		*/
+		ah.draw(length, height, g, viewRegion);
 		
 	}
-	public int getWidth(){
-		return WIDTH*imgIndex;
+	public int getLength(){
+		return length;
 	}
 	public void extend(){
-		imgIndex++;
+		length++;
 	}
 	public void shorten(){
-		imgIndex--;
+		length--;
 	}
 }
