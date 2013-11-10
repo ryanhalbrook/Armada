@@ -180,6 +180,7 @@ public class Grid extends ViewLayer {
 	    } else {
 	        //ap.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 	    }
+	    gc.modeChanged();
 	}
 	
 	public void mouseMoved(int x, int y) {
@@ -325,6 +326,18 @@ public class Grid extends ViewLayer {
 	public int getMode() {
 		return mode;
 	}
+	
+	public String getModeString() {
+	    if (mode == 0) return "No Selection";
+	    if (mode == 1) return "Move";
+	    if (mode == 1) return "Attack Hull";
+	    if (mode == 2) return "Attack Engine";
+	    if (mode == 3) return "Attack Hull";
+	    if (mode == 4) return "Dock";
+	    if (mode == 5) return "Move Fleet";
+	    return "Unknown Mode";
+	}
+	
 	public int getTurn() {
 		return engine.getTurn();
 	}

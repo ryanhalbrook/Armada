@@ -104,6 +104,10 @@ public class GameController extends ViewLayerController {
 	        }
 	    }
 	}
+	
+	public void modeChanged() {
+	    ipl.showPopup("Mode: " + grid.getModeString());
+	}
     
     public DynamicSizeBroadcast getViewSize() {
         return dsb;
@@ -122,7 +126,6 @@ public class GameController extends ViewLayerController {
     }
     
     public void mousePressed(MouseEvent evt) {
-        ipl.showPopup("Mouse Pressed");
 		if(evt.getButton() == MouseEvent.BUTTON3){
 			moveMode=false;
 			grid.unselect();
