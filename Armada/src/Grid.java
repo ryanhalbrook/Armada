@@ -272,7 +272,11 @@ public class Grid extends ViewLayer {
 	}
 	
 	private void handleMovementStatus(ArmadaEngine.MovementStatus status) {
-	    if (status == ArmadaEngine.MovementStatus.SUCCESS) gc.showInfo("Moving Ship");
+	    
+	    if (status == ArmadaEngine.MovementStatus.SUCCESS) {
+	        if (mode != 5) gc.showInfo("Moving Ship");
+	        else gc.showInfo("Moving Fleet");
+	    }
 	    if (status == ArmadaEngine.MovementStatus.RANGE) gc.invalidMoveAttempt("Out of Range!");
 	    if (status == ArmadaEngine.MovementStatus.OBJECT_IN_PATH) gc.invalidMoveAttempt("Path obstructed!");
 	    if (status == ArmadaEngine.MovementStatus.CANNOT_MOVE_PLANET) gc.invalidMoveAttempt("Planets cannot move!");
