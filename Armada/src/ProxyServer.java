@@ -129,6 +129,16 @@ public class ProxyServer extends GameServer {
                     x--;
                     if (x % 50 == 0) System.out.println("Client Side Loop Running");
                     //if (x == 0) break;
+                    for (int i = 0; i < getSize(); i++) {
+                        GameStateChange change = getGameStateChange(i);
+                        System.out.println("Client: Sending a change");
+                        oostream.writeObject(change);
+                        if (change.getMessage().equals(QUIT_STRING)) break;
+                        changes.remove(change);
+                    }
+                    
+                    
+                    /*
                     for (GameStateChange change : getChanges()) {
                         System.out.println("Client: Sending a change");
                         oostream.writeObject(change);
@@ -136,6 +146,7 @@ public class ProxyServer extends GameServer {
                         if (change.getMessage().equals(QUIT_STRING)) break;
                         changes.remove(change);
                     }
+                    */
                     if (oistream.available() > 0) c = (GameStateChange)oistream.readObject();
                     if (c!= null) addGameStateChange(c);
                     if (a != null) a.changeOccurred();

@@ -107,7 +107,7 @@ public class HostServer extends GameServer {
                         if (oistream.available() > 0)
                             System.out.println("Got a message!");
                             c = (GameStateChange)oistream.readObject();
-                            if (c!= null) changes.add(c);
+                            if (c!= null) addGameStateChange(c);
                             if (a!= null) a.changeOccurred();
                             if (c == null) {
                                 //System.out.println("c is null");
@@ -119,13 +119,22 @@ public class HostServer extends GameServer {
                         } else {
                             System.out.println("Message: " + c.getMessage());
                         }
-                
+                        
+                        for (int i = 0; i < getSize(); i++) {
+                            GameStateChange change = getGameStateChange(i);
+                            System.out.println("Server: Sending a change");
+                            oostream.writeObject(change);
+                            if (change.getMessage().equals(QUIT_STRING)) break;
+                            changes.remove(change);
+                        }
+                        /*
                         for (GameStateChange change : changes) {
                             oostream.writeObject(change);
                             if (change.getMessage().equals(QUIT_STRING)) break;
                             changes.remove(change);
                 
                         }
+                        */
                 } catch (java.io.EOFException e) {
                     e.printStackTrace();
                     quit = true;

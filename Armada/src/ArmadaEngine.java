@@ -18,10 +18,15 @@ public class ArmadaEngine implements ChangeListener {
     public void changeOccurred() {
     
         //System.out.println("Change Occurred");
+        /*
         ArrayList<GameStateChange> changes = gs.getChanges(this);
-        GameStateChange gsc = null;
+        
         if (changes == null) return;
         if (changes.size() > 0) gsc = changes.get(0);
+        */
+        GameStateChange gsc = null;
+        if (gs.getSize() > 0) gsc = gs.getGameStateChange(0);
+        
         if (gsc != null) {
             System.out.println("Engine got message: " + gsc.getMessage());
             if (gsc.getMessage().equals("Turn Changed")) toggleTurn();
