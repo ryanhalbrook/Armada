@@ -5,7 +5,7 @@ import javax.swing.*;
 Responsible for switching between the different panels of the application.
 Currently switches between the main menu and the game.
 */
-public class ApplicationManager {
+public class ApplicationManager implements ChangeListener {
 
     static final int DEFAULT_WINDOW_WIDTH = 960;
     static final int DEFAULT_WINDOW_HEIGHT = 540;
@@ -19,6 +19,7 @@ public class ApplicationManager {
     
     /** The JPanel that should be currently displayed. */
     private JPanel mainPanel;
+    private ViewLayerPanel vp;
     /** The main window for this application */
     private JFrame window = new JFrame();
     
@@ -52,7 +53,19 @@ public class ApplicationManager {
     
     public void startNetworkedGame() {
         hs = new HostServer();
-        ArmadaEngine engine = new ArmadaEngine(hs);
+        gs = hs;
+        hs.setConnectionListener(this);
+        ViewLayerPanel vp = new ViewLayerPanel();
+        
+        LobbyController lc = new LobbyController(this, vp);
+        vp.setViewLayerController(lc);
+        //vp.setAntialiasingEnabled(true);
+        swapPanel(vp);
+    }
+    
+    public void changeOccurred() {
+        ArmadaEngine engine = new ArmadaEngine(gs);
+        
         ViewLayerPanel vlp = new ViewLayerPanel();
         GameController gc = new GameController(this, engine, vlp);
         vlp.setViewLayerController(gc);
@@ -69,6 +82,11 @@ public class ApplicationManager {
         vlp.setViewLayerController(gc);
         vlp.setAntialiasingEnabled(true);
         swapPanel(vlp);
+    }
+    
+    public void shutdownConnection() {
+        gs.disconnectNetwork();
+        endGame();
     }
     
     public void startGameNewWay() {

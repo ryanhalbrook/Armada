@@ -9,6 +9,9 @@ public class HostServer extends GameServer {
     ArrayList<Object> clients = new ArrayList<Object>();
     ArrayList<GameStateChange> changes = new ArrayList<GameStateChange>();
     ArrayList<GameStateChange> outGoingChanges = new ArrayList<GameStateChange>();
+    ChangeListener connectionListener = null;
+    Thread setupThread = null;
+    boolean attemptConnection = true;
     
     boolean networkUp = true;
     
@@ -21,20 +24,34 @@ public class HostServer extends GameServer {
     
     ChangeListener a = null;
     int x = 250;
-    
+    public void setConnectionListener(ChangeListener a) {
+        this.connectionListener = a;
+    }
     public void setChangeListener(ChangeListener a) {
         this.a = a;
     }
     
     public void disconnectNetwork() {
+        attemptConnection = false;
     networkUp = false;
         try {
-            oostream.close();
-            oistream.close();
-            ostream.close();
-            istream.close();
+            if (clientListener != null)
+                clientListener.close();
+            if (oostream != null)
+                oostream.close();
+            if (oistream != null)
+                oistream.close();
+            if (ostream != null)
+                ostream.close();
+            if (istream != null)
+                istream.close();
             
-        } catch (IOException e) {
+        } catch (java.net.SocketException e) {
+            e.printStackTrace();
+            System.out.println("The server was forced to stop waiting.");
+        }
+        
+        catch (IOException e) {
             System.out.println("Failed to close network");
             e.printStackTrace();
         }
@@ -44,10 +61,21 @@ public class HostServer extends GameServer {
     private void setupNetwork() {
         
         System.out.println("Setting up network");
+        
         try {
             clientListener = new ServerSocket(PORT);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (clientListener == null) return;
+        while(attemptConnection) {
+        try {
+            clientListener.setSoTimeout(1000);
             connection = clientListener.accept();
             clientListener.close();
+            attemptConnection = false;
+            if (connection == null) return;
+            
             istream = connection.getInputStream();
             ostream = connection.getOutputStream();
             oostream = new ObjectOutputStream(ostream);
@@ -59,25 +87,37 @@ public class HostServer extends GameServer {
                 System.out.println("Server: ID mismatch");
             }
             
-        } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Server Success");
             
-            System.out.println("Network setup failed");
-        }
-        System.out.println("Server Success");
         /*
         Thread t = new Thread(new Loop());
         t.start();
         */
+        
         Thread read = new Thread(new ReadingLoop());
         read.start();
         Thread write = new Thread(new WritingLoop());
         write.start();
         System.out.println("Host Server Loop Started");
+        if (connectionListener != null)
+        connectionListener.changeOccurred();
+        
+        } catch(java.net.SocketTimeoutException e) {
+            System.out.println("Accept timed out");
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+            attemptConnection = false;
+            System.out.println("Network setup failed");
+        }
+        }
+        
     }
     
     public HostServer() {
-        setupNetwork();
+        //setupNetwork();
+        setupThread = new Thread(new ConnectionStarter());
+        setupThread.start();
     }
     
     public void registerClient(Object client) {
@@ -100,6 +140,12 @@ public class HostServer extends GameServer {
         }
         */
         return changes;
+    }
+    
+    private class ConnectionStarter implements Runnable {
+        public void run() {
+            setupNetwork();
+        }
     }
     
     private class Loop implements Runnable {

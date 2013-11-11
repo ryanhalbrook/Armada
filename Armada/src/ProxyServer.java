@@ -68,11 +68,7 @@ public class ProxyServer extends GameServer {
                 oostream.writeObject(c);
             }
             
-        } catch (Exception e) {
-            System.out.println("Failed to configure network");
-            e.printStackTrace();
-        }
-        System.out.println("Client Success!");
+            System.out.println("Client Success!");
         /*
         Thread t = new Thread(new Loop());
         t.start();
@@ -81,6 +77,12 @@ public class ProxyServer extends GameServer {
         read.start();
         Thread write = new Thread(new WritingLoop());
         write.start();
+            
+        } catch (Exception e) {
+            System.out.println("Failed to configure network");
+            e.printStackTrace();
+        }
+        
     }
     
     public ProxyServer(String ip) {

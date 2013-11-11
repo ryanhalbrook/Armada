@@ -18,7 +18,7 @@
     <copy todir="build/sound" >
         <fileset dir="${sounds}" />
     </copy>
-    <javac srcdir="${src}" destdir="${build}" includeantruntime="false"/>
+    <javac debug="true" debuglevel="lines, source" srcdir="${src}" destdir="${build}" includeantruntime="false"/>
 </target>
 
 <target name="run" depends="compile" description="Run the Armada Game">

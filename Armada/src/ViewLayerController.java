@@ -12,10 +12,13 @@ public class ViewLayerController implements KeyListener, MouseListener, MouseMot
 		    lastTime = new GregorianCalendar().getTimeInMillis();
 		}
 	    long newTime = new GregorianCalendar().getTimeInMillis();
+	    if (viewLayer != null)
         viewLayer.refresh(lastTime, newTime);
         refresh(lastTime, newTime);
     }
+    public ViewLayerController() {
     
+    }
     public ViewLayerController(ViewLayer vl) {
         this.viewLayer = vl;
     }
@@ -46,6 +49,7 @@ public class ViewLayerController implements KeyListener, MouseListener, MouseMot
 	public void mouseDragged(MouseEvent evt) {}
 	public void mouseMoved(MouseEvent evt) {}
 	public void mousePressed(MouseEvent evt) {
+	    if (viewLayer != null)
 	    viewLayer.click(evt.getX(), evt.getY());
 	}
 }

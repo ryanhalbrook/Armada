@@ -5,6 +5,8 @@ public abstract class GameServer {
     public ArrayList<GameStateChange> getChanges(Object client){ return null;};
     public void setChangeListener(ChangeListener cl) {};
     
+    public void disconnectNetwork() {}
+    
     public synchronized int getSize() {
         return 0;
     }
