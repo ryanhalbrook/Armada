@@ -150,6 +150,12 @@ public class GameController extends ViewLayerController {
 		viewRegion.setWidth(getViewWidth());
 		viewRegion.setHeight(getViewHeight());
 	}
+	
+	public void moveViewRegionToPoint(int x, int y) {
+	    int dx = x - viewRegion.getX();
+	    int dy = y - viewRegion.getY();
+	    moveViewRegion(dx, dy);
+	}
     
     /**
         Moves the viewing region. Stops at boundaries.

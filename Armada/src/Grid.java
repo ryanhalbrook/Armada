@@ -63,6 +63,10 @@ public class Grid extends ViewLayer {
         return gc.getViewRegion();
     }
     
+    public void moveViewRegionToPoint(int x, int y) {
+        gc.moveViewRegionToPoint(x, y);
+    }
+    
     /**
         Enables ships to move extremely far. Intended for debugging purposes.
     */

@@ -108,8 +108,9 @@ public class MapHUD extends HUD{
 		if(yy < 0) yy = 0;
 		if(xx > Grid.GRID_WIDTH-grid.getAp().getWidth()) xx = Grid.GRID_WIDTH-grid.getAp().getWidth();
 		if(yy > Grid.GRID_HEIGHT-grid.getAp().getHeight()) yy = Grid.GRID_HEIGHT-grid.getAp().getHeight();
-		grid.getViewRegion().setX(xx);
-		grid.getViewRegion().setY(yy);
+		grid.moveViewRegionToPoint(xx, yy);
+		//grid.getViewRegion().setX(xx);
+		//grid.getViewRegion().setY(yy);
 	}
 	
 	public boolean isIn(int inX, int inY){
