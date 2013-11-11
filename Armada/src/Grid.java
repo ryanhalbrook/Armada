@@ -16,7 +16,7 @@ public class Grid extends ViewLayer {
     static final int GRID_WIDTH = 38400; // The width of the grid in pixels.
     static final int GRID_HEIGHT = 21600; // The height of the grid in pixels.
 	
-	private ArmadaEngine engine = new ArmadaEngine();
+	private ArmadaEngine engine;
 	
     private ArrayList<Element> elements;
     private ArrayList<DynamicElement> delements;
@@ -39,6 +39,7 @@ public class Grid extends ViewLayer {
     public Grid(GameController gc) {
         super(new BoundingRectangle(0,0,10000,10000));
         this.gc = gc;
+        engine = gc.getEngine();
         this.dsb = gc.getViewSize();
         viewRegion = gc.getViewRegion();
     	elements = new ArrayList<Element>();

@@ -13,6 +13,10 @@ public class ApplicationManager {
     static final int MIN_WINDOW_WIDTH = 700;
     static final int MIN_WINDOW_HEIGHT = 500;
     
+    GameServer gs = null;
+    HostServer hs = null;
+    ProxyServer ps = null;
+    
     /** The JPanel that should be currently displayed. */
     private JPanel mainPanel;
     /** The main window for this application */
@@ -44,6 +48,27 @@ public class ApplicationManager {
     */
     public void startGame() {
         swapPanel(new ArmadaPanel(this));
+    }
+    
+    public void startNetworkedGame() {
+        hs = new HostServer();
+        ArmadaEngine engine = new ArmadaEngine(hs);
+        ViewLayerPanel vlp = new ViewLayerPanel();
+        GameController gc = new GameController(this, engine, vlp);
+        vlp.setViewLayerController(gc);
+        vlp.setAntialiasingEnabled(true);
+        swapPanel(vlp);
+    }
+    
+    public void connectToNetworkedGame() {
+        ps = new ProxyServer("127.0.0.1");
+        if (ps == null) System.out.println("ps is null");  
+        ArmadaEngine engine = new ArmadaEngine(ps);
+        ViewLayerPanel vlp = new ViewLayerPanel();
+        GameController gc = new GameController(this, engine, vlp);
+        vlp.setViewLayerController(gc);
+        vlp.setAntialiasingEnabled(true);
+        swapPanel(vlp);
     }
     
     public void startGameNewWay() {

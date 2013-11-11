@@ -45,6 +45,10 @@ public class GameController extends ViewLayerController {
 	    
     }
     
+    public ArmadaEngine getEngine() {
+        return engine;
+    }
+    
     public void refresh(long previousTime, long currentTime) {
         super.refresh(previousTime, currentTime);
         int turn = grid.getTurn();

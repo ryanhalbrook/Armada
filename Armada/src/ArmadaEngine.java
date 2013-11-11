@@ -1,5 +1,5 @@
 import java.util.*;
-public class ArmadaEngine {
+public class ArmadaEngine implements ChangeListener {
 
     int turn = 1;
     
@@ -8,10 +8,25 @@ public class ArmadaEngine {
     private double mseconds = TURN_TIME;
     private long lastTime = 0;
     
+    private GameServer gs;
+    
     private PlayerManager pm;
     
     private ArrayList<Element> elements;
     private ArrayList<DynamicElement> delements;
+    
+    public void changeOccurred() {
+    
+        //System.out.println("Change Occurred");
+        ArrayList<GameStateChange> changes = gs.getChanges(this);
+        GameStateChange gsc = null;
+        if (changes == null) return;
+        if (changes.size() > 0) gsc = changes.get(0);
+        if (gsc != null) {
+            System.out.println("Engine got message: " + gsc.getMessage());
+            if (gsc.getMessage().equals("Turn Changed")) toggleTurn();
+        }
+    }
     
     public enum MovementStatus {
         SUCCESS, OBJECT_IN_PATH, RANGE, CANNOT_MOVE_PLANET, UNKNOWN_FAILURE;
@@ -27,6 +42,32 @@ public class ArmadaEngine {
     
     public PlayerManager getPlayerManager(){
 		return pm;
+	}
+	
+	public ArmadaEngine(GameServer server) {
+	    System.out.println(this);
+	    if (server == null) System.out.println("Server is null");
+	    else System.out.println("Server is not null");
+	    this.gs = server;
+	    gs.setChangeListener(this);
+	    if (this.gs == null) System.out.println("Server is null after being assigned");
+	    pm = new PlayerManager();
+        delements = new ArrayList<DynamicElement>();
+        for (DynamicElement d : pm.getHomePlanets()) {
+            delements.add(d);
+        }
+        
+        // Add some ships
+		delements.add(new NormalShip(750,330,1));
+		delements.add(new NormalShip(160,330,1));
+		delements.add(new NormalShip(260,330,2));
+		delements.add(new NormalShip(60,330,2));
+		delements.add(new NormalShip(220,330,2));
+		delements.add(new NormalShip(300,330,2));
+		delements.add(new NormalShip(350,330,2));
+		delements.add(new NormalShip(400,330,2));
+		delements.add(new NormalShip(450,330,2));
+		Spawner.spawnPlanets(this, 40);
 	}
     
     public ArmadaEngine() {
@@ -54,6 +95,10 @@ public class ArmadaEngine {
 	}
     
     public void toggleTurn() {
+        System.out.println(this);
+        GameStateChange gsc = new GameStateChange(null, "Turn Changed");
+        if (this.gs != null) gs.commitChange(this, gsc);
+        else System.out.println("Null server");
 		if(turn==1) turn=2;
 		else turn=1;	
 		startTurn();		
@@ -83,6 +128,7 @@ public class ArmadaEngine {
     }
     
     public double maxSecondsForTurn() {
+        
         return TURN_TIME;
     }
 	

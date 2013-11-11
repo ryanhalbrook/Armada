@@ -15,6 +15,8 @@ public class MainMenuPanel extends JPanel implements ActionListener{
     JButton startButton = new JButton("Start Game Old Way");
     JButton startButton2 = new JButton("Start Game");
     JButton exitButton = new JButton("Quit Game");
+    JButton networkedGameHostButton = new JButton("Start Networked Game");
+    JButton networkedGameClientButton = new JButton("Connect to Networked Game");
     
     BufferedImage backgroundImage;
     static final String IMAGE_NAME = "ArmadaBackground";
@@ -26,11 +28,15 @@ public class MainMenuPanel extends JPanel implements ActionListener{
         startButton.addActionListener(this);
         exitButton.addActionListener(this);
         startButton2.addActionListener(this);
+        networkedGameHostButton.addActionListener(this);
+        networkedGameClientButton.addActionListener(this);
         JPanel buttonsPanel = new JPanel();
         this.setLayout(new BorderLayout());
         buttonsPanel.add(startButton2);
+        buttonsPanel.add(networkedGameHostButton);
+        buttonsPanel.add(networkedGameClientButton);
         buttonsPanel.add(exitButton);
-        buttonsPanel.add(startButton);
+        //buttonsPanel.add(startButton);
         buttonsPanel.setBorder(new EmptyBorder(10,400,250,10));
         buttonsPanel.setOpaque(false);
         this.add(buttonsPanel, BorderLayout.SOUTH);
@@ -54,6 +60,10 @@ public class MainMenuPanel extends JPanel implements ActionListener{
             am.startGame();
         } else if (evt.getSource() == startButton2) {
             am.startGameNewWay();  
+        } else if (evt.getSource() == networkedGameHostButton) {
+            am.startNetworkedGame();
+        } else if (evt.getSource() == networkedGameClientButton) {
+            am.connectToNetworkedGame();
         } else if (evt.getSource() == exitButton) {
             System.exit(0);
         }
