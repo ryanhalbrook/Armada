@@ -95,41 +95,67 @@ public class HostServer extends GameServer {
         public void run() {
             System.out.println("Entered Server Loop");
             GameStateChange c = null;
-        try {
-            while (true) {
             
-             Thread.sleep(100);
-                x--;
-                //System.out.println("x: "+x);
-                //if (x == 0) break;
-                if (oistream.available() > 0)
-                    System.out.println("Got a message!");
-                    c = (GameStateChange)oistream.readObject();
-                    if (c!= null) changes.add(c);
-                    if (a!= null) a.changeOccurred();
-                if (c == null) {
-                    //System.out.println("c is null");
-                    continue;
-                }
-                if (c.getMessage().equals(QUIT_STRING)) {
-                    System.out.println("Exiting server loop");
-                    break;
-                } else {
-                    System.out.println("Message: " + c.getMessage());
-                }
-                
-                for (GameStateChange change : changes) {
-                    oostream.writeObject(change);
-                    if (change.getMessage().equals(QUIT_STRING)) break;
-                    changes.remove(change);
-                
-                }
-            }
+            boolean quit = false;
             
-        } catch (Exception e) {
-            e.printStackTrace();   
+            while (!quit) {
+                try {
+                    Thread.sleep(100);
+                        x--;
+                        //System.out.println("x: "+x);
+                        //if (x == 0) break;
+                        if (oistream.available() > 0)
+                            System.out.println("Got a message!");
+                            c = (GameStateChange)oistream.readObject();
+                            if (c!= null) changes.add(c);
+                            if (a!= null) a.changeOccurred();
+                            if (c == null) {
+                                //System.out.println("c is null");
+                                continue;
+                            }
+                        if (c.getMessage().equals(QUIT_STRING)) {
+                            System.out.println("Exiting server loop");
+                            break;
+                        } else {
+                            System.out.println("Message: " + c.getMessage());
+                        }
+                
+                        for (GameStateChange change : changes) {
+                            oostream.writeObject(change);
+                            if (change.getMessage().equals(QUIT_STRING)) break;
+                            changes.remove(change);
+                
+                        }
+                } catch (java.io.EOFException e) {
+                    e.printStackTrace();
+                    quit = true;
+                } catch (Exception e) {
+                    e.printStackTrace();   
+                }
+            }   
+            disconnectNetwork();
         }
-        disconnectNetwork();
+    }
+    
+    public synchronized int getSize() {
+        return changes.size();
+    }
+    
+    public synchronized GameStateChange getGameStateChange(int index) {
+        if (index < changes.size()) {
+            return changes.get(index);
+        }
+        return null;
+    }
+    
+    public synchronized void addGameStateChange(GameStateChange gsc) {
+        System.out.println("Adding Change: " + gsc.getMessage());
+        changes.add(gsc); 
+    }
+    
+    public synchronized void removeGameStateChange(int index) {
+        if (index < changes.size()) {
+            changes.remove(index);
         }
     }
     

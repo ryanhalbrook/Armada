@@ -93,50 +93,67 @@ public class ProxyServer extends GameServer {
         return changes;
     }
     
+    public synchronized int getSize() {
+        return changes.size();
+    }
+    
+    public synchronized GameStateChange getGameStateChange(int index) {
+        if (index < changes.size()) {
+            return changes.get(index);
+        }
+        return null;
+    }
+    
+    public synchronized void addGameStateChange(GameStateChange gsc) {
+        System.out.println("Adding Change: " + gsc.getMessage());
+        changes.add(gsc); 
+    }
+    
+    public synchronized void removeGameStateChange(int index) {
+        if (index < changes.size()) {
+            changes.remove(index);
+        }
+    }
+    
     private class Loop implements Runnable {
         public void run() {
             GameStateChange c = null;
         
-        while (true) {
+            boolean quit = false;
         
+            while (!quit) {
         
-        try {
+                try {
             
-            Thread.sleep(100);
-            x--;
-            if (x % 50 == 0) System.out.println("Client Side Loop Running");
-            //if (x == 0) break;
-                for (GameStateChange change : getChanges()) {
-                    System.out.println("Client: Sending a change");
-                    oostream.writeObject(change);
+                    Thread.sleep(100);
+                    x--;
+                    if (x % 50 == 0) System.out.println("Client Side Loop Running");
+                    //if (x == 0) break;
+                    for (GameStateChange change : getChanges()) {
+                        System.out.println("Client: Sending a change");
+                        oostream.writeObject(change);
                     
-                    if (change.getMessage().equals(QUIT_STRING)) break;
-                    changes.remove(change);
-                }
-                if (oistream.available() > 0)
-                    c = (GameStateChange)oistream.readObject();
-                    if (c!= null) changes.add(c);
+                        if (change.getMessage().equals(QUIT_STRING)) break;
+                        changes.remove(change);
+                    }
+                    if (oistream.available() > 0) c = (GameStateChange)oistream.readObject();
+                    if (c!= null) addGameStateChange(c);
                     if (a != null) a.changeOccurred();
-                if (c == null) {
-                    //System.out.println("c is null");
-                    continue;
-                }
-                if (c.getMessage().equals(QUIT_STRING)) {
-                    System.out.println("Exiting server loop");
-                    break;
-                } else {
-                    System.out.println("Message: " + c.getMessage());
-                }
+                    if (c == null) continue;
                 
-                
-            
-            
-            
-        } catch (Exception e) {
-            e.printStackTrace();   
-        }
-        }
-        disconnectNetwork();
+                    if (c.getMessage().equals(QUIT_STRING)) {
+                        System.out.println("Exiting server loop");
+                        break;
+                    } else {
+                        System.out.println("Message: " + c.getMessage());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();   
+                    //quit = true;
+                }
+            }
+            System.out.println("About to disconnect");
+            disconnectNetwork();
         }
     }
 }
