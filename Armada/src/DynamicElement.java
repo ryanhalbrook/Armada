@@ -188,11 +188,11 @@ public class DynamicElement extends Element {
 		//If it's too messy or doesn't work or isn't practical, both the overloaded stat and the turn-based subtraction can be turned into flat values.
 		if (engine>maxEngine){
 			engine-=engine*.15;
-			if ((double)engine/maxEngine <= .001 || ((double)engine/maxEngine >= .85 && (double)engine/maxEngine < 1.0)) engine = maxEngine;
-		}
+			if ((double)engine/maxEngine <= .001) engine = maxEngine;
+			}
 		else if (hull>maxHull){
 			hull-=hull*.15;
-			if ((double)hull/maxHull <= .001 || ((double)hull/maxHull >= .85 && (double)engine/maxHull < 1.0)) hull = maxHull;
+			if ((double)hull/maxHull <= .001) hull = maxHull;
 		}	
 		else if (speed>maxSpeed){
 			speed-=speed*.15;
