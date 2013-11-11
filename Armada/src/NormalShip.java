@@ -17,7 +17,7 @@ public class NormalShip extends Ship{
 		weapons = baseWeapons;
 		range = 300;
 		//Some Examples of my testing
-		this.addItem(new Item(ItemList.ItemNames.OverloadWeapons));
+		//this.addItem(new Item(ItemList.ItemNames.OverloadWeapons));
 		//this.addItem(new Item(ItemList.ItemNames.ScalingWeaponsUpgrade));
 		//Item i = new Item(ItemList.ItemNames.HullPlate);
 		//this.addItem(i);

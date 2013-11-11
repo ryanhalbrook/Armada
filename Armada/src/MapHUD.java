@@ -6,14 +6,16 @@ import java.util.ArrayList;
 public class MapHUD extends HUD{
 	
 	private ArrayList<DynamicElement> des;
-	private double scale = .2;
 	static final double DEFAULT_SCALE = .2;
+	private double scale = DEFAULT_SCALE;
 	private boolean expanding = false;
 	private boolean shrinking = false;
-	public static final int SCALING_TIME = 1000; // in milliseconds
+	public static final int SCALING_TIME = 3000; // in milliseconds
+	private int inputLocation=4;
 	
 	public MapHUD(Grid gr, int l){
 		super(0,0,250,125,gr);
+		inputLocation=l;
 		location = l;
 		des = grid.getDelements();
 		setName("Map Layer");
@@ -21,6 +23,7 @@ public class MapHUD extends HUD{
 	
 	public MapHUD(Grid gr, int l, BoundingRectangle r){
 		super(0,0,250,125,gr);
+		inputLocation=l;
 		location = l;
 		des = grid.getDelements();
 		setName("Map Layer");
@@ -35,23 +38,21 @@ public class MapHUD extends HUD{
 	}
 	
 	public void draw(Graphics g){
-	    
 	    r.setWidth((int)(grid.getAp().getWidth() * scale));
 	    r.setHeight((int)(grid.getAp().getHeight() * scale));
 	    r.setX(grid.getAp().getWidth() - r.getWidth() - 10);
 	    r.setY(grid.getAp().getHeight() - r.getHeight() - 10);
+	    updateLocation();
 	    int x = r.getX();
 	    int y = r.getY();
 	    int width = r.getWidth();
 	    int height = r.getHeight();
-		updateLocation();
 		g.setColor(new Color(0.1f, 0.1f, 0.1f, 0.8f));
 		g.fillRect(x, y, width, height);
 		int insetWidth = (int)((grid.getViewRegion().getWidth() / (float)grid.getWidth())*(width*1.0));
 		int insetHeight = (int)((grid.getViewRegion().getHeight() / (float)grid.getHeight())*(height*1.0));
 		double dxf = (width*1.0)*(grid.getViewRegion().getX()/(grid.getWidth()*1.0));
 		double dyf = (height*1.0)*(grid.getViewRegion().getY()/(grid.getHeight()*1.0));
-		
 		des=grid.getDelements();
 		if(des == null)return;
 		DynamicElement temp;
@@ -75,7 +76,7 @@ public class MapHUD extends HUD{
 		g.setColor(Color.WHITE);
 		g.drawRect(x+dx, y+dy, insetWidth, insetHeight);
 		g.drawRect(x-1, y-1, width+1, height+1);
-		
+		updateLocation();
 		if (scale > 0.79) {
 		    g.drawLine(x + (int)(width / 2.0f), y, x + (int)(width / 2.0f), y + height);
 		    g.drawLine(x, y + (int)(height / 2.0f), x + width, y + (int)(height / 2.0f));
@@ -84,7 +85,7 @@ public class MapHUD extends HUD{
 		    g.drawLine(x + width - SCALE_LENGTH - 30, y + height - 30, x + width - 30, y + height - 30);
 		    g.drawLine(x + width - SCALE_LENGTH - 30, y + height - 30 - (int)(SCALE_HEIGHT / 2.0f), x + width - SCALE_LENGTH - 30, y + height - 30 + (int)(SCALE_HEIGHT / 2.0f));
 		    g.drawLine(x + width - 30, y + height - 30 - (int)(SCALE_HEIGHT / 2.0f), x + width - 30, y + height - 30 + (int)(SCALE_HEIGHT / 2.0f));
-		    g.drawString("1000 km", x + width - SCALE_LENGTH - 25, y + height - 40);
+		    g.drawString("1000 km", x + width - SCALE_LENGTH - 25, y + height - 40);//I don't think we should have a unit, the scale of our game is ridiculous
 		    g.drawString("II", x + 10, y + 20);
 		    g.drawString("I", x + (int)(width / 2.0f) + 10, y + 20);
 		    g.drawString("III", x + 10, y + (int)(height / 2.0f) + 20);
@@ -122,6 +123,8 @@ public class MapHUD extends HUD{
 	    int delta = (int)(currentTime - previousTime);
 	    float step = ( delta / (SCALING_TIME * 1.0f) ) * 8.0f;
 	    if (shrinking) {
+	    	location=inputLocation;
+	    	//System.out.println("1: " + location);
 	        scale -= step;
 	        if (scale < DEFAULT_SCALE) {
 	            scale = DEFAULT_SCALE;
@@ -130,9 +133,11 @@ public class MapHUD extends HUD{
 	        
 	    }
 	    if (expanding) {
+	    	location=10;
+	    	//System.out.println("2: " + location);
 	        scale += step;
-	        if (scale > 0.8) {
-	            scale = 0.8;
+	        if (scale > .8) {
+	            scale = .8;
 	            expanding = false;
 	        }
 	    }

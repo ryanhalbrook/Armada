@@ -46,7 +46,7 @@ public class HUD extends ViewLayer {
 		switch(location){
 		case 0: return;
 		case 1:
-			r.x=5;
+			r.x= 10;
 			r.y=TurnHUD.BAR_HEIGHT;
 			break;
 		case 2:
@@ -54,8 +54,8 @@ public class HUD extends ViewLayer {
 			r.y=TurnHUD.BAR_HEIGHT;
 			break;
 		case 3:
-			r.x = 5;
-			r.y = grid.getAp().getHeight() - r.height;
+			r.x = 10;
+			r.y = grid.getAp().getHeight() - r.height - 10;
 			break;
 		case 4:
 			r.x = grid.getAp().getWidth()-r.width - 10;
@@ -81,6 +81,12 @@ public class HUD extends ViewLayer {
 		    r.x = 0;
 		    r.y = 0;
 		    break;
+		case 10:
+		    r.x = grid.getAp().getWidth()/2-r.width/2;
+		    r.y = grid.getAp().getHeight()/2 - r.height/2;
+		    break;
+		  
+		   
 		}
 		
 	}
