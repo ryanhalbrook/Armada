@@ -15,6 +15,7 @@ public class GameController extends ViewLayerController {
     private boolean moveMode = false, gameOn=true;
     ApplicationManager am = null;
     private int lastTurn = 0;
+    private int quadrant = 2;
     
     private InformationPopupLayer ipl;
     
@@ -166,6 +167,20 @@ public class GameController extends ViewLayerController {
         if (viewRegion.getY() + getViewHeight() > GRID_HEIGHT) {
             viewRegion.setY(GRID_HEIGHT - getViewHeight());
         }
+        int q = 0;
+        if (viewRegion.getX() < GRID_WIDTH / 2.0f && viewRegion.getY() < GRID_HEIGHT / 2.0f) {
+            q = 2;
+        } else if (viewRegion.getX() >= GRID_WIDTH / 2.0f && viewRegion.getY() >= GRID_HEIGHT / 2.0f) {
+            q = 4;
+        } else if (viewRegion.getX() < GRID_WIDTH / 2.0f && viewRegion.getY() >= GRID_HEIGHT / 2.0f) {
+            q = 3;
+        } else if (viewRegion.getX() >= GRID_WIDTH / 2.0f && viewRegion.getY() < GRID_HEIGHT / 2.0f) {
+            q = 1;
+        }
+        
+        if (quadrant != q) showInfo("Entered Quadrant: " + q);
+        quadrant = q;
+        
     }
     
     public BoundingRectangle getViewRegion() {
