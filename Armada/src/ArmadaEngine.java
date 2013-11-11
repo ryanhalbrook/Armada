@@ -29,8 +29,14 @@ public class ArmadaEngine implements ChangeListener {
         
         if (gsc != null) {
             System.out.println("Engine got message: " + gsc.getMessage());
-            if (gsc.getMessage().equals("Turn Changed")) toggleTurn();
+            if (gsc.getMessage().equals("Turn Changed")) switchTurn();
+            if (gsc.getMessage().equals("MOVE")) {
+                DynamicElement e = getDEAtPoint(gsc.x1, gsc.y1);
+                moveDE(e, gsc.x2, gsc.y2);
+            }
         }
+        
+        
     }
     
     public enum MovementStatus {
@@ -39,6 +45,15 @@ public class ArmadaEngine implements ChangeListener {
     
     public enum AttackStatus {
         SUCCESS, OUT_OF_SHOTS, RANGE, BAD_TARGET, UNKNOWN_FAILURE;
+    }
+    
+    private DynamicElement getDEAtPoint(int x, int y) {
+        for (DynamicElement d : delements) {
+			    if(d.getX() == x && d.getY() == y && d.isTargetable()) {
+				    return d;
+			    }
+		}
+		return null;
     }
     
     public ArrayList<DynamicElement> getDynamicElements() {
@@ -98,15 +113,19 @@ public class ArmadaEngine implements ChangeListener {
     public void add(DynamicElement inDE){
 		delements.add(inDE);
 	}
+	
+	private void switchTurn() {
+	    if(turn==1) turn=2;
+		else turn=1;	
+		startTurn();
+	}
     
     public void toggleTurn() {
         System.out.println(this);
         GameStateChange gsc = new GameStateChange(null, "Turn Changed");
         if (this.gs != null) gs.commitChange(this, gsc);
         else System.out.println("Null server");
-		if(turn==1) turn=2;
-		else turn=1;	
-		startTurn();		
+		switchTurn();		
 	}
 	
 	public int getTurn() {
@@ -150,6 +169,18 @@ public class ArmadaEngine implements ChangeListener {
 	}
     
     public MovementStatus moveDynamicElement(DynamicElement activeE, int x, int y) {
+        if (gs != null) {
+            GameStateChange gsc = new GameStateChange(null, "MOVE");
+            gsc.x1 = activeE.getX();
+            gsc.y1 = activeE.getY();
+            gsc.x2 = x;
+            gsc.y2 = y;
+            gs.commitChange(this, gsc);
+        }
+        return moveDE(activeE, x, y);
+    }
+    
+    private MovementStatus moveDE(DynamicElement activeE, int x, int y) {
         if(activeE.withinMovement(x,y) && activeE.canMovePath2(x,y, delements) && activeE instanceof Ship){
 				Ship temp = (Ship) activeE;
 				if(temp.isDocked())

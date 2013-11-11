@@ -8,6 +8,9 @@ public class HostServer extends GameServer {
     static final String QUIT_STRING = "QUIT_GAME";
     ArrayList<Object> clients = new ArrayList<Object>();
     ArrayList<GameStateChange> changes = new ArrayList<GameStateChange>();
+    ArrayList<GameStateChange> outGoingChanges = new ArrayList<GameStateChange>();
+    
+    boolean networkUp = true;
     
     ServerSocket clientListener;
     Socket connection = null;
@@ -24,6 +27,7 @@ public class HostServer extends GameServer {
     }
     
     public void disconnectNetwork() {
+    networkUp = false;
         try {
             oostream.close();
             oistream.close();
@@ -38,6 +42,7 @@ public class HostServer extends GameServer {
     }
     
     private void setupNetwork() {
+        
         System.out.println("Setting up network");
         try {
             clientListener = new ServerSocket(PORT);
@@ -60,9 +65,14 @@ public class HostServer extends GameServer {
             System.out.println("Network setup failed");
         }
         System.out.println("Server Success");
-        
+        /*
         Thread t = new Thread(new Loop());
         t.start();
+        */
+        Thread read = new Thread(new ReadingLoop());
+        read.start();
+        Thread write = new Thread(new WritingLoop());
+        write.start();
         System.out.println("Host Server Loop Started");
     }
     
@@ -75,7 +85,8 @@ public class HostServer extends GameServer {
     }
     
     public synchronized void commitChange(Object client, GameStateChange change) {
-        changes.add(change);
+        //changes.add(change);
+        outGoingChanges.add(change);
     }
     
     public synchronized ArrayList<GameStateChange> getChanges(Object client) {
@@ -109,10 +120,12 @@ public class HostServer extends GameServer {
                             c = (GameStateChange)oistream.readObject();
                             if (c!= null) addGameStateChange(c);
                             if (a!= null) a.changeOccurred();
+                            /*
                             if (c == null) {
                                 //System.out.println("c is null");
                                 continue;
                             }
+                            */
                         if (c.getMessage().equals(QUIT_STRING)) {
                             System.out.println("Exiting server loop");
                             break;
@@ -120,12 +133,12 @@ public class HostServer extends GameServer {
                             System.out.println("Message: " + c.getMessage());
                         }
                         
-                        for (int i = 0; i < getSize(); i++) {
-                            GameStateChange change = getGameStateChange(i);
+                        for (int i = 0; i < getOutGoingSize(); i++) {
+                            GameStateChange change = getOutGoingGameStateChange(i);
                             System.out.println("Server: Sending a change");
                             oostream.writeObject(change);
                             if (change.getMessage().equals(QUIT_STRING)) break;
-                            changes.remove(change);
+                            removeOutGoingGameStateChange(i);
                         }
                         /*
                         for (GameStateChange change : changes) {
@@ -152,7 +165,9 @@ public class HostServer extends GameServer {
     
     public synchronized GameStateChange getGameStateChange(int index) {
         if (index < changes.size()) {
-            return changes.get(index);
+            GameStateChange gsc = changes.get(index);
+            changes.remove(gsc);
+            return gsc;
         }
         return null;
     }
@@ -165,6 +180,113 @@ public class HostServer extends GameServer {
     public synchronized void removeGameStateChange(int index) {
         if (index < changes.size()) {
             changes.remove(index);
+        }
+    }
+    
+    private synchronized int getOutGoingSize() {
+        return outGoingChanges.size();
+    }
+    
+    private synchronized GameStateChange getOutGoingGameStateChange(int index) {
+        System.out.println("Getting an outgoing change");
+        if (index < outGoingChanges.size()) {
+            return outGoingChanges.get(index);
+        }
+        return null;
+    }
+    
+    private synchronized void addOutGoingGameStateChange(GameStateChange gsc) {
+        System.out.println("Adding Change: " + gsc.getMessage());
+        changes.add(gsc); 
+    }
+    
+    private synchronized void removeOutGoingGameStateChange(int index) {
+        if (index < outGoingChanges.size()) {
+            outGoingChanges.remove(index);
+        }
+    }
+    
+    private class WritingLoop implements Runnable {
+        public void run() {
+            GameStateChange c = null;
+        
+            boolean quit = false;
+        
+            while (!quit && networkUp) {
+        
+                try {
+            
+                    Thread.sleep(100);
+                    x--;
+                    if (x % 50 == 0) System.out.println("Client Side Loop Running");
+                    //if (x == 0) break;
+                    for (int i = 0; i < getOutGoingSize(); i++) {
+                        GameStateChange change = getOutGoingGameStateChange(i);
+                        System.out.println("Client: Sending a change");
+                        oostream.writeObject(change);
+                        if (change.getMessage().equals(QUIT_STRING)) break;
+                        removeOutGoingGameStateChange(i);
+                    }
+                    
+                } catch (EOFException e) {
+                    e.printStackTrace();
+                    quit = true;
+                    networkUp = false;
+                } catch (Exception e) {
+                    e.printStackTrace();   
+                    //quit = true;
+                }
+            }
+            System.out.println("About to disconnect");
+            networkUp = false;
+            disconnectNetwork();
+        }
+    }
+    
+    
+    private class ReadingLoop implements Runnable {
+        public void run() {
+            GameStateChange c = null;
+        
+            boolean quit = false;
+        
+            while (!quit && networkUp) {
+        
+                try {
+            
+                    Thread.sleep(100);
+                    x--;
+                    if (x % 50 == 0) System.out.println("Client Side Loop Running");
+                    
+                    if (oistream.available() > 0) 
+                    System.out.println("Got a message");
+                    System.out.println("CLIENT: Reading");
+                    c = (GameStateChange)oistream.readObject();
+                    System.out.println("CLIENT: Done Reading");
+                    
+                    if (c!= null) addGameStateChange(c);
+                    if (a != null) a.changeOccurred();
+                    if (c == null) continue;
+                
+                    if (c.getMessage().equals(QUIT_STRING)) {
+                        System.out.println("Exiting server loop");
+                        break;
+                    } else {
+                        System.out.println("Message: " + c.getMessage());
+                    }
+                    
+                } catch (EOFException e) {
+                    e.printStackTrace();
+                    quit = true;
+                    networkUp = false;
+                } catch (Exception e) {
+                    e.printStackTrace();   
+                    //quit = true;
+                }
+            }
+            networkUp = false;
+            System.out.println("About to disconnect");
+            disconnectNetwork();
         }
     }
     

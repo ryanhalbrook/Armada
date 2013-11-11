@@ -5,6 +5,9 @@ public class GameStateChange implements Serializable {
     String message = "Armada";
     ArrayList<Object> outdatedClients = null;
     
+    int x1, y1;
+    int x2, y2;
+    
     public GameStateChange(ArrayList<Object> clients, String message) {
         outdatedClients = clients;
         this.message = message;
