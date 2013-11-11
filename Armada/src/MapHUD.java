@@ -74,8 +74,22 @@ public class MapHUD extends HUD{
 		int dx = (int)dxf; int dy = (int)dyf;
 		g.setColor(Color.WHITE);
 		g.drawRect(x+dx, y+dy, insetWidth, insetHeight);
-		//g.setColor(Color.RED);
-		//g.drawRect(x-1, y-1, width-1, height-1);
+		g.drawRect(x-1, y-1, width+1, height+1);
+		
+		if (scale > 0.79) {
+		    g.drawLine(x + (int)(width / 2.0f), y, x + (int)(width / 2.0f), y + height);
+		    g.drawLine(x, y + (int)(height / 2.0f), x + width, y + (int)(height / 2.0f));
+		    int SCALE_LENGTH = 75;
+		    int SCALE_HEIGHT = 16;
+		    g.drawLine(x + width - SCALE_LENGTH - 30, y + height - 30, x + width - 30, y + height - 30);
+		    g.drawLine(x + width - SCALE_LENGTH - 30, y + height - 30 - (int)(SCALE_HEIGHT / 2.0f), x + width - SCALE_LENGTH - 30, y + height - 30 + (int)(SCALE_HEIGHT / 2.0f));
+		    g.drawLine(x + width - 30, y + height - 30 - (int)(SCALE_HEIGHT / 2.0f), x + width - 30, y + height - 30 + (int)(SCALE_HEIGHT / 2.0f));
+		    g.drawString("1000 km", x + width - SCALE_LENGTH - 25, y + height - 40);
+		    g.drawString("II", x + 10, y + 20);
+		    g.drawString("I", x + (int)(width / 2.0f) + 10, y + 20);
+		    g.drawString("III", x + 10, y + (int)(height / 2.0f) + 20);
+		    g.drawString("IV", x + (int)(width / 2.0f) + 10, y + (int)(height / 2.0f)+20);
+		}
 		
 	}
 
