@@ -18,11 +18,20 @@
     <copy todir="build/sound" >
         <fileset dir="${sounds}" />
     </copy>
-    <javac debug="true" debuglevel="lines, source" srcdir="${src}" destdir="${build}" includeantruntime="false"/>
+    <javac classpath="/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/jfxrt.jar" srcdir="${src}" destdir="${build}" includeantruntime="false" />
 </target>
 
 <target name="run" depends="compile" description="Run the Armada Game">
-    <java classpath="${build}" classname="Game" fork="true"/>
+    <java classpath="${build}" classname="Game" fork="true">
+        <classpath>
+            <fileset dir= "${build}">
+                <include name="**/*.class" />
+            </fileset>
+            <fileset dir= "/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/">
+                <include name="jfxrt.jar" />
+            </fileset>
+        </classpath>
+    </java>
 </target>
 
 <target name="clean" description="Remove build files" >

@@ -13,11 +13,13 @@ public class BGMPlayer{
 	
 	public BGMPlayer(){
 		//Gets the music from the bin
+		
 		URL url = this.getClass().getClassLoader().getResource("sound/"+"Gravity.mp3");
 		try {
 			new JFXPanel();
-			player = new MediaPlayer(new Media(url.toURI().toString()));
-			player.setCycleCount(MediaPlayer.INDEFINITE);
+			if (url != null) player = new MediaPlayer(new Media(url.toURI().toString()));
+			if (player != null) player.setCycleCount(MediaPlayer.INDEFINITE);
+			else System.out.println("Music could not be found!");
 		} catch (Exception e) {
 			System.out.println("Music could not be found!");
 			e.printStackTrace();
@@ -28,8 +30,9 @@ public class BGMPlayer{
 		URL url = this.getClass().getClassLoader().getResource("sound/"+musicName);
 		try {
 			new JFXPanel();
-			player = new MediaPlayer(new Media(url.toURI().toString()));
-			player.setCycleCount(MediaPlayer.INDEFINITE);
+			if (url != null) player = new MediaPlayer(new Media(url.toURI().toString()));
+			if (player != null) player.setCycleCount(MediaPlayer.INDEFINITE);
+			else System.out.println("Music could not be found!");
 		} catch (Exception e) {
 			System.out.println("Music could not be found!");
 			e.printStackTrace();
@@ -49,7 +52,8 @@ public class BGMPlayer{
 		}
 	}
 	public void play(){
-		player.play();
+	    if (player != null)
+		    player.play();
 	}
 	public void mute(){
 		player.setMute(true);
