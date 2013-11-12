@@ -9,7 +9,7 @@ public class StatHUD extends HUD{
 	private ArrayList<Button> buttons;
 	private DynamicElement de;
 	private int buttonHeight = 30, buttonGap=3;
-	private double scaleH =.07, scaleW = .13;
+	private double scaleH =.05, scaleW = .15;
 	
 
 	public StatHUD(int x, int y, int width, int height) {
@@ -61,7 +61,7 @@ public class StatHUD extends HUD{
 		if(grid.getActiveE() == null)return;
 		
 		Font temp = g.getFont();
-		g.setFont(new Font("Dialog",Font.BOLD, buttonHeight/3));
+		g.setFont(new Font("Dialog",Font.BOLD, buttonHeight/2));
 		
 		buttonHeight=(int)((double)grid.getAp().getHeight()*scaleH);
 		r.setWidth((int)((double)grid.getAp().getWidth()*scaleW));
