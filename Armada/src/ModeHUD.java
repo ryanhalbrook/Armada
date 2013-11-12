@@ -9,6 +9,13 @@ import java.awt.Stroke;
 public class ModeHUD extends HUD{
 
     private String[] modes = {"Move (1)", "Hull (2)", "Eng (3)", "Dock(4)", "Move F.(5)"};
+    private Color[] modeColors = {Color.GREEN, new Color(250,100,0), Color.YELLOW, Color.MAGENTA, new Color(0.0f, 0.9f, 1.0f)};
+	private float phase = -1.0f;
+	private int lastMode = 1;
+	private int transitionMode = -1;
+	private long startTime;
+	
+	static final int ANIMATION_TIME = 100;
 	
 	public ModeHUD(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -17,6 +24,33 @@ public class ModeHUD extends HUD{
 	
 	public ModeHUD(Grid gr, int t){
 		super(5,45,500,40,gr, t);
+	}
+	
+	public void refresh(long previousTime, long currentTime) {
+	    /*
+	    if (lastMode == -1) {
+	        startTime = currentTime;
+	        lastMode = grid.getMode();
+	        return;
+	    }
+	    */
+	    if (lastMode != grid.getMode() && phase < -0.5f) {
+	        // Start animation.
+	        //System.out.println("Starting Animation");
+	        startTime = currentTime;
+	        transitionMode = grid.getMode();
+	        phase = 0.0f;
+	    }
+	    if (phase > -0.5f && phase <= 1.0f) {
+	        //System.out.println("Time delta: " + (currentTime - startTime));
+	        phase = (currentTime - startTime) * 1.0f / ANIMATION_TIME;
+	        //System.out.println("Phase " + phase);
+	    }
+	    if (phase > 0.99f) {
+	        phase = -1.0f;
+	        lastMode = grid.getMode();    
+	        startTime = -1;  
+	    }
 	}
 	
 	public void draw(Graphics g){
@@ -35,11 +69,17 @@ public class ModeHUD extends HUD{
 		g.setColor(Color.WHITE);
 		int selectionWidth = (int)(width / 6.0f);
 		for (int i = 0; i < 5; i++) {
+		    
 		    g.drawString(modes[i], i*selectionWidth+5, y+height-15);
 		}
-		
-		
-		int startX = (selection-1) * selectionWidth;
+		//System.out.println("Mode difference: " + (lastMode - grid.getMode()));
+		//System.out.println("Selection width, phase" + selectionWidth + ", " + phase);
+		float dx = (lastMode - grid.getMode()) * phase * selectionWidth;
+		dx = -dx;
+		//System.out.println("dx: " + dx);
+		selection = lastMode;
+		int startX = (selection-1) * selectionWidth + (int)dx;
+	    g.setColor(modeColors[grid.getMode()-1]);
 		g.drawRect(startX, y+1, selectionWidth, height-1);
 		
 		if (grid.getActiveE()!=null && grid.getActiveE() instanceof Ship) {
