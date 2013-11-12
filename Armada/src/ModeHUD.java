@@ -114,7 +114,7 @@ public class ModeHUD extends HUD{
 		    }
 		    else if(( grid.getMode() == 4)){
 		    	g.setColor(Color.RED);
-		    	g.drawString("Out of docking range or already docked", x, y+g.getFontMetrics().getHeight()*2);
+		    	//g.drawString("Out of docking range or already docked", x, y+g.getFontMetrics().getHeight()*2);
 		    }
 		    else if (( grid.getMode() == 5)) {
 		        g.setColor(new Color(0.0f, 0.9f, 1.0f));

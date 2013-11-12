@@ -49,7 +49,7 @@ public class Button extends BoundingRectangle{
 		
 		g.fillRect(x, y, width, height);
 		g.setColor(Color.WHITE);
-		g.drawString(title, x + width/2 - g.getFontMetrics().stringWidth(title)/2, y+15);
+		g.drawString(title, x + width/2 - g.getFontMetrics().stringWidth(title)/2, y + 3 + height/2);
 	}
 	
 	public void glow(Graphics g){
