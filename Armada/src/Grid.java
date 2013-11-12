@@ -200,6 +200,29 @@ public class Grid extends ViewLayer {
 	
 	public void update() {
 		
+		if(delements != null) {
+			for (int i=0;i<delements.size();i++) {
+				if(delements.get(i).isDead()){
+					SoundEffect.EXPLODE.play();
+					if((double)Math.random() >= (double)0.9){//10% chance of playing the scream
+					    SoundEffect.SCREAM.play();
+					}   
+					elements.add(new Explosion(delements.get(i)));
+					
+					delements.remove(i);
+					i--;
+				}
+			}
+			for (int i=0;i<elements.size();i++){
+				 if(elements.get(i) instanceof Explosion){
+					if(((Explosion)(elements.get(i))).isDone()){
+					    elements.remove(i);
+					    i--;
+					}
+				}
+			}
+		}
+		
 	}
 	
 	public boolean click(int inX, int inY){
@@ -303,27 +326,9 @@ public class Grid extends ViewLayer {
 	public void draw(Graphics g){ drawAllDelements(g); } 
 	
 	private void drawAllDelements(Graphics g){
-		if(delements != null) {
-			for (int i=0;i<delements.size();i++) {
-				if(delements.get(i).isDead()){
-					SoundEffect.EXPLODE.play();
-					if((double)Math.random() >= (double)0.9){//25% chance of playing the scream
-					    SoundEffect.SCREAM.play();
-					}   
-					elements.add(new Explosion(delements.get(i)));
-					
-					delements.remove(i);
-					i--;
-				}
-			}
-			for (int i=0;i<elements.size();i++){
-				 if(elements.get(i) instanceof Explosion){
-					if(((Explosion)(elements.get(i))).isDone()){
-					    elements.remove(i);
-					    i--;
-					}
-				}
-			}
+		if(delements != null){
+			
+			
 			for(Element e:elements){
 			    e.draw(g, viewRegion);
 			}
@@ -344,8 +349,12 @@ public class Grid extends ViewLayer {
 					de.draw(g, viewRegion);
 				}
 			}
+			//End drawing DE's
+			
 			
 		}
+			
+			
 	}
 	
 	public PlayerManager getPlayerManager(){
