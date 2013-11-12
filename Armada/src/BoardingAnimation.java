@@ -78,8 +78,8 @@ public class BoardingAnimation implements Runnable{
 					int y1 = de.getY()+(int)(de.getWidth()/2.0 * Math.sin(Math.toRadians(de.getAngle())));
 					int x2 = de.getX()+(int)((de.getWidth()/2.0 + 5) * Math.cos(Math.toRadians(de.getAngle())));
 					int y2 = de.getY()+(int)((de.getWidth()/2.0 + 5) * Math.sin(Math.toRadians(de.getAngle())));
-					de.setRope(new Element(x1, y1, 1, 5, 0,"rope_straight"));
-					de.setHook(new Element(x2, y2, 10, 5, 0,"gold_plunger"));
+					de.setRope(new Element(x1, y1, 1, 1, 0,"ropev_01"));
+					de.setHook(new Element(x2, y2, 10, 5, 0,"plunger"));
 					de.getRope().setOwner(de);
 					de.getHook().setOwner(de);
 					
@@ -151,8 +151,9 @@ public class BoardingAnimation implements Runnable{
 			else if(mode==3){
 				int tempX=de.getRope().getX();
 				int tempY=de.getRope().getY();
-				
-				if(!(de.getRope().getAH().moveHelper(deltaX2, deltaY2,mvTime*2)|de.getAH().moveHelper(deltaX, deltaY,mvTime))){
+				boolean r =de.getRope().getAH().moveHelper(deltaX, deltaY,mvTime*2);
+				boolean d =de.getAH().moveHelper(deltaX, deltaY,mvTime);
+				if(!(d)){
 					mode=5;
 					ra2=de.getAH().calcRotationAngle(target.getAngle());
 					de.getAH().setAngleLeft(ra2);
@@ -162,7 +163,7 @@ public class BoardingAnimation implements Runnable{
 				}
 				else{
 					int dist = (int)Math.sqrt(Math.pow(tempX-de.getRope().getX(), 2)+Math.pow(tempY-de.getRope().getY(), 2));
-					if(de.getRope().getWidth()-dist*2>=0)
+					if(de.getRope().getWidth()-dist*2>0)
 						de.getRope().setWidth(de.getRope().getWidth()-dist*2);
 					else
 						de.getRope().setWidth(1);
@@ -221,7 +222,7 @@ public class BoardingAnimation implements Runnable{
 				else
 					de.getBridge().extend();
 				try {
-	        		Thread.sleep(100);
+	        		Thread.sleep(10);
 	        	} catch (InterruptedException e) {
 	        		e.printStackTrace();
 	        	}
@@ -243,7 +244,7 @@ public class BoardingAnimation implements Runnable{
 				}
 					
 				try {
-	        		Thread.sleep(100);
+	        		Thread.sleep(10);
 	        	} catch (InterruptedException e) {
 	        		e.printStackTrace();
 	        	}

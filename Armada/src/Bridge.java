@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 
 
 public class Bridge extends Element {
-	private static final String IMAGE_NAME="lightbridge";
+	private static final String IMAGE_NAME="lightbridgev_02";
 	
 	private int length=1;
 	//private static final int HEIGHT=480;
