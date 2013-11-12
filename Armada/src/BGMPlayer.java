@@ -1,7 +1,6 @@
 
 import java.net.URISyntaxException;
 import java.net.URL;
-
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -57,6 +56,14 @@ public class BGMPlayer{
 	}
 	public void unMute(){
 		player.setMute(false);
+	}
+	public void toggleStop(){
+		if(player.getCurrentTime().toSeconds() > 0){
+			player.stop();
+		}
+		else{
+			player.play();
+		}
 	}
 	public void pause(){
 		player.pause();

@@ -259,6 +259,9 @@ public class GameController extends ViewLayerController {
 	        case KeyEvent.VK_M:
 	            hud.getMap().toggleScale();
 	        break;
+	        case KeyEvent.VK_P:
+	            bgm.toggleStop();
+	        break;
 	        case KeyEvent.VK_S:
 	            grid.moveCheat();
 	        break;

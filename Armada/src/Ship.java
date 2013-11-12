@@ -178,7 +178,6 @@ public class Ship extends DynamicElement{
 	public void maxWeaponsPerInc(int i){
 		double d = ((double)i)/100 +1;
 		maxWeapons *= d;
-		weapons = maxWeapons;
 	}
 	
 	public void enginesPerInc(int i){
@@ -189,7 +188,6 @@ public class Ship extends DynamicElement{
 	public void maxEnginesPerInc(int i){
 		double d = ((double)i)/100 +1;
 		maxEngine *= d;
-		engine = maxEngine;
 	}
 	
 	public void hullPerInc(int i){
@@ -200,7 +198,6 @@ public class Ship extends DynamicElement{
 	public void maxHullPerInc(int i){
 		double d = ((double)i)/100 +1;
 		maxHull *= d;
-		hull = maxHull;
 	}
 	
 	public void speedPerInc(int i){

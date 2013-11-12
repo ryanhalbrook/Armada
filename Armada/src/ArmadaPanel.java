@@ -188,12 +188,9 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	        case KeyEvent.VK_SHIFT:
 	            grid.nextMode();
 	        break;
-	        /*case KeyEvent.VK_M:
-	            if (moveMode) {
-	                lastX = -1; lastY = -1;
-	            }
-	            moveMode = !moveMode;
-	        break;*/
+	        case KeyEvent.VK_P:
+	            
+	        break;
 	        case KeyEvent.VK_CONTROL:
 	            if (moveMode) {
 	                lastX = -1; lastY = -1;

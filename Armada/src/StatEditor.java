@@ -25,9 +25,11 @@ public enum StatEditor {;
 	}
 	
 	public static void addItem(Ship s, Item i){
-		i.uponPurchase(s);
+		
 		s.getItems().add(i);
 		StatEditor.update(s);
+		i.uponPurchase(s);
+		
 	}
 	
 	public static void removeItem(Ship s, Item i){

@@ -21,4 +21,6 @@ public class JuggernautShip extends Ship {
 		this.addItem(new Item(ItemList.ItemNames.Juggernaut));
 		update();	
 	}
+	
+	
 }

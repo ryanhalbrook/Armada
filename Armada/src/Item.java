@@ -79,6 +79,12 @@ public class Item {
 		if(ItemList.keyInt(id, ItemList.ItemStats.EnginesFlat)){//This needed to be added for EnginesFlat
 			s.setEngine(s.getEngine() + ItemList.getInt(id, ItemList.ItemStats.EnginesFlat));//Upon buying some extra maxEngine the ship is also healed by the added maxEngine so that you DON'T have 100/100 engine then upgrade to have 100/120.  In this case, 20 is also added so that the engine will be 120/120
 		}
+		if(ItemList.keyInt(id, ItemList.ItemStats.HullPercentage)){//This needed to be added for EnginesFlat
+			int max = s.getMaxHull();
+			double per = (double)ItemList.getInt(id, ItemList.ItemStats.HullPercentage)/100.0;
+			int sub = (int)Math.round(max/(1+per));
+			s.setHull(s.getHull() + max - sub);
+		}
 	}
 	
 	//STEP 3 : This is the opposite as the above.  Cautious steps that may have to be taken upon removal.  Remember, the item has NOT been removed yet, this is called immediately before removal.  It is likely you wont need this
