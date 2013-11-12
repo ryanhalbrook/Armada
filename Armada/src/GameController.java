@@ -21,6 +21,8 @@ public class GameController extends ViewLayerController {
     
     int lastX = -1;
 	int lastY = -1;
+	
+	private BGMPlayer bgm;
     
     // Should eventually be dynamic through the observer pattern.
     static final int PANEL_WIDTH = 960;
@@ -42,7 +44,8 @@ public class GameController extends ViewLayerController {
 	    viewLayer.addSublayer(grid);
 	    BufferedImage img = ImageLoader.getImage("ArmadaBackground2.jpg");
 	    viewLayer.addSublayer(new BackgroundImageViewLayer(new BoundingRectangle(0, 0, dsb), viewRegion, img));
-	    
+	    bgm= new BGMPlayer();
+	    bgm.play();
     }
     
     public ArmadaEngine getEngine() {
