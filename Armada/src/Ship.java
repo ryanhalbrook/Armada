@@ -146,7 +146,7 @@ public class Ship extends DynamicElement{
 			this.getSAH().board(this, null,6);
 	}
 	public void draw(Graphics g, BoundingRectangle viewRect){
-		super.draw(g,viewRect);
+		
 		if(isDocking()){
 			if(bridge!=null&&bridge.getWidth()!=0){
 	    		bridge.draw(g, viewRect);
@@ -168,6 +168,7 @@ public class Ship extends DynamicElement{
 	    		bridge.draw(g, viewRect);
 	    	}
 	    }
+		super.draw(g,viewRect);
 	}
 	
 	public void weaponsPerInc(int i){

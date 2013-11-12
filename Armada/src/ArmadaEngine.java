@@ -97,6 +97,7 @@ public class ArmadaEngine implements ChangeListener {
         for (DynamicElement d : pm.getHomePlanets()) {
             delements.add(d);
         }
+        Spawner.spawnPlanets(this, 40);
         
         // Add some ships
 		delements.add(new NormalShip(750,330,1));
@@ -112,7 +113,7 @@ public class ArmadaEngine implements ChangeListener {
 		JuggernautShip s = new JuggernautShip(700,700,1);
 		s.addItem(new Item(ItemList.ItemNames.HullPlate));
 		delements.add(s);
-		Spawner.spawnPlanets(this, 40);
+		
     }
     
     public void add(DynamicElement inDE){

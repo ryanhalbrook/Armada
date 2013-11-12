@@ -4,13 +4,14 @@ import java.awt.image.BufferedImage;
 
 public class Bridge extends Element {
 	private static final String IMAGE_NAME="lightbridgev_02";
+	private static final int EXTEND_RATE=3;
 	
 	private int length=1;
 	//private static final int HEIGHT=480;
 	
 	
 	public Bridge(int x2, int y2, double a){
-		super(x2,y2,1,10,a,IMAGE_NAME);
+		super(x2,y2,1,11,a,IMAGE_NAME);
 		
 	}
 	
@@ -41,9 +42,9 @@ public class Bridge extends Element {
 		return length;
 	}
 	public void extend(){
-		length++;
+		length+=EXTEND_RATE;
 	}
 	public void shorten(){
-		length--;
+		length-=EXTEND_RATE;
 	}
 }
