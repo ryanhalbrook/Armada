@@ -303,7 +303,6 @@ public class Grid extends ViewLayer {
 	public void draw(Graphics g){ drawAllDelements(g); } 
 	
 	private void drawAllDelements(Graphics g){
-		
 		if(delements != null) {
 			for (int i=0;i<delements.size();i++) {
 				if(delements.get(i).isDead()){
@@ -328,8 +327,22 @@ public class Grid extends ViewLayer {
 			for(Element e:elements){
 			    e.draw(g, viewRegion);
 			}
+			
+			//draws DE's in order
 			for (DynamicElement de : delements) {
-			    de.draw(g, viewRegion);
+				if(de instanceof Planet){
+					de.draw(g, viewRegion);
+				}
+			}
+			for (DynamicElement de : delements) {
+				if(de instanceof Ship && de.getAlliance() != engine.getTurn()){
+					de.draw(g, viewRegion);
+				}
+			}
+			for (DynamicElement de : delements) {
+				if(de instanceof Ship && de.getAlliance() == engine.getTurn()){
+					de.draw(g, viewRegion);
+				}
 			}
 			
 		}

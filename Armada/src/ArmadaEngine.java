@@ -97,6 +97,7 @@ public class ArmadaEngine implements ChangeListener {
         for (DynamicElement d : pm.getHomePlanets()) {
             delements.add(d);
         }
+        
         Spawner.spawnPlanets(this, 40);
         
         // Add some ships
