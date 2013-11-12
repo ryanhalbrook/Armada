@@ -25,7 +25,7 @@ public class Planet extends DynamicElement{
 		canAttack=false; canMove= false;
 		x = (int)((double)Grid.GRID_WIDTH* Math.random());
 		y = (int)((double)Grid.GRID_HEIGHT* Math.random());
-		width = 50 +(int)(Math.random() * 100.0);
+		width = 100 +(int)(Math.random() * 150.0);
 		height = width;
 		range = (int)((double)width * 1.5);
 		setRandomImage();//needs to be used in future

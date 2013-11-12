@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class ItemList {
 	//STEP 0 : Only items that edit ship stats are supported right now.  Proc items are not supported
 	public enum ItemNames{//STEP 1 : When adding a new item, add the name here.  This is what an item's id is
-		HullPlate, WeaponsUpgrade, EnginesUpgrade, SpeedUpgrade, ScalingWeaponsUpgrade, ScalingEnginesUpgrade, ScalingHullUpgrade, ScalingSpeedUpgrade, OverloadHull, OverloadWeapons, OverloadEngines, OverloadSpeed;
+		Juggernaut, HullPlate, WeaponsUpgrade, EnginesUpgrade, SpeedUpgrade, ScalingWeaponsUpgrade, ScalingEnginesUpgrade, ScalingHullUpgrade, ScalingSpeedUpgrade, OverloadHull, OverloadWeapons, OverloadEngines, OverloadSpeed;
 	}
 	
 	public enum ItemStats{//STEP 2 : If the item uses a stat not seen here, you will need to add it to this list.  You will also have to edit the Item class (I also have instructions there) because it does not yet support the stat if it is not here
@@ -56,6 +56,12 @@ public class ItemList {
 		itemVals.put(ItemNames.ScalingHullUpgrade.name()+ItemStats.Price.name(), 100);
 		itemDescriptions.put(ItemNames.ScalingHullUpgrade.name()+ItemStats.Description, "Increases Hull by " + ItemList.getInt(ItemNames.ScalingHullUpgrade, ItemStats.HullPercentage) +"%");
 		itemDescriptions.put(ItemNames.ScalingHullUpgrade.name() + ItemStats.InGameName, "Increased Hull Durability");
+		
+		//Juggernaut item for bonus
+		itemVals.put(ItemNames.Juggernaut.name()+ItemStats.HullPercentage.name(), 10);
+		itemVals.put(ItemNames.Juggernaut.name()+ItemStats.Price.name(), 0);
+		itemDescriptions.put(ItemNames.Juggernaut.name()+ItemStats.Description, "Increases Hull by " + ItemList.getInt(ItemNames.ScalingHullUpgrade, ItemStats.HullPercentage) +"%");
+		itemDescriptions.put(ItemNames.Juggernaut.name() + ItemStats.InGameName, "Juggernaut Passive: + " + ItemList.getInt(ItemNames.Juggernaut, ItemStats.HullPercentage) +"%");
 		
 		//ScalingEnginesUpgrade
 		itemVals.put(ItemNames.ScalingEnginesUpgrade.name()+ItemStats.EnginesPercentage.name(), 15);
