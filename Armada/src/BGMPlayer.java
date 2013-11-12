@@ -1,17 +1,11 @@
-import java.io.IOException;
+
 import java.net.URISyntaxException;
 import java.net.URL;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
 
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
+
 
 
 public class BGMPlayer{
@@ -19,13 +13,13 @@ public class BGMPlayer{
 	private MediaPlayer player;
 	
 	public BGMPlayer(){
+		//Gets the music from the bin
 		URL url = this.getClass().getClassLoader().getResource("sound/"+"Gravity.mp3");
 		try {
 			new JFXPanel();
-			Media m = new Media(url.toURI().toString());
-			player = new MediaPlayer(m);
+			player = new MediaPlayer(new Media(url.toURI().toString()));
 			player.setCycleCount(MediaPlayer.INDEFINITE);
-		} catch (URISyntaxException e) {
+		} catch (Exception e) {
 			System.out.println("Music could not be found!");
 			e.printStackTrace();
 		}
@@ -34,9 +28,10 @@ public class BGMPlayer{
 	public BGMPlayer(String musicName){
 		URL url = this.getClass().getClassLoader().getResource("sound/"+musicName);
 		try {
-			
+			new JFXPanel();
 			player = new MediaPlayer(new Media(url.toURI().toString()));
-		} catch (URISyntaxException e) {
+			player.setCycleCount(MediaPlayer.INDEFINITE);
+		} catch (Exception e) {
 			System.out.println("Music could not be found!");
 			e.printStackTrace();
 		}
@@ -48,7 +43,8 @@ public class BGMPlayer{
 		URL url = this.getClass().getClassLoader().getResource("sound/"+musicName);
 		try {
 			player = new MediaPlayer(new Media(url.toURI().toString()));
-		} catch (URISyntaxException e) {
+			player.setCycleCount(MediaPlayer.INDEFINITE);
+		} catch (Exception e) {
 			System.out.println("Music could not be found!");
 			e.printStackTrace();
 		}
