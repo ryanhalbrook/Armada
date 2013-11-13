@@ -4,6 +4,9 @@ public class ArmadaEngine implements ChangeListener {
 
     int turn = 1;
     
+    static final int GRID_WIDTH = 38400; // The width of the grid in pixels.
+    static final int GRID_HEIGHT = 21600; // The height of the grid in pixels.
+    
     // Information for computing time remaining for current turn
     private static final double TURN_TIME = 50000.0;
     private double mseconds = TURN_TIME;

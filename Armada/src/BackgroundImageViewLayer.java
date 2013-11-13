@@ -15,8 +15,17 @@ public class BackgroundImageViewLayer extends ViewLayer {
     
     public void draw(Graphics g) {
 	    // Draw the background image.
+	    int imageRows = (int)((ArmadaEngine.GRID_HEIGHT / img.getHeight()) * 1.0f);
+	    int imageColumns = (int)((ArmadaEngine.GRID_WIDTH / img.getWidth()) * 1.0f);
+	    //System.out.println("Images: " + imageRows + " x " + imageColumns);
 	    if (img != null) {
-	        g.drawImage(img, -viewRegion.getX(), -viewRegion.getY(), null);
+	        for (int i = 0; i < imageRows; i++) {
+	            for (int j = 0; j < imageColumns; j++) {
+	                g.drawImage(img, -viewRegion.getX() + i * img.getWidth(), -viewRegion.getY() + j * img.getHeight(), null);
+	            }
+	    }
+	        //g.drawImage(img, -viewRegion.getX(), -viewRegion.getY(), null);
+	        //g.drawImage(img, -viewRegion.getX() + img.getWidth(), -viewRegion.getY(), null);
 	    }
     }
 }

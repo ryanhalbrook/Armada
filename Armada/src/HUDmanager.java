@@ -30,11 +30,12 @@ public class HUDmanager {
 		turn.setName("Turn HUD");
 		items.setName("Items HUD");
 		huds.add(stat);
-		huds.add(mode);
-		huds.add(turn);
+		
+		
 		huds.add(map);
 		huds.add(items);
-		
+		huds.add(mode);
+		huds.add(turn);
 		initializeViewLayer();
 	}
 	
