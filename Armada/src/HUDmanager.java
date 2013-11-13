@@ -10,11 +10,7 @@ public class HUDmanager extends ViewLayer {
 	protected GameController gc = null;
 
 	protected ArrayList<HUD> huds;
-	protected HUD mode, stat, turn, map, items;
-	
-	private Hashtable<Position,HUD> huds2 = new Hashtable<Position, HUD>();
-	
-	public enum Position { STATIC, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, MODE_POSITION, ITEM_POSITION; }
+	protected HUD mode, stat, turn, map, items; 
 	
 	/**
 	    The only constructor. Creates and initializes a HUD system manager which includes
@@ -31,24 +27,66 @@ public class HUDmanager extends ViewLayer {
 		turn = new TurnHUD(gr);
 		map = new MapHUD(gr, HUD.Position.BOTTOM_RIGHT);
 		items= new ItemListHUD(gr, 1, this);
+		items.setPosition(HUD.Position.ITEM_POSITION);
 		mode.setName("Mode HUD");
 		stat.setName("Stat HUD");
 		turn.setName("Turn HUD");
 		items.setName("Items HUD");
 		//viewLayer = new ViewLayer(new BoundingRectangle(0, 0, grid.getAp().getWidth(), grid.getAp().getHeight()));
-		huds.add(stat);
+		/*
 		addHUD(mode, Position.MODE_POSITION);
 		addHUD(stat, Position.TOP_RIGHT);
 		addHUD(map, Position.BOTTOM_RIGHT);
 		addHUD(items, Position.ITEM_POSITION);
 		addHUD(turn, Position.STATIC);
-		
-		huds.add(map);
-		huds.add(items);
-		huds.add(mode);
-		huds.add(turn);
+		*/
+		addHUD(stat);
+		addHUD(map);
+		addHUD(items);
+		addHUD(mode);
+		addHUD(turn);
 	}
 	
+	private void updateLocations() {
+	    for (HUD h : huds) {
+	        HUD.Position p = h.getPosition();
+	        BoundingRectangle r = h.getBoundingRectangle();
+	        if(gc != null) {
+		        if (p == HUD.Position.STATIC) continue;
+		        if (p == HUD.Position.TOP_LEFT) {
+			        r.setX(10);
+			        r.setY(TurnHUD.BAR_HEIGHT);
+			    }
+		        if (p == HUD.Position.TOP_RIGHT) {
+			        r.setX(gc.getViewWidth()-r.width);
+			        r.setY(TurnHUD.BAR_HEIGHT);
+			    }
+		        if (p == HUD.Position.BOTTOM_LEFT) {
+			        r.setX(10);
+			        r.setY(gc.getViewHeight() - r.height - 10);
+			    }
+		        if (p == HUD.Position.BOTTOM_RIGHT) {
+			        r.setX(gc.getViewWidth()-r.width - 10);
+			        r.setY(gc.getViewHeight() - r.height - 10);
+			    }
+		        if (p == HUD.Position.ITEM_POSITION) {
+			        r.setX(gc.getViewWidth()-r.width);
+			        r.setY(gc.getViewHeight()/2 - r.height/2);
+			    }
+			    if (p == HUD.Position.MODE_POSITION) {
+		            r.setX(0);
+		            r.setY(0);
+		        }
+		        if (p == HUD.Position.CENTERED) {
+		            System.out.println("CENTERED");
+		            r.setX(grid.getAp().getWidth()/2-r.width/2);
+		            r.setY(grid.getAp().getHeight()/2 - r.height/2);
+		        }
+		    }
+	    }
+	}
+	
+	/*
 	private void updateLocations() {
 	    for (Position p: huds2.keySet()) {
 	        System.out.println(p);
@@ -57,7 +95,6 @@ public class HUDmanager extends ViewLayer {
 	        if(gc != null) {
 		        if (p == Position.STATIC) continue;
 		        if (p == Position.TOP_LEFT) {
-		        System.out.println("Item position");
 			        r.setX(10);
 			        r.setY(TurnHUD.BAR_HEIGHT);
 			    }
@@ -70,24 +107,21 @@ public class HUDmanager extends ViewLayer {
 			        r.setY(gc.getViewHeight() - r.height - 10);
 			    }
 		        if (p == Position.BOTTOM_RIGHT) {
-		        System.out.println("Item position");
 			        r.setX(gc.getViewWidth()-r.width - 10);
 			        r.setY(gc.getViewHeight() - r.height - 10);
 			    }
 		        if (p == Position.ITEM_POSITION) {
-		            System.out.println("Item position");
 			        r.setX(gc.getViewWidth()-r.width);
 			        r.setY(gc.getViewHeight()/2 - r.height/2);
 			    }
 			    if (p == Position.MODE_POSITION) {
-			        System.out.println("Mode position");
 		            r.setX(0);
 		            r.setY(0);
 		        }
 		    }
 	    }
 	}
-	
+	*/
 	/*
 	public HUDmanager(GameController gc) {
 	    super(new BoundingRectangle(
@@ -96,8 +130,8 @@ public class HUDmanager extends ViewLayer {
 	}
 	*/
 	
-	public void addHUD(HUD hud, Position p) {
-	    huds2.put(p, hud);
+	public void addHUD(HUD hud) {
+	huds.add(hud);
 	    addSublayer(hud);
 	    //viewLayer.addSublayer(hud);
 	}

@@ -40,10 +40,10 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	    GameController gc = new GameController(am, engine, this);
 	    grid = new Grid(gc);
 	    grid.setName("Grid Layer");
-	    hud = new HUDmanager(grid);
+	   // hud = new HUDmanager(grid);
 	    mainLayer.setName("Main Layer");
 	   
-	    mainLayer.addSublayer(hud.getViewLayer());
+	    //mainLayer.addSublayer(hud.getViewLayer());
 	    mainLayer.addSublayer(grid);
 	    
 	    refreshTimer.start();

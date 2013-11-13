@@ -17,6 +17,7 @@ public class MapHUD extends HUD{
 		super(0,0,250,125,gr);
 		//inputLocation=l;
 	    //location = l;
+	    this.position = p;
 		des = grid.getDelements();
 		setName("Map Layer");
 	}
@@ -42,7 +43,7 @@ public class MapHUD extends HUD{
 	    r.setHeight((int)(grid.getAp().getHeight() * scale));
 	    r.setX(grid.getAp().getWidth() - r.getWidth() - 10);
 	    r.setY(grid.getAp().getHeight() - r.getHeight() - 10);
-	    updateLocation();
+	    //updateLocation();
 	    int x = r.getX();
 	    int y = r.getY();
 	    int width = r.getWidth();
@@ -133,7 +134,11 @@ public class MapHUD extends HUD{
 	        
 	    }
 	    if (expanding) {
-	    	location=10;
+	        System.out.println("Setting CENTERED Position");
+	        position = HUD.Position.CENTERED;
+	    	//location=10;
+	    	//this.r.setX(grid.getAp().getWidth()/2-r.width/2);
+	    	//this.r.setY(grid.getAp().getHeight()/2 - r.height/2);
 	    	//System.out.println("2: " + location);
 	        scale += step;
 	        if (scale > .8) {

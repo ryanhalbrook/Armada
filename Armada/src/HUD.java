@@ -11,11 +11,19 @@ public class HUD extends ViewLayer {
 	/** The location setting to place this HUD onscreen. 0=static, 1+ is dynamic, 1= top left, 2= top right, 3 = bot left, 4 = bot right.*/
 	protected int location;
 	
-	public enum Position { STATIC, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, MODE_POSITION, ITEM_POSITION; }
+	public enum Position { STATIC, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, CENTERED, MODE_POSITION, ITEM_POSITION; }
 	protected Position position;
 	
 	public HUD(BoundingRectangle b) {
 		super(b);
+	}
+	
+	public void setPosition(Position p) {
+        this.position = p;
+	}
+	
+	public Position getPosition() {
+	    return position;   
 	}
 	
 	public HUD(BoundingRectangle b, int l) {
@@ -60,7 +68,7 @@ public class HUD extends ViewLayer {
 	} 
 	
 	public void refresh(long previousTime, long currentTime) {
-	    updateLocation();
+	    //updateLocation();
 	}
 	
 	/**
