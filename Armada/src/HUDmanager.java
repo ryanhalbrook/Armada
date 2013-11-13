@@ -18,7 +18,7 @@ public class HUDmanager extends ViewLayer {
 	    @param gr The Grid that this HUD system gets its information from.
 	*/
 	public HUDmanager(Grid gr, GameController gc) {
-	    super(new BoundingRectangle(0, 0, gr.getAp().getWidth(), gr.getAp().getHeight()));
+	    super(new BoundingRectangle(0, 0, 10000, 10000));
 		grid = gr;
 		this.gc = gc;
 		huds = new ArrayList<HUD>();
@@ -32,7 +32,7 @@ public class HUDmanager extends ViewLayer {
 		stat.setName("Stat HUD");
 		turn.setName("Turn HUD");
 		items.setName("Items HUD");
-		
+		this.setName("HUD");
 		addHUD(stat);
 		addHUD(map);
 		addHUD(items);
@@ -43,6 +43,11 @@ public class HUDmanager extends ViewLayer {
 	public void addHUD(HUD hud) {
 	    huds.add(hud);
 	    addSublayer(hud);
+	}
+	
+	public boolean click(int x, int y) {
+	    System.out.println("HUD Layer clicked");
+	    return super.click(x, y);
 	}
 	
 	public void refresh(long previousTime, long currentTime) {

@@ -32,6 +32,7 @@ public class MapHUD extends HUD{
 
     public boolean click(int inX, int inY){
 		if(r.isIn(inX, inY)){
+		    System.out.println("You clicked the map");
 			moveMap(inX,inY);
 			return true;
 		}

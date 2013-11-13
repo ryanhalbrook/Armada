@@ -39,9 +39,9 @@ public class GameController extends ViewLayerController {
         hud = new HUDmanager(grid, this);
         viewLayer = new ViewLayer(new BoundingRectangle(0,0, dsb));
         ipl =  new InformationPopupLayer(new BoundingRectangle(5, 45, 200, 35));
-        ArmadaHUD armadaLayer = new ArmadaHUD(new BoundingRectangle(0, 0, 100, 100), this);
+        //ArmadaHUD armadaLayer = new ArmadaHUD(new BoundingRectangle(0, 0, 100, 100), this);
         viewLayer.addSublayer(ipl);
-        viewLayer.addSublayer(armadaLayer);
+        //viewLayer.addSublayer(armadaLayer);
         viewLayer.addSublayer(hud);
 	    viewLayer.addSublayer(grid);
 	    BufferedImage img = ImageLoader.getImage("GamePlayBackground.jpg");
