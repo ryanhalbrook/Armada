@@ -157,5 +157,165 @@ for (DynamicElement d : delements) {
     private static final double TURN_TIME = 180000.0;
     private double mseconds = TURN_TIME;
     private long lastTime = 0;
+    
+    -FROM HUDmanager-
+    
+    	/*
+	public boolean click(int inX, int inY){
+		if(items.click(inX,inY))return true;
+		if(map.click(inX,inY))return true;
+		return false;
+	}
+	*/
+	
+		/**
+	    @return A view layer that draws all of the HUDs associated with this HUD system.
+	*/
+	/*
+	public ViewLayer getViewLayer() {
+	    return viewLayer;
+	}
+	*/
+	
+	/*
+	private void updateLocations() {
+	    for (HUD h : huds) {
+	        HUD.Position p = h.getPosition();
+	        BoundingRectangle r = h.getBoundingRectangle();
+	        if(gc != null) {
+		        if (p == HUD.Position.STATIC) continue;
+		        if (p == HUD.Position.TOP_LEFT) {
+			        r.setX(10);
+			        r.setY(TurnHUD.BAR_HEIGHT);
+			    }
+		        if (p == HUD.Position.TOP_RIGHT) {
+			        r.setX(gc.getViewWidth()-r.width);
+			        r.setY(TurnHUD.BAR_HEIGHT);
+			    }
+		        if (p == HUD.Position.BOTTOM_LEFT) {
+			        r.setX(10);
+			        r.setY(gc.getViewHeight() - r.height - 10);
+			    }
+		        if (p == HUD.Position.BOTTOM_RIGHT) {
+			        r.setX(gc.getViewWidth()-r.width - 10);
+			        r.setY(gc.getViewHeight() - r.height - 10);
+			    }
+		        if (p == HUD.Position.ITEM_POSITION) {
+			        r.setX(gc.getViewWidth()-r.width);
+			        r.setY(gc.getViewHeight()/2 - r.height/2);
+			    }
+			    if (p == HUD.Position.MODE_POSITION) {
+		            r.setX(0);
+		            r.setY(0);
+		        }
+		        if (p == HUD.Position.CENTERED) {
+		            System.out.println("CENTERED");
+		            r.setX(grid.getAp().getWidth()/2-r.width/2);
+		            r.setY(grid.getAp().getHeight()/2 - r.height/2);
+		        }
+		    }
+	    }
+	}
+	*/
+	
+	/*
+	private void updateLocations() {
+	    for (Position p: huds2.keySet()) {
+	        System.out.println(p);
+	        HUD h = huds2.get(p);
+	        BoundingRectangle r = h.getBoundingRectangle();
+	        if(gc != null) {
+		        if (p == Position.STATIC) continue;
+		        if (p == Position.TOP_LEFT) {
+			        r.setX(10);
+			        r.setY(TurnHUD.BAR_HEIGHT);
+			    }
+		        if (p == Position.TOP_RIGHT) {
+			        r.setX(gc.getViewWidth()-r.width);
+			        r.setY(TurnHUD.BAR_HEIGHT);
+			    }
+		        if (p == Position.BOTTOM_LEFT) {
+			        r.setX(10);
+			        r.setY(gc.getViewHeight() - r.height - 10);
+			    }
+		        if (p == Position.BOTTOM_RIGHT) {
+			        r.setX(gc.getViewWidth()-r.width - 10);
+			        r.setY(gc.getViewHeight() - r.height - 10);
+			    }
+		        if (p == Position.ITEM_POSITION) {
+			        r.setX(gc.getViewWidth()-r.width);
+			        r.setY(gc.getViewHeight()/2 - r.height/2);
+			    }
+			    if (p == Position.MODE_POSITION) {
+		            r.setX(0);
+		            r.setY(0);
+		        }
+		    }
+	    }
+	}
+	*/
+	
+	/*
+	public HUDmanager(GameController gc) {
+	    super(new BoundingRectangle(
+	    huds2 = new Hashtable<Position, HUD>();
+	    this.gc = gc;
+	}
+	*/
+	
+	/*
+		addHUD(mode, Position.MODE_POSITION);
+		addHUD(stat, Position.TOP_RIGHT);
+		addHUD(map, Position.BOTTOM_RIGHT);
+		addHUD(items, Position.ITEM_POSITION);
+		addHUD(turn, Position.STATIC);
+		*/
+		
+		/*
+	
+	switch(location){
+		    case 0: return;
+		    case 1:
+			    r.x= 10;
+			    r.y=TurnHUD.BAR_HEIGHT;
+			    break;
+		    case 2:
+			    r.x = grid.getAp().getWidth()-r.width;
+			    r.y=TurnHUD.BAR_HEIGHT;
+			    break;
+		    case 3:
+			    r.x = 10;
+			    r.y = grid.getAp().getHeight() - r.height - 10;
+			    break;
+		    case 4:
+			    r.x = grid.getAp().getWidth()-r.width - 10;
+			    r.y = grid.getAp().getHeight() - r.height - 10;
+			    break;
+		    case 5:
+			    r.x = grid.getAp().getWidth()/2-r.width/2;
+			    r.y=TurnHUD.BAR_HEIGHT;
+			    break;
+		    case 6:
+			    r.x = grid.getAp().getWidth()-r.width;
+			    r.y = grid.getAp().getHeight()/2 - r.height/2;
+			    break;
+		    case 7:
+			    r.x = grid.getAp().getWidth()/2-r.width/2;
+			    r.y = grid.getAp().getHeight() - r.height;
+			    break;
+		    case 8:
+			    r.x = 5;
+			    r.y = grid.getAp().getHeight()/2 - r.height/2;
+			    break;
+		    case 9:
+		        r.x = 0;
+		        r.y = 0;
+		        break;
+		    case 10:
+		        r.x = grid.getAp().getWidth()/2-r.width/2;
+		        r.y = grid.getAp().getHeight()/2 - r.height/2;
+		        break;
+		        
+		        */
 			
 			
