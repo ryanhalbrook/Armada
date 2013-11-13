@@ -22,8 +22,8 @@ public class ModeHUD extends HUD{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ModeHUD(Grid gr, int t){
-		super(5,45,500,40,gr, t);
+	public ModeHUD(Grid gr, Position p){
+		super(5,45,500,40,gr, p);
 	}
 	
 	public void refresh(long previousTime, long currentTime) {

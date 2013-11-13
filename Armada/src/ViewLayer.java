@@ -21,6 +21,10 @@ public class ViewLayer {
     
     ArrayList<ViewLayer> subLayers;
     
+    public BoundingRectangle getBoundingRectangle() {
+        return r;
+    }
+    
     /**
     The only constructor.
     @param frame The rectangular region that this layer encompasses.

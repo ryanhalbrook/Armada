@@ -13,10 +13,10 @@ public class MapHUD extends HUD{
 	public static final int SCALING_TIME = 3000; // in milliseconds
 	private int inputLocation=4;
 	
-	public MapHUD(Grid gr, int l){
+	public MapHUD(Grid gr, Position p){
 		super(0,0,250,125,gr);
-		inputLocation=l;
-		location = l;
+		//inputLocation=l;
+	    //location = l;
 		des = grid.getDelements();
 		setName("Map Layer");
 	}

@@ -18,8 +18,8 @@ public class StatHUD extends HUD{
 		// TODO Auto-generated constructor stub
 	}
 
-	public StatHUD(Grid gr, int t){
-		super(5,45,150,100,gr, t);
+	public StatHUD(Grid gr, Position p){
+		super(5,45,150,100,gr, p);
 	}
 	
 
