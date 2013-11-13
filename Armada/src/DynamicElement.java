@@ -76,6 +76,7 @@ public class DynamicElement extends Element {
 		hb = new HealthBar(this);
 		}
 	}
+	
 	/*
 	 * method in making.  trying to get canMovePath() to be more efficient
 	 */
@@ -359,6 +360,17 @@ public class DynamicElement extends Element {
 
 	public void setAlliance(int all) {
 		alliance = all;
+		switch(all){
+		case 1:
+			setImage(image.substring(0, image.length()-5)+"_red");
+			break;
+		case 2:
+			setImage(image.substring(0, image.length()-4)+"_blue");
+			break;
+		default:
+			break;
+		}
+		ah.changeImage(getImage());
 	}
 
 	

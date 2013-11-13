@@ -44,7 +44,7 @@ public class BoardingAnimation implements Runnable{
 		int moveX=x;
 		int moveY=y;
 		double ra = de.getAH().calcRotationAngle(moveX, moveY);
-		double ra2=0;
+		double angle=0;
 		int deltaX=moveX-de.getX();
 		int deltaY=moveY-de.getY();
 		int deltaX2=0,deltaY2=0,deltaX3=0,deltaY3=0;
@@ -69,7 +69,7 @@ public class BoardingAnimation implements Runnable{
 			if(mode==1&&!de.getAH().rotate(ra)){
 					
 					mode=2;
-					double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
+					angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
 					if(angle<0)
 						angle=360+angle;
 					de.setAngle(angle);
@@ -151,15 +151,15 @@ public class BoardingAnimation implements Runnable{
 			else if(mode==3){
 				int tempX=de.getRope().getX();
 				int tempY=de.getRope().getY();
-				boolean r =de.getRope().getAH().moveHelper(deltaX, deltaY,mvTime*2);
+				de.getRope().getAH().moveHelper(deltaX, deltaY,mvTime*2);
 				boolean d =de.getAH().moveHelper(deltaX, deltaY,mvTime);
-				if(!(d)){
-					mode=5;
-					ra2=de.getAH().calcRotationAngle(target.getAngle());
-					de.getAH().setAngleLeft(ra2);
+				if(!d){
+					mode=4;
+					
+					de.getAH().setAngleLeft(90);
 					de.setRope(null);
 					de.setHook(null);
-					de.setBridge(new Bridge(de.getX(), de.getY(),de.getAngle()));
+					
 				}
 				else{
 					int dist = (int)Math.sqrt(Math.pow(tempX-de.getRope().getX(), 2)+Math.pow(tempY-de.getRope().getY(), 2));
@@ -169,54 +169,27 @@ public class BoardingAnimation implements Runnable{
 						de.getRope().setWidth(1);
 				}
 			}
-			/*else if(mode==4&&!de.getAH().rotate(ra2)){
+			else if(mode==4&&!de.getAH().rotate(90)){
+				if(angle+90<360)
+					de.setAngle(angle+90);
+				else
+					de.setAngle(angle+90-360);
+				de.setBridge(new Bridge(de.getX(), de.getY(),de.getAngle()-90));
 				mode=5;
-				//int x1 = de.getX()+(int)(de.getHeight()/2.0 * Math.cos(Math.toRadians(de.getAngle())));
-				//int y1 = de.getY()+(int)(de.getHeight()/2.0 * Math.sin(Math.toRadians(de.getAngle())));
-				de.setAngle(target.getAngle());
-				double angle=de.getAngle();
-				if(de.getY()>target.getY()&&de.getX()>target.getX()){
-					if(de.getAngle()<180)
-						angle+=90;
-					else
-						angle-=90;
-				}
-				else if(de.getX()==target.getX()&&de.getY()>target.getY()){
-					angle=270;
-				}
-				else if(de.getX()<target.getX()&&de.getY()>target.getY()){
-					if(de.getAngle()<180)
-						angle-=90+360;
-					else
-						angle+=90;
-				}
-				else if(de.getX()<target.getX()&&de.getY()==target.getY()){
-					angle=0;
-				}
-				else if(de.getX()<target.getX()&&de.getY()<target.getY()){
-					if(de.getAngle()<180)
-						angle-=90;
-					else
-						angle+=90-360;
-				}
-				else if(de.getX()==target.getX()&&de.getY()<target.getY()){
-					angle=90;
-				}
-				else if(de.getX()>target.getX()&&de.getY()<target.getY()){
-					if(de.getAngle()<180)
-						angle+=90;
-					else
-						angle-=90;
-				}
-				else if(de.getX()>target.getX()&&de.getY()==target.getY()){
-					angle=180;
-				}
-					
-				de.setBridge(new Bridge(de.getX(), de.getY(),angle));
-			}*/
+			}
 			else if(mode==5){
 				if(de.getBridge().getLength()>=Math.sqrt(Math.pow(de.getX()-target.getX(), 2)+Math.pow(de.getY()-target.getY(), 2)))
 				{
+					try {
+		        		Thread.sleep(100);
+		        	} catch (InterruptedException e) {
+		        		e.printStackTrace();
+		        	}
+					if(calculateBoarding(de,target)){
+						target.setAlliance(de.getAlliance());
+						
+					}
+					
 					mode=6;
 				}
 				else
@@ -266,5 +239,8 @@ public class BoardingAnimation implements Runnable{
 		de.setHook(null);
 		
 	}
-
+	private boolean calculateBoarding(Ship att, Ship target){
+		//stub
+		return true;
+	}
 }
