@@ -32,17 +32,10 @@ public class HUD extends ViewLayer {
 	}
 	
 	/**
-        Basic constructor.
-	*/
-	public HUD(int x, int y, int width, int height) {
-		super(new BoundingRectangle(x,y,width,height));
-	}
-	
-	/**
 	    Basic Constructor that also takes a Grid.
 	*/
-	public HUD(int x, int y, int width, int height, Grid gr){
-		super(new BoundingRectangle(x,y,width,height));
+	public HUD(BoundingRectangle b, Grid gr){
+		super(b);
 		grid=gr;
 	}
 	
@@ -63,21 +56,6 @@ public class HUD extends ViewLayer {
 	    position = p;
 	}
 	
-	/**
-	    Basic constructor that also takes a Grid and a location setting.
-	*/
-	public HUD(int x, int y, int width, int height, Grid gr, int l){
-		super(new BoundingRectangle(x,y,width,height));
-		grid=gr;
-		location = l;
-	} 
-	
-	public HUD(int x, int y, int width, int height, Grid gr, Position p){
-		super(new BoundingRectangle(x,y,width,height));
-		grid=gr;
-		position = p;
-	} 
-	
 	public void refresh(long previousTime, long currentTime) {
 	    updateLocation();
 	}
@@ -86,8 +64,7 @@ public class HUD extends ViewLayer {
 	    Updates the location of the HUD based on its location setting.
 	*/
 	public void updateLocation() {
-	
-	    //if (grid == null) return;
+	    
 		if(grid != null) {
 		    switch(position){
 		    case STATIC: return;
@@ -121,6 +98,7 @@ public class HUD extends ViewLayer {
 		        break;
 		    }
 		}
+		
 	    if (gc != null) {
 		    switch(position){
 		    

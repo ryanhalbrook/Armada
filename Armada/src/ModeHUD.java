@@ -19,11 +19,6 @@ public class ModeHUD extends HUD{
 	
 	static final int ANIMATION_TIME = 100;
 	
-	public ModeHUD(int x, int y, int width, int height) {
-		super(x, y, width, height);
-		// TODO Auto-generated constructor stub
-	}
-	
 	public ModeHUD(Grid gr, GameController gc, Position p){
 		super(new BoundingRectangle(5,45,500,40),gc, p);
 		this.grid = gr;
