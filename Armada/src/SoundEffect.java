@@ -17,7 +17,8 @@ public enum SoundEffect {
    EXPLODE("explode1.wav")//explode
    , SCREAM("WilhelmScream.wav")// scream
    , LASER("laser.wav")//laser
-   , PIRATE("You Are A Pirate.wav")
+   , PIRATEF("You Are A Pirate Full.wav")
+   , PIRATEH("You Are A Pirate Half.wav")
    , PIRATE1("You_Are_A_Pirate_1.wav")
    , PIRATE2("You_Are_A_Pirate_2.wav")
    , PIRATE3("You_Are_A_Pirate_3.wav")
