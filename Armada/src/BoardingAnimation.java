@@ -241,6 +241,7 @@ public class BoardingAnimation implements Runnable{
 	}
 	private boolean calculateBoarding(Ship att, Ship target){
 		//stub
+		SoundEffect.PIRATE.play();
 		return true;
 	}
 }
