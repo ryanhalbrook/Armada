@@ -6,4 +6,5 @@
 *.ear
 bin
 *.stackdump
+image
 sound
