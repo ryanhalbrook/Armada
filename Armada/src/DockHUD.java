@@ -7,9 +7,9 @@ public class DockHUD extends HUD{
 	private Planet p;
 	private ArrayList<Button> buttons;
 
-	public DockHUD(Grid gr, int l){
-		super(0,0,300,30,gr);
-		location = l;
+	public DockHUD(GameController gc, int l){
+		super(new BoundingRectangle(0,0,300,30),gc);
+		//location = l;
 		buttons=new ArrayList<Button>();
 		fillButtons();
 	}
@@ -20,7 +20,7 @@ public class DockHUD extends HUD{
 	    int width = r.getWidth();
 	    int height = r.getHeight();
 	    
-		if(grid.getActiveE() instanceof Planet) p = (Planet)grid.getActiveE();
+		if(gc.getActiveE() instanceof Planet) p = (Planet)gc.getActiveE();
 		else return;
 		if(p==null){
 			return;
@@ -71,7 +71,7 @@ public class DockHUD extends HUD{
 		if(p==null)return;
 		if(p.getDocked().size()<1)return;
 		for(int i =0; i < p.getDocked().size(); i++){
-			buttons.add(new Button(x+8, y+8+(i*24), width-16, 20, grid, p.getDocked().get(i).toString()));	
+			buttons.add(new Button(x+8, y+8+(i*24), width-16, 20, gc, p.getDocked().get(i).toString()));	
 		}
 		
 	}

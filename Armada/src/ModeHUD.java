@@ -15,6 +15,8 @@ public class ModeHUD extends HUD{
 	private int transitionMode = -1;
 	private long startTime;
 	
+	Grid grid = null;
+	
 	static final int ANIMATION_TIME = 100;
 	
 	public ModeHUD(int x, int y, int width, int height) {
@@ -22,8 +24,9 @@ public class ModeHUD extends HUD{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public ModeHUD(Grid gr, Position p){
-		super(5,45,500,40,gr, p);
+	public ModeHUD(Grid gr, GameController gc, Position p){
+		super(new BoundingRectangle(5,45,500,40),gc, p);
+		this.grid = gr;
 	}
 	
 	public void refresh(long previousTime, long currentTime) {

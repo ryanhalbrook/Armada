@@ -52,6 +52,17 @@ public class HUD extends ViewLayer {
 	    this.location = l;
 	}
 	
+	public HUD(BoundingRectangle b, GameController gc) {
+	    super(b);
+	    this.gc = gc;
+	}
+	
+	public HUD(BoundingRectangle b, GameController gc, Position p) {
+	    super(b);
+	    this.gc = gc;
+	    position = p;
+	}
+	
 	/**
 	    Basic constructor that also takes a Grid and a location setting.
 	*/
@@ -76,7 +87,7 @@ public class HUD extends ViewLayer {
 	*/
 	public void updateLocation() {
 	
-	    if (grid == null) return;
+	    //if (grid == null) return;
 		if(grid != null) {
 		    switch(position){
 		    case STATIC: return;
@@ -108,10 +119,46 @@ public class HUD extends ViewLayer {
 		        r.x = grid.getAp().getWidth()/2-r.width/2;
 		        r.y = grid.getAp().getHeight()/2 - r.height/2;
 		        break;
+		    }
 		}
+	    if (gc != null) {
+		    switch(position){
+		    
+		    case STATIC: return;
+		    case TOP_LEFT:
+			    r.x= 10;
+			    r.y=TurnHUD.BAR_HEIGHT;
+			    break;
+		    case TOP_RIGHT:
+			    r.x = gc.getViewSize().getWidth()-r.width;
+			    r.y=TurnHUD.BAR_HEIGHT;
+			    break;
+		    case BOTTOM_LEFT:
+			    r.x = 10;
+			    r.y = gc.getViewSize().getHeight() - r.height - 10;
+			    break;
+		    case BOTTOM_RIGHT:
+			    r.x = gc.getViewSize().getWidth()-r.width - 10;
+			    r.y = gc.getViewSize().getHeight() - r.height - 10;
+			    break;
+		    case ITEM_POSITION:
+			    r.x = gc.getViewSize().getWidth()-r.width;
+			    r.y = gc.getViewSize().getHeight()/2 - r.height/2;
+			    break;
+			case MODE_POSITION:
+		        r.x = 0;
+		        r.y = 0;
+		        break;
+		    case CENTERED:
+		        r.x = gc.getViewSize().getWidth()/2-r.width/2;
+		        r.y = gc.getViewSize().getHeight()/2 - r.height/2;
+		        break;
+		    }
+		    
 		
-	}
-
+		
+		
+	    }
 }
 
 

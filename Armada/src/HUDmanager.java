@@ -22,11 +22,11 @@ public class HUDmanager extends ViewLayer {
 		grid = gr;
 		this.gc = gc;
 		huds = new ArrayList<HUD>();
-		mode = new ModeHUD(gr, HUD.Position.MODE_POSITION);//0=default, 1 = top left, 2 = top right, 3 = bot left, 4 = bot right
-		stat = new StatHUD(gr, HUD.Position.TOP_RIGHT);
-		turn = new TurnHUD(gr);
+		mode = new ModeHUD(gr, gc, HUD.Position.MODE_POSITION);//0=default, 1 = top left, 2 = top right, 3 = bot left, 4 = bot right
+		stat = new StatHUD(gc, HUD.Position.TOP_RIGHT);
+		turn = new TurnHUD(gr, gc);
 		map = new MapHUD(gr, HUD.Position.BOTTOM_RIGHT);
-		items= new ItemListHUD(gr, 1, this);
+		items= new ItemListHUD(gc, 1, this);
 		items.setPosition(HUD.Position.ITEM_POSITION);
 		mode.setName("Mode HUD");
 		stat.setName("Stat HUD");

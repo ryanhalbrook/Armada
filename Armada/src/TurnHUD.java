@@ -11,8 +11,12 @@ public class TurnHUD extends HUD{
 	private float transitionPhase = 1.0f;
 	public static final int TRANSITION_MILLISECONDS = 700;
 	String lastText = null;
-	public TurnHUD(Grid gr) {
-		super(0, 0, 2000, BAR_HEIGHT, gr);
+	Grid grid = null;
+	 
+	public TurnHUD(Grid gr, GameController gc) {
+	super(new BoundingRectangle(0, 0, 2000, BAR_HEIGHT), gc);
+	    this.grid = gr;
+		
 	}
 	
 	public void refresh(long previousTime, long currentTime) {

@@ -50,8 +50,19 @@ public class GameController extends ViewLayerController {
 	    bgm.play();
     }
     
+    public int getCurrentX() {
+        return grid.getCurrentX();
+    }
+    public int getCurrentY() {
+        return grid.getCurrentY();
+    }
+    
     public ArmadaEngine getEngine() {
         return engine;
+    }
+    
+    public DynamicElement getActiveE() {
+        return grid.getActiveE();
     }
     
     public void refresh(long previousTime, long currentTime) {
