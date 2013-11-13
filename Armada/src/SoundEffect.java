@@ -18,6 +18,10 @@ public enum SoundEffect {
    , SCREAM("WilhelmScream.wav")// scream
    , LASER("laser.wav")//laser
    , PIRATE("You Are A Pirate.wav")
+   , PIRATE1("You_Are_A_Pirate_1.wav")
+   , PIRATE2("You_Are_A_Pirate_2.wav")
+   , PIRATE3("You_Are_A_Pirate_3.wav")
+   , PIRATE4("You_Are_A_Pirate_4.wav")
    //, SONG("U.N. Owen Was Her. (ZUN).wav")
    //All sounds added must be in the format of the above line and come before the ";" line
    ;
