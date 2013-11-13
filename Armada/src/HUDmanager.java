@@ -46,7 +46,7 @@ public class HUDmanager extends ViewLayer {
 		addHUD(mode);
 		addHUD(turn);
 	}
-	
+	/*
 	private void updateLocations() {
 	    for (HUD h : huds) {
 	        HUD.Position p = h.getPosition();
@@ -85,6 +85,7 @@ public class HUDmanager extends ViewLayer {
 		    }
 	    }
 	}
+	*/
 	
 	/*
 	private void updateLocations() {
@@ -146,7 +147,7 @@ public class HUDmanager extends ViewLayer {
 	*/
 	
 	public void refresh(long previousTime, long currentTime) {
-	    updateLocations();
+	    //updateLocations();
 	    super.refresh(previousTime, currentTime);
 	}
 	

@@ -43,7 +43,7 @@ public class MapHUD extends HUD{
 	    r.setHeight((int)(grid.getAp().getHeight() * scale));
 	    r.setX(grid.getAp().getWidth() - r.getWidth() - 10);
 	    r.setY(grid.getAp().getHeight() - r.getHeight() - 10);
-	    //updateLocation();
+	    updateLocation();
 	    int x = r.getX();
 	    int y = r.getY();
 	    int width = r.getWidth();
@@ -120,11 +120,12 @@ public class MapHUD extends HUD{
 	}
 	
 	public void refresh(long previousTime, long currentTime) {
+	    
 	    super.refresh(previousTime, currentTime);
 	    int delta = (int)(currentTime - previousTime);
 	    float step = ( delta / (SCALING_TIME * 1.0f) ) * 8.0f;
 	    if (shrinking) {
-	    	location=inputLocation;
+	    	position = HUD.Position.BOTTOM_RIGHT;
 	    	//System.out.println("1: " + location);
 	        scale -= step;
 	        if (scale < DEFAULT_SCALE) {
@@ -134,7 +135,6 @@ public class MapHUD extends HUD{
 	        
 	    }
 	    if (expanding) {
-	        System.out.println("Setting CENTERED Position");
 	        position = HUD.Position.CENTERED;
 	    	//location=10;
 	    	//this.r.setX(grid.getAp().getWidth()/2-r.width/2);

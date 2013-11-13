@@ -12,7 +12,7 @@ public class HUD extends ViewLayer {
 	protected int location;
 	
 	public enum Position { STATIC, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, CENTERED, MODE_POSITION, ITEM_POSITION; }
-	protected Position position;
+	protected Position position = Position.STATIC;
 	
 	public HUD(BoundingRectangle b) {
 		super(b);
@@ -68,14 +68,14 @@ public class HUD extends ViewLayer {
 	} 
 	
 	public void refresh(long previousTime, long currentTime) {
-	    //updateLocation();
+	    updateLocation();
 	}
 	
 	/**
 	    Updates the location of the HUD based on its location setting.
 	*/
 	public void updateLocation() {
-	/*
+	
 	    if (grid == null) return;
 		if(grid != null) {
 		    switch(position){
@@ -104,14 +104,16 @@ public class HUD extends ViewLayer {
 		        r.x = 0;
 		        r.y = 0;
 		        break;
+		    case CENTERED:
+		        r.x = grid.getAp().getWidth()/2-r.width/2;
+		        r.y = grid.getAp().getHeight()/2 - r.height/2;
+		        break;
 		}
 		
 	}
 
 }
 
-*/
-}
 
 }
 
