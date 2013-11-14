@@ -5,49 +5,21 @@ import java.awt.Graphics;
 */
 public class HUD extends ViewLayer {
 
-    /** The grid that this HUD gets its information from. */
-	protected Grid grid;
 	protected GameController gc = null;
-	/** The location setting to place this HUD onscreen. 0=static, 1+ is dynamic, 1= top left, 2= top right, 3 = bot left, 4 = bot right.*/
-	protected int location;
 	
 	public enum Position { STATIC, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, CENTERED, MODE_POSITION, ITEM_POSITION; }
+	/** The location setting to place this HUD onscreen */
 	protected Position position = Position.STATIC;
 	
 	public HUD(BoundingRectangle b) {
 		super(b);
-	}
-	
-	public void setPosition(Position p) {
-        this.position = p;
-	}
-	
-	public Position getPosition() {
-	    return position;   
-	}
-	
-	public HUD(BoundingRectangle b, int l) {
-	    super(b);
-	    location = l;
-	}
-	
-	/**
-	    Basic Constructor that also takes a Grid.
-	*/
-	public HUD(BoundingRectangle b, Grid gr){
-		super(b);
-		grid=gr;
-	}
-	
-	public HUD(BoundingRectangle b, GameController gc, int l) {
-	    super(b);
-	    this.gc = gc;
-	    this.location = l;
+		position = Position.STATIC;
 	}
 	
 	public HUD(BoundingRectangle b, GameController gc) {
 	    super(b);
 	    this.gc = gc;
+	    position = Position.STATIC;
 	}
 	
 	public HUD(BoundingRectangle b, GameController gc, Position p) {
@@ -65,80 +37,51 @@ public class HUD extends ViewLayer {
 	*/
 	public void updateLocation() {
 	    
-		if(grid != null) {
-		    switch(position){
-		    case STATIC: return;
-		    case TOP_LEFT:
-			    r.x= 10;
-			    r.y=TurnHUD.BAR_HEIGHT;
-			    break;
-		    case TOP_RIGHT:
-			    r.x = grid.getAp().getWidth()-r.width;
-			    r.y=TurnHUD.BAR_HEIGHT;
-			    break;
-		    case BOTTOM_LEFT:
-			    r.x = 10;
-			    r.y = grid.getAp().getHeight() - r.height - 10;
-			    break;
-		    case BOTTOM_RIGHT:
-			    r.x = grid.getAp().getWidth()-r.width - 10;
-			    r.y = grid.getAp().getHeight() - r.height - 10;
-			    break;
-		    case ITEM_POSITION:
-			    r.x = grid.getAp().getWidth()-r.width;
-			    r.y = grid.getAp().getHeight()/2 - r.height/2;
-			    break;
-			case MODE_POSITION:
-		        r.x = 0;
-		        r.y = 0;
-		        break;
-		    case CENTERED:
-		        r.x = grid.getAp().getWidth()/2-r.width/2;
-		        r.y = grid.getAp().getHeight()/2 - r.height/2;
-		        break;
-		    }
-		}
 		
 	    if (gc != null) {
 		    switch(position){
 		    
-		    case STATIC: return;
-		    case TOP_LEFT:
-			    r.x= 10;
-			    r.y=TurnHUD.BAR_HEIGHT;
-			    break;
-		    case TOP_RIGHT:
-			    r.x = gc.getViewSize().getWidth()-r.width;
-			    r.y=TurnHUD.BAR_HEIGHT;
-			    break;
-		    case BOTTOM_LEFT:
-			    r.x = 10;
-			    r.y = gc.getViewSize().getHeight() - r.height - 10;
-			    break;
-		    case BOTTOM_RIGHT:
-			    r.x = gc.getViewSize().getWidth()-r.width - 10;
-			    r.y = gc.getViewSize().getHeight() - r.height - 10;
-			    break;
-		    case ITEM_POSITION:
-			    r.x = gc.getViewSize().getWidth()-r.width;
-			    r.y = gc.getViewSize().getHeight()/2 - r.height/2;
-			    break;
-			case MODE_POSITION:
-		        r.x = 0;
-		        r.y = 0;
-		        break;
-		    case CENTERED:
-		        r.x = gc.getViewSize().getWidth()/2-r.width/2;
-		        r.y = gc.getViewSize().getHeight()/2 - r.height/2;
-		        break;
-		    }
-		    
-		
-		
-		
-	    }
-}
+		        case STATIC: return;
+		        case TOP_LEFT:
+			        r.x= 10;
+			        r.y=TurnHUD.BAR_HEIGHT;
+			        break;
+		        case TOP_RIGHT:
+			        r.x = gc.getViewSize().getWidth()-r.width;
+			        r.y=TurnHUD.BAR_HEIGHT;
+			        break;
+		        case BOTTOM_LEFT:
+			        r.x = 10;
+			        r.y = gc.getViewSize().getHeight() - r.height - 10;
+			        break;
+		        case BOTTOM_RIGHT:
+			        r.x = gc.getViewSize().getWidth()-r.width - 10;
+			        r.y = gc.getViewSize().getHeight() - r.height - 10;
+			        break;
+		        case ITEM_POSITION:
+			        r.x = gc.getViewSize().getWidth()-r.width;
+			        r.y = gc.getViewSize().getHeight()/2 - r.height/2;
+			        break;
+			    case MODE_POSITION:
+		            r.x = 0;
+		            r.y = 0;
+		            break;
+		        case CENTERED:
+		            r.x = gc.getViewSize().getWidth()/2-r.width/2;
+		            r.y = gc.getViewSize().getHeight()/2 - r.height/2;
+		            break;
+		    } // End of switch 
+	    } // End of if
+    } // End of method
 
+
+    public void setPosition(Position p) {
+        this.position = p;
+	}
+	
+	public Position getPosition() {
+	    return position;   
+	}
 
 }
 

@@ -11,9 +11,9 @@ public class ItemListHUD extends HUD {
 	private HUDmanager hm;
 	private DockHUD dh;
 	
-	public ItemListHUD(GameController gc, int l, HUDmanager h){
-		super(new BoundingRectangle(0,0,250,300) ,gc);
-		location = l;
+	public ItemListHUD(GameController gc, Position position, HUDmanager h){
+		super(new BoundingRectangle(0,0,250,300),gc, position);
+		//location = l;
 		hm=h;
 		if(gc.getActiveE() != null && gc.getActiveE() instanceof Planet){
 			p=(Planet)gc.getActiveE();
