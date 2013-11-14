@@ -14,10 +14,14 @@ public class ModeHUD extends HUD{
 	private int lastMode = 1;
 	private int transitionMode = -1;
 	private long startTime;
+	private long rAnimationStart = -1;
+	private float rPhase = 0.0f;
+	private boolean rReverse = false;
 	
 	Grid grid = null;
 	
 	static final int ANIMATION_TIME = 100;
+	static final int RETICLE_ANIMATION_TIME = 1000;
 	
 	public ModeHUD(Grid gr, GameController gc, Position p){
 		super(new BoundingRectangle(5,45,500,40),gc, p);
@@ -32,6 +36,27 @@ public class ModeHUD extends HUD{
 	        return;
 	    }
 	    */
+	    if (rAnimationStart == -1) {
+	        rAnimationStart = currentTime;
+	    } else {
+	        long delta = currentTime - rAnimationStart;
+	        rPhase = (delta * 1.0f) / RETICLE_ANIMATION_TIME;
+	        if (rReverse) {
+	            rPhase = 1-rPhase;
+	        }
+	        if (rPhase > 1.0f) {
+	            //System.out.println("Greater");
+	            rReverse = true;
+	            rAnimationStart = currentTime;
+	        }
+	        if (rPhase < 0.0f) {
+	            //System.out.println("Lesser");
+	            rReverse = false;
+	            rAnimationStart = currentTime;
+	        }
+	        //System.out.println(rPhase);
+	    }
+	    
 	    if (lastMode != grid.getMode() && phase < -0.5f) {
 	        // Start animation.
 	        //System.out.println("Starting Animation");
@@ -121,7 +146,10 @@ public class ModeHUD extends HUD{
 		    if(grid.getCurrentX()!=0||grid.getCurrentY()!=0){
 		        if (grid.getMode() != 5) {
 			        g.drawLine(shipX-grid.getViewRegion().getX(), shipY-grid.getViewRegion().getY(), grid.getCurrentX(), grid.getCurrentY());
-			        int radius = 20;
+			        int baseRadius = 20;
+			        int radius = (int)(baseRadius*rPhase);
+			        //radius = (int)((gc.getActiveE().getWidth() + gc.getActiveE().getHeight()) / 2.0f);
+			        g.drawOval(grid.getCurrentX()-baseRadius, grid.getCurrentY()-baseRadius, baseRadius*2, baseRadius *2 );
 			        g.drawOval(grid.getCurrentX()-radius, grid.getCurrentY()-radius, radius*2, radius*2);
 			    } else {
 			        int counter = 0;
