@@ -7,9 +7,10 @@ public class DockHUD extends HUD{
 	private Planet p;
 	private ArrayList<Button> buttons;
 
-	public DockHUD(GameController gc, int l){
+	public DockHUD(GameController gc, Position p){
 		super(new BoundingRectangle(0,0,300,30),gc);
 		//location = l;
+		position = p;
 		buttons=new ArrayList<Button>();
 		fillButtons();
 	}

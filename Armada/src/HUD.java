@@ -7,7 +7,7 @@ public class HUD extends ViewLayer {
 
 	protected GameController gc = null;
 	
-	public enum Position { STATIC, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, CENTERED, MODE_POSITION, ITEM_POSITION; }
+	public enum Position { STATIC, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, CENTERED, MODE_POSITION, ITEM_POSITION, TOP_CENTER; }
 	/** The location setting to place this HUD onscreen */
 	protected Position position = Position.STATIC;
 	
@@ -70,6 +70,10 @@ public class HUD extends ViewLayer {
 		            r.x = gc.getViewSize().getWidth()/2-r.width/2;
 		            r.y = gc.getViewSize().getHeight()/2 - r.height/2;
 		            break;
+		        case TOP_CENTER:
+			        r.x = gc.getViewSize().getWidth()/2-r.width/2;
+			        r.y=TurnHUD.BAR_HEIGHT;
+			    break;
 		    } // End of switch 
 	    } // End of if
     } // End of method

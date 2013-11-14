@@ -71,7 +71,7 @@ public class ItemListHUD extends HUD {
 				if(activeB!=null){
 					activeB.setSelected(false);
 				}
-				dh=new DockHUD(gc, 5);
+				dh=new DockHUD(gc, HUD.Position.TOP_CENTER);
 				activeB=b;
 				activeB.setSelected(true);
 				if(p.getDocked().size() < 1){
