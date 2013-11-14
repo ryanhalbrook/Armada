@@ -113,7 +113,7 @@ public class ModeHUD extends HUD{
 		    int shipY = grid.getActiveE().getY();
 		    Stroke s = g2d.getStroke();
 		    float array[] = {10.0f};
-		    g2d.setStroke(new BasicStroke(2.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1.0f, array, 0.0f));
+		    g2d.setStroke(new BasicStroke(4.0f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND, 1.0f, array, 0.0f));
 		    g2d.setColor(Color.WHITE);
 		    if(grid.getMode()==1 && grid.getActiveE().canMovePath2(grid.getCurrentX() + grid.getViewRegion().getX(),grid.getCurrentY() + grid.getViewRegion().getY(),grid.getDelements()) && grid.getActiveE().canMove()){
 		    	g.setColor(Color.GREEN);
@@ -142,8 +142,8 @@ public class ModeHUD extends HUD{
 		    else if (( grid.getMode() == 5)) {
 		        g.setColor(new Color(0.0f, 0.9f, 1.0f));
 		    }
-		    
-		    if(grid.getCurrentX()!=0||grid.getCurrentY()!=0){
+		    //if (grid.getCurrentX() == 0 && grid.getCurrentY() == 0) System.out.println("Current x,y = 0,0");
+		    if(grid.getCurrentX()!=0||grid.getCurrentY()!=0 || true){
 		        if (grid.getMode() != 5) {
 			        g.drawLine(shipX-grid.getViewRegion().getX(), shipY-grid.getViewRegion().getY(), grid.getCurrentX(), grid.getCurrentY());
 			        int baseRadius = 20;

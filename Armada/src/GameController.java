@@ -48,6 +48,7 @@ public class GameController extends ViewLayerController {
 	    viewLayer.addSublayer(new BackgroundImageViewLayer(new BoundingRectangle(0, 0, dsb), viewRegion, img));
 	    bgm= new BGMPlayer();
 	    bgm.play();
+	    
     }
     
     public int getCurrentX() {
