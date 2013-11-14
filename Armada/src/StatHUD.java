@@ -11,15 +11,15 @@ public class StatHUD extends HUD{
 	private int buttonHeight = 30, buttonGap=3;
 	private double scaleH =.05, scaleW = .15;
 	
-
+/*
 	public StatHUD(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		fillButtons();
 		// TODO Auto-generated constructor stub
 	}
-
-	public StatHUD(Grid gr, Position p){
-		super(5,45,150,100,gr, p);
+*/
+	public StatHUD(GameController gc, Position p){
+		super(new BoundingRectangle(5,45,150,100),gc, p);
 	}
 	
 
@@ -30,16 +30,16 @@ public class StatHUD extends HUD{
 	    int width = r.getWidth();
 	    int height = r.getHeight();
 		updateLocation();
-		if(grid.getActiveE() instanceof Ship){
-			buttons.add(new Button(0,y,width,buttonHeight, grid,"Hull: " + grid.getActiveE().getHull() + "/" + grid.getActiveE().getMaxHull(), false));//x and y actually don't matter
-			buttons.add(new Button(0,y,width,buttonHeight, grid,"Engine: " + grid.getActiveE().getEngine() + "/" + grid.getActiveE().getMaxEngine(), false));
-			buttons.add(new Button(0,y,width,buttonHeight, grid,"Damage: " + grid.getActiveE().getWeapons(), false));
-			buttons.add(new Button(0,y,width,buttonHeight, grid,"Speed: " + grid.getActiveE().getAdjustedSpeed() + "/" + grid.getActiveE().getSpeed(), false));
-			buttons.add(new Button(0,y,width,buttonHeight, grid,"Movement Left: " + (grid.getActiveE().getAdjustedSpeed() - grid.getActiveE().getMoved()), false));
-			buttons.add(new Button(0,y,width,buttonHeight, grid,"Can Attack: " + grid.getActiveE().canAttack(), false));
+		if(gc.getActiveE() instanceof Ship){
+			buttons.add(new Button(0,y,width,buttonHeight, gc,"Hull: " + gc.getActiveE().getHull() + "/" + gc.getActiveE().getMaxHull(), false));//x and y actually don't matter
+			buttons.add(new Button(0,y,width,buttonHeight, gc,"Engine: " + gc.getActiveE().getEngine() + "/" + gc.getActiveE().getMaxEngine(), false));
+			buttons.add(new Button(0,y,width,buttonHeight, gc,"Damage: " + gc.getActiveE().getWeapons(), false));
+			buttons.add(new Button(0,y,width,buttonHeight, gc,"Speed: " + gc.getActiveE().getAdjustedSpeed() + "/" + gc.getActiveE().getSpeed(), false));
+			buttons.add(new Button(0,y,width,buttonHeight, gc,"Movement Left: " + (gc.getActiveE().getAdjustedSpeed() - gc.getActiveE().getMoved()), false));
+			buttons.add(new Button(0,y,width,buttonHeight, gc,"Can Attack: " + gc.getActiveE().canAttack(), false));
 		}
-		if(grid.getActiveE() instanceof Planet){
-			buttons.add(new Button(0,y,width,18, grid,"Health: " + grid.getActiveE().getHull() + "/" + grid.getActiveE().getMaxHull(), false));
+		if(gc.getActiveE() instanceof Planet){
+			buttons.add(new Button(0,y,width,18, gc,"Health: " + gc.getActiveE().getHull() + "/" + gc.getActiveE().getMaxHull(), false));
 		}
 	}
 	
@@ -58,13 +58,13 @@ public class StatHUD extends HUD{
 	}
 	
 	public void draw(Graphics g){
-		if(grid.getActiveE() == null)return;
-		
+	if (gc == null) return;
+		if(gc.getActiveE() == null) return;
 		Font temp = g.getFont();
 		g.setFont(new Font("Dialog",Font.BOLD, buttonHeight/2));
 		
-		buttonHeight=(int)((double)grid.getAp().getHeight()*scaleH);
-		r.setWidth((int)((double)grid.getAp().getWidth()*scaleW));
+		buttonHeight=(int)((double)gc.getViewSize().getHeight()*scaleH);
+		r.setWidth((int)((double)gc.getViewSize().getWidth()*scaleW));
 		
 		
 		updateLocation();

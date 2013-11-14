@@ -48,10 +48,22 @@ public class GameController extends ViewLayerController {
 	    viewLayer.addSublayer(new BackgroundImageViewLayer(new BoundingRectangle(0, 0, dsb), viewRegion, img));
 	    bgm= new BGMPlayer();
 	    bgm.play();
+	    
+    }
+    
+    public int getCurrentX() {
+        return grid.getCurrentX();
+    }
+    public int getCurrentY() {
+        return grid.getCurrentY();
     }
     
     public ArmadaEngine getEngine() {
         return engine;
+    }
+    
+    public DynamicElement getActiveE() {
+        return grid.getActiveE();
     }
     
     public void refresh(long previousTime, long currentTime) {
@@ -271,8 +283,8 @@ public class GameController extends ViewLayerController {
 	}
 	
 	public void mouseDragged(MouseEvent evt) {
-		grid.setCurrentX(0);
-		grid.setCurrentY(0);
+		//grid.setCurrentX(0);
+		//grid.setCurrentY(0);
 		if(hud.getMap().isIn(evt.getX(), evt.getY())){
 			hud.getMap().moveMap(evt.getX(), evt.getY());
 		}

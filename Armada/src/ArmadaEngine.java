@@ -107,7 +107,7 @@ public class ArmadaEngine implements ChangeListener {
 		delements.add(new NormalShip(750,330,1));
 		delements.add(new NormalShip(160,330,1));
 		delements.add(new NormalShip(260,330,2));
-		delements.add(new NormalShip(60,330,2));
+		delements.add(new ScoutShip(60,330,2));
 		delements.add(new NormalShip(220,330,2));
 		delements.add(new NormalShip(300,330,2));
 		delements.add(new JuggernautShip(350,430,1));

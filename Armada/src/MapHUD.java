@@ -13,8 +13,11 @@ public class MapHUD extends HUD{
 	public static final int SCALING_TIME = 3000; // in milliseconds
 	private int inputLocation=4;
 	
-	public MapHUD(Grid gr, Position p){
-		super(0,0,250,125,gr);
+	private Grid grid = null;
+	
+	public MapHUD(Grid gr, GameController gc, Position p){
+		super(new BoundingRectangle(0,0,250,125),gc);
+		grid = gr;
 		//inputLocation=l;
 	    //location = l;
 	    this.position = p;
@@ -22,14 +25,15 @@ public class MapHUD extends HUD{
 		setName("Map Layer");
 	}
 	
+	/*
 	public MapHUD(Grid gr, int l, BoundingRectangle r){
-		super(0,0,250,125,gr);
+		super(new BoundingRectangle(0,0,250,125),gr);
 		inputLocation=l;
 		location = l;
 		des = grid.getDelements();
 		setName("Map Layer");
 	}
-
+    */
     public boolean click(int inX, int inY){
 		if(r.isIn(inX, inY)){
 		    System.out.println("You clicked the map");

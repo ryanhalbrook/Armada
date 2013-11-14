@@ -4,7 +4,7 @@ public class ArmadaHUD extends HUD {
     private Player player = null;
 
     public ArmadaHUD(BoundingRectangle b, GameController gc) {
-        super(b, 2);
+        super(b, gc, HUD.Position.CENTERED);
         this.gc = gc;
     }
     

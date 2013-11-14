@@ -8,22 +8,23 @@ public class Button extends BoundingRectangle{
 	protected String title;
 	protected Grid grid;
 	protected boolean isSelected=false, clickable;
+	protected GameController gc;
 	
 	/*public Button(){
 		super(0,0,30,30);
 	}*/
 	
-	public Button(int inX, int inY, int w, int h, Grid g, String s, boolean b){
+	public Button(int inX, int inY, int w, int h, GameController gc, String s, boolean b){
 		super(inX,inY,w,h);
-		grid=g;
+		this.gc = gc;
 		title=s;
 		clickable=b;
 	}
 	
-	public Button(int inX, int inY, int w, int h, Grid g, String s){
+	public Button(int inX, int inY, int w, int h, GameController gc, String s){
 		super(inX,inY,w,h);
 		clickable=true;
-		grid=g;
+		this.gc = gc;
 		title=s;
 	}
 	
@@ -32,7 +33,7 @@ public class Button extends BoundingRectangle{
 		if(this.isIn(x, y)){
 			return true;
 		}
-		if(this.isIn(grid.getCurrentX(), grid.getCurrentY())){
+		if(this.isIn(gc.getCurrentX(), gc.getCurrentY())){
 			return true;
 		}
 		return false;
@@ -42,7 +43,7 @@ public class Button extends BoundingRectangle{
 		if(isSelected){
 			g.setColor(new Color(25,25,25, 250));
 		}
-		else if(clickable && this.isIn(grid.getCurrentX(), this.grid.getCurrentY())){
+		else if(clickable && this.isIn(gc.getCurrentX(), this.gc.getCurrentY())){
 			glow(g);
 		}
 		else{g.setColor(new Color(50,50,50, 200));}

@@ -11,12 +11,12 @@ public class ItemListHUD extends HUD {
 	private HUDmanager hm;
 	private DockHUD dh;
 	
-	public ItemListHUD(Grid gr, int l, HUDmanager h){
-		super(0,0,250,300,gr);
-		location = l;
+	public ItemListHUD(GameController gc, Position position, HUDmanager h){
+		super(new BoundingRectangle(0,0,250,300),gc, position);
+		//location = l;
 		hm=h;
-		if(gr.getActiveE() != null && gr.getActiveE() instanceof Planet){
-			p=(Planet)gr.getActiveE();
+		if(gc.getActiveE() != null && gc.getActiveE() instanceof Planet){
+			p=(Planet)gc.getActiveE();
 		}
 		buttons = new ArrayList<ItemButton>();
 		fillButtons();
@@ -28,14 +28,14 @@ public class ItemListHUD extends HUD {
 	    int width = r.getWidth();
 	    int height = r.getHeight();
 		updateLocation();
-		buttons.add(new ItemButton(x+3, y+3, width-6, 20, grid, ItemList.ItemNames.EnginesUpgrade));
-		buttons.add(new ItemButton(x+3, y+3, width-6, 20, grid, ItemList.ItemNames.HullPlate));
-		buttons.add(new ItemButton(x+3, y+3, width-6, 20, grid, ItemList.ItemNames.ScalingWeaponsUpgrade));
+		buttons.add(new ItemButton(x+3, y+3, width-6, 20, gc, ItemList.ItemNames.EnginesUpgrade));
+		buttons.add(new ItemButton(x+3, y+3, width-6, 20, gc, ItemList.ItemNames.HullPlate));
+		buttons.add(new ItemButton(x+3, y+3, width-6, 20, gc , ItemList.ItemNames.ScalingWeaponsUpgrade));
 	}
 	
 	public void draw(Graphics g){
-		if(grid.getActiveE() != null && grid.getActiveE() instanceof Planet){
-			p=(Planet)grid.getActiveE();
+		if(gc.getActiveE() != null && gc.getActiveE() instanceof Planet){
+			p=(Planet)gc.getActiveE();
 		}
 		else{
 			p=null;
@@ -71,7 +71,7 @@ public class ItemListHUD extends HUD {
 				if(activeB!=null){
 					activeB.setSelected(false);
 				}
-				dh=new DockHUD(grid, 5);
+				dh=new DockHUD(gc, HUD.Position.TOP_CENTER);
 				activeB=b;
 				activeB.setSelected(true);
 				if(p.getDocked().size() < 1){
