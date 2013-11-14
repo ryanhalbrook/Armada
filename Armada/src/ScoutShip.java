@@ -16,6 +16,7 @@ public class ScoutShip extends Ship{
 		baseWeapons=300;
 		weapons = baseWeapons;
 		range = 300;
+		maxCargo=3;
 		//Some Examples of my testing
 		//this.addItem(new Item(ItemList.ItemNames.OverloadWeapons));
 		//this.addItem(new Item(ItemList.ItemNames.ScalingWeaponsUpgrade));

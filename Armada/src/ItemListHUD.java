@@ -6,6 +6,8 @@ import java.util.ArrayList;
 public class ItemListHUD extends HUD {
 
 	private Planet p;
+	private Ship s;
+	private DynamicElement de;
 	private ArrayList<ItemButton> buttons;
 	private ItemButton activeB;
 	private HUDmanager hm;
@@ -14,9 +16,13 @@ public class ItemListHUD extends HUD {
 	public ItemListHUD(GameController gc, Position position, HUDmanager h){
 		super(new BoundingRectangle(0,0,250,300),gc, position);
 		//location = l;
+		de =gc.getActiveE();
 		hm=h;
-		if(gc.getActiveE() != null && gc.getActiveE() instanceof Planet){
-			p=(Planet)gc.getActiveE();
+		if(de != null && de instanceof Planet){
+			p=(Planet)de;
+		}
+		else if(de != null && de instanceof Ship){
+			s=(Ship)de;
 		}
 		buttons = new ArrayList<ItemButton>();
 		fillButtons();
@@ -28,14 +34,57 @@ public class ItemListHUD extends HUD {
 	    int width = r.getWidth();
 	    int height = r.getHeight();
 		updateLocation();
-		buttons.add(new ItemButton(x+3, y+3, width-6, 20, gc, ItemList.ItemNames.EnginesUpgrade));
-		buttons.add(new ItemButton(x+3, y+3, width-6, 20, gc, ItemList.ItemNames.HullPlate));
-		buttons.add(new ItemButton(x+3, y+3, width-6, 20, gc , ItemList.ItemNames.ScalingWeaponsUpgrade));
+		if(de==null){
+			return;
+		}
+		if(gc.getActiveE() != de || de==null){
+			de =gc.getActiveE();
+			buttons=new ArrayList<ItemButton>();
+			fillButtons();
+		}
+		if(de != null && de instanceof Planet){
+			p=(Planet)de;
+		}
+		else if(de != null && de instanceof Ship){
+			s=(Ship)de;
+		}
+		
+		if(de instanceof Planet){
+			System.out.println("PLANET");
+			buttons.add(new ItemButton(x+3, y+3, width-6, 20, gc, ItemList.ItemNames.EnginesUpgrade, true));
+			buttons.add(new ItemButton(x+3, y+3, width-6, 20, gc, ItemList.ItemNames.HullPlate, true));
+			buttons.add(new ItemButton(x+3, y+3, width-6, 20, gc , ItemList.ItemNames.SpeedUpgrade, true));	
+		}
+		else if(de instanceof Ship){
+			System.out.println("SHIP");
+			if(s.getItems()==null)return;
+			//if(s.getItems().size() <1)return;
+			int temp = s.getMaxCargo();
+			for(Item i: s.getItems()){
+				buttons.add(new ItemButton(x+3, y+3, width-6, 20, gc, i.getId()));
+				temp--;
+			}
+			while(temp>0){
+				buttons.add(new ItemButton(x+3, y+3, width-6, 20, gc, ItemList.ItemNames.Blank));
+				 temp--;
+			}
+			
+		}
+		else{System.out.println("WTF");}
+		
 	}
 	
 	public void draw(Graphics g){
-		if(gc.getActiveE() != null && gc.getActiveE() instanceof Planet){
-			p=(Planet)gc.getActiveE();
+		if(gc.getActiveE() != de || de==null){
+			de =gc.getActiveE();
+			buttons=new ArrayList<ItemButton>();
+			fillButtons();
+		}
+		if(de != null && de instanceof Planet){
+			p=(Planet)de;
+		}
+		else if(de != null && de instanceof Ship){
+			s=(Ship)de;
 		}
 		else{
 			p=null;
@@ -43,8 +92,10 @@ public class ItemListHUD extends HUD {
 		}
 		
 		updateLocation();
+		
 		updateButtons();
 		
+		if(buttons.size()<1)return;
 		g.setColor(new Color(25,125,175, 150));
 		g.fillRect(r.x, r.y, r.width, r.height);
 		drawButtons(g);
@@ -61,6 +112,7 @@ public class ItemListHUD extends HUD {
 	
 	public boolean click(int inX, int inY){
 		if(p==null){
+			hm.remove(dh);
 			dh=null;
 			if(activeB!=null)activeB.setSelected(false);
 			activeB=null;
@@ -71,7 +123,8 @@ public class ItemListHUD extends HUD {
 				if(activeB!=null){
 					activeB.setSelected(false);
 				}
-				dh=new DockHUD(gc, HUD.Position.TOP_CENTER);
+				dh=new DockHUD(gc, HUD.Position.TOP_CENTER, this);
+				hm.addHUD(dh);
 				activeB=b;
 				activeB.setSelected(true);
 				if(p.getDocked().size() < 1){
@@ -80,7 +133,6 @@ public class ItemListHUD extends HUD {
 				return true;
 			}
 		}
-		
 		return false;
 	}
 	
@@ -95,6 +147,13 @@ public class ItemListHUD extends HUD {
 	
 	public void setActiveB(ItemButton b){
 		activeB=b;
+	}
+	
+	public ItemList.ItemNames getItemId(){
+		if(activeB!=null){
+			return activeB.getId();
+		}
+		return null;
 	}
 	
 }

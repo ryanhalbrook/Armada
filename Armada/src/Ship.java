@@ -17,13 +17,14 @@ public class Ship extends DynamicElement{
 	protected int[][] list = new int[3][10];//numbers subject to change
 	protected Planet planetDocked;
 	protected int baseWeapons, baseSpeed, baseMaxHull, baseMaxEngine;
+	protected double perHull, perEng;
 	protected ArrayList<Item> items;
 	
 	//Every ship that extends this class needs the following line, but with values assigned to each.  Whenever update() is called, the value of the corresponding stats need to be recalculated starting with these and then adding in each appropriate buff, item, and upgrade.
 	//protected final int DEFAULT_HULL, DEFAULT_MAX_HULL, DEFAULT_SPEED, DEFAULT_BOARD, DEFAULT_ENGINE, DEFAULT_MAX_ENGINE, DEFAULT_MAX_CARGO, DEFAULT_RANGE;
 
 	
-	protected int cargo, maxCargo;
+	protected int cargo=0, maxCargo;
 	protected Bridge bridge;
 	protected boolean boarding =false,docking =false;
 	Element rope,hook;
@@ -51,14 +52,21 @@ public class Ship extends DynamicElement{
 	 * given an item, it will
 	 */
 	public void addItem(Item i){
-		StatEditor.addItem(this, i);
+		if(cargo < maxCargo){
+			StatEditor.addItem(this, i);
+			cargo++;
+		}
+		
 	}
 	
 	public void removeItem(Item i){
 		StatEditor.removeItem(this, i);
+		cargo--;
 	}
 	
 	public void resetStats(){
+		perHull=(double)hull/(double)maxHull;
+		perEng=(double)engine/(double)maxEngine;
 		weapons = baseWeapons;
 		speed= baseSpeed;
 		maxHull=baseMaxHull;
@@ -265,5 +273,32 @@ public class Ship extends DynamicElement{
 
 	public void setBridge(Bridge bridge) {
 		this.bridge = bridge;
+	}
+
+	public double getPerHull() {
+		return perHull;
+	}
+
+	public void setPerHull(int perHull) {
+		this.perHull = perHull;
+	}
+
+	public double getPerEng() {
+		return perEng;
+	}
+
+	public void setPerEng(int perEng) {
+		this.perEng = perEng;
+	}
+	
+	public void incPerHull(int i){
+		perHull+=i;
+	}
+	
+	public void incPerEng(int i){
+		perEng+=i;
+	}
+	public boolean cargoNotFull(){
+		return cargo<maxCargo;
 	}
 }

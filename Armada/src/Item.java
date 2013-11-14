@@ -11,7 +11,10 @@ public class Item {
 		this.id=id;
 	}
 
-	
+	public ItemList.ItemNames getId() {
+		return id;
+	}
+
 	
 	//STEP 0 : If your stat does not edit the stats of the ship, skip to the bottom
 	
@@ -70,10 +73,10 @@ public class Item {
 			//nothing here yet
 		}
 	}
-	
+	//STEP 2 IS NO LONGER SUPPORTED / NEEDED
 	//STEP 2 : This is for only very specific items that have an affect upon purchase that is NOT its normal update (as in, a ship stat that needs to be updated one time due to the change made in update()) .  You most likely will skip this
 	public void uponPurchase(Ship s){//immediate one time actions, such as adding some hull because of addition to maxHull
-		if(ItemList.keyInt(id, ItemList.ItemStats.HullFlat)){
+		/*if(ItemList.keyInt(id, ItemList.ItemStats.HullFlat)){
 			s.setHull(s.getHull() + ItemList.getInt(id, ItemList.ItemStats.HullFlat));//Upon buying some extra maxHull the ship is also healed by the added maxHull so that you DON'T have 100/100 hull then upgrade to have 100/120.  In this case, 20 is also added so that the hull will be 120/120
 		}
 		if(ItemList.keyInt(id, ItemList.ItemStats.EnginesFlat)){//This needed to be added for EnginesFlat
@@ -84,12 +87,12 @@ public class Item {
 			double per = (double)ItemList.getInt(id, ItemList.ItemStats.HullPercentage)/100.0;
 			int sub = (int)Math.round(max/(1+per));
 			s.setHull(s.getHull() + max - sub);
-		}
+		}*/
 	}
-	
+	//STEP 3 IS NO LONGER SUPPORTED / NEEDED
 	//STEP 3 : This is the opposite as the above.  Cautious steps that may have to be taken upon removal.  Remember, the item has NOT been removed yet, this is called immediately before removal.  It is likely you wont need this
 	public void uponRemoval(Ship s){// immediate one time actions, such as making sure that the current hull is not above the new max after removal
-		if(ItemList.keyInt(id, ItemList.ItemStats.HullFlat)){//if item has HullFlat -- if I'm removing maxHull from the ship
+		/*if(ItemList.keyInt(id, ItemList.ItemStats.HullFlat)){//if item has HullFlat -- if I'm removing maxHull from the ship
 			if(s.getHull() > (s.getMaxHull() - ItemList.getInt(id, ItemList.ItemStats.HullFlat))){//checks if the hull is greater than the max should be after removal.  Remember, it has not been removed yet
 				s.setHull(s.getMaxHull()  - ItemList.getInt(id, ItemList.ItemStats.HullFlat));//if the hull will be greater than its to-be max, reduce it to its to-be max
 			}
@@ -98,7 +101,7 @@ public class Item {
 			if(s.getEngine() > (s.getMaxEngine() - ItemList.getInt(id, ItemList.ItemStats.EnginesFlat))){
 				s.setEngine(s.getMaxEngine()  - ItemList.getInt(id, ItemList.ItemStats.EnginesFlat));
 			}
-		}
+		}*/
 	}
 	
 	//STEP 4 : Done here! Go over to ItemList and make sure your item's stats have been specified for it

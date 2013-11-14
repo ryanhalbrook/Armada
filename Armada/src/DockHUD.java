@@ -5,13 +5,15 @@ import java.util.ArrayList;
 public class DockHUD extends HUD{
 	
 	private Planet p;
-	private ArrayList<Button> buttons;
+	private ArrayList<ShipButton> buttons;
+	private ItemListHUD il;
 
-	public DockHUD(GameController gc, Position p){
+	public DockHUD(GameController gc, Position p, ItemListHUD inIl){
 		super(new BoundingRectangle(0,0,300,30),gc);
 		//location = l;
+		il=inIl;
 		position = p;
-		buttons=new ArrayList<Button>();
+		buttons=new ArrayList<ShipButton>();
 		fillButtons();
 	}
 	
@@ -50,16 +52,29 @@ public class DockHUD extends HUD{
 	public void updateButtons(){
 		r.setHeight(buttons.size() * 35);
 		for(int i =0; i < buttons.size(); i++){
-			Button b = buttons.get(i);
+			ShipButton b = buttons.get(i);
 			b.setX(r.x+3);
 			b.setY(r.y+3+(i* 22));
 		}
 	}
 	
 	public void drawButtons(Graphics g){
-		for(Button b: buttons){
+		for(ShipButton b: buttons){
 			b.draw(g);
 		}
+	}
+	
+	public boolean click(int inX, int inY){
+		for(ShipButton b: buttons){
+			if(b.isIn(inX, inY)){
+				//b.setSelected(true);
+				if(il.getItemId()!=null){
+					b.getShip().addItem(new Item(il.getItemId()));	
+				}
+				return true;	
+			}
+		}
+		return false;
 	}
 	
 	public void fillButtons(){
@@ -67,12 +82,12 @@ public class DockHUD extends HUD{
 	    int y = r.getY();
 	    int width = r.getWidth();
 	    int height = r.getHeight();
-		buttons=new ArrayList<Button>();
+		buttons=new ArrayList<ShipButton>();
 		updateLocation();
 		if(p==null)return;
 		if(p.getDocked().size()<1)return;
 		for(int i =0; i < p.getDocked().size(); i++){
-			buttons.add(new Button(x+8, y+8+(i*24), width-16, 20, gc, p.getDocked().get(i).toString()));	
+			buttons.add(new ShipButton(x+8, y+8+(i*24), width-16, 20, gc, p.getDocked().get(i)));	
 		}
 		
 	}

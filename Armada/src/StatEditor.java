@@ -21,15 +21,13 @@ public enum StatEditor {;
 				i.update(s,j);
 			}	
 		}
-		
+		s.setHull((int)((double)s.getMaxHull() * s.getPerHull()));
+		s.setEngine((int)((double)s.getMaxEngine() * s.getPerEng()));
 	}
 	
 	public static void addItem(Ship s, Item i){
-		
 		s.getItems().add(i);
 		StatEditor.update(s);
-		i.uponPurchase(s);
-		
 	}
 	
 	public static void removeItem(Ship s, Item i){

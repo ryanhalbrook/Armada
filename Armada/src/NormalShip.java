@@ -16,6 +16,7 @@ public class NormalShip extends Ship{
 		baseWeapons=300;
 		weapons = baseWeapons;
 		range = 300;
+		maxCargo=5;
 		//Some Examples of my testing
 		//this.addItem(new Item(ItemList.ItemNames.OverloadWeapons));
 		//this.addItem(new Item(ItemList.ItemNames.ScalingWeaponsUpgrade));

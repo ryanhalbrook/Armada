@@ -4,7 +4,7 @@ public class JuggernautShip extends Ship {
 	private double hullBonus = .1, engineBonus = .1;
 
 	public JuggernautShip(int inX, int inY, int team) {
-		super(inX,inY, 89, 71, "flagship",team);
+		super(inX,inY, 89, 71, "juggernaut",team);
 		ah = new ShipAnimationHelper(this);
 		baseMaxHull = 2000;
 		maxHull=baseMaxHull;
@@ -18,6 +18,7 @@ public class JuggernautShip extends Ship {
 		baseWeapons=300;
 		weapons = baseWeapons;
 		range = 400;
+		maxCargo=5;
 		this.addItem(new Item(ItemList.ItemNames.Juggernaut));
 		update();	
 	}
