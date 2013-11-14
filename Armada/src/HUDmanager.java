@@ -33,8 +33,9 @@ public class HUDmanager extends ViewLayer {
 		turn.setName("Turn HUD");
 		items.setName("Items HUD");
 		this.setName("HUD");
-		addHUD(stat);
+		
 		addHUD(map);
+		addHUD(stat);
 		addHUD(items);
 		addHUD(mode);
 		addHUD(turn);
