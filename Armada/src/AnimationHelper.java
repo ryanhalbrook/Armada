@@ -38,11 +38,15 @@ public class AnimationHelper{
 	private double angleLeft;
 	private int moveXLeft;
 	private int moveYLeft;
+
+	
+
 	private double[] moveVar;//for moving the ship more accurately
 	private boolean moving;
 	
 	private final double ANGLE_PER_FRAME=2;
 	private final double MOVE_PER_FRAME=5;
+
 	
 	public AnimationHelper(Element el){
 		e=el;
@@ -90,9 +94,49 @@ public class AnimationHelper{
 		g2.drawImage(image, at, null);
 
 	}
+	public static void draw(int x,int y,int w,int h,String img, Graphics g, BoundingRectangle viewRect){
+
+		Graphics2D g2 = (Graphics2D)g;
+		AffineTransform at= new AffineTransform();
+		BufferedImage image = loadImg(img, w, h);
+		int imageWidth=image.getWidth();
+		int imageHeight=image.getHeight();
+		
+		//g.fillRect(x-viewRect.getX(), y-viewRect.getY(), width, height);
+		at.translate((x-viewRect.getX()), y-viewRect.getY());
+		//at.rotate(Math.toRadians(e.getAngle()));
+		at.translate(-w/2.0,-h/2.0);
+		at.scale(w/(double)imageWidth, h/(double)imageHeight);
+		g2.drawImage(image, at, null);
+
+	}
+	public static void draw(int x,int y,int w,int h,double a,String img, Graphics g, BoundingRectangle viewRect){
+
+		Graphics2D g2 = (Graphics2D)g;
+		AffineTransform at= new AffineTransform();
+		BufferedImage image = loadImg(img, w, h);
+		int imageWidth=image.getWidth();
+		int imageHeight=image.getHeight();
+		
+		//g.fillRect(x-viewRect.getX(), y-viewRect.getY(), width, height);
+		at.translate((x-viewRect.getX()), y-viewRect.getY());
+		at.rotate(Math.toRadians(a));
+		at.translate(-w/2.0,-h/2.0);
+		at.scale(w/(double)imageWidth, h/(double)imageHeight);
+		g2.drawImage(image, at, null);
+
+	}
 	
+	private static BufferedImage loadImg(String img, int w, int h){
+		BufferedImage image = ImageLoader.getImage(img+".png");
+		AffineTransform at = new AffineTransform();
+		at.scale(w/(double)image.getWidth(), h/(double)image.getHeight());
+		AffineTransformOp scaleOp = 
+		   new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
+		return scaleOp.filter(image, null);
+	}
 	private void loadImage(String img) {
-	    //System.out.println(img);
+
 		image = ImageLoader.getImage(img+".png");
 		AffineTransform at = new AffineTransform();
 		at.scale(e.getWidth()/(double)image.getWidth(), e.getHeight()/(double)image.getHeight());
@@ -100,19 +144,8 @@ public class AnimationHelper{
 		   new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
 		image=scaleOp.filter(image, null);
 		
-		/*
-		try{
-			//File f= new File("image/"+img+".png");
-			URL url = this.getClass().getClassLoader().getResource("image/"+img+".png");
-			image= ImageIO.read(url);
-		}
-		catch(IOException e){
-			e.printStackTrace();
-			System.out.println("IMAGE COULD NOT BE FOUND");
-		}
-		*/
-		
 	}
+	
 	public void changeImage(String img){
 		loadImage(e.getImage());
 	}
@@ -467,5 +500,5 @@ public class AnimationHelper{
 	public BufferedImage getImage(){
 		return image;
 	}
-
+	
 }

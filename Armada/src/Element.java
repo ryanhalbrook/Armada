@@ -16,7 +16,7 @@ public class Element {
 	protected boolean  targetable = false;
 	protected AnimationHelper ah; 
 	protected Element owner=null;
-	
+
 	public Element() {}
 	
 	public Element(int a, int b, int w, int h, String img){
@@ -138,4 +138,5 @@ public class Element {
 	public void setIndex(int i){
 		index=i;
 	}
+
 }
