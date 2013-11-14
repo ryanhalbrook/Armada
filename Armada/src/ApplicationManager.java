@@ -48,7 +48,7 @@ public class ApplicationManager implements ChangeListener {
         Switches to displaying a panel with a new game.
     */
     public void startGame() {
-        swapPanel(new ArmadaPanel(this));
+        //swapPanel(new ArmadaPanel(this));
     }
     
     public void startNetworkedGame() {
