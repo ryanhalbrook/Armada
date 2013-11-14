@@ -9,8 +9,8 @@ public class GameController extends ViewLayerController {
     Grid grid;
     private ArmadaEngine engine;
     private DynamicSizeBroadcast dsb;
-    static final int GRID_WIDTH = 38400; // The width of the grid in pixels.
-    static final int GRID_HEIGHT = 21600; // The height of the grid in pixels.
+    static final int GRID_WIDTH = 7680; // The width of the grid in pixels.
+    static final int GRID_HEIGHT = 4320; // The height of the grid in pixels.
     private HUDmanager hud = null;
     private boolean moveMode = false, gameOn=true;
     ApplicationManager am = null;
@@ -44,7 +44,7 @@ public class GameController extends ViewLayerController {
         //viewLayer.addSublayer(armadaLayer);
         viewLayer.addSublayer(hud);
 	    viewLayer.addSublayer(grid);
-	    BufferedImage img = ImageLoader.getImage("GamePlayBackground.jpg");
+	    BufferedImage img = ImageLoader.getImage("GamePlayBackground2.jpg");
 	    viewLayer.addSublayer(new BackgroundImageViewLayer(new BoundingRectangle(0, 0, dsb), viewRegion, img));
 	    bgm= new BGMPlayer();
 	    bgm.play();

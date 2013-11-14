@@ -11,6 +11,7 @@ public class BackgroundImageViewLayer extends ViewLayer {
         super(bounds);
         this.img = img;
         this.viewRegion = viewRegion;
+        
     }
     
     public void draw(Graphics g) {
