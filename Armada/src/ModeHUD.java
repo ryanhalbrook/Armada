@@ -158,8 +158,14 @@ public class ModeHUD extends HUD{
 			                shipX = d.getX();
 			                shipY = d.getY();
 			                g.drawLine(shipX-grid.getViewRegion().getX(), shipY-grid.getViewRegion().getY(), grid.getCurrentX()-counter*50, grid.getCurrentY()-counter*50);
-			                int radius = 20;
+			                /*int radius = 20;
 			                g.drawOval(grid.getCurrentX()-counter*50-radius, grid.getCurrentY()-counter*50-radius, radius*2, radius*2);
+			                */
+			                int baseRadius = 20;
+			        int radius = (int)(baseRadius*(rPhase));
+			        //radius = (int)((gc.getActiveE().getWidth() + gc.getActiveE().getHeight()) / 2.0f);
+			        g.drawOval(grid.getCurrentX()-counter*50-baseRadius, grid.getCurrentY()-counter*50-baseRadius, baseRadius*2, baseRadius *2 );
+			        g.drawOval(grid.getCurrentX()-counter*50-radius, grid.getCurrentY()-counter*50-radius, radius*2, radius*2);
 			                counter++;
 			            }
 			            
