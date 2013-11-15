@@ -1,9 +1,9 @@
 
 public class DockAnimation implements Runnable{
 	Ship ship;
-	Planet planet;
+	DynamicElement planet;
 	int mode,x,y;
-	public DockAnimation(Ship s,Planet p){
+	public DockAnimation(Ship s,DynamicElement p){
 		ship=s;
 		planet=p;
 		mode=1;
@@ -12,7 +12,7 @@ public class DockAnimation implements Runnable{
 		Thread dock = new Thread(this);
 		dock.start();
 	}
-	public DockAnimation(Ship s,Planet p,int m){
+	public DockAnimation(Ship s,DynamicElement p,int m){
 		ship=s;
 		planet=p;
 		mode=m;
