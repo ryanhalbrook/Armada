@@ -6,6 +6,7 @@ public class ItemButton extends Button{
 	public ItemButton(int inX, int inY, int w, int h, GameController gc, ItemList.ItemNames s) {
 		super(inX, inY, w, h, gc, ItemList.getString(s,  ItemList.ItemStats.InGameName));
 		id=s;
+		t.setText(ItemList.getString(s,  ItemList.ItemStats.Description).toString());
 	}
 	
 	public ItemButton(int inX, int inY, int w, int h, GameController gc, ItemList.ItemNames s, boolean showPrice) {
@@ -13,6 +14,7 @@ public class ItemButton extends Button{
 		if(!showPrice){
 			this.setTitle(ItemList.ItemStats.InGameName.toString());
 		}
+		t.setText(ItemList.getString(s,  ItemList.ItemStats.Description).toString());
 		id=s;
 	}
 	

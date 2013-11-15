@@ -9,6 +9,7 @@ public class Button extends BoundingRectangle{
 	protected Grid grid;
 	protected boolean isSelected=false, clickable;
 	protected GameController gc;
+	protected HoverButtonText t;
 	
 	/*public Button(){
 		super(0,0,30,30);
@@ -19,6 +20,7 @@ public class Button extends BoundingRectangle{
 		this.gc = gc;
 		title=s;
 		clickable=b;
+		t=new HoverButtonText(this);
 	}
 	
 	public Button(int inX, int inY, int w, int h, GameController gc, String s){
@@ -26,6 +28,7 @@ public class Button extends BoundingRectangle{
 		clickable=true;
 		this.gc = gc;
 		title=s;
+		t=new HoverButtonText(this);
 	}
 	
 	public boolean click(int x, int y){
@@ -51,6 +54,7 @@ public class Button extends BoundingRectangle{
 		g.fillRect(x, y, width, height);
 		g.setColor(Color.WHITE);
 		g.drawString(title, x + width/2 - g.getFontMetrics().stringWidth(title)/2, y + 3 + height/2);
+		t.draw(g);
 	}
 	
 	public void glow(Graphics g){
@@ -89,6 +93,9 @@ public class Button extends BoundingRectangle{
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public GameController getGameController(){
+		return gc;
 	}
 	
 }
