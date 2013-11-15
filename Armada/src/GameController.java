@@ -44,7 +44,7 @@ public class GameController extends ViewLayerController {
         //viewLayer.addSublayer(armadaLayer);
         viewLayer.addSublayer(hud);
 	    viewLayer.addSublayer(grid);
-	    BufferedImage img = ImageLoader.getImage("GamePlayBackground.jpg");
+	    BufferedImage img = ImageLoader.getImage("GamePlayBackground2.jpg");
 	    viewLayer.addSublayer(new BackgroundImageViewLayer(new BoundingRectangle(0, 0, dsb), viewRegion, img));
 	    bgm= new BGMPlayer();
 	    bgm.play();
