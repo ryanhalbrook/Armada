@@ -107,15 +107,15 @@ public class ArmadaEngine implements ChangeListener {
         // Add some ships
 		delements.add(new NormalShip(750,330,1));
 		delements.add(new NormalShip(160,330,1));
-		delements.add(new NormalShip(260,330,2));
+		delements.add(new NormalShip(450,330,2));
 		delements.add(new ScoutShip(60,330,2));
 		delements.add(new NormalShip(220,330,2));
-		delements.add(new NormalShip(300,330,2));
-		delements.add(new JuggernautShip(350,430,1));
-		delements.add(new JuggernautShip(350,630,1));
-		delements.add(new JuggernautShip(500,330,2));
-		delements.add(new JuggernautShip(650,330,2));
-		JuggernautShip s = new JuggernautShip(700,700,1);
+		delements.add(new NormalShip(900,330,2));
+		delements.add(new JuggernautShip(350,2000,1));
+		delements.add(new JuggernautShip(1000,630,1));
+		delements.add(new JuggernautShip(500,3000,2));
+		delements.add(new JuggernautShip(650,700,2));
+		JuggernautShip s = new JuggernautShip(4000,700,1);
 		s.addItem(new Item(ItemList.ItemNames.HullPlate));
 		delements.add(s);
 		

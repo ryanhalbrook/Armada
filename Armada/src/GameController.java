@@ -283,8 +283,8 @@ public class GameController extends ViewLayerController {
 	}
 	
 	public void mouseDragged(MouseEvent evt) {
-		//grid.setCurrentX(0);
-		//grid.setCurrentY(0);
+		grid.setCurrentX(0);
+		grid.setCurrentY(0);
 		if(hud.getMap().isIn(evt.getX(), evt.getY())){
 			hud.getMap().moveMap(evt.getX(), evt.getY());
 		}
