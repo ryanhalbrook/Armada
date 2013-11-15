@@ -213,10 +213,17 @@ public class Grid extends ViewLayer {
 					delements.remove(i);
 					i--;
 				}
+				
 			}
 			for (int i=0;i<elements.size();i++){
-				 if(elements.get(i) instanceof Explosion){
+				if(elements.get(i) instanceof Explosion){
 					if(((Explosion)(elements.get(i))).isDone()){
+					    elements.remove(i);
+					    i--;
+					}
+				}
+				if(elements.get(i) instanceof Teleporter){
+					if(((Teleporter)(elements.get(i))).isDone()){
 					    elements.remove(i);
 					    i--;
 					}
@@ -293,6 +300,19 @@ public class Grid extends ViewLayer {
 		        }
 		    }
 		}
+		//TODO: make a mode for teleporting (or something like that)
+		//teleporting
+		/*if(mode ==5){
+			if(delements != null && delements.size() != 0){
+				inX += viewRegion.getX(); inY += viewRegion.getY();
+				if(activeE instanceof Ship){
+					((Ship)(activeE)).setTeleporting(true);
+					elements.add(new Teleporter((Ship)(activeE), inX,inY));
+				}
+				
+			}
+			return true;
+		}*/
 		return false;
 	}
 	

@@ -500,5 +500,7 @@ public class AnimationHelper{
 	public BufferedImage getImage(){
 		return image;
 	}
-	
+	public void setImage(BufferedImage img){
+		image=img;
+	}
 }

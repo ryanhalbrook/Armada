@@ -24,7 +24,7 @@ public class Explosion extends Element{
 		h=d.getHeight();
 	}
 	public Explosion(DynamicElement d, int t){
-		super(d.getX(),d.getY(),d.getWidth(),d.getHeight(),d.getAngle(),IMAGE_NAME);
+		super(d.getX(),d.getY(),WIDTH*NUM_FRAME,HEIGHT*8,d.getAngle(),IMAGE_NAME);
 		if(t<0||t>7)
 			type=(int)(Math.random()*8);
 		else

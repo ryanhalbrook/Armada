@@ -26,7 +26,7 @@ public class Ship extends DynamicElement{
 	
 	protected int cargo=0, maxCargo;
 	protected Bridge bridge;
-	protected boolean boarding =false,docking =false;
+	protected boolean boarding =false,docking =false,teleporting=false;
 	Element rope,hook;
 	public Ship(int team) {
 	    super();
@@ -258,6 +258,14 @@ public class Ship extends DynamicElement{
 	}
 
 	
+
+	public boolean isTeleporting() {
+		return teleporting;
+	}
+
+	public void setTeleporting(boolean teleporting) {
+		this.teleporting = teleporting;
+	}
 
 	public Element getHook() {
 		return hook;
