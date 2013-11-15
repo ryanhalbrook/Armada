@@ -61,7 +61,7 @@ public class ItemList {
 		itemVals.put(ItemNames.Juggernaut.name()+ItemStats.HullPercentage.name(), 10);
 		itemVals.put(ItemNames.Juggernaut.name()+ItemStats.Price.name(), 0);
 		itemDescriptions.put(ItemNames.Juggernaut.name()+ItemStats.Description, "Increases Hull by " + ItemList.getInt(ItemNames.Juggernaut, ItemStats.HullPercentage) +"%");
-		itemDescriptions.put(ItemNames.Juggernaut.name() + ItemStats.InGameName, "Juggernaut Passive: + " + ItemList.getInt(ItemNames.Juggernaut, ItemStats.HullPercentage) +"% Hull");
+		itemDescriptions.put(ItemNames.Juggernaut.name() + ItemStats.InGameName, "Juggernaut Passive");
 		
 		//ScalingEnginesUpgrade
 		itemVals.put(ItemNames.ScalingEnginesUpgrade.name()+ItemStats.EnginesPercentage.name(), 15);

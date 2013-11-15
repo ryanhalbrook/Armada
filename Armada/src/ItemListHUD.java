@@ -8,10 +8,11 @@ public class ItemListHUD extends HUD {
 	private Planet p;
 	private Ship s;
 	private DynamicElement de;
-	private ArrayList<ItemButton> buttons;
-	private ItemButton activeB;
+	//private ArrayList<ItemButton> buttons;
+	//private ItemButton activeB;
 	private HUDmanager hm;
 	private DockHUD dh;
+	private ButtonList buttons;
 	
 	public ItemListHUD(GameController gc, Position position, HUDmanager h){
 		super(new BoundingRectangle(0,0,250,300),gc, position);
@@ -24,7 +25,7 @@ public class ItemListHUD extends HUD {
 		else if(de != null && de instanceof Ship){
 			s=(Ship)de;
 		}
-		buttons = new ArrayList<ItemButton>();
+		buttons = new ButtonList(this);
 		fillButtons();
 	}
 	
@@ -39,7 +40,7 @@ public class ItemListHUD extends HUD {
 		}
 		if(gc.getActiveE() != de || de==null){
 			de =gc.getActiveE();
-			buttons=new ArrayList<ItemButton>();
+			buttons=new ButtonList(this);
 			fillButtons();
 		}
 		if(de != null && de instanceof Planet){
@@ -57,17 +58,7 @@ public class ItemListHUD extends HUD {
 		}
 		else if(de instanceof Ship){
 			System.out.println("SHIP");
-			if(s.getItems()==null)return;
-			//if(s.getItems().size() <1)return;
-			int temp = s.getMaxCargo();
-			for(Item i: s.getItems()){
-				buttons.add(new ItemButton(x+3, y+3, width-6, 20, gc, i.getId()));
-				temp--;
-			}
-			while(temp>0){
-				buttons.add(new ItemButton(x+3, y+3, width-6, 20, gc, ItemList.ItemNames.Blank));
-				 temp--;
-			}
+			buttons.fillShip((Ship)de);
 			
 		}
 		else{System.out.println("WTF");}
@@ -77,7 +68,7 @@ public class ItemListHUD extends HUD {
 	public void draw(Graphics g){
 		if(gc.getActiveE() != de || de==null){
 			de =gc.getActiveE();
-			buttons=new ArrayList<ItemButton>();
+			buttons=new ButtonList(this);
 			fillButtons();
 		}
 		if(de != null && de instanceof Planet){
@@ -92,66 +83,40 @@ public class ItemListHUD extends HUD {
 		}
 		
 		updateLocation();
+		buttons.setDimensions(r.x,r.y,r.width,r.height);
 		
-		updateButtons();
+		buttons.updateButtons();
 		
-		if(buttons.size()<1)return;
+		/*if(buttons.size()<1)return;
 		g.setColor(new Color(25,125,175, 150));
-		g.fillRect(r.x, r.y, r.width, r.height);
-		drawButtons(g);
+		g.fillRect(r.x, r.y, r.width, r.height);*/
+		buttons.draw(g);
 		if(dh !=null){
 			dh.draw(g);
 		}
 	}
-	
+	/*
 	public void drawButtons(Graphics g){
 		for(Button b: buttons){
 			b.draw(g);
 		}
-	}
+	}*/
 	
 	public boolean click(int inX, int inY){
 		if(p==null){
 			hm.remove(dh);
 			dh=null;
-			if(activeB!=null)activeB.setSelected(false);
-			activeB=null;
+			if(buttons.getActiveB()!=null)buttons.getActiveB().setSelected(false);
+			buttons.unselect();
 		}
 		
-		for(ItemButton b: buttons){
-			if(b.click(inX, inY)){
-				if(activeB!=null){
-					activeB.setSelected(false);
-				}
-				dh=new DockHUD(gc, HUD.Position.TOP_CENTER, this);
-				hm.addHUD(dh);
-				activeB=b;
-				activeB.setSelected(true);
-				if(p.getDocked().size() < 1){
-					//InformationPopupLayer.getInstance().showPopup("There are no docked ships");
-				}
-				return true;
-			}
-		}
-		return false;
+		return buttons.click(inX, inY);
 	}
 	
-	public void updateButtons(){
-		r.setHeight(4 + (buttons.size() * 22));
-		for(int i =0; i < buttons.size(); i++){
-			ItemButton b = buttons.get(i);
-			b.setX(r.x+3);
-			b.setY(r.y+3+(i* 22));
-		}
-	}
-	
-	public void setActiveB(ItemButton b){
-		activeB=b;
-	}
 	
 	public ItemList.ItemNames getItemId(){
-		if(activeB!=null){
-			return activeB.getId();
+		if(buttons.getActiveB()!=null){
+			return buttons.getActiveB().getId();
 		}
 		return null;
 	}

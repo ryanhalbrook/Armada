@@ -82,9 +82,21 @@ public class HUD extends ViewLayer {
     public void setPosition(Position p) {
         this.position = p;
 	}
+    
+    public int getX(){
+    	return r.x;
+    }
+    
+    public int getY(){
+    	return r.y;
+    }
 	
 	public Position getPosition() {
 	    return position;   
+	}
+	
+	public GameController getGC(){
+		return gc;
 	}
 
 }

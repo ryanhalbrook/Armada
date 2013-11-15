@@ -185,7 +185,8 @@ public class BoardingAnimation implements Runnable{
 		        	} catch (InterruptedException e) {
 		        		e.printStackTrace();
 		        	}
-					if(calculateBoarding(de,target)){
+					if( calculateBoarding(de,target)){
+						
 						target.setAlliance(de.getAlliance());
 						
 					}

@@ -31,8 +31,20 @@ public enum StatEditor {;
 	}
 	
 	public static void removeItem(Ship s, Item i){
+		double percHull=(double)s.getHull()/(double)s.getMaxHull();
+		double perEng=(double)s.getEngine()/(double)s.getMaxEngine();
+		System.out.println("Attempting to remove item 2");
 		i.uponRemoval(s);
-		s.getItems().remove(i);
+		for(int j=0; j<s.getItems().size();j++){
+			if(s.getItems().get(j).getId()==i.getId()){
+				s.getItems().remove(j);
+			}
+		}
+		
+		//s.getItems().remove(i);
+		System.out.println("Attempting to remove item 3");
 		StatEditor.update(s);
+		s.setHull((int)((double)s.getMaxHull()*percHull));
+		s.setEngine((int)((double)s.getMaxEngine()*perEng));
 	}
 }

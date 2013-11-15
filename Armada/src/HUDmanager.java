@@ -10,7 +10,8 @@ public class HUDmanager extends ViewLayer {
 	protected GameController gc = null;
 
 	protected ArrayList<HUD> huds;
-	protected HUD mode, stat, turn, map, items; 
+	protected HUD mode, stat, turn, map, items,trade; 
+	protected Ship s1,s2;
 	
 	/**
 	    The only constructor. Creates and initializes a HUD system manager which includes
@@ -27,6 +28,12 @@ public class HUDmanager extends ViewLayer {
 		turn = new TurnHUD(gr, gc);
 		map = new MapHUD(gr, gc, HUD.Position.BOTTOM_RIGHT);
 		items= new ItemListHUD(gc, HUD.Position.TOP_LEFT, this);
+		
+		/*s1=new NormalShip(0,0,1);
+		s1.addItem(new Item(ItemList.ItemNames.HullPlate));
+		s2=new JuggernautShip(0,0,1);*/
+		trade=new TradeHUD(gc,HUD.Position.CENTERED);
+		
 		items.setPosition(HUD.Position.ITEM_POSITION);
 		mode.setName("Mode HUD");
 		stat.setName("Stat HUD");
@@ -34,11 +41,13 @@ public class HUDmanager extends ViewLayer {
 		items.setName("Items HUD");
 		this.setName("HUD");
 		
+		addHUD(trade);
 		addHUD(map);
 		addHUD(stat);
 		addHUD(items);
 		addHUD(mode);
 		addHUD(turn);
+		
 	}
 	
 	public void addHUD(HUD hud) {
@@ -54,6 +63,7 @@ public class HUDmanager extends ViewLayer {
 	public void refresh(long previousTime, long currentTime) {
 	    super.refresh(previousTime, currentTime);
 	}
+	
 	
 	/**
 	    Removes a Heads Up Display from this HUD system.

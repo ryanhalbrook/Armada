@@ -196,6 +196,8 @@ public class ArmadaEngine implements ChangeListener {
 				Ship temp = (Ship) activeE;
 				if(temp.isDocked())
 					temp.setPlanetDocked(null);
+				if(temp.isTrading())
+					temp.setTrading(false);
         		activeE.moveTo(x, y);
         		return MovementStatus.SUCCESS;
 		}
@@ -268,7 +270,9 @@ public class ArmadaEngine implements ChangeListener {
 					s.board(t);
 				}
 				else if( d.isIn(x,y) && d.getAlliance() == activeE.getAlliance()){
-					//InformationPopupLayer.getInstance().showPopup("Cannot Board Ally Ships");
+					Ship s = (Ship) activeE;
+					Ship t = (Ship) d;
+					s.trade(t);
 				}
 				else if(activeE.distanceFrom(x, y) >= 100 ){
 					//InformationPopupLayer.getInstance().showPopup("Out Of Range");

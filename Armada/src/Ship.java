@@ -19,6 +19,7 @@ public class Ship extends DynamicElement{
 	protected int baseWeapons, baseSpeed, baseMaxHull, baseMaxEngine;
 	protected double perHull, perEng;
 	protected ArrayList<Item> items;
+	protected Ship trader;
 	
 	//Every ship that extends this class needs the following line, but with values assigned to each.  Whenever update() is called, the value of the corresponding stats need to be recalculated starting with these and then adding in each appropriate buff, item, and upgrade.
 	//protected final int DEFAULT_HULL, DEFAULT_MAX_HULL, DEFAULT_SPEED, DEFAULT_BOARD, DEFAULT_ENGINE, DEFAULT_MAX_ENGINE, DEFAULT_MAX_CARGO, DEFAULT_RANGE;
@@ -26,7 +27,7 @@ public class Ship extends DynamicElement{
 	
 	protected int cargo=0, maxCargo;
 	protected Bridge bridge;
-	protected boolean boarding =false,docking =false,teleporting=false;
+	protected boolean boarding =false,docking =false,teleporting=false,trading=false;
 	Element rope,hook;
 	public Ship(int team) {
 	    super();
@@ -60,8 +61,10 @@ public class Ship extends DynamicElement{
 	}
 	
 	public void removeItem(Item i){
+		System.out.println("Attempting to remove item 1");
 		StatEditor.removeItem(this, i);
 		cargo--;
+		System.out.println(cargo);
 	}
 	
 	public void resetStats(){
@@ -309,4 +312,18 @@ public class Ship extends DynamicElement{
 	public boolean cargoNotFull(){
 		return cargo<maxCargo;
 	}
+	public void trade(Ship s){
+		this.trading=true;
+		trader=s;
+	}
+	public boolean isTrading(){
+		return trading;
+	}
+	public Ship getTrader(){
+		return trader;
+	}
+	public void setTrading(boolean in){
+		trading = in;
+	}
+	
 }
