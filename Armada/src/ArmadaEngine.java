@@ -263,7 +263,7 @@ public class ArmadaEngine implements ChangeListener {
 					//InformationPopupLayer.getInstance().showPopup("Out Of Range");
 				}
 					
-				if(d.isIn(x,y) && d.getAlliance()!= activeE.getAlliance() && activeE.distanceFrom(x, y) < 100 && d.isTargetable() && d instanceof Ship && activeE instanceof Ship){
+				else if(d.isIn(x,y) && d.getAlliance()!= activeE.getAlliance() && activeE.distanceFrom(x, y) < 100 && d.isTargetable() && d instanceof Ship && activeE instanceof Ship){
 					System.out.println("Boarding attempted");
 					Ship s = (Ship) activeE;
 					Ship t = (Ship) d;
