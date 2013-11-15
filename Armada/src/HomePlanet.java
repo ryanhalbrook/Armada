@@ -11,17 +11,21 @@ public class HomePlanet extends Planet {
 		maxHull=1000;
 		hull=maxHull;
 		if(alliance == 1){
-			x=Grid.GRID_WIDTH/2;
-			y=500;
+			x=500;
+			y=Grid.GRID_HEIGHT/2;
+			setImage("homeplanet_01");
+			ah.changeImage(getImage());
 			
 		}
 		if(alliance == 2){
-			x=Grid.GRID_WIDTH/2;
-			y=Grid.GRID_HEIGHT - 500;
+			x=Grid.GRID_WIDTH-500;
+			y=Grid.GRID_HEIGHT/2;
+			setImage("homeplanet_02");
+			ah.changeImage(getImage());
 			
 		}
-		setWidth(100);
-		setHeight(100);
+		setWidth(300);
+		setHeight(300);
 		this.alliance = alliance;
 	}
 

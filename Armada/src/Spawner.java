@@ -1,5 +1,7 @@
 
 public class Spawner {
+	
+	static final int MIN_DISTANCE = 900;
 
 public static void spawnPlanets(ArmadaEngine engine, int numPlanets){
 		long time = System.currentTimeMillis();
@@ -8,8 +10,8 @@ public static void spawnPlanets(ArmadaEngine engine, int numPlanets){
 			Planet temp2 = new Planet();
 			if(engine.getDynamicElements() != null && engine.getDynamicElements().size()>0 ){
 				for(int h = 0;  h<engine.getDynamicElements().size(); h++){
-					while(!Spawner.awayFromEdge(engine, temp) || temp.distanceFrom(engine.getDynamicElements().get(h)) < 200){
-						if(System.currentTimeMillis() - time > (50*Grid.GRID_HEIGHT/3000)){
+					while(!Spawner.awayFromEdge(engine, temp) || temp.distanceFrom(engine.getDynamicElements().get(h)) < MIN_DISTANCE){
+						if(System.currentTimeMillis() - time > 1000){
 							System.out.println("PLANET SPAWNER TIMEOUT ---- DONT TRY SPAWNING SO MANY PLANETS");
 							return;
 						}

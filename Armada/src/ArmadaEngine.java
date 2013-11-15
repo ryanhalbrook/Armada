@@ -92,7 +92,7 @@ public class ArmadaEngine implements ChangeListener {
 		delements.add(new NormalShip(350,330,2));
 		delements.add(new NormalShip(400,330,2));
 		delements.add(new NormalShip(450,330,2));
-		Spawner.spawnPlanets(this, 40);
+		Spawner.spawnPlanets(this, 7);
 	}
     
     public ArmadaEngine() {
@@ -102,7 +102,7 @@ public class ArmadaEngine implements ChangeListener {
             delements.add(d);
         }
         
-        Spawner.spawnPlanets(this, 40);
+        Spawner.spawnPlanets(this, 7);
         
         // Add some ships
 		delements.add(new NormalShip(750,330,1));
