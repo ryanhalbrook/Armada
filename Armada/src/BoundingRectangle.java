@@ -28,6 +28,8 @@ public class BoundingRectangle {
     }
     
     public BoundingRectangle(int x, int y, DynamicSizeBroadcast dsb) {
+    	this.x=x;
+    	this.y=y;
     	this.dsb = dsb;
     }
     

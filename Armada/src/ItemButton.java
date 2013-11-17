@@ -4,13 +4,13 @@ public class ItemButton extends Button{
 	private ItemList.ItemNames id;
 	
 	public ItemButton(int inX, int inY, int w, int h, GameController gc, ItemList.ItemNames s) {
-		super(inX, inY, w, h, gc, ItemList.getString(s,  ItemList.ItemStats.InGameName));
+		super(inX, inY, w, h, gc, ItemList.getString(s,  ItemList.ItemStats.InGameName),"fighter_red");
 		id=s;
 		t.setText(ItemList.getString(s,  ItemList.ItemStats.Description).toString());
 	}
 	
 	public ItemButton(int inX, int inY, int w, int h, GameController gc, ItemList.ItemNames s, boolean showPrice) {
-		super(inX, inY, w, h, gc, ItemList.getString(s,  ItemList.ItemStats.InGameName) + ": " + ItemList.getInt(s,ItemList.ItemStats.Price) + " gold");
+		super(inX, inY, w, h, gc, ItemList.getString(s,  ItemList.ItemStats.InGameName) + ": " + ItemList.getInt(s,ItemList.ItemStats.Price) + " gold","fighter_red");
 		if(!showPrice){
 			this.setTitle(ItemList.getString(s,ItemList.ItemStats.InGameName));
 		}

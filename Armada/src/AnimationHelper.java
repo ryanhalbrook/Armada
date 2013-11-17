@@ -140,6 +140,32 @@ public class AnimationHelper{
 	}
 	/**
 	 * Loads the image with given name, scales the image to given width and height and draws the image at the given location.
+	 * The image is rotated to 0 degrees.
+	 * @param x x-coordinate relative to the region viewed
+	 * @param y y-coordinate relative to the region viewed
+	 * @param w width of the scaled image
+	 * @param h height of the scaled image
+	 * @param image BufferedImage used for the Element
+	 * @param g Graphics used to draw the Element
+	 */
+	public static void draw(int x,int y,int w,int h,String img, Graphics g){
+
+		Graphics2D g2 = (Graphics2D)g;
+		AffineTransform at= new AffineTransform();
+		BufferedImage image = loadImg(img, w, h);
+		int imageWidth=image.getWidth();
+		int imageHeight=image.getHeight();
+		
+		//g.fillRect(x-viewRect.getX(), y-viewRect.getY(), width, height);
+		at.translate(x, y);
+		//at.rotate(Math.toRadians(e.getAngle()));
+		at.translate(-w/2.0,-h/2.0);
+		at.scale(w/(double)imageWidth, h/(double)imageHeight);
+		g2.drawImage(image, at, null);
+
+	}
+	/**
+	 * Loads the image with given name, scales the image to given width and height and draws the image at the given location.
 	 * The image is rotated to the given angle.
 	 * @param x x-coordinate relative to the region viewed
 	 * @param y y-coordinate relative to the region viewed
@@ -160,6 +186,33 @@ public class AnimationHelper{
 		
 		//g.fillRect(x-viewRect.getX(), y-viewRect.getY(), width, height);
 		at.translate((x-viewRect.getX()), y-viewRect.getY());
+		at.rotate(Math.toRadians(a));
+		at.translate(-w/2.0,-h/2.0);
+		at.scale(w/(double)imageWidth, h/(double)imageHeight);
+		g2.drawImage(image, at, null);
+
+	}
+	/**
+	 * Loads the image with given name, scales the image to given width and height and draws the image at the given location.
+	 * The image is rotated to the given angle.
+	 * @param x x-coordinate relative to the region viewed
+	 * @param y y-coordinate relative to the region viewed
+	 * @param w width of the scaled image
+	 * @param h height of the scaled image
+	 * @param a angle the image is rotated to
+	 * @param image BufferedImage used for the Element
+	 * @param g Graphics used to draw the Element
+	 */
+	public static void draw(int x,int y,int w,int h,double a,String img, Graphics g){
+
+		Graphics2D g2 = (Graphics2D)g;
+		AffineTransform at= new AffineTransform();
+		BufferedImage image = loadImg(img, w, h);
+		int imageWidth=image.getWidth();
+		int imageHeight=image.getHeight();
+		
+		//g.fillRect(x-viewRect.getX(), y-viewRect.getY(), width, height);
+		at.translate(x, y);
 		at.rotate(Math.toRadians(a));
 		at.translate(-w/2.0,-h/2.0);
 		at.scale(w/(double)imageWidth, h/(double)imageHeight);

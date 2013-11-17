@@ -10,7 +10,7 @@ public class Button extends BoundingRectangle{
 	protected boolean isSelected=false, clickable;
 	protected GameController gc;
 	protected HoverButtonText t;
-	
+	protected String imageName;
 	/*public Button(){
 		super(0,0,30,30);
 	}*/
@@ -21,6 +21,7 @@ public class Button extends BoundingRectangle{
 		title=s;
 		clickable=b;
 		t=new HoverButtonText(this);
+		imageName=null;
 	}
 	
 	public Button(int inX, int inY, int w, int h, GameController gc, String s){
@@ -29,6 +30,24 @@ public class Button extends BoundingRectangle{
 		this.gc = gc;
 		title=s;
 		t=new HoverButtonText(this);
+		imageName=null;
+	}
+	public Button(int inX, int inY, int w, int h, GameController gc, String s, String imageName,boolean b){
+		super(inX,inY,w,h);
+		this.gc = gc;
+		title=s;
+		clickable=b;
+		t=new HoverButtonText(this);
+		this.imageName=imageName;
+	}
+	
+	public Button(int inX, int inY, int w, int h, GameController gc, String s,String imageName){
+		super(inX,inY,w,h);
+		clickable=true;
+		this.gc = gc;
+		title=s;
+		t=new HoverButtonText(this);
+		this.imageName=imageName;
 	}
 	
 	public boolean click(int x, int y){
@@ -53,7 +72,12 @@ public class Button extends BoundingRectangle{
 		
 		g.fillRect(x, y, width, height);
 		g.setColor(Color.WHITE);
-		g.drawString(title, x + width/2 - g.getFontMetrics().stringWidth(title)/2, y + 3 + height/2);
+		if(imageName==null)
+			g.drawString(title, x + width/2 - g.getFontMetrics().stringWidth(title)/2, y + 3 + height/2);
+		else{
+			g.drawString(title, x + width/2 + height/2 - g.getFontMetrics().stringWidth(title)/2, y + 3 + height/2);
+			AnimationHelper.draw(x+height/2, y+height/2, (int)(height*0.8), (int)(height*0.8), imageName, g);
+		}	
 		t.draw(g);
 	}
 	
