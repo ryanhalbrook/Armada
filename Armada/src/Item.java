@@ -122,4 +122,11 @@ public class Item {
 		return ItemList.getString(id, ItemList.ItemStats.InGameName);
 	}
 	
+	public String getImageString(){
+		if(!ItemList.keyString(id,ItemList.ItemStats.ImageName)){
+			return "";
+		}
+		return ItemList.getString(id,ItemList.ItemStats.ImageName);
+	}
+	
 }

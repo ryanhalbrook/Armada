@@ -118,6 +118,11 @@ public class Ship extends DynamicElement{
 		fullHealEngine();
 		fullHealHull();
 	}
+	
+	public boolean canGetCargo(){
+		if(cargo<maxCargo)return true;
+		return false;
+	}
 
 	public Planet getPlanetDocked() {
 		return planetDocked;

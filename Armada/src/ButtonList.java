@@ -7,10 +7,11 @@ import java.util.ArrayList;
 public class ButtonList {
 
 	protected int x,y,width,height;
-	static final int BUTTON_HEIGHT = 22, BUTTON_GAP = 4;
+	static final int BUTTON_HEIGHT = 40, BUTTON_GAP = 4;
 	private ItemButton activeB;
 	private HUD hud;
 	private ArrayList<ItemButton> buttons;
+	private int suggestedHeight;
 	
 	public ButtonList(HUD h){
 		hud=h;
@@ -51,7 +52,8 @@ public class ButtonList {
 	}
 	
 	public void updateButtons(){
-		hud.r.setHeight(BUTTON_GAP + (buttons.size() * (BUTTON_HEIGHT+BUTTON_GAP)));
+		this.setSuggestedHeight(BUTTON_GAP + (buttons.size() * (BUTTON_HEIGHT+BUTTON_GAP)));
+		
 		for(int i =0; i < buttons.size(); i++){
 			ItemButton b = buttons.get(i);
 			b.setX(x+BUTTON_GAP);
@@ -80,6 +82,10 @@ public class ButtonList {
 		return buttons.size();
 	}
 	
+	public void setHeight(int h){
+		height = h;
+	}
+	
 	public ItemButton getActiveB(){
 		return activeB;
 	}
@@ -91,23 +97,39 @@ public class ButtonList {
 	public int getWidth(){
 		return width;
 	}
+	public void clear(){
+		buttons.clear();
+	}
 	
 	public void fillShip(Ship s){
+		buttons.clear();
 		if(s.getItems()==null)return;
 		//if(s.getItems().size() <1)return;
 		int temp = s.getMaxCargo();
 		for(Item i: s.getItems()){
-			ItemButton tempItem =new ItemButton(x+3, y+3, width, 20, hud.getGC(), i.getId(),false);
+			ItemButton tempItem =new ItemButton(x+3, y+3, width, BUTTON_HEIGHT, hud.getGC(), i.getId(),false);
 			tempItem.setClickable(true);
 			add(tempItem );
 			temp--;
 		}
 		while(temp>0){
-			ItemButton tempItem =new ItemButton(x+3, y+3, width, 20, hud.getGC(), ItemList.ItemNames.Blank);
+			ItemButton tempItem =new ItemButton(x+3, y+3, width, BUTTON_HEIGHT, hud.getGC(), ItemList.ItemNames.Blank);
 			tempItem.setClickable(false);
 			add(tempItem);
 			 temp--;
 		}
+	}
+	
+	public int getHeight(){
+		return height;
+	}
+
+	public int getSuggestedHeight() {
+		return suggestedHeight;
+	}
+
+	public void setSuggestedHeight(int suggestedHeight) {
+		this.suggestedHeight = suggestedHeight;
 	}
 	
 }

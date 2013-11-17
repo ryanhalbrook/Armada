@@ -117,13 +117,13 @@ public class ModeHUD extends HUD{
 		    g2d.setColor(Color.WHITE);
 		    if(grid.getMode()==1 && grid.getActiveE().canMovePath2(grid.getCurrentX() + grid.getViewRegion().getX(),grid.getCurrentY() + grid.getViewRegion().getY(),grid.getDelements()) && grid.getActiveE().canMove()){
 		    	g.setColor(Color.GREEN);
-		    	g.setColor(new Color(g.getColor().getRed(), g.getColor().getGreen(), g.getColor().getBlue(), clear/2));
+		    	g.setColor(new Color(g.getColor().getRed(), g.getColor().getGreen(), g.getColor().getBlue(), clear));
 		    	g.fillOval(grid.getActiveE().getX()-grid.getActiveE().getMovementLeft() - grid.getViewRegion().getX(), grid.getActiveE().getY()-grid.getActiveE().getMovementLeft() - grid.getViewRegion().getY(), grid.getActiveE().getMovementLeft()*2, grid.getActiveE().getMovementLeft()*2);
 
 		    }
 		    else if(grid.getMode() == 1){
 		    	g.setColor(Color.RED);
-		    	g.setColor(new Color(g.getColor().getRed(), g.getColor().getGreen(), g.getColor().getBlue(), clear/2));
+		    	g.setColor(new Color(g.getColor().getRed(), g.getColor().getGreen(), g.getColor().getBlue(), clear));
 		    	g.fillOval(grid.getActiveE().getX()-grid.getActiveE().getMovementLeft() - grid.getViewRegion().getX(), grid.getActiveE().getY()-grid.getActiveE().getMovementLeft() - grid.getViewRegion().getY(), grid.getActiveE().getMovementLeft()*2, grid.getActiveE().getMovementLeft()*2);
 
 		    }

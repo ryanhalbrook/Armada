@@ -10,7 +10,7 @@ public class ScoutShip extends Ship{
 		baseMaxEngine=1000;
 		maxEngine=baseMaxEngine;
 		engine=maxEngine;
-		baseSpeed=10000;
+		baseSpeed=500;
 		maxSpeed=baseSpeed;
 		speed=baseSpeed;
 		baseWeapons=300;

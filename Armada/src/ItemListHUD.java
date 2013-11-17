@@ -15,7 +15,7 @@ public class ItemListHUD extends HUD {
 	private ButtonList buttons;
 	
 	public ItemListHUD(GameController gc, Position position, HUDmanager h){
-		super(new BoundingRectangle(0,0,250,300),gc, position);
+		super(new BoundingRectangle(0,0,250,200),gc, position);
 		//location = l;
 		de =gc.getActiveE();
 		hm=h;
@@ -51,15 +51,12 @@ public class ItemListHUD extends HUD {
 		}
 		
 		if(de instanceof Planet){
-			System.out.println("PLANET");
 			buttons.add(new ItemButton(x+3, y+3, width-6, 20, gc, ItemList.ItemNames.EnginesUpgrade, true));
 			buttons.add(new ItemButton(x+3, y+3, width-6, 20, gc, ItemList.ItemNames.HullPlate, true));
 			buttons.add(new ItemButton(x+3, y+3, width-6, 20, gc , ItemList.ItemNames.SpeedUpgrade, true));	
 		}
 		else if(de instanceof Ship){
-			System.out.println("SHIP");
 			buttons.fillShip((Ship)de);
-			
 		}
 		else{System.out.println("WTF");}
 		
@@ -94,12 +91,8 @@ public class ItemListHUD extends HUD {
 		
 		updateLocation();
 		buttons.setDimensions(r.x,r.y,r.width,r.height);
-		
 		buttons.updateButtons();
-		
-		/*if(buttons.size()<1)return;
-		g.setColor(new Color(25,125,175, 150));
-		g.fillRect(r.x, r.y, r.width, r.height);*/
+		r.setHeight(buttons.getSuggestedHeight());
 		buttons.draw(g);
 		if(dh !=null){
 			dh.draw(g);

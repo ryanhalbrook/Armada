@@ -10,7 +10,7 @@ public class NormalShip extends Ship{
 		baseMaxEngine=1000;
 		maxEngine=baseMaxEngine;
 		engine=maxEngine;
-		baseSpeed=3000;
+		baseSpeed=400;
 		maxSpeed=baseSpeed;
 		speed=baseSpeed;
 		baseWeapons=300;
@@ -18,7 +18,10 @@ public class NormalShip extends Ship{
 		range = 300;
 		maxCargo=5;
 		//Some Examples of my testing
-		//this.addItem(new Item(ItemList.ItemNames.OverloadWeapons));
+		this.addItem(new Item(ItemList.ItemNames.WeaponsUpgrade));
+		this.addItem(new Item(ItemList.ItemNames.WeaponsUpgrade));
+		this.addItem(new Item(ItemList.ItemNames.EnginesUpgrade));
+		this.addItem(new Item(ItemList.ItemNames.WeaponsUpgrade));
 		//this.addItem(new Item(ItemList.ItemNames.ScalingWeaponsUpgrade));
 		//Item i = new Item(ItemList.ItemNames.HullPlate);
 		//this.addItem(i);

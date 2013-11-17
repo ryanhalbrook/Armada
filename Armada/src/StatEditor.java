@@ -38,6 +38,7 @@ public enum StatEditor {;
 		for(int j=0; j<s.getItems().size();j++){
 			if(s.getItems().get(j).getId()==i.getId()){
 				s.getItems().remove(j);
+				break;
 			}
 		}
 		

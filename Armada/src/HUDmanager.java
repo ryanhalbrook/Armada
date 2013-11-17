@@ -60,15 +60,15 @@ public class HUDmanager extends ViewLayer {
 	    super.refresh(previousTime, currentTime);
 	    for(HUD h: huds){
 		    if(h.isIn(gc.getGrid().getCurrentX(),gc.getGrid().getCurrentY())){
-		    	
+		    	//System.out.println("HANDhandHANDhandHANDhandHANDhandHANDhandHANDhandHANDhandHANDhand");
 				ApplicationManager.getInstance().getWindow().setCursor(Cursor.HAND_CURSOR);
 				this.displayLine(false);
 				return;
 			}	
 	    }
 		ApplicationManager.getInstance().getWindow().setCursor(Cursor.DEFAULT_CURSOR);	
-		this.displayLine(true);	 
-	    
+		this.displayLine(true);
+		//System.out.println("POINTERpointerPOINTERpointerPOINTERpointerPOINTERpointerPOINTERpointerPOINTERpointerPOINTERpointerPOINTERpointerPOINTERpointer"); 
 	}
 	
 	

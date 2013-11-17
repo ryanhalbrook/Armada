@@ -72,7 +72,7 @@ public class Button extends BoundingRectangle{
 		
 		g.fillRect(x, y, width, height);
 		g.setColor(Color.WHITE);
-		if(imageName==null)
+		if(imageName==null||imageName=="")
 			g.drawString(title, x + width/2 - g.getFontMetrics().stringWidth(title)/2, y + 3 + height/2);
 		else{
 			g.drawString(title, x + width/2 + height/2 - g.getFontMetrics().stringWidth(title)/2, y + 3 + height/2);
@@ -120,6 +120,14 @@ public class Button extends BoundingRectangle{
 	}
 	public GameController getGameController(){
 		return gc;
+	}
+
+	public String getImageName() {
+		return imageName;
+	}
+
+	public void setImageName(String imageName) {
+		this.imageName = imageName;
 	}
 	
 }

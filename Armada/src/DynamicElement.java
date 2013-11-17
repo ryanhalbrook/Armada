@@ -392,7 +392,7 @@ public class DynamicElement extends Element {
 	}
 	
 	public int getMovementLeft(){
-		return speed-moved;
+		return this.getAdjustedSpeed()  -moved;
 	}
 	
 }

@@ -11,7 +11,7 @@ public class ItemList {
 	public enum ItemStats{//STEP 2 : If the item uses a stat not seen here, you will need to add it to this list.  You will also have to edit the Item class (I also have instructions there) because it does not yet support the stat if it is not here
 		HullFlat /*Adds a flat value to maxHull*/, WeaponsFlat/*Adds a flat value to weapons (damage)*/, EnginesFlat/*Adds a flat value to engines*/, 
 		SpeedFlat/*Adds a flat value to speed*/, WeaponsPercentage/*Adds a percentage-based boost to weapons*/, EnginesPercentage/*Adds a percentage-based boost to engines*/, HullPercentage/*Adds a percentage-based boost to hull*/,
-		SpeedPercentage/*Adds a percentage-based boost to speed*/, HullOverload/*Overloads the hull*/, WeaponsOverload/*Overloads the weapons*/, EnginesOverload/*Overloads the engines*/, SpeedOverload/*Overloads the speed*/, Description/*Item's description*/, Price/*Item's price*/, InGameName/*Item's in game name*/;
+		ImageName/*name of the image for this item*/,SpeedPercentage/*Adds a percentage-based boost to speed*/, HullOverload/*Overloads the hull*/, WeaponsOverload/*Overloads the weapons*/, EnginesOverload/*Overloads the engines*/, SpeedOverload/*Overloads the speed*/, Description/*Item's description*/, Price/*Item's price*/, InGameName/*Item's in game name*/;
 	}
 	
 	private static HashMap<String, Integer> itemVals = new HashMap<String, Integer>();
@@ -31,13 +31,15 @@ public class ItemList {
 		itemVals.put(ItemNames.WeaponsUpgrade.name() + ItemStats.WeaponsFlat, 100);
 		itemVals.put(ItemList.ItemNames.WeaponsUpgrade.name() + ItemStats.Price, 100);
 		itemDescriptions.put(ItemNames.WeaponsUpgrade.name() + ItemStats.Description, "Increases Weapons by " + ItemList.getInt(ItemNames.WeaponsUpgrade, ItemStats.WeaponsFlat));
-		itemDescriptions.put(ItemNames.WeaponsUpgrade.name() + ItemStats.InGameName, "New Photon Blasters");
+		itemDescriptions.put(ItemNames.WeaponsUpgrade.name() + ItemStats.InGameName, "Photon Blasters");
+		itemDescriptions.put(ItemNames.WeaponsUpgrade.name() + ItemStats.ImageName, "attackicon_01");
 		
 		//EngineUpgrade //Please remember to add the comment for the item name
 		itemVals.put(ItemNames.EnginesUpgrade.name()+ItemStats.EnginesFlat.name(), 100);//you had ItemStats.EnginesUpgrade - EnginesUpgrade is a name, not a stat
 		itemVals.put(ItemNames.EnginesUpgrade.name()+ItemStats.Price.name(), 100);
 		itemDescriptions.put(ItemNames.EnginesUpgrade.name()+ItemStats.Description, "Increases Engine by " + ItemList.getInt(ItemNames.EnginesUpgrade, ItemStats.EnginesFlat));
 		itemDescriptions.put(ItemNames.EnginesUpgrade.name() + ItemStats.InGameName, "Engine Reinforcements");
+		itemDescriptions.put(ItemNames.EnginesUpgrade.name() + ItemStats.ImageName, "movementicon_01");
 		
 		//SpeedUpgrade
 		itemVals.put(ItemNames.SpeedUpgrade.name()+ItemStats.SpeedFlat.name(), 100);//you had ItemStats.SpeedUpgrade - SpeedUpgrade is a name, not a stat
@@ -62,6 +64,7 @@ public class ItemList {
 		itemVals.put(ItemNames.Juggernaut.name()+ItemStats.Price.name(), 0);
 		itemDescriptions.put(ItemNames.Juggernaut.name()+ItemStats.Description, "Increases Hull by " + ItemList.getInt(ItemNames.Juggernaut, ItemStats.HullPercentage) +"%");
 		itemDescriptions.put(ItemNames.Juggernaut.name() + ItemStats.InGameName, "Juggernaut Passive");
+		itemDescriptions.put(ItemNames.Juggernaut.name()+ItemStats.ImageName, "juggernaut_red");
 		
 		//ScalingEnginesUpgrade
 		itemVals.put(ItemNames.ScalingEnginesUpgrade.name()+ItemStats.EnginesPercentage.name(), 15);

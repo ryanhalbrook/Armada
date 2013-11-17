@@ -12,7 +12,7 @@ public class JuggernautShip extends Ship {
 		baseMaxEngine=2000;
 		maxEngine=baseMaxEngine;
 		engine=maxEngine;
-		baseSpeed=2000;
+		baseSpeed=300;
 		maxSpeed=baseSpeed;
 		speed=baseSpeed;
 		baseWeapons=300;
