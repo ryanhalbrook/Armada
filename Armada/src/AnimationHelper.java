@@ -12,21 +12,12 @@ import java.net.URL;
 
 import javax.imageio.IIOException;
 import javax.imageio.ImageIO;
-/* @Author: Yun Suk Chang
- * @Version: 101313
+/** 
+ * @Author: Yun Suk Chang
+ * @Version: 111613
  * 
- * Class that helps animation of moving, rotating and attacking.
- * 
- * Contains: calcRotation(int x, int y) - for calculating direction and angle the dynamic element needs to turn
- * 			 changeImage(String imageName)
- * 			 draw(Grapics g) - draws DynamicElement (DE) on given center coord. 
- * 							   (scales automatically according to given height and width)
- * 			 getters and setters for DE
- *           isIn(int x, int y) - checks if the parameter coord. is occupied by DE
- *           rotate(double angleLeft, int rotationAngle, Graphics g) -rotates ship
- *           moveHelper(int x, int y, int time, Graphics g) - moves the ship little by little to dest
- *           getters and setters for moveXLeft, moveYLeft, angleLeft <- used for moving/rotating the ship little by little
- *           moveTo methods for moving/attacking thread
+ * Class that helps drawing and animation of moving and rotating.
+ * It is also responsible for image loading, storing and rendering.
  */
 
 public class AnimationHelper{
@@ -35,9 +26,9 @@ public class AnimationHelper{
 	private BufferedImage image;
 	//private AffineTransform at;
 
-	private double angleLeft;
-	private int moveXLeft;
-	private int moveYLeft;
+	private double angleLeft;//tracks how much more to rotate
+	private int moveXLeft;//tracks how much more to move in x-direction
+	private int moveYLeft;//tracks how much more to move in y-direction
 
 	
 
@@ -47,7 +38,10 @@ public class AnimationHelper{
 	private final double ANGLE_PER_FRAME=2;
 	private final double MOVE_PER_FRAME=5;
 
-	
+	/**
+	 * Constructs AnimationHelper and loads image of the Element
+	 * @param el Element that uses this AnimationHelper
+	 */
 	public AnimationHelper(Element el){
 		e=el;
 		//at= new AffineTransform();
@@ -59,7 +53,17 @@ public class AnimationHelper{
 		moveVar= new double[2];
 		moving = false;
 	}
-	
+	/**
+	 * Scales the given image to given width and height and draws the image at the given location.
+	 * The image is rotated to 0 degrees.
+	 * @param x x-coordinate relative to the region viewed
+	 * @param y y-coordinate relative to the region viewed
+	 * @param w width of the scaled image
+	 * @param h height of the scaled image
+	 * @param image BufferedImage used for the Element
+	 * @param g Graphics used to draw the Element
+	 * @param viewRect BoundingRectangle use to describe the region that is currently viewed
+	 */
 	public static void draw(int x,int y,int w,int h,BufferedImage image, Graphics g, BoundingRectangle viewRect){
 		
 		Graphics2D g2 = (Graphics2D)g;
@@ -78,6 +82,18 @@ public class AnimationHelper{
 		
 		
 	}
+	/**
+	 * Scales the given image to given width and height and draws the image at the given location.
+	 * The image is rotated to the given angle.
+	 * @param x x-coordinate relative to the region viewed
+	 * @param y y-coordinate relative to the region viewed
+	 * @param w width of the scaled image
+	 * @param h height of the scaled image
+	 * @param a angle the image is rotated to
+	 * @param image BufferedImage used for the Element
+	 * @param g Graphics used to draw the Element
+	 * @param viewRect BoundingRectangle use to describe the region that is currently viewed
+	 */
 	public static void draw(int x,int y,int w,int h,double a,BufferedImage image, Graphics g, BoundingRectangle viewRect){
 
 		Graphics2D g2 = (Graphics2D)g;
@@ -94,6 +110,17 @@ public class AnimationHelper{
 		g2.drawImage(image, at, null);
 
 	}
+	/**
+	 * Loads the image with given name, scales the image to given width and height and draws the image at the given location.
+	 * The image is rotated to 0 degrees.
+	 * @param x x-coordinate relative to the region viewed
+	 * @param y y-coordinate relative to the region viewed
+	 * @param w width of the scaled image
+	 * @param h height of the scaled image
+	 * @param image BufferedImage used for the Element
+	 * @param g Graphics used to draw the Element
+	 * @param viewRect BoundingRectangle use to describe the region that is currently viewed
+	 */
 	public static void draw(int x,int y,int w,int h,String img, Graphics g, BoundingRectangle viewRect){
 
 		Graphics2D g2 = (Graphics2D)g;
@@ -110,6 +137,18 @@ public class AnimationHelper{
 		g2.drawImage(image, at, null);
 
 	}
+	/**
+	 * Loads the image with given name, scales the image to given width and height and draws the image at the given location.
+	 * The image is rotated to the given angle.
+	 * @param x x-coordinate relative to the region viewed
+	 * @param y y-coordinate relative to the region viewed
+	 * @param w width of the scaled image
+	 * @param h height of the scaled image
+	 * @param a angle the image is rotated to
+	 * @param image BufferedImage used for the Element
+	 * @param g Graphics used to draw the Element
+	 * @param viewRect BoundingRectangle use to describe the region that is currently viewed
+	 */
 	public static void draw(int x,int y,int w,int h,double a,String img, Graphics g, BoundingRectangle viewRect){
 
 		Graphics2D g2 = (Graphics2D)g;
@@ -126,7 +165,14 @@ public class AnimationHelper{
 		g2.drawImage(image, at, null);
 
 	}
-	
+	/**
+	 * Gets the image with given name from the ImageLoader and scales the image to given width and height
+	 * @param img image name
+	 * @param w width of the scaled image
+	 * @param h height of the scaled image
+	 * @return scaled BufferedImage
+	 * @see ImageLoader
+	 */
 	private static BufferedImage loadImg(String img, int w, int h){
 		BufferedImage image = ImageLoader.getImage(img+".png");
 		AffineTransform at = new AffineTransform();
@@ -135,6 +181,10 @@ public class AnimationHelper{
 		   new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
 		return scaleOp.filter(image, null);
 	}
+	/**
+	 * Gets the image with given name from the ImageLoader and scales the image to element's width and height
+	 * @param img image name
+	 */
 	private void loadImage(String img) {
 
 		image = ImageLoader.getImage(img+".png");
@@ -145,10 +195,17 @@ public class AnimationHelper{
 		image=scaleOp.filter(image, null);
 		
 	}
-	
+	/**
+	 * Calls loadImage(String img) to change image
+	 * @param img image name
+	 */
 	public void changeImage(String img){
 		loadImage(e.getImage());
 	}
+	/**
+	 * changes the width of the image
+	 * @param w width of the scaled image
+	 */
 	public void setImageWidth(int w){
 		AffineTransform at = new AffineTransform();
 		at.scale(w/(double)image.getWidth(), 1);
@@ -156,6 +213,10 @@ public class AnimationHelper{
 		   new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
 		image=scaleOp.filter(image, null);
 	}
+	/**
+	 * changes the image's height
+	 * @param h height of the scaled image
+	 */
 	public void setImageHeight(int h){
 		AffineTransform at = new AffineTransform();
 		at.scale(1, h/(double)image.getHeight());
@@ -163,6 +224,13 @@ public class AnimationHelper{
 		   new AffineTransformOp(at, AffineTransformOp.TYPE_BILINEAR);
 		image=scaleOp.filter(image, null);
 	}
+	/**
+	 * Checks if the given coordinate is in the region that Element covers
+	 * @param x x-coordinate relative to the region viewed
+	 * @param y y-coordinate relative to the region viewed
+	 * @return <code>true</code> if the given coordinate is in the region that Element covers
+	 * 			<code>false</code> otherwise
+	 */
 	public boolean isIn(int x, int y){
 		if(moving)
 			return false;
@@ -258,6 +326,11 @@ public class AnimationHelper{
 					||( (x>=rectPoints[1].getX() && x<=rectPoints[2].getX()) && (y<=y_c && y>=y_b) );
 	
 	}
+	/**
+	 * Draws the Element based on its state
+	 * @param g Graphics used to draw the Element
+	 * @param viewRect BoundingRectangle use to describe the region that is currently viewed
+	 */
 	public void draw(Graphics g, BoundingRectangle viewRect){
 		if(!viewRect.isIn(e.getX(), e.getY())) return;
 		Graphics2D g2 = (Graphics2D)g;
@@ -271,6 +344,14 @@ public class AnimationHelper{
 		g2.drawImage(image, at, null);
 		//at=ori;
 	}
+	/**
+	 * Draws the scaled Element based on its state and given width and height
+	 * It does not changes the Element's image nor Element's width and height
+	 * @param width the width of the scaled image
+	 * @param height the height of the scaled image
+	 * @param g Graphics used to draw the Element
+	 * @param viewRect BoundingRectangle use to describe the region that is currently viewed
+	 */
 	public void draw(int width,int height, Graphics g, BoundingRectangle viewRect){
 		if(!viewRect.isIn(e.getX(), e.getY())) return;
 		Graphics2D g2 = (Graphics2D)g;
@@ -284,7 +365,13 @@ public class AnimationHelper{
 		g2.drawImage(image, at, null);
 		//at=ori;
 	}
-	//Returns direction and angle the dynamic element needs to turn
+	 
+	/**
+	 * calculates the amount of angle the element has to rotate based on the coordinate of the destination
+	 * @param x	x-coordinate of the destination
+	 * @param y	x-coordinate of the destination
+	 * @return	angle the element has to rotate
+	 */
 	public double calcRotationAngle(int x, int y){
 		int deltaX = x-e.getX();
 		int deltaY = y-e.getY();
@@ -306,6 +393,11 @@ public class AnimationHelper{
 		return deltaA;
 		
 	}
+	/**
+	 * calculates the amount of angle the element has to rotate based on the final angle after the rotation
+	 * @param a final angle after the rotation
+	 * @return angle the element has to rotate
+	 */
 	public double calcRotationAngle(double a){
 		
 		double angle = a;
@@ -326,6 +418,15 @@ public class AnimationHelper{
 		return deltaA;
 		
 	}
+	/**
+	 * gradually changes element's angle
+	 * rotating speed is determined by ANGLE_PER_FRAME
+	 * <p>
+	 * Make sure to setAngleLeft before using this method
+	 * @param ra the angle element has to rotate
+	 * @return <code>true</code> if the element is done rotating
+	 * 			<code>false</code> otherwise
+	 */
 	public boolean rotate(double ra){
 		
 		if(ra!=0 && angleLeft/ra>0)
@@ -345,7 +446,17 @@ public class AnimationHelper{
 		else
 			return false;
 	}
-	
+	/**
+	 * gradually changes the element's coordinate
+	 * total moving time is equal to t
+	 * <p>
+	 * Make sure to setMoveXLeft and setMoveYLeft before using this method
+	 * @param dx amount of x coordinate element has to move
+	 * @param dy amount of y coordinate element has to move
+	 * @param t total moving time
+	 * @return <code>true</code> if the element is done moving
+	 * 			<code>false</code> otherwise
+	 */
 	public boolean moveHelper(int dx, int dy, int t){
 		boolean doneMovingX=false;
 		boolean doneMovingY=false;
@@ -393,7 +504,16 @@ public class AnimationHelper{
 			
 		
 	}
-	
+	/**
+	 * gradually changes the element's coordinate
+	 * moving speed is determined by MOVE_PER_FRAME
+	 * <p>
+	 * Make sure to setMoveXLeft and setMoveYLeft before using this method
+	 * @param dx amount of x coordinate element has to move
+	 * @param dy amount of y coordinate element has to move
+	 * @return <code>true</code> if the element is done moving
+	 * 			<code>false</code> otherwise
+	 */
 	public boolean moveHelper2(int dx, int dy){
 		boolean doneMovingX=false;
 		boolean doneMovingY=false;
@@ -447,59 +567,113 @@ public class AnimationHelper{
 			
 		
 	}
-	
+	/**
+	 * setter for moving
+	 * @param moving
+	 */
 	public void setMoving(boolean moving) {
 		this.moving = moving;
 	}
-
+	/**
+	 * Launches MoveAnimation
+	 * @param inX x-coordinate the ship has to move to
+	 * @param inY y-coordinate the ship has to move to
+	 * @see MoveAnimation
+	 */
 	public void moveTo(int inX, int inY){
 		MoveAnimation move = new MoveAnimation(e,inX,inY);
 		
 	}
+	/**
+	 * Launches MoveAnimation
+	 * @param inX x-coordinate the ship has to move to
+	 * @param inY y-coordinate the ship has to move to
+	 * @param t total time of the moving part of the animation
+	 * @see MoveAnimation
+	 */
 	public void moveTo(int inX, int inY,int t){
 		MoveAnimation move = new MoveAnimation(e,inX,inY,t);
 		
 	}
+	/**
+	 * Launches MoveAnimation
+	 * @param inX x-coordinate the ship has to move to
+	 * @param inY y-coordinate the ship has to move to
+	 * @param t total time of the moving part of the animation
+	 * @param m mode for the MoveAnimation
+	 * @see MoveAnimation
+	 */
 	public void moveTo(int inX, int inY,int t,int m){
 		MoveAnimation move = new MoveAnimation(e,inX,inY,t,m);
 		
 	}
-	
+	/**
+	 * getter for angleLeft
+	 * @return remaining angle the element has to rotate
+	 */
 	public double getAngleLeft() {
 		return angleLeft;
 	}
-
+	/**
+	 * sets the remaining angle the element has to rotate
+	 * @param angleLeft remaining angle the element has to rotate
+	 */
 	public void setAngleLeft(double angleLeft) {
 		this.angleLeft = angleLeft;
 	}
-
+	/**
+	 * gets the remaining x distance element has to move
+	 * @return remaining x distance element has to move
+	 */
 	public int getMoveXLeft() {
 		return moveXLeft;
 	}
-
+	/**
+	 * sets the remaining x distance element has to move
+	 * @param moveXLeft remaining x distance element has to move
+	 */
 	public void setMoveXLeft(int moveXLeft) {
 		this.moveXLeft = moveXLeft;
 	}
-
+	/**
+	 * gets the remaining y distance element has to move
+	 * @return remaining y distance element has to move
+	 */
 	public int getMoveYLeft() {
 		return moveYLeft;
 	}
-
+	/**
+	 * sets the remaining y distance element has to move
+	 * @param moveYLeft remaining y distance element has to move
+	 */
 	public void setMoveYLeft(int moveYLeft) {
 		this.moveYLeft = moveYLeft;
 	}
-
+	/**
+	 * Gets the element using this AnimationHelper
+	 * @return element using this AnimationHelper
+	 */
 	public Element getE() {
 		return e;
 	}
-
+	/**
+	 * sets the element using this AnimationHelper
+	 * @param e element using this AnimationHelper
+	 */
 	public void setE(Element e) {
 		this.e = e;
 	}
-
+	/**
+	 * gets the image element is using
+	 * @return	BufferedImage that element is using
+	 */
 	public BufferedImage getImage(){
 		return image;
 	}
+	/**
+	 * sets the image element is using
+	 * @param img	BufferedImage that element is using
+	 */
 	public void setImage(BufferedImage img){
 		image=img;
 	}
