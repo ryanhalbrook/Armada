@@ -99,6 +99,16 @@ public class HUDmanager extends ViewLayer {
 		}
 	}
 	
+	public void drag(int inX, int inY){
+		if(map.isIn(inX, inY)){
+			((MapHUD)map).moveMap(inX, inY);
+			return;
+		}
+		if(trade.isIn(inX, inY)){
+			((TradeHUD)trade).drag(inX,inY);
+		}
+	}
+	
 	public void toggleLine(){
 		ModeHUD temp = (ModeHUD)mode;
 		if(temp.isDisplayLine()){

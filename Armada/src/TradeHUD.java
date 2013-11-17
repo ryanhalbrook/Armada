@@ -10,10 +10,13 @@ public class TradeHUD extends HUD{
 	private Ship s1,s2;
 	private final int TITLE_HEIGHT=30,GAP=5;
 	private String title;
+	private Button close; 
 	
 	public TradeHUD(GameController gc, Position p){
 		super(new BoundingRectangle(5,45,400,400),gc, p);
 		displaying=false;
+		close = new Button(0,0,15,15,gc,"X",true);
+		close.setColor(Color.RED);
 		title="TRADE";
 		l1=new ButtonList(this);
 		l2=new ButtonList(this);
@@ -26,8 +29,9 @@ public class TradeHUD extends HUD{
 			displaying=true;
 			update();
 		}
-		else displaying=false; 
-		//
+		else {
+			displaying=false; 
+		}
 	}
 	
 	private void update(){
@@ -42,8 +46,8 @@ public class TradeHUD extends HUD{
 			else{
 				r.setHeight(l2.getSuggestedHeight() + TITLE_HEIGHT+GAP);	
 			}
-			
-			
+			close.setX(r.getX() + r.getWidth()-close.getWidth());
+			close.setY(r.getY());
 		}
 	}
 	
@@ -61,15 +65,30 @@ public class TradeHUD extends HUD{
 			AnimationHelper.draw(r.getX() + r.getWidth()/4, r.getY()+TITLE_HEIGHT/2, (int)(TITLE_HEIGHT*.75), (int)(TITLE_HEIGHT*.75), s1.getImage(), g);
 			AnimationHelper.draw(r.getX() + (r.getWidth()*3)/4, r.getY()+TITLE_HEIGHT/2, (int)(TITLE_HEIGHT*.75), (int)(TITLE_HEIGHT*.75), s2.getImage(), g);
 			l1.draw(g);
-			l2.draw(g);	
+			l2.draw(g);
+			close.draw(g);
 		}
 		
+		
+	}
+	
+	public void drag(int inX, int inY){
+		if(inY-r.getY()<TITLE_HEIGHT){
+			position=HUD.Position.STATIC;
+			r.setX(inX-r.getWidth()/2);
+			r.setY(inY-TITLE_HEIGHT/2);	
+		}
 		
 	}
 	
 	public boolean click(int inX, int inY){
 		//System.out.println("Moving?");
 		if(!displaying)return false;
+		if(close.isIn(inX, inY)){
+			//displaying=false;
+			s1.setTrading(false);
+			return true;
+		}
 		if(l1==null)return false;
 		if(l2==null)return false;
 		if(l1.click(inX, inY)  && s2.canGetCargo()){

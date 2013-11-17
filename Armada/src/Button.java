@@ -11,6 +11,7 @@ public class Button extends BoundingRectangle{
 	protected GameController gc;
 	protected HoverButtonText t;
 	protected String imageName;
+	protected Color background;
 	/*public Button(){
 		super(0,0,30,30);
 	}*/
@@ -50,6 +51,10 @@ public class Button extends BoundingRectangle{
 		this.imageName=imageName;
 	}
 	
+	public void setColor(Color c){
+		background=c;
+	}
+	
 	public boolean click(int x, int y){
 		if(!clickable)return false;
 		if(this.isIn(x, y)){
@@ -63,12 +68,19 @@ public class Button extends BoundingRectangle{
 	
 	public void draw(Graphics g){
 		if(isSelected){
-			g.setColor(new Color(25,25,25, 250));
+			g.setColor(new Color(25,25,25, 250));	
 		}
 		else if(clickable && this.isIn(gc.getCurrentX(), this.gc.getCurrentY())){
 			glow(g);
 		}
-		else{g.setColor(new Color(50,50,50, 200));}
+		else{
+			if(background==null){
+				g.setColor(new Color(50,50,50, 200));
+			}
+			else{
+				g.setColor(background);
+			}
+		}
 		
 		g.fillRect(x, y, width, height);
 		g.setColor(Color.WHITE);
