@@ -57,6 +57,16 @@ public class StatHUD extends HUD{
 		return false;
 	}
 	
+	public void refresh(long previousTime, long currentTime) {
+		super.refresh(previousTime, currentTime);
+		if(gc.getGrid().getActiveE() == null){
+			displaying=false;
+		}
+		else{
+			displaying=true;
+		}
+	}
+	
 	public void draw(Graphics g){
 	if (gc == null) return;
 		if(gc.getActiveE() == null) return;

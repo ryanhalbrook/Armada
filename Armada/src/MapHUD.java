@@ -76,6 +76,7 @@ public class MapHUD extends HUD{
 				}
 				if (temp instanceof Ship) {
 				    g.fillRect(x + (int)(((temp.getX()-temp.getWidth()/2)/ (float)grid.getWidth())*(width*1.0)), y + (int)(((temp.getY()-temp.getHeight()/2)/ (float)grid.getHeight())*(height*1.0)), 2+(int)((temp.getWidth()/ (float)grid.getWidth())*(width*1.0)),2+ (int)((temp.getHeight()/ (float)grid.getHeight())*(height*1.0)));
+				    //drawRange(g);//abandoned until I can find a way to make it so that if the range is outside the map it doesn't show
 				} else {
 				    g.fillOval(x + (int)(((temp.getX()-temp.getWidth()/2)/ (float)grid.getWidth())*(width*1.0)), y + (int)(((temp.getY()-temp.getHeight()/2)/ (float)grid.getHeight())*(height*1.0)), 2+(int)((temp.getWidth()/ (float)grid.getWidth())*(width*1.0)),2+ (int)((temp.getHeight()/ (float)grid.getHeight())*(height*1.0)));
 				}
@@ -167,6 +168,28 @@ public class MapHUD extends HUD{
 		    expanding = true;
 		    //scale = 1;
 		}
+	}
+	
+	public void drawRange(Graphics g){//abandoned until I can find a way to make it so that if the range is outside the map it doesn't show
+		if(grid.getActiveE()==null)return;
+		Ship temp;
+		if(grid.getActiveE() instanceof Ship){
+			temp=(Ship)grid.getActiveE();
+		}
+		else return;
+		int x = r.getX();
+	    int y = r.getY();
+	    int width = r.getWidth();
+	    int height = r.getHeight();
+		Color old = g.getColor();
+		
+		g.setColor(new Color(255,255,255,20));
+		if(grid.getMode()==1){
+			   g.fillOval(x + (int)(((temp.getX()-temp.getSpeed())/ (float)grid.getWidth())*(width*1.0)), y + (int)(((temp.getY()-temp.getSpeed())/ (float)grid.getHeight())*(height*1.0)), 2+(int)((temp.getSpeed()*2/ (float)grid.getWidth())*(width*1.0)),2+ (int)((temp.getSpeed()*2/ (float)grid.getHeight())*(height*1.0)));
+			//g.fillOval(x + (int)(((s.getX()-s.getRange())/ (float)grid.getWidth())*(width*1.0)), y + (int)(((s.getY()-s.getRange())/ (float)grid.getHeight())*(height*1.0)), 2+(int)(((s.getRange()*2)/ (float)grid.getWidth())*(width*1.0)),(int)(((s.getRange()*4)/ (float)grid.getHeight())*(height*1.0)));
+		}
+		g.setColor(old);
+		
 	}
 	
 	public double getScale() {

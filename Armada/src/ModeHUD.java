@@ -131,7 +131,6 @@ public class ModeHUD extends HUD{
 		    	g.setColor(new Color(250,100,0));
 		    	g.setColor(new Color(g.getColor().getRed(), g.getColor().getGreen(), g.getColor().getBlue(), clear));
 		    	g.fillOval(grid.getActiveE().getX()-grid.getActiveE().getRange() - grid.getViewRegion().getX(), grid.getActiveE().getY()-grid.getActiveE().getRange() - grid.getViewRegion().getY(), grid.getActiveE().getRange()*2, grid.getActiveE().getRange()*2);
-		    	
 		    }
 		    else if((grid.getMode() == 2 )){
 		    	g.setColor(Color.RED);

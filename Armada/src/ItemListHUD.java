@@ -65,6 +65,16 @@ public class ItemListHUD extends HUD {
 		
 	}
 	
+	public void refresh(long previousTime, long currentTime) {
+		super.refresh(previousTime, currentTime);
+		if(gc.getGrid().getActiveE() == null){
+			displaying=false;
+		}
+		else{
+			displaying=true;
+		}
+	}
+	
 	public void draw(Graphics g){
 		if(gc.getActiveE() != de || de==null){
 			de =gc.getActiveE();
