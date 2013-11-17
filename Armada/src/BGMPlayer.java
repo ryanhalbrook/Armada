@@ -6,11 +6,20 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 
 
-
+/**
+ * 
+ * @author Yun Suk Chang
+ * 
+ * Class used to play large music file (mainly for BGM)
+ *
+ */
 public class BGMPlayer{
 
 	private MediaPlayer player;
-	
+	/**
+	 * Default constructor for BGMPlayer
+	 * loads the music file
+	 */
 	public BGMPlayer(){
 		//Gets the music from the bin
 		
@@ -26,6 +35,11 @@ public class BGMPlayer{
 		}
 		
 	}
+	/**
+	 * Default constructor for BGMPlayer
+	 * loads the music file with given name
+	 * @param musicName name of the music file (with its property)
+	 */
 	public BGMPlayer(String musicName){
 		URL url = this.getClass().getClassLoader().getResource("sound/"+musicName);
 		try {
@@ -38,7 +52,10 @@ public class BGMPlayer{
 			e.printStackTrace();
 		}
 	}
-	
+	/**
+	 * changes the music to given name
+	 * @param musicName name of the music file (with its property)
+	 */
 	public void changeBGM(String musicName){
 		player = null;
 		System.gc();
@@ -51,16 +68,28 @@ public class BGMPlayer{
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * plays the music
+	 */
 	public void play(){
 	    if (player != null)
 		    player.play();
 	}
+	/**
+	 * mutes the music
+	 */
 	public void mute(){
 		player.setMute(true);
 	}
+	/**
+	 * unmutes the music
+	 */
 	public void unMute(){
 		player.setMute(false);
 	}
+	/**
+	 * toggles between play() and stop()
+	 */
 	public void toggleStop(){
 		if(player.getCurrentTime().toSeconds() > 0){
 			player.stop();
@@ -69,9 +98,15 @@ public class BGMPlayer{
 			player.play();
 		}
 	}
+	/**
+	 * pauses the music
+	 */
 	public void pause(){
 		player.pause();
 	}
+	/**
+	 * stops the music
+	 */
 	public void stop(){
 		player.stop();
 	}

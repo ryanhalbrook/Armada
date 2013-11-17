@@ -1,8 +1,18 @@
-
+/**
+ * 
+ * @author Yun Suk Chang
+ * Shows Docking Animation
+ */
 public class DockAnimation implements Runnable{
 	Ship ship;
 	DynamicElement planet;
 	int mode,x,y;
+	/**
+	 * Constructs DockingAnimation
+	 * does calculation for docking animation
+	 * @param s ship that is initiating docking
+	 * @param p DynamicElement that is getting docked
+	 */
 	public DockAnimation(Ship s,DynamicElement p){
 		ship=s;
 		planet=p;
@@ -12,6 +22,13 @@ public class DockAnimation implements Runnable{
 		Thread dock = new Thread(this);
 		dock.start();
 	}
+	/**
+	 * Constructs DockingAnimation
+	 * does calculation for docking animation
+	 * @param s ship that is initiating docking
+	 * @param p DynamicElement that is getting docked
+	 * @param m mode for docking animation (1-5 is used for docking, 6 is used for undocking)
+	 */
 	public DockAnimation(Ship s,DynamicElement p,int m){
 		ship=s;
 		planet=p;
@@ -24,6 +41,9 @@ public class DockAnimation implements Runnable{
 		dock.start();
 	}
 	@Override
+	/**
+	 * does calculation for docking animation 
+	 */
 	public void run() {
 		int mvTime=100;
 		int moveX=x;

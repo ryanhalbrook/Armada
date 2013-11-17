@@ -1,6 +1,10 @@
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
+/**
+ * Bridge object used for docking and boarding
+ *
+ */
 
 public class Bridge extends Element {
 	private static final String IMAGE_NAME="lightbridgev_02";
@@ -9,41 +13,42 @@ public class Bridge extends Element {
 	private int length=1;
 	//private static final int HEIGHT=480;
 	
-	
+	/**
+	 * creates Bridge object
+	 * @param x2 x-coordinate the bridge is going to extend to
+	 * @param y2 y-coordinate the bridge is going to extend to
+	 * @param a fixed angle of the bridge
+	 */
 	public Bridge(int x2, int y2, double a){
 		super(x2,y2,1,11,a,IMAGE_NAME);
 		
 	}
-	
+	/**
+	 * draws the bridge
+	 * @param g Graphics used to draw the Bridge
+	 * @param viewRect BoundingRectangle use to describe the region that is currently viewed
+	 */
 	public void draw(Graphics g, BoundingRectangle viewRegion){
-		/*int num=imgIndex/width;
-		int tempX=x+(int)(width/2*Math.cos(Math.toRadians(angle)));
-		int tempY=y+(int)(width/2*Math.sin(Math.toRadians(angle)));
-		System.out.println(imgIndex);
-		for(int i=0;i<num;i++){
-			System.out.println("Called g="+g.hashCode());
-			AnimationHelper.draw(tempX, tempY, width, height, angle, ah.getImage(), g, viewRegion);
-			tempX+=(int)(width*Math.cos((Math.toRadians(angle))));
-			tempY+=(int)(width*Math.sin((Math.toRadians(angle))));
-		}
 		
-		if(imgIndex%width!=0){
-			
-			tempX-=(int)(width/2*Math.cos((Math.toRadians(angle))))+(int)(WIDTH*(imgIndex%width)/2*Math.cos((Math.toRadians(angle))));
-			tempY-=(int)(width/2*Math.sin((Math.toRadians(angle))))+(int)(WIDTH*(imgIndex%width)/2*Math.sin((Math.toRadians(angle))));
-			BufferedImage temp= ah.getImage().getSubimage(0, 0, WIDTH*(imgIndex%width), ah.getImage().getHeight());
-			AnimationHelper.draw(tempX, tempY, temp.getWidth(), temp.getHeight(), angle, temp, g, viewRegion);
-		}
-		*/
 		ah.draw(length, height, g, viewRegion);
 		
 	}
+	/**
+	 * gets the length of the bridge
+	 * @return the length of the bridge
+	 */
 	public int getLength(){
 		return length;
 	}
+	/**
+	 * increments the length of the Bridge by EXTEND_RATE
+	 */
 	public void extend(){
 		length+=EXTEND_RATE;
 	}
+	/**
+	 * decrements the length of the Bridge by EXTEND_RATE
+	 */
 	public void shorten(){
 		length-=EXTEND_RATE;
 	}

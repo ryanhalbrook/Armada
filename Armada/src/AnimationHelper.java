@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
  * 
  * Class that helps drawing and animation of moving and rotating.
  * It is also responsible for image loading, storing and rendering.
+ * 
  */
 
 public class AnimationHelper{

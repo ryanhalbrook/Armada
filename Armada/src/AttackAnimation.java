@@ -1,11 +1,22 @@
-
+/**
+ * 
+ * @author Yun Suk Chang
+ * Shows Attack Animation
+ */
 public class AttackAnimation implements Runnable {
 
 		protected Element de;
 		protected DynamicElement target;
 		protected int x,y,mode;
 		protected String attacked;
-		
+		/**
+		 * Constructs AttackAnimation
+		 * Does the calculation for the animation of attacker attacking the target using a separate thread
+		 * At the end of animation, it does damage calculation
+		 * @param att attacker
+		 * @param target target
+		 * @param attacked describes which part of the DynamicElement is attacked
+		 */
 		public AttackAnimation(Element att, DynamicElement target, String attacked){
 			de=att;
 			x=target.getX();
@@ -16,7 +27,15 @@ public class AttackAnimation implements Runnable {
 			Thread move = new Thread(this);
 			move.start();
 		}
-		
+		/**
+		 * Constructs AttackAnimation
+		 * This is used to complete the animation.
+		 * Do not use mode=2 before mode=1 since laser must be created before it starts its animation
+		 * @param att attacker
+		 * @param target target
+		 * @param m mode for the AttackAnimation (0 to do nothing, 1 to rotate and create lasers, 2 for laser animation)
+		 * @param attacked describes which part of the DynamicElement is attacked
+		 */
 		public AttackAnimation(Element att, DynamicElement target, int m, String attacked){
 			de=att;
 			x=target.getX();
@@ -30,6 +49,9 @@ public class AttackAnimation implements Runnable {
 		
 		
 		@Override
+		/**
+		 * method that does the animation calculation
+		 */
 		public void run() {
 			//System.out.println("moving to: " + x + ", " + y);
 			int mvTime=100;
@@ -111,17 +133,7 @@ public class AttackAnimation implements Runnable {
 					((DynamicElement)(de.getOwner())).attackEngineHelper(target);
 				}
 				((DynamicElement)(de.getOwner())).setAttack(false);
-			/*	try {
-					Thread.sleep(10000);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				if(de!=null){
-					de.getOwner().setLaser1(null);
-					de.getOwner().setLaser2(null);
-				}
-			*/
+			
 			}
 			
 		}

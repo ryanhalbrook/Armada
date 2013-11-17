@@ -8,33 +8,40 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-/* @Author: Yun Suk Chang
- * @Version: 101313
+/** @Author: Yun Suk Chang
+ * @Version: 111613
  * 
- * Class that helps animation of moving, rotating and attacking.
- * 
- * Contains: calcRotation(int x, int y) - for calculating direction and angle the dynamic element needs to turn
- * 			 changeImage(String imageName)
- * 			 draw(Grapics g) - draws DynamicElement (DE) on given center coord. 
- * 							   (scales automatically according to given height and width)
- * 			 getters and setters for DE
- *           isIn(int x, int y) - checks if the parameter coord. is occupied by DE
- *           rotate(double angleLeft, int rotationAngle, Graphics g) -rotates ship
- *           moveHelper(int x, int y, int time, Graphics g) - moves the ship little by little to dest
- *           getters and setters for moveXLeft, moveYLeft, angleLeft <- used for moving/rotating the ship little by little
- *           moveTo methods for moving/attacking thread
+ * Class that helps animation of attacking.
+ * It also has the functionalities of AnimationHelper
  */
 
 public class DynamicAnimationHelper extends AnimationHelper{
 	
-	
+	/**
+	 * Creates DynamicAnimationHelper
+	 * @param el DynamicElement using this DynamicAnimationHelper
+	 */
 	public DynamicAnimationHelper(DynamicElement el){
 		super(el);
 	}
-	
+	/**
+	 * Launches AttackAnimation
+	 * @param att attacker
+	 * @param target target
+	 * @param attacked describes which part of the DynamicElement is attacked
+	 * @see AttackAnimation
+	 */
 	public void attack(Element att,DynamicElement target,String attacked){
 		AttackAnimation aa = new AttackAnimation(att,target,attacked);
 	}
+	/**
+	 * Launches AttackAnimation
+	 * @param att attacker
+	 * @param target target
+	 * @param mode mode for AttackAnimation
+	 * @param attacked describes which part of the DynamicElement is attacked
+	 * @see AttackAnimation
+	 */
 	public void attack(Element att,DynamicElement target,int mode,String attacked){
 		AttackAnimation aa = new AttackAnimation(att,target,mode,attacked);
 	}
