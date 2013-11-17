@@ -26,7 +26,8 @@ public class TradeHUD extends HUD{
 			displaying=true;
 			update();
 		}
-		else displaying=false;
+		else displaying=false; 
+		//
 	}
 	
 	private void update(){
