@@ -54,7 +54,7 @@ public class TradeHUD extends HUD{
 			s2=s1.getTrader();
 			update();
 			updateLocation();
-			g.setColor(new Color(60,60,60));
+			g.setColor(new Color(60,60,60,220));
 			g.fillRect(r.getX(),r.getY(),r.getWidth(),r.getHeight());
 			g.setColor(Color.white);
 			g.drawString(title, r.getX() - g.getFontMetrics().stringWidth(title)/2 +r.getWidth()/2, r.getY() + TITLE_HEIGHT/2);
@@ -75,7 +75,7 @@ public class TradeHUD extends HUD{
 		if(l1.click(inX, inY)  && s2.canGetCargo()){
 			System.out.println("Moving from 1");
 			Item temp = new Item(l1.getActiveB().getId());
-			if(temp.getId()==ItemList.ItemNames.Blank)return false;
+			if(temp.getId()==ItemList.ItemNames.Blank)return true;
 			s1.removeItem(temp);
 			s2.addItem(temp);
 			
@@ -85,11 +85,14 @@ public class TradeHUD extends HUD{
 		else if(l2.click(inX, inY)&& s1.canGetCargo()){
 			System.out.println("Moving from 2");
 			Item temp = new Item(l2.getActiveB().getId());
-			if(temp.getId()==ItemList.ItemNames.Blank)return false;
+			if(temp.getId()==ItemList.ItemNames.Blank)return true;
 			s1.addItem(temp);
 			s2.removeItem(temp);
 			
 			update();
+			return true;
+		}
+		else if(r.isIn(inX, inY)){
 			return true;
 		}
 		return false;

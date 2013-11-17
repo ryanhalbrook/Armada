@@ -45,7 +45,7 @@ public enum StatEditor {;
 		//s.getItems().remove(i);
 		System.out.println("Attempting to remove item 3");
 		StatEditor.update(s);
-		s.setHull((int)((double)s.getMaxHull()*percHull));
-		s.setEngine((int)((double)s.getMaxEngine()*perEng));
+		s.setHull((int)Math.round((double)s.getMaxHull()*percHull));
+		s.setEngine((int)Math.round((double)s.getMaxEngine()*perEng));
 	}
 }
