@@ -75,9 +75,9 @@ public class MapHUD extends HUD{
 					g.setColor(Color.GREEN);
 				}
 				if (temp instanceof Ship) {
-				    g.fillRect(x + (int)((temp.getX()/ (float)grid.getWidth())*(width*1.0)), y + (int)((temp.getY()/ (float)grid.getHeight())*(height*1.0)), 2+(int)((temp.getWidth()/ (float)grid.getWidth())*(width*1.0)),2+ (int)((temp.getHeight()/ (float)grid.getHeight())*(height*1.0)));
+				    g.fillRect(x + (int)(((temp.getX()-temp.getWidth()/2)/ (float)grid.getWidth())*(width*1.0)), y + (int)(((temp.getY()-temp.getHeight()/2)/ (float)grid.getHeight())*(height*1.0)), 2+(int)((temp.getWidth()/ (float)grid.getWidth())*(width*1.0)),2+ (int)((temp.getHeight()/ (float)grid.getHeight())*(height*1.0)));
 				} else {
-				    g.fillOval(x + (int)((temp.getX()/ (float)grid.getWidth())*(width*1.0)), y + (int)((temp.getY()/ (float)grid.getHeight())*(height*1.0)), 2+(int)((temp.getWidth()/ (float)grid.getWidth())*(width*1.0)),2+ (int)((temp.getHeight()/ (float)grid.getHeight())*(height*1.0)));
+				    g.fillOval(x + (int)(((temp.getX()-temp.getWidth()/2)/ (float)grid.getWidth())*(width*1.0)), y + (int)(((temp.getY()-temp.getHeight()/2)/ (float)grid.getHeight())*(height*1.0)), 2+(int)((temp.getWidth()/ (float)grid.getWidth())*(width*1.0)),2+ (int)((temp.getHeight()/ (float)grid.getHeight())*(height*1.0)));
 				}
 			}
 		}
