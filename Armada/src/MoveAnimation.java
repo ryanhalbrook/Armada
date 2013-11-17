@@ -1,12 +1,22 @@
 import java.awt.Graphics;
 
-
+/**
+ * 
+ * @author Yun Suk Chang
+ * Does Move Animation
+ */
 public class MoveAnimation implements Runnable {
 
 	protected Element e;
 	protected int x,y,t,mode;//0= rotate&move, 1= rotate only, 2=move only
 	boolean canMove;
-	
+	/**
+	 * Creates MoveAnimation
+	 * does calculation for move animation 
+	 * @param inE Element that is going to move
+	 * @param inX x destination
+	 * @param inY y destination
+	 */
 	public MoveAnimation(Element inE, int inX, int inY){
 		e=inE;
 		x=inX;
@@ -17,7 +27,14 @@ public class MoveAnimation implements Runnable {
 		Thread move = new Thread(this);
 		move.start();
 	}
-	
+	/**
+	 * Creates MoveAnimation
+	 * does calculation for move animation 
+	 * @param inE Element that is going to move
+	 * @param inX x destination
+	 * @param inY y destination
+	 * @param t total time for moving part of the animation
+	 */
 	public MoveAnimation(Element inE, int inX, int inY, int t){
 		e=inE;
 		x=inX;
@@ -28,6 +45,15 @@ public class MoveAnimation implements Runnable {
 		Thread move = new Thread(this);
 		move.start();
 	}
+	/**
+	 * Creates MoveAnimation
+	 * does calculation for move animation 
+	 * @param inE Element that is going to move
+	 * @param inX x destination
+	 * @param inY y destination
+	 * @param t total time for moving part of the animation
+	 * @param m mode for the MoveAnimation (0 to move and rotate, 1 to rotate, 2 to move)
+	 */
 	public MoveAnimation(Element inE, int inX, int inY, int t,int m){
 		e=inE;
 		x=inX;
@@ -38,6 +64,13 @@ public class MoveAnimation implements Runnable {
 		Thread move = new Thread(this);
 		move.start();
 	}
+	/**
+	 * Creates special MoveAnimation for Ship
+	 * does calculation for move animation 
+	 * @param inE Ship that is going to move
+	 * @param inX x destination
+	 * @param inY y destination
+	 */
 	public MoveAnimation(Ship inE, int inX, int inY){
 		e=inE;
 		x=inX;
@@ -50,6 +83,9 @@ public class MoveAnimation implements Runnable {
 		move.start();
 	}
 	@Override
+	/**
+	 * does calculation for move animation
+	 */
 	public void run() {
 		e.setTargetable(false);
 		

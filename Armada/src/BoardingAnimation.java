@@ -1,4 +1,8 @@
-
+/**
+ * 
+ * @author Yun
+ * The class that does boarding animation
+ */
 public class BoardingAnimation implements Runnable{
 
 
@@ -7,7 +11,13 @@ public class BoardingAnimation implements Runnable{
 	protected Ship de,target;
 	protected int x,y,mode;
 	
-	
+	/**
+	 * Creates BoardingAnimation
+	 * does calculation for boarding animation
+	 * it also changes the alliance of the target if boarding is successful 
+	 * @param att attacker
+	 * @param target target
+	 */
 	public BoardingAnimation(Ship att, Ship target){
 		de=att;
 		x=target.getX();
@@ -18,7 +28,14 @@ public class BoardingAnimation implements Runnable{
 		Thread board = new Thread(this);
 		board.start();
 	}
-	
+	/**
+	 * Creates BoardingAnimation
+	 * does calculation for boarding animation
+	 * it also changes the alliance of the target if boarding is successful 
+	 * @param att attacker
+	 * @param target target
+	 * @param m mode for boarding animation (0 to do nothing, 1-5 is reserved for boarding, 6 is unboarding)
+	 */
 	public BoardingAnimation(Ship att, Ship target, int m){
 		de=att;
 		if(target!=null){
@@ -38,6 +55,9 @@ public class BoardingAnimation implements Runnable{
 	
 	
 	@Override
+	/**
+	 * method that does calculation for boarding animation
+	 */
 	public void run() {
 		//System.out.println("moving to: " + x + ", " + y);
 		int mvTime=100;
@@ -240,6 +260,13 @@ public class BoardingAnimation implements Runnable{
 		de.setHook(null);
 		
 	}
+	/**
+	 * does possibility calculation for boarding
+	 * @param att attacker
+	 * @param target target
+	 * @return <code>true</code> if boarding was successful
+	 * 			<code>false</code> otherwise
+	 */
 	private boolean calculateBoarding(Ship att, Ship target){
 		//stub
 		SoundEffect.PIRATEH.play();

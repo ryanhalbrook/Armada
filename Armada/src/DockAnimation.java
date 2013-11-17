@@ -27,7 +27,7 @@ public class DockAnimation implements Runnable{
 	 * does calculation for docking animation
 	 * @param s ship that is initiating docking
 	 * @param p DynamicElement that is getting docked
-	 * @param m mode for docking animation (1-5 is used for docking, 6 is used for undocking)
+	 * @param m mode for docking animation (0 to do nothing, 1-5 is reserved for docking, 6 is used for undocking)
 	 */
 	public DockAnimation(Ship s,DynamicElement p,int m){
 		ship=s;

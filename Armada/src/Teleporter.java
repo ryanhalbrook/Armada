@@ -3,7 +3,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
 
 /**
-	Creates a teleporter animation.
+	Creates a teleportation animation.
 */
 
 public class Teleporter extends Element{
@@ -19,6 +19,12 @@ public class Teleporter extends Element{
 	private Ship s;
 	private int destX,destY,w,h,mode;
 	private BufferedImage backup;
+	/**
+	 * Creates Teleporter
+	 * @param d Ship that is getting teleported
+	 * @param dX x destination 
+	 * @param dY y destination
+	 */
 	public Teleporter(Ship d, int dX,int dY){
 		super(d.getX(),d.getY(),WIDTH*NUM_FRAME,HEIGHT,d.getAngle(),IMAGE_NAME);
 		mode=0;
@@ -30,6 +36,13 @@ public class Teleporter extends Element{
 		h=d.getHeight();
 		backup=s.getAH().getImage();
 	}
+	/**
+	 * Creates Teleporter
+	 * @param d Ship that is getting teleported
+	 * @param dX x destination 
+	 * @param dY y destination
+	 * @param mode mode for teleportation animation (0 for disappearing and appearing, 1 for just appearing)
+	 */
 	public Teleporter(Ship d, int dX,int dY,int mode){
 		super(d.getX(),d.getY(),WIDTH*NUM_FRAME,HEIGHT,d.getAngle(),IMAGE_NAME);
 		this.mode=mode;
@@ -42,6 +55,9 @@ public class Teleporter extends Element{
 		w=d.getWidth();
 		h=d.getHeight();
 	}
+	/**
+	 * does teleportation animation
+	 */
 	public void draw(Graphics g, BoundingRectangle viewRegion){
 		BufferedImage temp= ah.getImage().getSubimage(WIDTH*imgIndex, 0, WIDTH, HEIGHT);
 		RescaleOp rop=null;
@@ -64,7 +80,11 @@ public class Teleporter extends Element{
 			s.getAH().setImage(rop.filter(backup, null));
 		AnimationHelper.draw(x, y, w, h, angle, temp, g, viewRegion);
 	}
-	
+	/**
+	 * checks if teleportation is done
+	 * @return <code>true</code> if teleportation is done
+	 * 			<code>false</code> otherwise
+	 */
 	public boolean isDone(){
 		if(mode==0&&imgIndex>=NUM_FRAME){
 			mode=1;
