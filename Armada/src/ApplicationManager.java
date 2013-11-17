@@ -22,13 +22,21 @@ public class ApplicationManager implements ChangeListener {
     private ViewLayerPanel vp;
     /** The main window for this application */
     private JFrame window = new JFrame();
+    static ApplicationManager INSTANCE;
+    
+    static ApplicationManager getInstance(){
+    	if(INSTANCE==null){
+    		INSTANCE=new ApplicationManager();
+    	}
+    	return INSTANCE;
+    }
     
     /**
         Constructs an ApplicationManager object. Does NOT make the window show onscreen.
         Call start to do this.
         @see start
     */
-    public ApplicationManager() {
+    private ApplicationManager() {
         mainPanel = new MainMenuPanel(this);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setTitle("Armada");
@@ -126,5 +134,9 @@ public class ApplicationManager implements ChangeListener {
     private void enforceDefaultWindowSize() {
         if (window != null) window.setSize(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
     }
+
+	public JFrame getWindow() {
+		return window;
+	}
     
 }

@@ -250,7 +250,7 @@ public class ArmadaEngine implements ChangeListener {
     
     public void dock(DynamicElement activeE, int x, int y) {
         for (DynamicElement d : delements) {
-				if(d.isIn(x,y) && (d.getAlliance()==0 || d.getAlliance() == activeE.getAlliance()) && activeE.distanceFrom(x, y) < 100 && d.isTargetable() && d instanceof Planet && activeE instanceof Ship){
+				if(d.isIn(x,y) && (d.getAlliance()==0 || d.getAlliance() == activeE.getAlliance()) && activeE.distanceFrom(x, y) < Ship.DOCK_RANGE && d.isTargetable() && d instanceof Planet && activeE instanceof Ship){
 					System.out.println("docking attempted");
 					Planet p = (Planet)d;
 					Ship s = (Ship) activeE;
@@ -259,11 +259,11 @@ public class ArmadaEngine implements ChangeListener {
 				else if(d.isIn(x,y) && d instanceof Planet && d.getAlliance() != 0 && d.getAlliance() != activeE.getAlliance()){
 					//InformationPopupLayer.getInstance().showPopup("Cannot Dock At Enemy Planets");
 				}
-				else if(activeE.distanceFrom(x, y) >= 100 ){
+				else if(activeE.distanceFrom(x, y) >= Ship.DOCK_RANGE ){
 					//InformationPopupLayer.getInstance().showPopup("Out Of Range");
 				}
 					
-				else if(d.isIn(x,y) && d.getAlliance()!= activeE.getAlliance() && activeE.distanceFrom(x, y) < 100 && d.isTargetable() && d instanceof Ship && activeE instanceof Ship){
+				else if(d.isIn(x,y) && d.getAlliance()!= activeE.getAlliance() && activeE.distanceFrom(x, y) < Ship.DOCK_RANGE && d.isTargetable() && d instanceof Ship && activeE instanceof Ship){
 					System.out.println("Boarding attempted");
 					Ship s = (Ship) activeE;
 					Ship t = (Ship) d;
@@ -274,7 +274,7 @@ public class ArmadaEngine implements ChangeListener {
 					Ship t = (Ship) d;
 					s.trade(t);
 				}
-				else if(activeE.distanceFrom(x, y) >= 100 ){
+				else if(activeE.distanceFrom(x, y) >= Ship.DOCK_RANGE ){
 					//InformationPopupLayer.getInstance().showPopup("Out Of Range");
 				}
 		}

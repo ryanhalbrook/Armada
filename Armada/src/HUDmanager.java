@@ -1,3 +1,4 @@
+import java.awt.Cursor;
 import java.awt.Graphics;
 import java.util.*;
 
@@ -28,12 +29,7 @@ public class HUDmanager extends ViewLayer {
 		turn = new TurnHUD(gr, gc);
 		map = new MapHUD(gr, gc, HUD.Position.BOTTOM_RIGHT);
 		items= new ItemListHUD(gc, HUD.Position.TOP_LEFT, this);
-		
-		/*s1=new NormalShip(0,0,1);
-		s1.addItem(new Item(ItemList.ItemNames.HullPlate));
-		s2=new JuggernautShip(0,0,1);*/
 		trade=new TradeHUD(gc,HUD.Position.CENTERED);
-		
 		items.setPosition(HUD.Position.ITEM_POSITION);
 		mode.setName("Mode HUD");
 		stat.setName("Stat HUD");
@@ -62,6 +58,18 @@ public class HUDmanager extends ViewLayer {
 	
 	public void refresh(long previousTime, long currentTime) {
 	    super.refresh(previousTime, currentTime);
+	    for(HUD h: huds){
+		    if(h.isIn(gc.getGrid().getCurrentX(),gc.getGrid().getCurrentY())){
+				ApplicationManager.getInstance().getWindow().setCursor(Cursor.HAND_CURSOR);
+				this.displayLine(false);
+				break;
+			}
+			else{
+				ApplicationManager.getInstance().getWindow().setCursor(Cursor.DEFAULT_CURSOR);	
+				this.displayLine(true);	    		
+		    }	
+	    }
+	    
 	}
 	
 	
@@ -84,6 +92,22 @@ public class HUDmanager extends ViewLayer {
 	
 	public TurnHUD getTurnHUD() {
 	    return (TurnHUD)turn;
+	}
+	
+	public void displayLine(boolean b){
+		if(mode instanceof ModeHUD){
+			((ModeHUD)mode).setDisplayLine(b);
+		}
+	}
+	
+	public void toggleLine(){
+		ModeHUD temp = (ModeHUD)mode;
+		if(temp.isDisplayLine()){
+			temp.setDisplayLine(false);
+		}
+		else{
+			temp.setDisplayLine(true);
+		}
 	}
 	
 

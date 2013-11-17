@@ -66,11 +66,14 @@ public class Planet extends DynamicElement{
 	}
 	
 	public void startOfTurn(ArmadaEngine engine){
+		ArrayList<Ship> newList = new ArrayList<Ship>();
 		for(Ship s: dockedList){
 			if(s.isDead()){
-				dockedList.remove(s);
+				continue;
 			}
+			newList.add(s);
 		}
+		dockedList=newList;
 		if(alliance==0 && onlyOneAllianceDocked() && engine.getTurn()==dockedList.get(0).getAlliance()){
 			alliance = dockedList.get(0).getAlliance();
 		}

@@ -13,7 +13,7 @@ public class Game {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-        ApplicationManager AM = new ApplicationManager();
+        ApplicationManager AM = ApplicationManager.getInstance();
         AM.start();
 	}
 	

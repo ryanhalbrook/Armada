@@ -16,7 +16,7 @@ public class ModeHUD extends HUD{
 	private long startTime;
 	private long rAnimationStart = -1;
 	private float rPhase = 0.0f;
-	private boolean rReverse = false;
+	private boolean rReverse = false,displayLine=true;
 	
 	Grid grid = null;
 	
@@ -104,7 +104,7 @@ public class ModeHUD extends HUD{
 		int startX = (selection-1) * selectionWidth + (int)dx;
 	    g.setColor(modeColors[grid.getMode()-1]);
 		g.drawRect(startX, y+1, selectionWidth, height-1);
-		
+		int clear = 20;
 		if (grid.getActiveE()!=null && grid.getActiveE() instanceof Ship) {
 			Graphics2D g2d = (Graphics2D)g;
 		    
@@ -117,34 +117,55 @@ public class ModeHUD extends HUD{
 		    g2d.setColor(Color.WHITE);
 		    if(grid.getMode()==1 && grid.getActiveE().canMovePath2(grid.getCurrentX() + grid.getViewRegion().getX(),grid.getCurrentY() + grid.getViewRegion().getY(),grid.getDelements()) && grid.getActiveE().canMove()){
 		    	g.setColor(Color.GREEN);
+		    	g.setColor(new Color(g.getColor().getRed(), g.getColor().getGreen(), g.getColor().getBlue(), clear/2));
+		    	g.fillOval(grid.getActiveE().getX()-grid.getActiveE().getMovementLeft() - grid.getViewRegion().getX(), grid.getActiveE().getY()-grid.getActiveE().getMovementLeft() - grid.getViewRegion().getY(), grid.getActiveE().getMovementLeft()*2, grid.getActiveE().getMovementLeft()*2);
+
 		    }
 		    else if(grid.getMode() == 1){
 		    	g.setColor(Color.RED);
+		    	g.setColor(new Color(g.getColor().getRed(), g.getColor().getGreen(), g.getColor().getBlue(), clear/2));
+		    	g.fillOval(grid.getActiveE().getX()-grid.getActiveE().getMovementLeft() - grid.getViewRegion().getX(), grid.getActiveE().getY()-grid.getActiveE().getMovementLeft() - grid.getViewRegion().getY(), grid.getActiveE().getMovementLeft()*2, grid.getActiveE().getMovementLeft()*2);
+
 		    }
 		    else if((grid.getMode() == 2 ) && grid.getActiveE().withinRange(grid.getCurrentX() + grid.getViewRegion().getX(),grid.getCurrentY() + grid.getViewRegion().getY()) && grid.getActiveE().canAttack()){
 		    	g.setColor(new Color(250,100,0));
+		    	g.setColor(new Color(g.getColor().getRed(), g.getColor().getGreen(), g.getColor().getBlue(), clear));
+		    	g.fillOval(grid.getActiveE().getX()-grid.getActiveE().getRange() - grid.getViewRegion().getX(), grid.getActiveE().getY()-grid.getActiveE().getRange() - grid.getViewRegion().getY(), grid.getActiveE().getRange()*2, grid.getActiveE().getRange()*2);
+		    	
 		    }
 		    else if((grid.getMode() == 2 )){
 		    	g.setColor(Color.RED);
+		    	g.setColor(new Color(g.getColor().getRed(), g.getColor().getGreen(), g.getColor().getBlue(), clear));
+		    	g.fillOval(grid.getActiveE().getX()-grid.getActiveE().getRange() - grid.getViewRegion().getX(), grid.getActiveE().getY()-grid.getActiveE().getRange() - grid.getViewRegion().getY(), grid.getActiveE().getRange()*2, grid.getActiveE().getRange()*2);
 		    }
 		    else if(( grid.getMode() == 3) && grid.getActiveE().withinRange(grid.getCurrentX() + grid.getViewRegion().getX(),grid.getCurrentY() + grid.getViewRegion().getY()) && grid.getActiveE().canAttack()){
 		    	g.setColor(Color.YELLOW);
+		    	g.setColor(new Color(g.getColor().getRed(), g.getColor().getGreen(), g.getColor().getBlue(), clear));
+		    	g.fillOval(grid.getActiveE().getX()-grid.getActiveE().getRange() - grid.getViewRegion().getX(), grid.getActiveE().getY()-grid.getActiveE().getRange() - grid.getViewRegion().getY(), grid.getActiveE().getRange()*2, grid.getActiveE().getRange()*2);
+
 		    }
 		    else if(( grid.getMode() == 3)){
 		    	g.setColor(Color.RED);
-		    }else if(( grid.getMode() == 4) && grid.getActiveE().distance(grid.getCurrentX() + grid.getViewRegion().getX(), (grid.getCurrentY()) + grid.getViewRegion().getY()) < 100){
+		    	g.setColor(new Color(g.getColor().getRed(), g.getColor().getGreen(), g.getColor().getBlue(), clear));
+		    	g.fillOval(grid.getActiveE().getX()-grid.getActiveE().getRange() - grid.getViewRegion().getX(), grid.getActiveE().getY()-grid.getActiveE().getRange() - grid.getViewRegion().getY(), grid.getActiveE().getRange()*2, grid.getActiveE().getRange()*2);
+
+		    }else if(( grid.getMode() == 4) && grid.getActiveE().distance(grid.getCurrentX() + grid.getViewRegion().getX(), (grid.getCurrentY()) + grid.getViewRegion().getY()) < Ship.DOCK_RANGE){
 		    	g.setColor(Color.MAGENTA);
+		    	g.setColor(new Color(g.getColor().getRed(), g.getColor().getGreen(), g.getColor().getBlue(), clear));
+		    	g.fillOval(grid.getActiveE().getX()-Ship.DOCK_RANGE - grid.getViewRegion().getX(), grid.getActiveE().getY()-Ship.DOCK_RANGE  - grid.getViewRegion().getY(), Ship.DOCK_RANGE *2, Ship.DOCK_RANGE *2);
 		    }
 		    else if(( grid.getMode() == 4)){
 		    	g.setColor(Color.RED);
-		    	//g.drawString("Out of docking range or already docked", x, y+g.getFontMetrics().getHeight()*2);
+		    	g.setColor(new Color(g.getColor().getRed(), g.getColor().getGreen(), g.getColor().getBlue(), clear));
+		    	g.fillOval(grid.getActiveE().getX()-Ship.DOCK_RANGE - grid.getViewRegion().getX(), grid.getActiveE().getY()-Ship.DOCK_RANGE  - grid.getViewRegion().getY(), Ship.DOCK_RANGE *2, Ship.DOCK_RANGE *2);
 		    }
 		    else if (( grid.getMode() == 5)) {
 		        g.setColor(new Color(0.0f, 0.9f, 1.0f));
 		    }
 		    //if (grid.getCurrentX() == 0 && grid.getCurrentY() == 0) System.out.println("Current x,y = 0,0");
-		    if(grid.getCurrentX()!=0||grid.getCurrentY()!=0 || true){
-		        if (grid.getMode() != 5) {
+		    if((grid.getCurrentX()!=0||grid.getCurrentY()!=0) && displayLine && grid.getActiveE().getAlliance()==grid.getTurn()){
+		        if (grid.getMode() != 5 ) {
+		        	g.setColor(new Color(g.getColor().getRed(), g.getColor().getGreen(), g.getColor().getBlue(), 255));
 			        g.drawLine(shipX-grid.getViewRegion().getX(), shipY-grid.getViewRegion().getY(), grid.getCurrentX(), grid.getCurrentY());
 			        int baseRadius = 20;
 			        int radius = (int)(baseRadius*(rPhase));
@@ -153,7 +174,7 @@ public class ModeHUD extends HUD{
 			        g.drawOval(grid.getCurrentX()-radius, grid.getCurrentY()-radius, radius*2, radius*2);
 			    } else {
 			        int counter = 0;
-			        for (DynamicElement d : grid.getDelements()) {
+			        for (DynamicElement d : grid.getDelements()) {//needs to be changed to use the same logic method that actually decides if the ship can move
 			            if (d instanceof Ship && d.getAlliance()==grid.getTurn() && d.withinMovement(grid.getCurrentX(),grid.getCurrentY()) && d.isTargetable()) {
 			                shipX = d.getX();
 			                shipY = d.getY();
@@ -173,28 +194,8 @@ public class ModeHUD extends HUD{
 			    }
 		    }
 		    g2d.setStroke(s);
-		    /*
-		    switch(grid.getMode()){
-		    case 0:
-		    	g.drawString("Mode: No Move Selected", x, y+g.getFontMetrics().getHeight());
-		    	break;
-		    case 1:
-		    	g.drawString("Mode: Move", x, y+g.getFontMetrics().getHeight());
-		    	break;
-		    case 2:
-		    	g.drawString("Mode: Attack Hull", x, y+g.getFontMetrics().getHeight());
-		    	break;
-		    case 3:
-		    	g.drawString("Mode: Attack Engine", x, y+g.getFontMetrics().getHeight());
-		    	break;
-		    case 4:
-		    	g.drawString("Mode: Docking", x, y+g.getFontMetrics().getHeight());
-		    	break;
-		    case 5:
-		        g.drawString("Mode: Fleet Move", x, y+g.getFontMetrics().getHeight());
-		        break;
-		    }  
-		    */
+		    g.setColor(new Color(g.getColor().getRed(), g.getColor().getGreen(), g.getColor().getBlue(), 40));
+		    
 		}
 		else if(grid.getActiveE() != null && grid.getActiveE() instanceof Planet){
 			Planet p = (Planet)grid.getActiveE();
@@ -217,8 +218,14 @@ public class ModeHUD extends HUD{
 		}
 	}
 
+	public boolean isDisplayLine() {
+		return displayLine;
+	}
+
+	public void setDisplayLine(boolean displayLine) {
+		this.displayLine = displayLine;
+	}
+
 }
 
-/*
-grid.distance(grid.getActiveE(), grid.getCurrentX() + grid.getViewRegion().getX(), (grid.getCurrentY()) + grid.getViewRegion().getY()) < 100)
-*/
+

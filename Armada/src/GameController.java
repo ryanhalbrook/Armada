@@ -6,7 +6,7 @@ import java.awt.image.*;
 public class GameController extends ViewLayerController {
     private static final int DEFAULT_GRID_MOVE_RATE = 200;
     int gridMoveRate = DEFAULT_GRID_MOVE_RATE;
-    Grid grid;
+    private Grid grid;
     private ArmadaEngine engine;
     private DynamicSizeBroadcast dsb;
     static final int GRID_WIDTH = 7680; // The width of the grid in pixels.
@@ -283,8 +283,8 @@ public class GameController extends ViewLayerController {
 	}
 	
 	public void mouseDragged(MouseEvent evt) {
-		grid.setCurrentX(0);
-		grid.setCurrentY(0);
+		grid.setCurrentX(evt.getX());
+		grid.setCurrentY(evt.getY());
 		if(hud.getMap().isIn(evt.getX(), evt.getY())){
 			hud.getMap().moveMap(evt.getX(), evt.getY());
 		}
@@ -323,5 +323,9 @@ public class GameController extends ViewLayerController {
 
 	public HUDmanager getHud() {
 		return hud;
+	}
+
+	public Grid getGrid() {
+		return grid;
 	}
 }

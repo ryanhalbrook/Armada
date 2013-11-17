@@ -1,3 +1,4 @@
+import java.awt.Cursor;
 import java.awt.Graphics;
 
 
@@ -9,19 +10,32 @@ public class TradeHUD extends HUD{
 	
 	public TradeHUD(GameController gc, Position p){
 		super(new BoundingRectangle(5,45,400,400),gc, p);
+		displaying=false;
+	}
+	
+	public void refresh(long previousTime, long currentTime) {
+		super.refresh(previousTime,currentTime);
+		if(gc.getActiveE()==null || !(gc.getActiveE() instanceof Ship))displaying=false;
+		else if(gc.getActiveE() instanceof Ship  && ((Ship)gc.getActiveE()).isTrading()){
+			displaying=true;
+			update();
+		}
+		else displaying=false;
 	}
 	
 	private void update(){
-		l1=new ButtonList(this);
-		l2=new ButtonList(this);
-		l1.fillShip(s1);
-		l2.fillShip(s2);
+		if(s1!=null&&s2!=null){
+			l1=new ButtonList(this);
+			l2=new ButtonList(this);
+			l1.fillShip(s1);
+			l2.fillShip(s2);	
+		}
 	}
 	
 	public void draw(Graphics g){
-		if(!(gc.getActiveE() instanceof Ship))return;
-		else if(gc.getActiveE() instanceof Ship  && ((Ship)gc.getActiveE()).isTrading()){
+		if(displaying){
 			s1=(Ship)gc.getActiveE();
+			if(s1.getTrader()!=null);
 			s2=s1.getTrader();
 			update();
 			updateLocation();

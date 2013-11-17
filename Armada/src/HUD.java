@@ -6,9 +6,10 @@ import java.awt.Graphics;
 public class HUD extends ViewLayer {
 
 	protected GameController gc = null;
+	protected boolean displaying = true;
 	
 	public enum Position { STATIC, TOP_LEFT, TOP_RIGHT, BOTTOM_LEFT, BOTTOM_RIGHT, CENTERED, MODE_POSITION, ITEM_POSITION, TOP_CENTER; }
-	/** The location setting to place this HUD onscreen */
+	/** The location setting to place this HUD on the screen */
 	protected Position position = Position.STATIC;
 	
 	public HUD(BoundingRectangle b) {
@@ -78,7 +79,15 @@ public class HUD extends ViewLayer {
 	    } // End of if
     } // End of method
 
-
+	
+	public boolean isIn(int inX, int inY){
+		if(r.isIn(inX, inY) && displaying){
+			return true;
+		}
+		else return false;
+	}
+	
+	
     public void setPosition(Position p) {
         this.position = p;
 	}

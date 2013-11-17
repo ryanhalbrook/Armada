@@ -20,6 +20,7 @@ public class Ship extends DynamicElement{
 	protected double perHull, perEng;
 	protected ArrayList<Item> items;
 	protected Ship trader;
+	static final int DOCK_RANGE=200;
 	
 	//Every ship that extends this class needs the following line, but with values assigned to each.  Whenever update() is called, the value of the corresponding stats need to be recalculated starting with these and then adding in each appropriate buff, item, and upgrade.
 	//protected final int DEFAULT_HULL, DEFAULT_MAX_HULL, DEFAULT_SPEED, DEFAULT_BOARD, DEFAULT_ENGINE, DEFAULT_MAX_ENGINE, DEFAULT_MAX_CARGO, DEFAULT_RANGE;

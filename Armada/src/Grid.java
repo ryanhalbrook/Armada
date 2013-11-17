@@ -201,7 +201,9 @@ public class Grid extends ViewLayer {
 	
 	public void update() {
 		
+		
 		if(delements != null) {
+			ArrayList<DynamicElement> removeDE = new ArrayList<DynamicElement>();
 			for (int i=0;i<delements.size();i++) {
 				if(delements.get(i).isDead()){
 					SoundEffect.EXPLODE.play();
@@ -209,26 +211,27 @@ public class Grid extends ViewLayer {
 					    SoundEffect.SCREAM.play();
 					}   
 					elements.add(new Explosion(delements.get(i)));
-					
-					delements.remove(i);
-					i--;
+					removeDE.add(delements.get(i));
 				}
 				
 			}
-			for (int i=0;i<elements.size();i++){
+			delements.removeAll(removeDE);
+			removeDE.clear();
+			ArrayList<Element> removeList = new ArrayList<Element>();
+			for(int i=0; i<elements.size(); i++){
 				if(elements.get(i) instanceof Explosion){
 					if(((Explosion)(elements.get(i))).isDone()){
-					    elements.remove(i);
-					    i--;
+					    removeList.add(elements.get(i));
 					}
 				}
 				if(elements.get(i) instanceof Teleporter){
 					if(((Teleporter)(elements.get(i))).isDone()){
-					    elements.remove(i);
-					    i--;
+					    removeList.add(elements.get(i));
 					}
 				}
 			}
+			elements.removeAll(removeList);
+			removeList.clear();
 		}
 		
 	}
