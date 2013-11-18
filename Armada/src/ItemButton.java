@@ -16,14 +16,15 @@ public class ItemButton extends Button{
 			this.setTitle(ItemList.getString(s,ItemList.ItemStats.InGameName));
 		}
 		t.setText(ItemList.getString(s,  ItemList.ItemStats.Description));
-		clickable=true;
+		clickable = true;
 		assignImage(s);
 		id=s;
 	}
 	
-	private void assignImage(ItemList.ItemNames i){
-		this.imageName = ItemList.getString(i,ItemList.ItemStats.ImageName);
-	}
+		private void assignImage(ItemList.ItemNames i){
+				this.imageName = ItemList.getString(i,ItemList.ItemStats.ImageName);
+		}
+
 	
 	public boolean click(int x, int y){
 		if(this.isIn(x, y)){
