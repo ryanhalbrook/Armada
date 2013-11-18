@@ -141,17 +141,18 @@ public class ButtonList {
 	}
 	
 	public void fillShip(Ship s){
+		buttons.clear();
 		if(s.getItems()==null)return;
 		//if(s.getItems().size() <1)return;
 		int temp = s.getMaxCargo();
 		for(Item i: s.getItems()){
-			ItemButton tempItem =new ItemButton(x+3, y+3, width, 20, hud.getGC(), i.getId(),false);
+			ItemButton tempItem =new ItemButton(x+3, y+3, width, BUTTON_HEIGHT, hud.getGC(), i.getId(),false);
 			tempItem.setClickable(true);
 			add(tempItem );
 			temp--;
 		}
 		while(temp>0){
-			ItemButton tempItem =new ItemButton(x+3, y+3, width, 20, hud.getGC(), ItemList.ItemNames.Blank);
+			ItemButton tempItem =new ItemButton(x+3, y+3, width, BUTTON_HEIGHT, hud.getGC(), ItemList.ItemNames.Blank);
 			tempItem.setClickable(false);
 			add(tempItem);
 			 temp--;
