@@ -16,6 +16,7 @@ public class ItemButton extends Button{
 			this.setTitle(ItemList.getString(s,ItemList.ItemStats.InGameName));
 		}
 		t.setText(ItemList.getString(s,  ItemList.ItemStats.Description));
+		clickable=true;
 		assignImage(s);
 		id=s;
 	}

@@ -68,8 +68,6 @@ public class TradeHUD extends HUD{
 			l2.draw(g);
 			close.draw(g);
 		}
-		
-		
 	}
 	
 	public void drag(int inX, int inY){

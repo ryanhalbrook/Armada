@@ -120,6 +120,15 @@ public class ButtonList {
 		}
 	}
 	
+	public void fillShop(Planet p){
+		buttons.clear();		
+		//TODO: put in a switch that adds items depending on the planet's upgrade level.  It should no have breaks so that you dont need to re-type items that are added for lower levels and done highest level first
+		add(new ItemButton(x+3, y+3, width, BUTTON_HEIGHT, hud.getGC(), ItemList.ItemNames.HullPlate,true));
+		add(new ItemButton(x+3, y+3, width, BUTTON_HEIGHT, hud.getGC(), ItemList.ItemNames.SpeedUpgrade,true));
+		add(new ItemButton(x+3, y+3, width, BUTTON_HEIGHT, hud.getGC(), ItemList.ItemNames.WeaponsUpgrade,true));
+		add(new ItemButton(x+3, y+3, width, BUTTON_HEIGHT, hud.getGC(), ItemList.ItemNames.ScalingHullUpgrade,true));
+	}
+	
 	public int getHeight(){
 		return height;
 	}
