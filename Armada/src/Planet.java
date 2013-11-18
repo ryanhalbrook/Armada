@@ -150,16 +150,10 @@ public class Planet extends DynamicElement{
 			}
 		}
 	}
-	*/
+	
 	public int getUpgradeLevel(){
 		return upgradeLevel;
 	}
-	
-	public String upgradeDescription(){
-		return "Upgrade From Level " + upgradeLevel + " -> Level " + (upgradeLevel+1) + "";
-	}
-	
-	public int upgradePrice() {
-		return upgradeLevel*100;
-	}
+	public void purchaseStore(){
+	}*/
 }
