@@ -86,6 +86,9 @@ public class Button extends BoundingRectangle{
 		g.setColor(Color.WHITE);
 		if(imageName==null||imageName=="")
 			g.drawString(title, x + width/2 - g.getFontMetrics().stringWidth(title)/2, y + 3 + height/2);
+		else if(title==""){
+			AnimationHelper.draw(x+width/2, y+height/2, (int)(height*0.8), (int)(height*0.8), imageName, g);
+		}
 		else{
 			g.drawString(title, x + width/2 + height/2 - g.getFontMetrics().stringWidth(title)/2, y + 3 + height/2);
 			AnimationHelper.draw(x+height/2, y+height/2, (int)(height*0.8), (int)(height*0.8), imageName, g);

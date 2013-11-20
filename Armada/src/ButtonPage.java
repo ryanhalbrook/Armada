@@ -16,8 +16,10 @@ public class ButtonPage {
 		page=0;
 		hud=h;
 		lists=new ArrayList<ButtonList>();
-		back=new Button(0,0,30,20,h.getGC(), "<-");
-		forward=new Button(0,0,30,20,h.getGC(), "->");
+		back=new Button(0,0,30,20,h.getGC(),"");
+		back.setImageName("arrowLeft");
+		forward=new Button(0,0,30,20,h.getGC(),"");
+		forward.setImageName("arrow");
 		back.setColor(new Color(50,150,200, 150));
 		forward.setColor(new Color(50,150,200, 150));
 	}
