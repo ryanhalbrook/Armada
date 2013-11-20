@@ -45,7 +45,7 @@ public class Item {
 		}
 		if(priority == 1){// for non-flat calculations.  ie a*b
 			if(ItemList.keyInt(id, ItemList.ItemStats.WeaponsPercentage)){
-				s.maxWeaponsPerInc(ItemList.getInt(id, ItemList.ItemStats.WeaponsPercentage));
+				s.weaponsPerInc(ItemList.getInt(id, ItemList.ItemStats.WeaponsPercentage));
 			}
 			if(ItemList.keyInt(id, ItemList.ItemStats.EnginesPercentage)){
 				s.maxEnginesPerInc(ItemList.getInt(id, ItemList.ItemStats.EnginesPercentage));
@@ -54,7 +54,7 @@ public class Item {
 				s.maxHullPerInc(ItemList.getInt(id, ItemList.ItemStats.HullPercentage));
 			}
 			if(ItemList.keyInt(id, ItemList.ItemStats.SpeedPercentage)){
-				s.maxSpeedPerInc(ItemList.getInt(id, ItemList.ItemStats.SpeedPercentage));
+				s.speedPerInc(ItemList.getInt(id, ItemList.ItemStats.SpeedPercentage));
 			}
 			if(ItemList.keyInt(id, ItemList.ItemStats.SpeedOverload)){
 				s.speedPerInc(ItemList.getInt(id, ItemList.ItemStats.SpeedOverload));

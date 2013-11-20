@@ -54,7 +54,7 @@ public class ItemList {
 		itemDescriptions.put(ItemNames.ScalingWeaponsUpgrade.name() + ItemStats.InGameName, "Increased Explosive Firepower");
 		
 		//ScalingHullUpgrade
-		itemVals.put(ItemNames.ScalingHullUpgrade.name()+ItemStats.HullPercentage.name(), 15);
+		itemVals.put(ItemNames.ScalingHullUpgrade.name()+ItemStats.HullPercentage.name(), 5);
 		itemVals.put(ItemNames.ScalingHullUpgrade.name()+ItemStats.Price.name(), 100);
 		itemDescriptions.put(ItemNames.ScalingHullUpgrade.name()+ItemStats.Description, "Increases Hull by " + ItemList.getInt(ItemNames.ScalingHullUpgrade, ItemStats.HullPercentage) +"%");
 		itemDescriptions.put(ItemNames.ScalingHullUpgrade.name() + ItemStats.InGameName, "Increased Hull Durability");
