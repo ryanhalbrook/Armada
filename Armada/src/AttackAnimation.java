@@ -54,6 +54,8 @@ public class AttackAnimation implements Runnable {
 		 */
 		public void run() {
 			//System.out.println("moving to: " + x + ", " + y);
+			target.setTargetable(false);
+			de.setTargetable(false);
 			int mvTime=100;
 			int moveX=x;
 			int moveY=y;
@@ -136,6 +138,8 @@ public class AttackAnimation implements Runnable {
 			
 			}
 			
+			target.setTargetable(true);
+			de.setTargetable(true);	
 		}
 
 	

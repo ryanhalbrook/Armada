@@ -134,6 +134,9 @@ public class Grid extends ViewLayer {
 	public void refresh(long previousTime, long currentTime) {
 		viewRegion.setWidth(dsb.getWidth());
 		viewRegion.setHeight(dsb.getHeight());
+		if(activeE!=null && activeE.isDead()){
+			activeE=null;
+		}
 		
 		int vel = 50;
 		
@@ -237,7 +240,7 @@ public class Grid extends ViewLayer {
 	}
 	
 	public boolean click(int inX, int inY){
-			
+		
 	    if((mode == 0 || activeE==null) && delements != null && delements.size() != 0) { //selecting a ship
 			inX += viewRegion.getX(); inY += viewRegion.getY();
 			for (DynamicElement d : delements) {
