@@ -25,7 +25,7 @@ public class TradeHUD extends HUD{
 	public void refresh(long previousTime, long currentTime) {
 		super.refresh(previousTime,currentTime);
 		if(gc.getActiveE()==null || !(gc.getActiveE() instanceof Ship))displaying=false;
-		else if(gc.getActiveE() instanceof Ship  && ((Ship)gc.getActiveE()).isTrading()&&gc.getActiveE().getAlliance()==gc.getGrid().getTurn()){
+		else if(gc.getActiveE() instanceof Ship  && ((Ship)gc.getActiveE()).isTrading()&& !((Ship)gc.getActiveE()).getTrader().isDead() &&gc.getActiveE().getAlliance()==gc.getGrid().getTurn()){
 			displaying=true;
 			update();
 		}
@@ -54,7 +54,7 @@ public class TradeHUD extends HUD{
 	public void draw(Graphics g){
 		if(displaying){
 			s1=(Ship)gc.getActiveE();
-			if(s1.getTrader()!=null);
+			if(s1.getTrader()!=null)
 			s2=s1.getTrader();
 			update();
 			updateLocation();

@@ -103,7 +103,7 @@ public class DockAnimation implements Runnable{
 					System.out.println(ship.getBridge().getLength());
 				}
 				try {
-	        		Thread.sleep(100);
+	        		Thread.sleep(10);
 	        	} catch (InterruptedException e) {
 	        		e.printStackTrace();
 	        	}
@@ -123,7 +123,7 @@ public class DockAnimation implements Runnable{
 				}
 					
 				try {
-	        		Thread.sleep(100);
+	        		Thread.sleep(10);
 	        	} catch (InterruptedException e) {
 	        		e.printStackTrace();
 	        	}

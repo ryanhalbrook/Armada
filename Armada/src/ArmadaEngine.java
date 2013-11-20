@@ -194,10 +194,12 @@ public class ArmadaEngine implements ChangeListener {
     private MovementStatus moveDE(DynamicElement activeE, int x, int y) {
         if(activeE.withinMovement(x,y) && activeE.canMovePath2(x,y, delements) && activeE instanceof Ship){
 				Ship temp = (Ship) activeE;
-				if(temp.isDocked())
+				if(temp.isDocked()){
 					temp.setPlanetDocked(null);
-				if(temp.isTrading())
+				}
+				if(temp.isTrading()){
 					temp.setTrading(false);
+				}
         		activeE.moveTo(x, y);
         		return MovementStatus.SUCCESS;
 		}

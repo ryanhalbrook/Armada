@@ -132,6 +132,7 @@ public class Ship extends DynamicElement{
 		weapons += i;
 	}
 	public void dock(Planet p){
+		//TODO: make it "untrade"/"undock" first
 		this.getSAH().dock(this, p);
 	}
 	public void undock(){
@@ -319,6 +320,7 @@ public class Ship extends DynamicElement{
 		return cargo<maxCargo;
 	}
 	public void trade(Ship s){
+		//TODO: make it "untrade"/"undock" first
 		this.trading=true;
 		trader=s;
 	}
