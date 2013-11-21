@@ -1,3 +1,5 @@
+package src;
+import src.view.*;
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
@@ -10,7 +12,7 @@ import java.awt.image.*;
     Responsible for drawing game layers and dispatching mouse and keyboard events.
  */
 
-public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener, DynamicSizeBroadcast {
+public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener, DynamicSize {
 
     private static final int DEFAULT_GRID_MOVE_RATE = 200;
     
@@ -215,8 +217,8 @@ public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, M
 	public void mouseReleased(MouseEvent evt) {}
 	public void keyTyped(KeyEvent evt) {}
 	public void mouseDragged(MouseEvent evt) {
-		grid.setCurrentX(0);
-		grid.setCurrentY(0);
+		//grid.setCurrentX(0);
+		//grid.setCurrentY(0);
 		if(hud.getMap().isIn(evt.getX(), evt.getY())){
 			hud.getMap().moveMap(evt.getX(), evt.getY());
 		}
