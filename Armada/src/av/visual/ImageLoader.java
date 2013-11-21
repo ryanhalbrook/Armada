@@ -1,4 +1,6 @@
-package src; import src.view.*;
+package src.av.visual; 
+import src.view.*;
+
 import java.util.*;
 import java.awt.image.*;
 import java.io.*;

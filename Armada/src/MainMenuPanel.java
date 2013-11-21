@@ -1,4 +1,6 @@
-package src; import src.view.*;
+package src;
+import src.view.*;
+import src.av.visual.ImageLoader;
 import javax.swing.*;
 import javax.swing.border.*;
 import java.awt.event.*;

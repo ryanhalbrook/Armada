@@ -1,6 +1,7 @@
 package src;
 import src.view.*;
 import src.av.audio.BGMPlayer;
+import src.av.visual.ImageLoader;
 
 import java.awt.event.*;
 import java.awt.*;
