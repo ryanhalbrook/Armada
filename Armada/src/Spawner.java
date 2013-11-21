@@ -16,7 +16,7 @@ public static void spawnPlanets(ArmadaEngine engine, int numPlanets){
 							return;
 						}
 						temp=new Planet();
-						h=0;
+						h=0;   
 					}
 				}
 				

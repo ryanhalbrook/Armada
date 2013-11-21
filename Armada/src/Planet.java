@@ -6,22 +6,43 @@ public class Planet extends DynamicElement{
 	
 	protected ArrayList<Ship> dockedList;
 	protected int upgradeLevel, worth = 250;
+	protected int imgNum = 1;
 	private int[][] storeList = new int[3][10]; // The store should be handled by another class
 	//private Teleporter tp; // teleport is a simple change in X and Y, there is no need for it to be an entire class
 	//private HealthBar hb;//health bars don't account for the PLanet's state yet, so it isnt ready to add to the Planet yet.  Also, you forgot to add the hb to the draw method
-
+    
+    /*
 	public Planet(int a, int b, int w, int h, String img, int r,
 			int maxH, int maxE, int s, int all, int t, int weap) {
 		//super(a, b, w, h, img, r, maxH, maxE, s, all, t, weap);
 		
 	}
+    */
+    
     
 	public String upgradeDescription() { return "Upgrade Description"; }
 	public int upgradePrice() { return 100; }
 	
-	public Planet(){
+	public Planet() {
 		super();
-		targetable = true;
+		initialize();
+		setRandomImage();
+		
+		ah=new DynamicAnimationHelper(this);
+	}
+	
+	public Planet(int image) {
+	    super();
+	    System.out.println("Building planet with image number: " + image);
+	    initialize();
+	    if (image < 1 || image > 11) image = 1;
+	    imgNum = image;
+	    setImage("planet/planet_" + imgNum);
+	    ah=new DynamicAnimationHelper(this);
+	}
+	
+	private void initialize() {
+	    targetable = true;
 		angle=0;
 		speed=0; maxEngine =0; engine=0;
 		maxHull=6000; hull=maxHull;
@@ -31,16 +52,21 @@ public class Planet extends DynamicElement{
 		width = 100 +(int)(Math.random() * 150.0);
 		height = width;
 		range = (int)((double)width * 1.5);
-		setRandomImage();//needs to be used in future
-		ah=new DynamicAnimationHelper(this);
+		
+		
 		alliance = 0;
 		dockedList = new ArrayList<Ship>();
 		upgradeLevel = 0;
 		hb = new HealthBar(this);
 	}
 	
+	public int getImageNum() {
+	    return imgNum;
+	}
+	
 	private void setRandomImage(){		
 		int i = (int)(1 + (Math.random() *13) );
+		imgNum = i;
 		setImage("planet/planet_" + i);
 	}
 	

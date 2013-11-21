@@ -32,22 +32,22 @@ public class ImageLoader {
             URL url = new ImageLoader().getClass().getClassLoader().getResource("image/" + imgKey);
 			bi = ImageIO.read(url);
         } catch (IOException e) {
-            System.out.println("Failed to load image on attempt 1: " + imgKey);
+            //System.out.println("Failed to load image on attempt 1: " + imgKey);
         } catch (IllegalArgumentException e) {
-            System.out.println("Failed to load image on attempt 1: " + imgKey);
+            //System.out.println("Failed to load image on attempt 1: " + imgKey);
         } catch (NullPointerException e) {
-            System.out.println("Failed to load image on attempt 1: " + imgKey);
+            //System.out.println("Failed to load image on attempt 1: " + imgKey);
         }
         if (bi == null) {
             try {
                 URL url = new ImageLoader().getClass().getClassLoader().getResource("src/image/" + imgKey);
 			    bi = ImageIO.read(url);
             } catch (IOException e) {
-                System.out.println("Failed to load image on attempt 2: " + imgKey);
+                //System.out.println("Failed to load image on attempt 2: " + imgKey);
             } catch (IllegalArgumentException e) {
-                System.out.println("Failed to load image on attempt 2: " + imgKey);
+                //System.out.println("Failed to load image on attempt 2: " + imgKey);
             } catch (NullPointerException e) {
-                System.out.println("Failed to load image on attempt 2: " + imgKey);
+                //System.out.println("Failed to load image on attempt 2: " + imgKey);
             }
         }
         if (bi != null) {

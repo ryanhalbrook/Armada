@@ -3,9 +3,6 @@ import java.util.GregorianCalendar;
 public class ArmadaEngine implements ChangeListener {
 
     int turn = 1;
-    
-    //static final int GRID_WIDTH = 38400; // The width of the grid in pixels.
-    //static final int GRID_HEIGHT = 21600; // The height of the grid in pixels.
     static final int GRID_WIDTH = 7680; // The width of the grid in pixels.
     static final int GRID_HEIGHT = 4320; // The height of the grid in pixels.
     // Information for computing time remaining for current turn
@@ -38,6 +35,12 @@ public class ArmadaEngine implements ChangeListener {
             if (gsc.getMessage().equals("MOVE")) {
                 DynamicElement e = getDEAtPoint(gsc.x1, gsc.y1);
                 moveDE(e, gsc.x2, gsc.y2);
+            }
+            if (gsc.getMessage().equals("NEW_PLANET")) {
+                Planet p = new Planet(gsc.x3);
+                p.setX(gsc.x1); p.setY(gsc.y1);
+                p.setWidth(gsc.x2); p.setHeight(gsc.y2);
+                addDE(p);
             }
         }
         
@@ -92,7 +95,7 @@ public class ArmadaEngine implements ChangeListener {
 		delements.add(new NormalShip(350,330,2));
 		delements.add(new NormalShip(400,330,2));
 		delements.add(new NormalShip(450,330,2));
-		Spawner.spawnPlanets(this, 7);
+		//Spawner.spawnPlanets(this, 7);
 	}
     
     public ArmadaEngine() {
@@ -102,7 +105,7 @@ public class ArmadaEngine implements ChangeListener {
             delements.add(d);
         }
         
-        Spawner.spawnPlanets(this, 7);
+        //Spawner.spawnPlanets(this, 7);
         
         // Add some ships
 		delements.add(new NormalShip(750,330,1));
@@ -122,8 +125,30 @@ public class ArmadaEngine implements ChangeListener {
 		
     }
     
-    public void add(DynamicElement inDE){
-		delements.add(inDE);
+    public void addPlanet(int x, int y, int width, int height) {
+        Planet p = new Planet();
+        p.setX(x);
+        p.setY(y);
+        p.setWidth(width);
+        p.setHeight(height);
+    }
+    
+    public void add(DynamicElement inDE) {
+        if (inDE instanceof Planet) {
+            Planet planet = (Planet)inDE;
+            GameStateChange change = new GameStateChange(null, "NEW_PLANET");
+            change.x1 = planet.getX();
+            change.y1 = planet.getY();
+            change.x2 = planet.getWidth();
+            change.y2 = planet.getHeight();
+            change.x3 = planet.getImageNum();
+            if (gs != null) gs.commitChange(this, change);
+        }
+		addDE(inDE);
+	}
+	
+	private void addDE(DynamicElement inDE) {
+	    delements.add(inDE);
 	}
 	
 	private void switchTurn() {

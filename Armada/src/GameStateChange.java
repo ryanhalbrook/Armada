@@ -7,6 +7,7 @@ public class GameStateChange implements Serializable {
     
     int x1, y1;
     int x2, y2;
+    int x3;
     
     public GameStateChange(ArrayList<Object> clients, String message) {
         outdatedClients = clients;

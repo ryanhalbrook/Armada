@@ -73,7 +73,7 @@ public class ApplicationManager implements ChangeListener {
     
     public void changeOccurred() {
         ArmadaEngine engine = new ArmadaEngine(gs);
-        
+        Spawner.spawnPlanets(engine, 7);
         ViewLayerPanel vlp = new ViewLayerPanel();
         GameController gc = new GameController(this, engine, vlp);
         vlp.setViewLayerController(gc);
@@ -99,6 +99,7 @@ public class ApplicationManager implements ChangeListener {
     
     public void startGameNewWay() {
         ArmadaEngine engine = new ArmadaEngine();
+        Spawner.spawnPlanets(engine, 7);
         ViewLayerPanel vlp = new ViewLayerPanel();
         GameController gc = new GameController(this, engine, vlp);
         vlp.setViewLayerController(gc);
