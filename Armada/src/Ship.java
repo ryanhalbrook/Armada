@@ -28,7 +28,7 @@ public class Ship extends DynamicElement{
 	
 	protected int cargo=0, maxCargo;
 	protected Bridge bridge;
-	protected boolean boarding =false,docking =false,teleporting=false,trading=false;
+	protected boolean boarding =false,docking =false,docked=false,teleporting=false,trading=false;
 	Element rope,hook;
 	public Ship(int team) {
 	    super();
@@ -88,7 +88,7 @@ public class Ship extends DynamicElement{
 	}
 
 	public boolean isDocked(){
-		if(planetDocked==null)return false;
+		if(planetDocked==null&&!docked)return false;
 		return true;
 	}
 	
@@ -131,6 +131,14 @@ public class Ship extends DynamicElement{
 	}
 	public void dock(Planet p){
 		//TODO: make it "untrade"/"undock" first
+		if(trader!=null&&trader.isDocked()){
+			trader.setDocking(true);
+			trader.undock();
+		}
+		if(isDocked()){
+			docking=true;
+			undock();
+		}
 		this.getSAH().dock(this, p);
 	}
 	public void undock(){
@@ -144,8 +152,8 @@ public class Ship extends DynamicElement{
 	}
 	public void setPlanetDocked(Planet inP) {
 		if(this.planetDocked !=null && this.planetDocked != inP){
-			docking=true;
-			undock();
+			//docking=true;
+			//undock();
 			this.planetDocked.unDock(this);
 		}
 		else
@@ -154,8 +162,27 @@ public class Ship extends DynamicElement{
 	}
 	
 	public void board(Ship target){
+		if(trader!=null&&trader.isDocked()){
+			trader.setDocking(true);
+			trader.undock();
+		}
+		if(isDocked()){
+			docking=true;
+			undock();
+		}
 		this.getSAH().board(this, target);
 		//unboard();
+	}
+	public void moveTo(int x,int y){
+		if(trader!=null&&trader.isDocked()){
+			trader.setDocking(true);
+			trader.undock();
+		}
+		if(isDocked()){
+			docking=true;
+			undock();
+		}
+		super.moveTo(x, y);
 	}
 	public void unboard(){
 		if(bridge!=null)
@@ -261,6 +288,9 @@ public class Ship extends DynamicElement{
 	}
 
 	
+	public void setDocked(boolean docked) {
+		this.docked = docked;
+	}
 
 	public boolean isTeleporting() {
 		return teleporting;
@@ -314,6 +344,15 @@ public class Ship extends DynamicElement{
 	}
 	public void trade(Ship s){
 		//TODO: make it "untrade"/"undock" first
+		if(trader!=null&&trader.isDocked()){
+			trader.setDocking(true);
+			trader.undock();
+		}
+			
+		if(isDocked()){
+			docking=true;
+			undock();
+		}
 		this.trading=true;
 		trader=s;
 	}

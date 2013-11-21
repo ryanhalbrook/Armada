@@ -87,8 +87,6 @@ public class MoveAnimation implements Runnable {
 	 * does calculation for move animation
 	 */
 	public void run() {
-		e.setTargetable(false);
-		
 		while(!canMove){
 			if(e instanceof Ship)
 				canMove=(!((Ship)e).isDocking());
@@ -101,7 +99,7 @@ public class MoveAnimation implements Runnable {
         		e.printStackTrace();
         	}
 		}
-		
+		e.setTargetable(false);
 		//System.out.println("moving to: " + x + ", " + y);
 		int mvTime=t;
 		int moveX=x;

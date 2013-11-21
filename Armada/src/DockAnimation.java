@@ -5,7 +5,7 @@
  */
 public class DockAnimation implements Runnable{
 	Ship ship;
-	DynamicElement planet;
+	DynamicElement target;
 	int mode,x,y;
 	/**
 	 * Constructs DockingAnimation
@@ -15,7 +15,7 @@ public class DockAnimation implements Runnable{
 	 */
 	public DockAnimation(Ship s,DynamicElement p){
 		ship=s;
-		planet=p;
+		target=p;
 		mode=1;
 		x=p.getX();
 		y=p.getY();
@@ -31,7 +31,7 @@ public class DockAnimation implements Runnable{
 	 */
 	public DockAnimation(Ship s,DynamicElement p,int m){
 		ship=s;
-		planet=p;
+		target=p;
 		mode=m;
 		if(p!=null){
 			x=p.getX();
@@ -45,6 +45,11 @@ public class DockAnimation implements Runnable{
 	 * does calculation for docking animation 
 	 */
 	public void run() {
+		ship.setDocked(false);
+		ship.setDocking(true);
+		ship.setTargetable(false);
+		ship.getAH().setMoving(true);
+		
 		int mvTime=100;
 		int moveX=x;
 		int moveY=y;
@@ -52,10 +57,9 @@ public class DockAnimation implements Runnable{
 		int deltaX=moveX-ship.getX();
 		int deltaY=moveY-ship.getY();
 		double angle = Math.toDegrees(Math.atan2(deltaY, deltaX));
+		int previousMode=mode;
 		
-		ship.setTargetable(false);
-		ship.getAH().setMoving(true);
-		ship.setDocking(true);
+		
 		
 		ship.getAH().setAngleLeft(ra);
 		while(mode!=0)
@@ -69,10 +73,15 @@ public class DockAnimation implements Runnable{
 					if(angle<0)
 						angle=360+angle;
 					ship.setAngle(angle);
-					
-					deltaY-=(int)((10+ship.getWidth()/2+planet.getWidth()/2)*Math.sin(Math.toRadians(ship.getAngle())));
-					deltaX-=(int)((10+ship.getWidth()/2+planet.getWidth()/2)*Math.cos(Math.toRadians(ship.getAngle())));
-					
+					if(target instanceof Planet){
+						deltaY-=(int)((10+ship.getWidth()/2+target.getWidth()/2)*Math.sin(Math.toRadians(ship.getAngle())));
+						deltaX-=(int)((10+ship.getWidth()/2+target.getWidth()/2)*Math.cos(Math.toRadians(ship.getAngle())));
+					}
+					else
+					{
+						deltaX-=(int)((target.getWidth()/2+ship.getWidth()/2)*Math.cos(Math.toRadians(ship.getAngle())));
+						deltaY-=(int)((target.getWidth()/2+ship.getWidth()/2)*Math.sin(Math.toRadians(ship.getAngle())));
+					}
 					ship.getAH().setMoveXLeft(deltaX);
 					ship.getAH().setMoveYLeft(deltaY);
 					
@@ -92,10 +101,17 @@ public class DockAnimation implements Runnable{
 				mode=5;
 			}
 			else if(mode==5){
-				if(ship.getBridge().getLength()+planet.getWidth()/4>=Math.sqrt(Math.pow(ship.getX()-planet.getX(), 2)+Math.pow(ship.getY()-planet.getY(), 2)))
+				if(target instanceof Planet&&ship.getBridge().getLength()+target.getWidth()/4>=Math.sqrt(Math.pow(ship.getX()-target.getX(), 2)+Math.pow(ship.getY()-target.getY(), 2)))
 				{
+					previousMode=mode;
 					mode=0;
-					
+					ship.setDocked(true);
+					System.out.println("mode5");
+				}
+				else if(target instanceof Ship&&ship.getBridge().getLength()>=Math.sqrt(Math.pow(ship.getX()-target.getX(), 2)+Math.pow(ship.getY()-target.getY(), 2))){
+					previousMode=mode;
+					mode=0;
+					ship.setDocked(true);
 					System.out.println("mode5");
 				}
 				else{
@@ -109,11 +125,16 @@ public class DockAnimation implements Runnable{
 	        	}
 			}
 			else if(mode==6){
-				
-				if(ship.getBridge().getLength()<=0)
+				if(ship.getBridge()==null){
+					previousMode=mode;
+					mode=0;
+				}
+				else if(ship.getBridge().getLength()<=0)
 				{
+					previousMode=mode;
 					mode=0;
 					ship.setBridge(null);
+					
 					
 					System.out.println("mode6");
 				}
@@ -141,7 +162,10 @@ public class DockAnimation implements Runnable{
 		ship.getAH().setMoveXLeft(0);
 		ship.getAH().setMoveYLeft(0);
 		ship.getAH().setMoving(false);
-		ship.setTargetable(true);
+		if(previousMode==5)
+			ship.setTargetable(true);
+		else
+			ship.setTargetable(false);//this works iff undocking is followed by another animation
 		ship.setDocking(false);
 		
 		
