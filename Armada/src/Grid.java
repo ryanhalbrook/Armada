@@ -334,6 +334,7 @@ public class Grid extends ViewLayer {
 	    if (status == ArmadaEngine.MovementStatus.OBJECT_IN_PATH) gc.invalidMoveAttempt("Path obstructed!");
 	    if (status == ArmadaEngine.MovementStatus.CANNOT_MOVE_PLANET) gc.invalidMoveAttempt("Planets cannot move!");
 	    if (status == ArmadaEngine.MovementStatus.UNKNOWN_FAILURE) gc.invalidMoveAttempt("Invalid Move!");
+	    if (status == ArmadaEngine.MovementStatus.NOT_TURN) gc.invalidMoveAttempt("It is not your turn");
 	}
 	
 	private void handleAttackStatus(ArmadaEngine.AttackStatus status) {

@@ -72,7 +72,7 @@ public class ApplicationManager implements ChangeListener {
     }
     
     public void changeOccurred() {
-        ArmadaEngine engine = new ArmadaEngine(gs);
+        ArmadaEngine engine = new ArmadaEngine(gs, 1);
         Spawner.spawnPlanets(engine, 7);
         ViewLayerPanel vlp = new ViewLayerPanel();
         GameController gc = new GameController(this, engine, vlp);
@@ -84,7 +84,7 @@ public class ApplicationManager implements ChangeListener {
     public void connectToNetworkedGame() {
         ps = new ProxyServer("127.0.0.1");
         if (ps == null) System.out.println("ps is null");  
-        ArmadaEngine engine = new ArmadaEngine(ps);
+        ArmadaEngine engine = new ArmadaEngine(ps, 2);
         ViewLayerPanel vlp = new ViewLayerPanel();
         GameController gc = new GameController(this, engine, vlp);
         vlp.setViewLayerController(gc);

@@ -5,6 +5,7 @@ public class ArmadaEngine implements ChangeListener {
     int turn = 1;
     static final int GRID_WIDTH = 7680; // The width of the grid in pixels.
     static final int GRID_HEIGHT = 4320; // The height of the grid in pixels.
+    int player = 0;
     // Information for computing time remaining for current turn
     private static final double TURN_TIME = 50000.0;
     private double mseconds = TURN_TIME;
@@ -48,7 +49,7 @@ public class ArmadaEngine implements ChangeListener {
     }
     
     public enum MovementStatus {
-        SUCCESS, OBJECT_IN_PATH, RANGE, CANNOT_MOVE_PLANET, UNKNOWN_FAILURE;
+        SUCCESS, OBJECT_IN_PATH, RANGE, CANNOT_MOVE_PLANET, UNKNOWN_FAILURE, NOT_TURN;
     }
     
     public enum AttackStatus {
@@ -72,8 +73,9 @@ public class ArmadaEngine implements ChangeListener {
 		return pm;
 	}
 	
-	public ArmadaEngine(GameServer server) {
+	public ArmadaEngine(GameServer server, int player) {
 	    System.out.println(this);
+	    this.player = player;
 	    if (server == null) System.out.println("Server is null");
 	    else System.out.println("Server is not null");
 	    this.gs = server;
@@ -123,6 +125,10 @@ public class ArmadaEngine implements ChangeListener {
 		s.addItem(new Item(ItemList.ItemNames.HullPlate));
 		delements.add(s);
 		
+    }
+    
+    private boolean isPlayersTurn() {
+        return (turn == player);
     }
     
     public void addPlanet(int x, int y, int width, int height) {
@@ -218,6 +224,7 @@ public class ArmadaEngine implements ChangeListener {
     }
     
     private MovementStatus moveDE(DynamicElement activeE, int x, int y) {
+        if (player != 0 && !isPlayersTurn()) return MovementStatus.NOT_TURN;
         if(activeE.withinMovement(x,y) && activeE.canMovePath2(x,y, delements) && activeE instanceof Ship){
 				Ship temp = (Ship) activeE;
 				if(temp.isDocked()){
