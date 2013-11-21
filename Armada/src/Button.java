@@ -67,6 +67,7 @@ public class Button extends BoundingRectangle{
 	}
 	
 	public void draw(Graphics g){
+	    
 		if(isSelected){
 			g.setColor(new Color(25,25,25, 250));	
 		}
@@ -94,6 +95,7 @@ public class Button extends BoundingRectangle{
 			AnimationHelper.draw(x+height/2, y+height/2, (int)(height*0.8), (int)(height*0.8), imageName, g);
 		}	
 		t.draw(g);
+		
 	}
 	
 	public void glow(Graphics g){

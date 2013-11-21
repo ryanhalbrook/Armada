@@ -229,6 +229,7 @@ public class AnimationHelper{
 	 */
 	private static BufferedImage loadImg(String img, int w, int h){
 		BufferedImage image = ImageLoader.getImage(img+".png");
+		if (image == null) image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 		AffineTransform at = new AffineTransform();
 		at.scale(w/(double)image.getWidth(), h/(double)image.getHeight());
 		AffineTransformOp scaleOp = 
@@ -242,6 +243,7 @@ public class AnimationHelper{
 	private void loadImage(String img) {
 
 		image = ImageLoader.getImage(img+".png");
+		if (image == null) image = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
 		AffineTransform at = new AffineTransform();
 		at.scale(e.getWidth()/(double)image.getWidth(), e.getHeight()/(double)image.getHeight());
 		AffineTransformOp scaleOp = 

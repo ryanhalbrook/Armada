@@ -15,6 +15,9 @@ public class Planet extends DynamicElement{
 		//super(a, b, w, h, img, r, maxH, maxE, s, all, t, weap);
 		
 	}
+    
+	public String upgradeDescription() { return "Upgrade Description"; }
+	public int upgradePrice() { return 100; }
 	
 	public Planet(){
 		super();

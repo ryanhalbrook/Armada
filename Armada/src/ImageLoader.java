@@ -8,6 +8,8 @@ public class ImageLoader {
     private static Hashtable<String, BufferedImage> images = null;
     
     public static BufferedImage getImage(String imgKey) {
+        //System.out.println("Image: " + imgKey);
+        if (imgKey == "" | imgKey == null) return null;
         if (images == null) {
             images = new Hashtable<String, BufferedImage>();
         }
@@ -24,12 +26,16 @@ public class ImageLoader {
     }
     
     private static void loadImage(String imgKey) {
-    
+        
         BufferedImage bi = null;
         try {
             URL url = new ImageLoader().getClass().getClassLoader().getResource("image/" + imgKey);
 			bi = ImageIO.read(url);
         } catch (IOException e) {
+            System.out.println("Failed to load image on attempt 1: " + imgKey);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Failed to load image on attempt 1: " + imgKey);
+        } catch (NullPointerException e) {
             System.out.println("Failed to load image on attempt 1: " + imgKey);
         }
         if (bi == null) {
@@ -37,6 +43,10 @@ public class ImageLoader {
                 URL url = new ImageLoader().getClass().getClassLoader().getResource("src/image/" + imgKey);
 			    bi = ImageIO.read(url);
             } catch (IOException e) {
+                System.out.println("Failed to load image on attempt 2: " + imgKey);
+            } catch (IllegalArgumentException e) {
+                System.out.println("Failed to load image on attempt 2: " + imgKey);
+            } catch (NullPointerException e) {
                 System.out.println("Failed to load image on attempt 2: " + imgKey);
             }
         }
