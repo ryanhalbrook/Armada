@@ -2,7 +2,7 @@ import java.util.*;
 import java.net.*;
 import java.io.*;
 
-public class HostServer extends GameServer {
+public class HostServer implements GameServer {
     static final int PORT = 1730;
     static final String SYSTEM_ID = "ARMADA-AF3FD2";
     static final String QUIT_STRING = "QUIT_GAME";
