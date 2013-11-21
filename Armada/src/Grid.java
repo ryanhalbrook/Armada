@@ -26,7 +26,7 @@ public class Grid extends ViewLayer {
     private int index = 0;
     private DynamicElement activeE;
     private GameController gc = null;
-    private DynamicSizeBroadcast dsb;
+    private DynamicSize dsb;
     private BoundingRectangle viewRegion = null; //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
     
     // Mouse coordinate information
@@ -439,7 +439,7 @@ public class Grid extends ViewLayer {
 		return ap;
 	}
 	*/
-	public DynamicSizeBroadcast getAp() {
+	public DynamicSize getAp() {
 		return this.dsb;
 	}
 	public int getWidth(){

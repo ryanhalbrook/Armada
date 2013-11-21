@@ -1,5 +1,5 @@
 package src.view;
-public interface DynamicSizeBroadcast {
+public interface DynamicSize {
     int getHeight();
     int getWidth();
 }

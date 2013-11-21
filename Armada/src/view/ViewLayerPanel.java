@@ -4,7 +4,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.awt.*;
 
-public class ViewLayerPanel extends JPanel implements DynamicSizeBroadcast, ActionListener {
+public class ViewLayerPanel extends JPanel implements DynamicSize, ActionListener {
     private ViewLayerController viewLayerController = null;
     private boolean antialiasingEnabled = false;
     private Timer refreshTimer = null;

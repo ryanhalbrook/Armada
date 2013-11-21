@@ -4,7 +4,7 @@ import java.awt.event.*;
 
 public class LobbyController extends ViewLayerController {
     ApplicationManager am = null;
-    public LobbyController(ApplicationManager am, DynamicSizeBroadcast dsb) {
+    public LobbyController(ApplicationManager am, DynamicSize dsb) {
         this.am = am;
         this.viewLayer = new LobbyLayer( new BoundingRectangle(0, 0, dsb));
     }

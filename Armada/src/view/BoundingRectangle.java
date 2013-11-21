@@ -7,7 +7,7 @@ package src.view;
 */
 public class BoundingRectangle {
     public int x, y, width, height;
-    public DynamicSizeBroadcast dsb;
+    public DynamicSize dsb;
     
     public BoundingRectangle(int x, int y, int width, int height) {
     
@@ -30,7 +30,7 @@ public class BoundingRectangle {
     	
     }
     
-    public BoundingRectangle(int x, int y, DynamicSizeBroadcast dsb) {
+    public BoundingRectangle(int x, int y, DynamicSize dsb) {
     	this.x=x;
     	this.y=y;
     	this.dsb = dsb;

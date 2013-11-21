@@ -12,7 +12,7 @@ import java.awt.image.*;
     Responsible for drawing game layers and dispatching mouse and keyboard events.
  */
 
-public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener, DynamicSizeBroadcast {
+public class ArmadaPanel extends JPanel implements MouseListener, KeyListener, MouseMotionListener, ActionListener, DynamicSize {
 
     private static final int DEFAULT_GRID_MOVE_RATE = 200;
     

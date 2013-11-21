@@ -9,7 +9,7 @@ public class GameController extends ViewLayerController {
     int gridMoveRate = DEFAULT_GRID_MOVE_RATE;
     private Grid grid;
     private ArmadaEngine engine;
-    private DynamicSizeBroadcast dsb;
+    private DynamicSize dsb;
     static final int GRID_WIDTH = 7680; // The width of the grid in pixels.
     static final int GRID_HEIGHT = 4320; // The height of the grid in pixels.
     private HUDmanager hud = null;
@@ -31,7 +31,7 @@ public class GameController extends ViewLayerController {
     
     private BoundingRectangle viewRegion = new BoundingRectangle(0, 0, 500,500); //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
     
-    public GameController(ApplicationManager am, ArmadaEngine engine, DynamicSizeBroadcast dsb) {
+    public GameController(ApplicationManager am, ArmadaEngine engine, DynamicSize dsb) {
         super(null);
         this.am = am;
         this.dsb = dsb;
@@ -132,7 +132,7 @@ public class GameController extends ViewLayerController {
 	    ipl.showPopup("Mode: " + grid.getModeString(), new Color(0.0f, 0.5f, 0.0f));
 	}
     
-    public DynamicSizeBroadcast getViewSize() {
+    public DynamicSize getViewSize() {
         return dsb;
     }
     
