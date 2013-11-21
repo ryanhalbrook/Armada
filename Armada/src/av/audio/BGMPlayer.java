@@ -1,5 +1,5 @@
-package src;
-import src.view.*;
+package src.av.audio;
+
 import java.net.URISyntaxException;
 import java.net.URL;
 import javafx.embed.swing.JFXPanel;

@@ -1,4 +1,7 @@
-package src; import src.view.*;
+package src;
+import src.view.*;
+import src.av.audio.BGMPlayer;
+
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;
