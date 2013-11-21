@@ -16,10 +16,10 @@ A class representing the main menu of the system.
 public class MainMenuPanel extends JPanel implements ActionListener{
     ApplicationManager am;
     JButton startButton = new JButton("Start Game Old Way");
-    JButton startButton2 = new JButton("Start Game");
+    JButton startButton2 = new JButton("Single Player");
     JButton exitButton = new JButton("Quit Game");
-    JButton networkedGameHostButton = new JButton("Start Networked Game");
-    JButton networkedGameClientButton = new JButton("Connect to Networked Game");
+    JButton networkedGameHostButton = new JButton("New Multiplayer Host");
+    JButton networkedGameClientButton = new JButton("Connect to Multiplayer Host");
     
     BufferedImage backgroundImage;
     static final String IMAGE_NAME = "ArmadaBackground";
@@ -33,14 +33,15 @@ public class MainMenuPanel extends JPanel implements ActionListener{
         startButton2.addActionListener(this);
         networkedGameHostButton.addActionListener(this);
         networkedGameClientButton.addActionListener(this);
-        JPanel buttonsPanel = new JPanel();
+        JPanel buttonsPanel = new JPanel(new GridLayout(4,1));
+        buttonsPanel.setPreferredSize(new Dimension(50, 500));
         this.setLayout(new BorderLayout());
         buttonsPanel.add(startButton2);
         buttonsPanel.add(networkedGameHostButton);
         buttonsPanel.add(networkedGameClientButton);
         buttonsPanel.add(exitButton);
         //buttonsPanel.add(startButton);
-        buttonsPanel.setBorder(new EmptyBorder(10,400,250,10));
+        buttonsPanel.setBorder(new EmptyBorder(100,400,250,10));
         buttonsPanel.setOpaque(false);
         this.add(buttonsPanel, BorderLayout.SOUTH);
         

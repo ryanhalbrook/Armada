@@ -1,4 +1,7 @@
-package src; import src.view.*;
+package src;
+import src.view.*;
+import src.av.audio.SoundEffect;
+
 /* BasicStroke, Color, Cursor, FontMetrics, Graphics, Graphics2D, Stroke */
 import java.awt.*;
 import java.awt.event.MouseEvent;
