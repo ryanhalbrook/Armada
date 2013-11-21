@@ -6,6 +6,7 @@ import java.util.ArrayList;
 public class ButtonPage {
 
 	static final int BUTTONS_PER_PAGE = 5;
+	static final int TOP_GAP =20;
 	protected int x,y,width,height,page;
 	private ArrayList<ButtonList> lists;
 	private HUD hud;
@@ -16,9 +17,9 @@ public class ButtonPage {
 		page=0;
 		hud=h;
 		lists=new ArrayList<ButtonList>();
-		back=new Button(0,0,30,20,h.getGC(),"");
+		back=new Button(0,0,30,TOP_GAP+ButtonList.BUTTON_GAP,h.getGC(),"");
 		back.setImageName("arrowLeft");
-		forward=new Button(0,0,30,20,h.getGC(),"");
+		forward=new Button(0,0,30,TOP_GAP+ButtonList.BUTTON_GAP,h.getGC(),"");
 		forward.setImageName("arrow");
 		back.setColor(new Color(50,150,200, 150));
 		forward.setColor(new Color(50,150,200, 150));
@@ -30,7 +31,7 @@ public class ButtonPage {
 		height=h;
 		if(lists.size()>0){
 			for(ButtonList b: lists){
-				b.setDimensions(inX, inY, w, h);
+				b.setDimensions(inX, inY + TOP_GAP, w, h);	
 			}
 		}
 		
@@ -39,7 +40,10 @@ public class ButtonPage {
 	public void setLocation(int inX, int inY){
 		x=inX;
 		y=inY;
-		activeL.setLocation(inX,inY);
+		if(activeL!=null){
+			activeL.setLocation(inX,inY);	
+		}
+		
 	}
 	
 	public void add(ItemButton b){
@@ -64,31 +68,42 @@ public class ButtonPage {
 		activeL=lists.get(page);
 		if(activeL==null)return;
 		updateButtons();
-		activeL.setHeight(activeL.getSuggestedHeight());
 		activeL.draw(g);
+		//if(lists.size()>1){
+			drawTop(g);	
+		//}
+		
+	}
+	
+	public void drawTop(Graphics g){
+		g.setColor(ButtonList.BACKGROUND_COLOR);
+		g.fillRect(x, y, width, TOP_GAP);
+		g.setColor(Color.white);
+		g.drawString("Page: " + (page +1) + "/"+lists.size(),x+ ButtonList.BUTTON_GAP + back.getWidth(), y+g.getFontMetrics().getHeight());
 		back.draw(g);
-		forward.draw(g);
+		forward.draw(g);	
 	}
 	
 	private void updateButtons(){
 		if(activeL==null)return;
 		activeL.updateButtons();
-		back.setY(y-back.getHeight());
+		activeL.setHeight(activeL.getSuggestedHeight());
+		back.setY(y);
 		back.setX(x);
-		forward.setY(y-forward.getHeight());
+		forward.setY(y);
 		forward.setX(x+width-forward.getWidth());
 	}
 	
 	public boolean click(int inX, int inY){
 		if(activeL==null)return false;
-		if(back.click(inX, inY)){
+		if(lists.size()>1&&back.click(inX, inY)){
 			if(page==0)return true;
 			else page--;
 			activeL=lists.get(page);
 			System.out.println("PAGE 2: " + page);
 			return true;
 		}
-		if(forward.click(inX, inY)){
+		if(lists.size()>1&&forward.click(inX, inY)){
 			if(page>=lists.size()-1)return true;
 			else page++;
 			activeL=lists.get(page);
@@ -131,7 +146,7 @@ public class ButtonPage {
 	public int getSuggestedHeight(){
 		if(activeL==null)return 0;
 		updateButtons();
-		return activeL.getSuggestedHeight();
+		return activeL.getSuggestedHeight()+TOP_GAP;
 	}
 	
 	public void fillShop(Planet p){
@@ -146,6 +161,26 @@ public class ButtonPage {
 		add(new ItemButton(x+3, y+3, width, ButtonList.BUTTON_HEIGHT, hud.getGC(), ItemList.ItemNames.ScalingSpeedUpgrade,true));
 		add(new ItemButton(x+3, y+3, width, ButtonList.BUTTON_HEIGHT, hud.getGC(), ItemList.ItemNames.ScalingWeaponsUpgrade,true));
 		add(new ItemButton(x+3, y+3, width, ButtonList.BUTTON_HEIGHT, hud.getGC(), ItemList.ItemNames.SpeedUpgrade,true));
+	}
+	
+	public void fillShip(Ship s){
+		clear();
+		if(s.getItems()==null)return;
+		//if(s.getItems().size() <1)return;
+		int temp = s.getMaxCargo();
+		for(Item i: s.getItems()){
+			ItemButton tempItem =new ItemButton(x+3, y+3, width, ButtonList.BUTTON_HEIGHT, hud.getGC(), i.getId(),false);
+			tempItem.setClickable(true);
+			add(tempItem );
+			temp--;
+		}
+		while(temp>0){
+			ItemButton tempItem =new ItemButton(x+3, y+3, width, ButtonList.BUTTON_HEIGHT, hud.getGC(), ItemList.ItemNames.Blank);
+			tempItem.setClickable(false);
+			add(tempItem);
+			 temp--;
+		}
+		
 	}
 	
 }

@@ -5,11 +5,11 @@ import java.util.HashMap;
 public class ItemList {
 	//STEP 0 : Only items that edit ship stats are supported right now.  Proc items are not supported
 	public enum ItemNames{//STEP 1 : When adding a new item, add the name here.  This is what an item's id is
-		Blank, Juggernaut, HullPlate, WeaponsUpgrade, EnginesUpgrade, SpeedUpgrade, ScalingWeaponsUpgrade, ScalingEnginesUpgrade, ScalingHullUpgrade, ScalingSpeedUpgrade, OverloadHull, OverloadWeapons, OverloadEngines, OverloadSpeed;
+		Blank, Cargo, Juggernaut, HullPlate, WeaponsUpgrade, EnginesUpgrade, SpeedUpgrade, ScalingWeaponsUpgrade, ScalingEnginesUpgrade, ScalingHullUpgrade, ScalingSpeedUpgrade, OverloadHull, OverloadWeapons, OverloadEngines, OverloadSpeed;
 	}
 	
 	public enum ItemStats{//STEP 2 : If the item uses a stat not seen here, you will need to add it to this list.  You will also have to edit the Item class (I also have instructions there) because it does not yet support the stat if it is not here
-		HullFlat /*Adds a flat value to maxHull*/, WeaponsFlat/*Adds a flat value to weapons (damage)*/, EnginesFlat/*Adds a flat value to engines*/, 
+		CargoPassive/*Just shows that this is a cargo ship.  Will make all items do nothing*/, HullFlat /*Adds a flat value to maxHull*/, WeaponsFlat/*Adds a flat value to weapons (damage)*/, EnginesFlat/*Adds a flat value to engines*/, 
 		SpeedFlat/*Adds a flat value to speed*/, WeaponsPercentage/*Adds a percentage-based boost to weapons*/, EnginesPercentage/*Adds a percentage-based boost to engines*/, HullPercentage/*Adds a percentage-based boost to hull*/,
 		ImageName/*name of the image for this item*/,SpeedPercentage/*Adds a percentage-based boost to speed*/, HullOverload/*Overloads the hull*/, WeaponsOverload/*Overloads the weapons*/, EnginesOverload/*Overloads the engines*/, SpeedOverload/*Overloads the speed*/, Description/*Item's description*/, Price/*Item's price*/, InGameName/*Item's in game name*/;
 	}
@@ -26,6 +26,12 @@ public class ItemList {
 		itemVals.put(ItemNames.HullPlate.name()+ItemStats.Price.name(), 100);
 		itemDescriptions.put(ItemNames.HullPlate.name() + ItemStats.Description, "Increases Hull by " + ItemList.getInt(ItemNames.HullPlate, ItemStats.HullFlat));
 		itemDescriptions.put(ItemNames.HullPlate.name() + ItemStats.InGameName, "Hull Reinforcements");
+		
+		//Cargo
+		itemVals.put(ItemNames.Cargo.name()+ItemStats.CargoPassive.name(), 1);// using .name() converts the name to the string of its name which it is stored by in the HashMap.  There is no reason to worry about this though
+		itemVals.put(ItemNames.Cargo.name()+ItemStats.Price.name(), 0);
+		itemDescriptions.put(ItemNames.Cargo.name() + ItemStats.Description, "This ship cannot be upgraded with items");
+		itemDescriptions.put(ItemNames.Cargo.name() + ItemStats.InGameName, "Cargo Passive");
 		
 		//WeaponsUpgrade
 		itemVals.put(ItemNames.WeaponsUpgrade.name() + ItemStats.WeaponsFlat, 100);

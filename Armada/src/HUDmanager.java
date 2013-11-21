@@ -109,6 +109,9 @@ public class HUDmanager extends ViewLayer {
 		if(trade.isIn(inX, inY)){
 			((TradeHUD)trade).drag(inX,inY);
 		}
+		if(store.isIn(inX, inY)){
+			((StoreHUD)store).drag(inX,inY);
+		}
 	}
 	
 	public void toggleLine(){

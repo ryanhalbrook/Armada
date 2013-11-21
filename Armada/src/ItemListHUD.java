@@ -12,7 +12,7 @@ public class ItemListHUD extends HUD {
 	//private ItemButton activeB;
 	private HUDmanager hm;
 	private DockHUD dh;
-	private ButtonList buttons;
+	private ButtonPage buttons;
 	
 	public ItemListHUD(GameController gc, Position position, HUDmanager h){
 		super(new BoundingRectangle(0,0,250,200),gc, position);
@@ -25,7 +25,7 @@ public class ItemListHUD extends HUD {
 		else if(de != null && de instanceof Ship){
 			s=(Ship)de;
 		}
-		buttons = new ButtonList(this);
+		buttons = new ButtonPage(this);
 		fillButtons();
 	}
 	
@@ -40,7 +40,7 @@ public class ItemListHUD extends HUD {
 		}
 		if(gc.getActiveE() != de || de==null){
 			de =gc.getActiveE();
-			buttons=new ButtonList(this);
+			buttons=new ButtonPage(this);
 			fillButtons();
 		}
 		if(de != null && de instanceof Planet){
@@ -75,7 +75,7 @@ public class ItemListHUD extends HUD {
 	public void draw(Graphics g){
 		if(gc.getActiveE() != de || de==null){
 			de =gc.getActiveE();
-			buttons=new ButtonList(this);
+			buttons=new ButtonPage(this);
 			fillButtons();
 		}
 		if(de != null && de instanceof Planet){
@@ -91,7 +91,7 @@ public class ItemListHUD extends HUD {
 		
 		updateLocation();
 		buttons.setDimensions(r.x,r.y,r.width,r.height);
-		buttons.updateButtons();
+		//buttons.();
 		r.setHeight(buttons.getSuggestedHeight());
 		buttons.draw(g);
 		if(dh !=null){

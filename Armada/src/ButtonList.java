@@ -8,6 +8,7 @@ public class ButtonList {
 
 	protected int x,y,width,height;
 	static final int BUTTON_HEIGHT = 40, BUTTON_GAP = 4;
+	static Color BACKGROUND_COLOR = new Color(25,125,175, 150);
 	private ItemButton activeB;
 	private HUD hud;
 	private ArrayList<ItemButton> buttons;
@@ -40,7 +41,7 @@ public class ButtonList {
 	public void draw(Graphics g){
 		updateButtons();
 		if(buttons.size()<1)return;
-		g.setColor(new Color(25,125,175, 150));
+		g.setColor(BACKGROUND_COLOR);
 		g.fillRect(x, y, width, height);
 		drawButtons(g);
 	}
@@ -63,19 +64,22 @@ public class ButtonList {
 	}
 	
 	public boolean click(int inX, int inY){
-		for(ItemButton b: buttons){
-			if(b.click(inX, inY)){
-				if(activeB!=null){
-					activeB.setSelected(false);
+		synchronized(buttons){
+			for(ItemButton b: buttons){
+				if(b.click(inX, inY)){
+					if(activeB!=null){
+						activeB.setSelected(false);
+					}
+					//dh=new DockHUD(gc, HUD.Position.TOP_CENTER, this);
+					//hm.addHUD(dh);
+					activeB=b;
+					activeB.setSelected(true);
+					return true;
 				}
-				//dh=new DockHUD(gc, HUD.Position.TOP_CENTER, this);
-				//hm.addHUD(dh);
-				activeB=b;
-				activeB.setSelected(true);
-				return true;
 			}
+			return false;
 		}
-		return false;
+		
 	}
 	
 	public int size(){
@@ -107,13 +111,13 @@ public class ButtonList {
 		//if(s.getItems().size() <1)return;
 		int temp = s.getMaxCargo();
 		for(Item i: s.getItems()){
-			ItemButton tempItem =new ItemButton(x+3, y+3, width, BUTTON_HEIGHT, hud.getGC(), i.getId(),false);
+			ItemButton tempItem =new ItemButton(x+3, y+3, 0, BUTTON_HEIGHT, hud.getGC(), i.getId(),false);
 			tempItem.setClickable(true);
 			add(tempItem );
 			temp--;
 		}
 		while(temp>0){
-			ItemButton tempItem =new ItemButton(x+3, y+3, width, BUTTON_HEIGHT, hud.getGC(), ItemList.ItemNames.Blank);
+			ItemButton tempItem =new ItemButton(x+3, y+3, 0, BUTTON_HEIGHT, hud.getGC(), ItemList.ItemNames.Blank);
 			tempItem.setClickable(false);
 			add(tempItem);
 			 temp--;

@@ -8,8 +8,8 @@ import java.awt.Graphics;
 
 public class StoreHUD extends HUD{
 	
-	private ButtonList shipList;//, shopList;
-	private ButtonPage shopList;
+	//private ButtonList shipList;//, shopList;
+	private ButtonPage shopList, shipList;
 	private Ship s;
 	private Planet p;
 	private final int TITLE_HEIGHT=30,GAP=5;
@@ -17,7 +17,7 @@ public class StoreHUD extends HUD{
 
 	public StoreHUD(GameController gc, Position p){
 		super(new BoundingRectangle(5,45,700,400),gc, p);
-		shipList = new ButtonList(this);
+		shipList = new ButtonPage(this);
 		shopList=new ButtonPage(this);
 		displaying=false;
 	}
@@ -87,6 +87,7 @@ public class StoreHUD extends HUD{
 		if(shipList==null)return false;
 		if(shopList==null)return false;
 		if(shipList.click(inX, inY)){
+			if(shipList.getActiveB()==null)return true;
 			Item temp = new Item(shipList.getActiveB().getId());
 			if(temp.getId()==ItemList.ItemNames.Blank)return true;
 			gc.getEngine().getPlayerManager().payPlayerMoney(s.getAlliance(), temp.getPrice());
@@ -109,6 +110,15 @@ public class StoreHUD extends HUD{
 			return true;
 		}
 		return false;
+	}
+	
+	public void drag(int inX, int inY){
+		if(inY-r.getY()<TITLE_HEIGHT){
+			position=HUD.Position.STATIC;
+			r.setX(inX-r.getWidth()/2);
+			r.setY(inY-TITLE_HEIGHT/2);	
+		}
+		
 	}
 	
 }

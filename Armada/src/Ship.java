@@ -62,7 +62,6 @@ public class Ship extends DynamicElement{
 	}
 	
 	public void removeItem(Item i){
-		System.out.println("Attempting to remove item 1");
 		StatEditor.removeItem(this, i);
 		cargo--;
 		System.out.println(cargo);
@@ -106,7 +105,6 @@ public class Ship extends DynamicElement{
 	}
 	
 	public void fullHealHull(){
-		System.out.println("Setting hull to: " + maxHull);
 		hull=maxHull;
 	}
 	

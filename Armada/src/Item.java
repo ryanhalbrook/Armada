@@ -22,6 +22,9 @@ public class Item {
 	* add an item we need to make sure the stats are recalculated and done so in the right order.  So make sure you put it in the right priority
 	**/ 
 	public void update(Ship s, int priority){
+		if(ItemList.keyInt(id,ItemList.ItemStats.CargoPassive)){//checks if HullFlat (the stat) exists for the id
+			return;
+		}
 		if(priority == 0){//For flat increases/decreases.  ie a + b
 			/*
 			 * Template: 

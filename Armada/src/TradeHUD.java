@@ -6,7 +6,7 @@ import java.awt.Graphics;
 
 public class TradeHUD extends HUD{
 	
-	private ButtonList l1,l2;
+	private ButtonPage l1,l2;
 	private Ship s1,s2;
 	private final int TITLE_HEIGHT=30,GAP=5;
 	private String title;
@@ -18,8 +18,8 @@ public class TradeHUD extends HUD{
 		close = new Button(0,0,15,15,gc,"X",true);
 		close.setColor(Color.RED);
 		title="TRADE";
-		l1=new ButtonList(this);
-		l2=new ButtonList(this);
+		l1=new ButtonPage(this);
+		l2=new ButtonPage(this);
 	}
 	
 	public void refresh(long previousTime, long currentTime) {
@@ -90,23 +90,24 @@ public class TradeHUD extends HUD{
 		if(l1==null)return false;
 		if(l2==null)return false;
 		if(l1.click(inX, inY)  && s2.canGetCargo()){
-			System.out.println("Moving from 1");
+			if(l1.getActiveB()==null)return true;
 			Item temp = new Item(l1.getActiveB().getId());
 			if(temp.getId()==ItemList.ItemNames.Blank)return true;
 			s1.removeItem(temp);
 			s2.addItem(temp);
-			
+			l1.unselect();
 			update();
 			return true;
 		}
 		else if(l2.click(inX, inY)&& s1.canGetCargo()){
-			System.out.println("Moving from 2");
+			if(l2.getActiveB()==null)return true;
 			Item temp = new Item(l2.getActiveB().getId());
 			if(temp.getId()==ItemList.ItemNames.Blank)return true;
 			s1.addItem(temp);
 			s2.removeItem(temp);
 			
 			update();
+			l2.unselect();
 			return true;
 		}
 		else if(r.isIn(inX, inY)){

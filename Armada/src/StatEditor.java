@@ -16,6 +16,11 @@ public enum StatEditor {;
 		ArrayList<Item> items = s.getItems();
 		s.resetStats();
 		if(items.size() < 1) return;
+		for(Item it: items){
+			if(it.getId()==ItemList.ItemNames.Cargo){
+				return;
+			}
+		}
 		for(int j = 0; j < 3; j++){
 			for(Item i: items){
 				i.update(s,j);
@@ -33,7 +38,6 @@ public enum StatEditor {;
 	public static void removeItem(Ship s, Item i){
 		double percHull=(double)s.getHull()/(double)s.getMaxHull();
 		double perEng=(double)s.getEngine()/(double)s.getMaxEngine();
-		System.out.println("Attempting to remove item 2");
 		i.uponRemoval(s);
 		for(int j=0; j<s.getItems().size();j++){
 			if(s.getItems().get(j).getId()==i.getId()){
@@ -43,7 +47,6 @@ public enum StatEditor {;
 		}
 		
 		//s.getItems().remove(i);
-		System.out.println("Attempting to remove item 3");
 		StatEditor.update(s);
 		s.setHull((int)Math.round((double)s.getMaxHull()*percHull));
 		s.setEngine((int)Math.round((double)s.getMaxEngine()*perEng));
