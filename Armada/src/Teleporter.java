@@ -32,8 +32,8 @@ public class Teleporter extends Element{
 		s.setTargetable(false);
 		destX=dX;
 		destY=dY;
-		w=d.getWidth();
-		h=d.getHeight();
+		w=(int)(d.getWidth()*1.5);
+		h=(int)(d.getHeight()*1.5);
 		backup=s.getAH().getImage();
 	}
 	/**
@@ -52,24 +52,24 @@ public class Teleporter extends Element{
 		s.setTargetable(false);
 		if(mode==1)
 			imgIndex=NUM_FRAME-1;
-		w=d.getWidth();
-		h=d.getHeight();
+		w=(int)(d.getWidth()*1.5);
+		h=(int)(d.getHeight()*1.5);
 	}
 	/**
 	 * does teleportation animation
 	 */
 	public void draw(Graphics g, BoundingRectangle viewRegion){
-		BufferedImage temp= ah.getImage().getSubimage(WIDTH*imgIndex, 0, WIDTH, HEIGHT);
+		BufferedImage temp= ah.getImage().getSubimage(WIDTH*(imgIndex/2), 0, WIDTH, HEIGHT);
 		RescaleOp rop=null;
 		if(mode==0){
-			float[] scales = { 1f, 1f, 1f, 1f-1f/(NUM_FRAME)*(imgIndex+1) };
+			float[] scales = { 1f, 1f, 1f, 1f-1f/(NUM_FRAME)*(imgIndex+1)/2 };
 			float[] offsets = new float[4];
 			 rop= new RescaleOp(scales, offsets, null);
 			imgIndex++;
 		}
 			
 		else if(mode ==1){
-			float[] scales = { 1f, 1f, 1f, 1f/(NUM_FRAME)*(NUM_FRAME-(imgIndex)) };
+			float[] scales = { 1f, 1f, 1f, 1f/(NUM_FRAME)*(NUM_FRAME-(imgIndex/2.0f)) };
 			float[] offsets = new float[4];
 			 rop = new RescaleOp(scales, offsets, null);
 			imgIndex--;
@@ -86,9 +86,9 @@ public class Teleporter extends Element{
 	 * 			<code>false</code> otherwise
 	 */
 	public boolean isDone(){
-		if(mode==0&&imgIndex>=NUM_FRAME){
+		if(mode==0&&imgIndex>=NUM_FRAME*2){
 			mode=1;
-			imgIndex=NUM_FRAME-1;
+			imgIndex=2*(NUM_FRAME-1);
 			s.setX(destX);
 			s.setY(destY);
 			x=destX;
