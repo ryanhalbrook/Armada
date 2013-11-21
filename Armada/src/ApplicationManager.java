@@ -1,6 +1,7 @@
+package src;
+import src.view.*;
 import java.awt.*;
 import javax.swing.*;
-
 /**
 Responsible for switching between the different panels of the application.
 Currently switches between the main menu and the game.

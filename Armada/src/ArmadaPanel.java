@@ -1,3 +1,5 @@
+package src;
+import src.view.*;
 import java.awt.event.*;
 import java.awt.*;
 import javax.swing.*;

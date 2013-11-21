@@ -1,4 +1,4 @@
-
+package src; import src.view.*;
 public class NormalShip extends Ship{
 
 	public NormalShip(int inX, int inY, int team) {

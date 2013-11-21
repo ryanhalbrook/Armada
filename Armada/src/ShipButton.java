@@ -1,4 +1,4 @@
-
+package src; import src.view.*;
 public class ShipButton extends Button{
 
 	private Ship s;

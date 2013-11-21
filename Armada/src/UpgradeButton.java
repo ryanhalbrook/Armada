@@ -1,4 +1,4 @@
-
+package src; import src.view.*;
 public class UpgradeButton extends Button{
 	
 	public UpgradeButton(int inX, int inY, int w, int h, GameController gc, DynamicElement de) {

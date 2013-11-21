@@ -1,4 +1,4 @@
-
+package src; import src.view.*;
 public class Spawner {
 	
 	static final int MIN_DISTANCE = 900;

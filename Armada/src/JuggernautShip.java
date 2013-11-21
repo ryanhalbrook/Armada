@@ -1,4 +1,4 @@
-
+package src; import src.view.*;
 public class JuggernautShip extends Ship {
 	
 	private double hullBonus = .1, engineBonus = .1;

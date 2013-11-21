@@ -1,4 +1,4 @@
-
+package src; import src.view.*;
 public class ScoutShip extends Ship{
 
 	public ScoutShip(int inX, int inY, int team) {

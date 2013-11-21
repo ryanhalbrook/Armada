@@ -1,3 +1,4 @@
+package src; import src.view.*;
 import java.awt.*;
 public class LobbyLayer extends ViewLayer {
     public LobbyLayer(BoundingRectangle r) {

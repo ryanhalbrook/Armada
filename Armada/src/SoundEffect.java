@@ -1,3 +1,4 @@
+package src; import src.view.*;
 import java.io.*;
 import java.net.URL;
 import javax.sound.sampled.*;

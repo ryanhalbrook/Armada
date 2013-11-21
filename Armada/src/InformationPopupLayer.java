@@ -1,3 +1,4 @@
+package src; import src.view.*;
 import java.awt.*;
 public class InformationPopupLayer extends ViewLayer {
     private String text;

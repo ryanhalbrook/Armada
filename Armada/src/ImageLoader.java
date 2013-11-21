@@ -1,3 +1,4 @@
+package src; import src.view.*;
 import java.util.*;
 import java.awt.image.*;
 import java.io.*;

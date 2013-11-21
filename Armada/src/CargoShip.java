@@ -1,4 +1,4 @@
-
+package src; import src.view.*;
 public class CargoShip extends Ship {
 	
 	private double hullBonus = .1, engineBonus = .1;

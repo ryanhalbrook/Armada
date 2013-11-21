@@ -1,3 +1,4 @@
+package src; import src.view.*;
 import java.util.*;
 public interface GameServer {
     public void registerClient(Object client);

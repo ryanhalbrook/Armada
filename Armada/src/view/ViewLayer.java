@@ -1,3 +1,5 @@
+package src.view;
+
 import java.util.ArrayList;
 import java.awt.Graphics;
 
@@ -10,7 +12,7 @@ public class ViewLayer {
     /** Enables/Disables debugging statements */
     protected static final boolean DEBUG = false;
     /** The rectangular region that this layer encompasses.*/
-    protected BoundingRectangle r;  
+    public BoundingRectangle r;  
     /** A name for this layer. Intended for debugging purposes. */
     protected String name;  
     private boolean drawingEnabled = true;

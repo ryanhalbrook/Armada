@@ -1,4 +1,4 @@
-
+package src; import src.view.*;
 /* BasicStroke, Color, Cursor, FontMetrics, Graphics, Graphics2D, Stroke */
 import java.awt.*;
 import java.awt.event.MouseEvent;

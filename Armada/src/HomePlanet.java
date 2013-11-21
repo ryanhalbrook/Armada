@@ -1,3 +1,4 @@
+package src; import src.view.*;
 /**
     Represents a player's home planet. If one of these gets destroyed, the game ends.
 */

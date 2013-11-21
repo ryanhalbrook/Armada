@@ -1,4 +1,4 @@
-
+package src; import src.view.*;
 public class Item {
 	
 	//This class may seem hard to edit (and it may really be) but I'll try to give you steps

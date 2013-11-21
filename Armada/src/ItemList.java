@@ -1,3 +1,4 @@
+package src; import src.view.*;
 import java.util.HashMap;
 //This may look very complicated at first, but its actually pretty easy, I've added steps for you
 

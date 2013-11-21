@@ -1,3 +1,4 @@
+package src; import src.view.*;
 import javax.swing.JFrame;
 
 /*

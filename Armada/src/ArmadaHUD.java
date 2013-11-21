@@ -1,3 +1,5 @@
+package src;
+import src.view.*;
 import java.awt.*;
 public class ArmadaHUD extends HUD {
     private GameController gc = null;

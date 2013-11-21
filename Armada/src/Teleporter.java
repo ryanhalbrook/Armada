@@ -1,3 +1,4 @@
+package src; import src.view.*;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.awt.image.RescaleOp;
