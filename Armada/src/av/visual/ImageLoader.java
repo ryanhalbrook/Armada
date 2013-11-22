@@ -11,7 +11,7 @@ public class ImageLoader {
 
     static ImageLoader instance = null;
 
-    public static ImageLoader getInstance() {
+    public static synchronized ImageLoader getInstance() {
         if (instance == null) instance = new ImageLoader();
         return instance;
     }
@@ -22,7 +22,7 @@ public class ImageLoader {
     
     private Hashtable<String, BufferedImage> images = null;
     
-    public BufferedImage getImage(String imgKey) {
+    public synchronized BufferedImage getImage(String imgKey) {
         //System.out.println("Image: " + imgKey);
         if (imgKey == "" | imgKey == null) return null;
         if (images == null) {
@@ -36,12 +36,12 @@ public class ImageLoader {
         return img;
     }
     
-    public void preloadImageAsync(String imgKey) {
+    public synchronized void preloadImageAsync(String imgKey) {
         Thread loadImageThread = new Thread(new AsyncImageLoader(imgKey));
         loadImageThread.start();
     }
     
-    public boolean imageIsLoaded(String imgKey) {
+    public synchronized boolean imageIsLoaded(String imgKey) {
         return (images.get(imgKey) != null);
     }
     
@@ -49,7 +49,7 @@ public class ImageLoader {
         return true;
     }
     
-    private void loadImage(String imgKey) {
+    private synchronized void loadImage(String imgKey) {
         
         BufferedImage bi = null;
         try {

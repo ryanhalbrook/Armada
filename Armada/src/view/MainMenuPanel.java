@@ -139,8 +139,8 @@ public class MainMenuPanel extends JPanel implements ActionListener{
                 int count = 0;
                 while(!quit) {
                     count++;
-                    if (count > 29) {
-                        System.out.println("Preloading an image timed out.");
+                    if (count > 49) {
+                        System.out.println("Preloading an image timed out: " + list[i]);
                         quit = true;
                     }
                     try {
