@@ -6,9 +6,11 @@ import view.controller.LobbyController;
 import game.server.GameServer;
 import game.server.HostServer;
 import game.server.ProxyServer;
+import java.awt.image.BufferedImage;
 
 import java.awt.*;
-
+import java.util.ArrayList;
+import av.visual.ImageLoader;
 import javax.swing.*;
 /**
 Responsible for switching between the different panels of the application.
@@ -107,6 +109,8 @@ public class ApplicationManager implements ChangeListener {
     }
     
     public void startGameNewWay() {
+        BufferedImage img = null;
+        
         ArmadaEngine engine = new ArmadaEngine();
         Spawner.spawnPlanets(engine, 7);
         ViewLayerPanel vlp = new ViewLayerPanel();

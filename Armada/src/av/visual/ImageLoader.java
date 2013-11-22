@@ -8,9 +8,21 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 
 public class ImageLoader {
-    private static Hashtable<String, BufferedImage> images = null;
+
+    static ImageLoader instance = null;
+
+    public static ImageLoader getInstance() {
+        if (instance == null) instance = new ImageLoader();
+        return instance;
+    }
     
-    public static BufferedImage getImage(String imgKey) {
+    private ImageLoader() {
+    
+    }
+    
+    private Hashtable<String, BufferedImage> images = null;
+    
+    public BufferedImage getImage(String imgKey) {
         //System.out.println("Image: " + imgKey);
         if (imgKey == "" | imgKey == null) return null;
         if (images == null) {
@@ -24,11 +36,20 @@ public class ImageLoader {
         return img;
     }
     
-    private static boolean isImgKey(String imgKey) {
+    public void preloadImageAsync(String imgKey) {
+        Thread loadImageThread = new Thread(new AsyncImageLoader(imgKey));
+        loadImageThread.start();
+    }
+    
+    public boolean imageIsLoaded(String imgKey) {
+        return (images.get(imgKey) != null);
+    }
+    
+    private boolean isImgKey(String imgKey) {
         return true;
     }
     
-    private static void loadImage(String imgKey) {
+    private void loadImage(String imgKey) {
         
         BufferedImage bi = null;
         try {
@@ -58,5 +79,15 @@ public class ImageLoader {
         }
         
         
+    }
+    
+    private class AsyncImageLoader implements Runnable {    
+        String imgString = null;
+        public AsyncImageLoader(String imgKey) {
+            imgString = imgKey;
+        }
+        public void run() {
+            BufferedImage img = getImage(imgString);
+        }
     }
 }

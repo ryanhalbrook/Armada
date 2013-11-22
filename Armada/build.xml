@@ -4,7 +4,7 @@
 
 <project name="Armada" default="compile">
 
-<property name="src" location="./" />
+<property name="src" location="src" />
 <property name="build" location="build" />
 <property name="images" location="image" />
 <property name="sounds" location="sound" />
@@ -22,7 +22,7 @@
 </target>
 
 <target name="run" depends="compile" description="Run the Armada Game">
-    <java classpath="${build}" classname="src.Game" fork="true">
+    <java classpath="${build}" classname="game.Game" fork="true">
         <classpath>
             <fileset dir= "${build}">
                 <include name="**/*.class" />
