@@ -165,7 +165,7 @@ public class Grid extends ViewLayer {
 		}
 		
 		int vel = 50;
-		
+		if (!gc.mouseIsOnScreen()) return;
 		if (!(currentX == 0) || !(currentY == 0)) {
 			if(dsb.getWidth() * .03 > currentX){
 				if(viewRegion.getX() >=25){

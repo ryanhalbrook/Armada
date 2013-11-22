@@ -34,6 +34,7 @@ public class GameController extends ViewLayerController {
     ApplicationManager am = null;
     private int lastTurn = 0;
     private int quadrant = 2;
+    private boolean mouseOffScreen = false;
     
     private InformationPopupLayer ipl;
     
@@ -131,6 +132,7 @@ public class GameController extends ViewLayerController {
 	}
 	
 	public void mouseMoved(MouseEvent evt) {
+	    //System.out.println("Mouse Moved");
 	    if (!moveMode) {
 	        grid.mouseMoved(evt.getX(), evt.getY());
 	    } else {
@@ -139,11 +141,25 @@ public class GameController extends ViewLayerController {
 	        if (lastX < 0) {
 	            lastX = evt.getX(); lastY = evt.getY();
 	        } else {
-	            grid.moveViewRegion((evt.getX()-lastX)*xVel, (evt.getY()-lastY)*yVel);
+	            if (mouseOffScreen != true) {
+	                grid.moveViewRegion((evt.getX()-lastX)*xVel, (evt.getY()-lastY)*yVel);
+	                //System.out.println("Moving view region");    
+	            }
 	            lastX = evt.getX(); lastY = evt.getY();
 	        }
 	    }
 	}
+	
+	public void mouseExited(MouseEvent evt) {
+	    //System.out.println("Mouse Exited");
+	    mouseOffScreen = true;
+	}
+	
+	public void mouseEntered(MouseEvent evt) {
+	    //System.out.println("Mouse Entered");
+	    mouseOffScreen = false;
+	}
+
 	
 	public void modeChanged() {
 	    ipl.showPopup("Mode: " + grid.getModeString(), new Color(0.0f, 0.5f, 0.0f));
@@ -227,6 +243,10 @@ public class GameController extends ViewLayerController {
         quadrant = q;
         
     }
+    
+    public boolean mouseIsOnScreen() {
+        return !mouseOffScreen;
+    }   
     
     public BoundingRectangle getViewRegion() {
         return viewRegion;
