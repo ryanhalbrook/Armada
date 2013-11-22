@@ -20,6 +20,7 @@ import javax.imageio.ImageIO;
 A class representing the main menu of the system.
 */
 public class MainMenuPanel extends JPanel implements ActionListener{
+    private boolean launchingGame = false;
     ApplicationManager am;
     JButton startButton = new JButton("Start Game Old Way");
     JButton startButton2 = new JButton("Single Player");
@@ -67,10 +68,12 @@ public class MainMenuPanel extends JPanel implements ActionListener{
     
     // Respond to button clicks here.
     public void actionPerformed(ActionEvent evt) {
+        if (launchingGame) return;
         if (evt.getSource() == startButton) {
-            am.startGame();
-        } else if (evt.getSource() == startButton2) {
             
+                am.startGame();
+        } else if (evt.getSource() == startButton2) {
+            launchingGame = true;
             message = "Loading Images...";
             startButton2.setLabel(message);
             Thread resourceLoaderThread = new Thread(new ResourceLoader());
@@ -128,9 +131,16 @@ public class MainMenuPanel extends JPanel implements ActionListener{
                 ImageLoader.getInstance().preloadImageAsync(list[i]);
                 
                 boolean quit = false;
+                
+                int count = 0;
                 while(!quit) {
+                    count++;
+                    if (count > 29) {
+                        System.out.println("Preloading an image timed out.");
+                        quit = true;
+                    }
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(10);
                         if (ImageLoader.getInstance().imageIsLoaded(list[i])) quit = true;
                     } catch (Exception e) {
                         e.printStackTrace();
