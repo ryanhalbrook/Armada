@@ -1,4 +1,4 @@
-package src.av.audio;
+package av.audio;
 
 import java.net.URISyntaxException;
 import java.net.URL;

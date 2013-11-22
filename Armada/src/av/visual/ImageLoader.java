@@ -1,5 +1,5 @@
-package src.av.visual; 
-import src.view.*;
+package av.visual; 
+import view.*;
 
 import java.util.*;
 import java.awt.image.*;

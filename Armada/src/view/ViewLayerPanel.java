@@ -1,7 +1,11 @@
-package src.view;
+package view;
 
 import java.awt.event.*;
+
 import javax.swing.*;
+
+import view.controller.ViewLayerController;
+
 import java.awt.*;
 
 public class ViewLayerPanel extends JPanel implements DynamicSize, ActionListener {
