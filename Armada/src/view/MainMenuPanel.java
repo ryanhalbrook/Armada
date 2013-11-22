@@ -22,7 +22,7 @@ A class representing the main menu of the system.
 public class MainMenuPanel extends JPanel implements ActionListener{
     private boolean launchingGame = false;
     ApplicationManager am;
-    private JProgressBar progressBar = new JProgressBar(0, 9);
+    private JProgressBar progressBar = new JProgressBar(0, PreloadImageList.getList().length);
     JButton startButton = new JButton("Start Game Old Way");
     JButton startButton2 = new JButton("Single Player");
     JButton exitButton = new JButton("Quit Game");
@@ -131,8 +131,7 @@ public class MainMenuPanel extends JPanel implements ActionListener{
         String[] list = PreloadImageList.getList();
             BufferedImage img = null;
             for (int i = 0; i < list.length; i++) {
-            
-                System.out.println("Loading image: " + (i+1) + " of " + list.length);
+                progressBar.setValue(i+1);
                 ImageLoader.getInstance().preloadImageAsync(list[i]);
                 
                 boolean quit = false;
@@ -152,7 +151,7 @@ public class MainMenuPanel extends JPanel implements ActionListener{
                         quit = true;
                     }
                 }
-                progressBar.setValue(i+1);
+               
             }
             am.startGameNewWay(); 
         }
