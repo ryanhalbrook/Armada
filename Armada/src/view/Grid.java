@@ -42,6 +42,8 @@ public class Grid extends ViewLayer {
     private ArrayList<Element> elements;
     private ArrayList<DynamicElement> delements;
     
+    private long startTime = -1;
+    private float fade = 1.0f;
     private int mode = 1;
     private int index = 0;
     private DynamicElement activeE;
@@ -152,6 +154,10 @@ public class Grid extends ViewLayer {
 	}
 	
 	public void refresh(long previousTime, long currentTime) {
+	    if (startTime < 0) startTime = currentTime;
+	    if ((currentTime - startTime) < 1000) {
+	        fade = 1-((currentTime - startTime) / 1000.0f);
+	    }
 		viewRegion.setWidth(dsb.getWidth());
 		viewRegion.setHeight(dsb.getHeight());
 		if(activeE!=null && activeE.isDead()){
@@ -373,7 +379,15 @@ public class Grid extends ViewLayer {
 	}
 	
 	/* draws everything on the Grid */
-	public void draw(Graphics g){ drawAllDelements(g); } 
+	public void draw(Graphics g){
+	    drawAllDelements(g); 
+	    Color c = g.getColor();
+	    if (fade < 0.0001) fade = 0.0f;
+	    if (fade > 0.9999) fade = 1.0f;
+	    g.setColor(new Color(0.0f, 0.0f, 0.0f, fade));
+	    g.fillRect(0, 0, dsb.getWidth(), dsb.getHeight());
+	    g.setColor(c);
+	} 
 	
 	private void drawAllDelements(Graphics g){
 		if(delements != null){
