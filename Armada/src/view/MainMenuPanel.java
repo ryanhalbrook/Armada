@@ -22,6 +22,7 @@ A class representing the main menu of the system.
 public class MainMenuPanel extends JPanel implements ActionListener{
     private boolean launchingGame = false;
     ApplicationManager am;
+    private JProgressBar progressBar = new JProgressBar(0, 9);
     JButton startButton = new JButton("Start Game Old Way");
     JButton startButton2 = new JButton("Single Player");
     JButton exitButton = new JButton("Quit Game");
@@ -34,6 +35,8 @@ public class MainMenuPanel extends JPanel implements ActionListener{
     
     public MainMenuPanel(ApplicationManager am) {
         this.am = am;
+        
+        progressBar.setValue(0);
         
         // Setup the buttons
         startButton.addActionListener(this);
@@ -48,10 +51,12 @@ public class MainMenuPanel extends JPanel implements ActionListener{
         buttonsPanel.add(networkedGameHostButton);
         buttonsPanel.add(networkedGameClientButton);
         buttonsPanel.add(exitButton);
+        
         //buttonsPanel.add(startButton);
         buttonsPanel.setBorder(new EmptyBorder(100,400,250,10));
         buttonsPanel.setOpaque(false);
-        this.add(buttonsPanel, BorderLayout.SOUTH);
+        this.add(buttonsPanel, BorderLayout.NORTH);
+        this.add(progressBar, BorderLayout.SOUTH);
         
         // Load the background image
         File f = new File(IMAGE_NAME+ ".jpg");
@@ -147,6 +152,7 @@ public class MainMenuPanel extends JPanel implements ActionListener{
                         quit = true;
                     }
                 }
+                progressBar.setValue(i+1);
             }
             am.startGameNewWay(); 
         }
