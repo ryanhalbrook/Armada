@@ -98,11 +98,15 @@ public class ModeHUD extends HUD{
 		g.setColor(new Color(0.0f, 0.1f, 0.1f, 0.5f));
 		//g.fillRect(x, y, width, height);
 		int selection = grid.getMode();
+		
+		
+		g.fillRect(x, y, width, height);
 		g.setColor(Color.WHITE);
-		int selectionWidth = (int)(width / 6.0f);
+		
+		int selectionWidth = (int)(width / 5.0f);
 		for (int i = 0; i < 5; i++) {
 		    
-		    g.drawString(modes[i], i*selectionWidth+5, y+height-15);
+		    g.drawString(modes[i], x+i*selectionWidth+5, y+height-15);
 		}
 		//System.out.println("Mode difference: " + (lastMode - grid.getMode()));
 		//System.out.println("Selection width, phase" + selectionWidth + ", " + phase);
@@ -112,7 +116,7 @@ public class ModeHUD extends HUD{
 		selection = lastMode;
 		int startX = (selection-1) * selectionWidth + (int)dx;
 	    g.setColor(modeColors[grid.getMode()-1]);
-		g.drawRect(startX, y+1, selectionWidth, height-1);
+		g.drawRect(x+startX, y+1, selectionWidth, height-1);
 		int clear = 20;
 		if (grid.getActiveE()!=null && grid.getActiveE() instanceof Ship) {
 			Graphics2D g2d = (Graphics2D)g;
