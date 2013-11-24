@@ -105,6 +105,10 @@ public class ButtonPage {
 	
 	public boolean click(int inX, int inY){
 		if(activeL==null)return false;
+		System.out.println(activeL.get(0).getY() + " " + (y+TOP_GAP+ButtonList.BUTTON_GAP));
+		if(activeL.get(0).getY() != (y+TOP_GAP+ButtonList.BUTTON_GAP)){
+			return true;
+		}
 		if(lists.size()>1&&back.click(inX, inY)){
 			if(page==0)return true;
 			else page--;

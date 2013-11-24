@@ -154,5 +154,9 @@ public class ButtonList {
 		this.suggestedHeight = suggestedHeight;
 	}
 	
+	public ItemButton get(int in){
+		return buttons.get(in);
+	}
+	
 	
 }
