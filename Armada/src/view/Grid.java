@@ -35,8 +35,8 @@ public class Grid extends ViewLayer {
 
    // static final int GRID_WIDTH = 38400; // The width of the grid in pixels.
     //static final int GRID_HEIGHT = 21600; // The height of the grid in pixels.
-	private static final int GRID_WIDTH = 7680; // The width of the grid in pixels.
-    private static final int GRID_HEIGHT = 4320; // The height of the grid in pixels.
+	private static final int GRID_WIDTH = ArmadaEngine.GRID_WIDTH;
+    private static final int GRID_HEIGHT = ArmadaEngine.GRID_HEIGHT;
 	private ArmadaEngine engine;
 	
     private ArrayList<Element> elements;

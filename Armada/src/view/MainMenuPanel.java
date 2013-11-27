@@ -63,21 +63,12 @@ public class MainMenuPanel extends JPanel implements ActionListener{
         
         backgroundImage = ImageLoader.getInstance().getImage(IMAGE_NAME+".jpg");
         if (backgroundImage == null) System.out.println("Failed to load main menu image");
-        /*
-        backgroundImage = loadImage(f);
-        if (backgroundImage == null) {
-            backgroundImage = loadImage(new File("src/"+IMAGE_NAME+".jpg"));
-        }
-        */
     }
     
     // Respond to button clicks here.
     public void actionPerformed(ActionEvent evt) {
         if (launchingGame) return;
-        if (evt.getSource() == startButton) {
-            
-                am.startGame();
-        } else if (evt.getSource() == startButton2) {
+        if (evt.getSource() == startButton2) {
             launchingGame = true;
             message = "Loading Images...";
             startButton2.setLabel(message);
@@ -112,20 +103,6 @@ public class MainMenuPanel extends JPanel implements ActionListener{
         g2d.setTransform(at);
     }
     
-    private static BufferedImage loadImage(File f) {
-        BufferedImage bi = null;
-        
-        /*
-        try {
-            bi = ImageIO.read(f);
-        } catch (IOException e) {
-            System.out.println("Failed to load main menu image");
-        }
-        */
-        return bi;
-        
-    }
-    
     private class ResourceLoader implements Runnable {
         public void run() {
         String[] list = PreloadImageList.getList();
@@ -153,7 +130,7 @@ public class MainMenuPanel extends JPanel implements ActionListener{
                 }
                
             }
-            am.startGameNewWay(); 
+            am.startLocalGame(); 
         }
          
     }

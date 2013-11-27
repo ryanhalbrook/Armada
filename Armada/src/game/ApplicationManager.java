@@ -66,8 +66,16 @@ public class ApplicationManager implements ChangeListener {
     /**
         Switches to displaying a panel with a new game.
     */
-    public void startGame() {
-        //swapPanel(new ArmadaPanel(this));
+    public void startLocalGame() {
+        BufferedImage img = null;
+        
+        ArmadaEngine engine = new ArmadaEngine();
+        Spawner.spawnPlanets(engine, 7);
+        ViewLayerPanel vlp = new ViewLayerPanel();
+        GameController gc = new GameController(this, engine, vlp);
+        vlp.setViewLayerController(gc);
+        vlp.setAntialiasingEnabled(true);
+        swapPanel(vlp);
     }
     
     public void startNetworkedGame() {
@@ -109,15 +117,7 @@ public class ApplicationManager implements ChangeListener {
     }
     
     public void startGameNewWay() {
-        BufferedImage img = null;
         
-        ArmadaEngine engine = new ArmadaEngine();
-        Spawner.spawnPlanets(engine, 7);
-        ViewLayerPanel vlp = new ViewLayerPanel();
-        GameController gc = new GameController(this, engine, vlp);
-        vlp.setViewLayerController(gc);
-        vlp.setAntialiasingEnabled(true);
-        swapPanel(vlp);
     }
     
     /**

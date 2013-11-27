@@ -27,8 +27,8 @@ public class GameController extends ViewLayerController {
     private Grid grid;
     private ArmadaEngine engine;
     private DynamicSize dsb;
-    static final int GRID_WIDTH = 7680; // The width of the grid in pixels.
-    static final int GRID_HEIGHT = 4320; // The height of the grid in pixels.
+    static final int GRID_WIDTH = ArmadaEngine.GRID_WIDTH;
+    static final int GRID_HEIGHT = ArmadaEngine.GRID_HEIGHT;
     private HUDmanager hud = null;
     private boolean moveMode = false, gameOn=true;
     ApplicationManager am = null;

@@ -103,7 +103,7 @@ public class ModeHUD extends HUD{
 		g.fillRect(x, y, width, height);
 		g.setColor(Color.WHITE);
 		
-		int selectionWidth = (int)(width / 5.0f);
+		int selectionWidth = (int)(width / 5.0f);   
 		for (int i = 0; i < 5; i++) {
 		    
 		    g.drawString(modes[i], x+i*selectionWidth+5, y+height-15);

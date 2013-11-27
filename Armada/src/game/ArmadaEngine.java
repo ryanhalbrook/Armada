@@ -20,8 +20,8 @@ import element.ship.Ship;
 public class ArmadaEngine implements ChangeListener {
 
     int turn = 1;
-    private static final int GRID_WIDTH = 7680; // The width of the grid in pixels.
-    private static final int GRID_HEIGHT = 4320; // The height of the grid in pixels.
+    public static final int GRID_WIDTH = 7680; // The width of the grid in pixels.
+    public static final int GRID_HEIGHT = 4320; // The height of the grid in pixels.
     int player = 0;
     // Information for computing time remaining for current turn
     private static final double TURN_TIME = 50000.0;
@@ -93,11 +93,8 @@ public class ArmadaEngine implements ChangeListener {
 	public ArmadaEngine(GameServer server, int player) {
 	    System.out.println(this);
 	    this.player = player;
-	    if (server == null) System.out.println("Server is null");
-	    else System.out.println("Server is not null");
 	    this.gs = server;
 	    gs.setChangeListener(this);
-	    if (this.gs == null) System.out.println("Server is null after being assigned");
 	    pm = new PlayerManager();
         delements = new ArrayList<DynamicElement>();
         for (DynamicElement d : pm.getHomePlanets()) {
@@ -114,7 +111,6 @@ public class ArmadaEngine implements ChangeListener {
 		delements.add(new NormalShip(350,330,2));
 		delements.add(new NormalShip(400,330,2));
 		delements.add(new NormalShip(450,330,2));
-		//Spawner.spawnPlanets(this, 7);
 	}
     
     public ArmadaEngine() {
@@ -123,8 +119,6 @@ public class ArmadaEngine implements ChangeListener {
         for (DynamicElement d : pm.getHomePlanets()) {
             delements.add(d);
         }
-        
-        //Spawner.spawnPlanets(this, 7);
         
         // Add some ships
 		delements.add(new NormalShip(750,330,1));
@@ -184,7 +178,6 @@ public class ArmadaEngine implements ChangeListener {
         System.out.println(this);
         GameStateChange gsc = new GameStateChange(null, "Turn Changed");
         if (this.gs != null) gs.commitChange(this, gsc);
-        else System.out.println("Null server");
 		switchTurn();		
 	}
 	

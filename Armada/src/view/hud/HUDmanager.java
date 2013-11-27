@@ -103,6 +103,10 @@ public class HUDmanager extends ViewLayer {
 	    return (TurnHUD)turn;
 	}
 	
+	public void hideInventory() {
+	    items.setDrawingEnabled(false);
+	}
+	
 	public void toggleInventory() {
 	    System.out.println("Toggling inventory view");
 	    items.setDrawingEnabled(!items.drawingEnabled());
