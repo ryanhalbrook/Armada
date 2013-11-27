@@ -16,6 +16,7 @@ public class HUDmanager extends ViewLayer {
 	/** The Grid that this HUD system shows information about. */
 	protected Grid grid;
 	protected GameController gc = null;
+
 	protected ArrayList<HUD> huds;
 	protected HUD mode, stat, turn, map, items,trade,store; 
 	protected Ship s1,s2;
@@ -31,19 +32,17 @@ public class HUDmanager extends ViewLayer {
 		this.gc = gc;
 		huds = new ArrayList<HUD>();
 		mode = new ModeHUD(gr, gc, HUD.Position.BOTTOM_LEFT);//0=default, 1 = top left, 2 = top right, 3 = bot left, 4 = bot right
-		stat = new StatHUD(gc, HUD.Position.TOP_RIGHT);
+		stat = new StatHUD2(gc, HUD.Position.TOP_LEFT);
 		turn = new TurnHUD(gr, gc);
 		store = new StoreHUD(gc, HUD.Position.CENTERED);
 		map = new MapHUD(gr, gc, HUD.Position.BOTTOM_RIGHT);
-		items= new ItemListHUD(gc, HUD.Position.CENTERED, this);
+		items= new ItemListHUD(gc, HUD.Position.TOP_LEFT, this);
 		trade=new TradeHUD(gc,HUD.Position.CENTERED);
-		//items.setPosition(HUD.Position.ITEM_POSITION);
-		toggleInventory();
-		mode.setName("MODE_HUD");
-		stat.setName("STAT_HUD");
-		turn.setName("TURN_HUD");
-		map.setName("MAP_HUD");
-		items.setName("ITEMS_HUD");
+		items.setPosition(HUD.Position.TOP_RIGHT);
+		mode.setName("Mode HUD");
+		stat.setName("Stat HUD");
+		turn.setName("Turn HUD");
+		items.setName("Items HUD");
 		this.setName("HUD");
 		
 		addHUD(store);
@@ -62,30 +61,8 @@ public class HUDmanager extends ViewLayer {
 	}
 	
 	public boolean click(int x, int y) {
-	    //System.out.println("HUD Layer clicked");
+	    System.out.println("HUD Layer clicked");
 	    return super.click(x, y);
-	}
-	
-	public void hideOther(String name) {
-	    for (HUD h : huds) {
-	        if (!h.getName().equals(name)) {
-	            h.setDrawingEnabled(false);
-	        }   
-	    }
-	}
-	
-	public void show(String name) {
-	    for (HUD h : huds) {
-	        if (h.getName().equals(name)) {
-	            h.setDrawingEnabled(true);
-	        }   
-	    }
-	}
-	
-	public void showAll() {
-	    for (HUD h : huds) {
-	        h.setDrawingEnabled(true);
-	    }
 	}
 	
 	public void refresh(long previousTime, long currentTime) {
@@ -123,15 +100,6 @@ public class HUDmanager extends ViewLayer {
 	
 	public TurnHUD getTurnHUD() {
 	    return (TurnHUD)turn;
-	}
-	
-	public void hideInventory() {
-	    items.setDrawingEnabled(false);
-	}
-	
-	public void toggleInventory() {
-	    //System.out.println("Toggling inventory view");
-	    items.setDrawingEnabled(!items.drawingEnabled());
 	}
 	
 	public void displayLine(boolean b){
