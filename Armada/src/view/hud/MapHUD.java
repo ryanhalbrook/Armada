@@ -12,6 +12,12 @@ import element.ship.Ship;
 
 
 public class MapHUD extends HUD{
+
+    public enum Scale {
+        SMALL, LARGE;
+    }
+    
+    private Scale mapScale = Scale.SMALL;
 	
 	private ArrayList<DynamicElement> des;
 	static final double DEFAULT_SCALE = .2;
@@ -171,11 +177,17 @@ public class MapHUD extends HUD{
 		if(scale > 0.5){
 		    
 		    shrinking = true;
+		    mapScale = Scale.SMALL;
 			//scale = MapHUD.DEFAULT_SCALE;
 		} else {
 		    expanding = true;
+		    mapScale = Scale.LARGE;
 		    //scale = 1;
 		}
+	}
+	
+	public Scale getScaleType() {
+	    return mapScale;
 	}
 	
 	public void drawRange(Graphics g){//abandoned until I can find a way to make it so that if the range is outside the map it doesn't show

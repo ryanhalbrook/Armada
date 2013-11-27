@@ -17,7 +17,7 @@ import element.ship.Ship;
 
 public class ModeHUD extends HUD{
 
-    private String[] modes = {"Move (1)", "Hull (2)", "Eng (3)", "Dock(4)", "Move F.(5)"};
+    private String[] modes = {"Move (1)", "Hull (2)", "Eng (3)", "Dock(4)", "Move Fleet(5)"};
     private Color[] modeColors = {Color.GREEN, new Color(250,100,0), Color.YELLOW, Color.MAGENTA, new Color(0.0f, 0.9f, 1.0f)};
 	private float phase = -1.0f;
 	private int lastMode = 1;
@@ -83,6 +83,19 @@ public class ModeHUD extends HUD{
 	        lastMode = grid.getMode();    
 	        startTime = -1;  
 	    }
+	}
+	
+	public boolean click(int inX, int inY){
+		if(r.isIn(inX, inY)){
+		    //System.out.println("You clicked the Turn HUD");
+		    int selectionWidth = (int)(r.getWidth() / 5.0f);   
+		    int mode = (inX-r.getX()+selectionWidth) / selectionWidth;
+		    //System.out.println("Mode: " + mode);
+		    if (mode > 0 && mode < 6) 
+		        grid.setMode(mode);
+		    return true;
+		}
+		return false;
 	}
 	
 	public void draw(Graphics g){

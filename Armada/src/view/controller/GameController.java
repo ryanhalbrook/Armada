@@ -9,6 +9,7 @@ import view.Grid;
 import view.InformationPopupLayer;
 import view.ViewLayer;
 import view.hud.HUDmanager;
+import view.hud.MapHUD;
 
 import java.awt.event.*;
 import java.awt.*;
@@ -42,10 +43,6 @@ public class GameController extends ViewLayerController {
 	int lastY = -1;
 	
 	private BGMPlayer bgm;
-    
-    // Should eventually be dynamic through the observer pattern.
-    static final int PANEL_WIDTH = 960;
-    static final int PANEL_HEIGHT = 540;
     
     private BoundingRectangle viewRegion = new BoundingRectangle(0, 0, 500,500); //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
     
@@ -309,7 +306,14 @@ public class GameController extends ViewLayerController {
 	            moveMode = !moveMode;
 	        break;
 	        case KeyEvent.VK_M:
+	            
 	            hud.getMap().toggleScale();
+	            if (hud.getMap().getScaleType() == MapHUD.Scale.SMALL) {
+	                hud.showAll();
+	            } else {
+	                hud.hideOther("MAP_HUD");
+	                hud.show("TURN_HUD");
+	            }
 	        break;
 	        case KeyEvent.VK_P:
 	            bgm.toggleStop();
