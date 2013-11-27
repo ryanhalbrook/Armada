@@ -36,9 +36,10 @@ public class HUDmanager extends ViewLayer {
 		turn = new TurnHUD(gr, gc);
 		store = new StoreHUD(gc, HUD.Position.CENTERED);
 		map = new MapHUD(gr, gc, HUD.Position.BOTTOM_RIGHT);
-		items= new ItemListHUD(gc, HUD.Position.TOP_LEFT, this);
+		items= new ItemListHUD(gc, HUD.Position.CENTERED, this);
 		trade=new TradeHUD(gc,HUD.Position.CENTERED);
-		items.setPosition(HUD.Position.ITEM_POSITION);
+		//items.setPosition(HUD.Position.ITEM_POSITION);
+		toggleInventory();
 		mode.setName("Mode HUD");
 		stat.setName("Stat HUD");
 		turn.setName("Turn HUD");
@@ -100,6 +101,11 @@ public class HUDmanager extends ViewLayer {
 	
 	public TurnHUD getTurnHUD() {
 	    return (TurnHUD)turn;
+	}
+	
+	public void toggleInventory() {
+	    System.out.println("Toggling inventory view");
+	    items.setDrawingEnabled(!items.drawingEnabled());
 	}
 	
 	public void displayLine(boolean b){

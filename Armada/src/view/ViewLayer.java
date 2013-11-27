@@ -21,6 +21,10 @@ public class ViewLayer {
         this.drawingEnabled = enabled;
     }
     
+    public boolean drawingEnabled() {
+        return drawingEnabled;
+    }
+    
     ArrayList<ViewLayer> subLayers;
     
     public BoundingRectangle getBoundingRectangle() {
@@ -87,7 +91,8 @@ public class ViewLayer {
         ViewLayer vl = null;
         for (i=subLayers.size()-1; i>-1; i--) {
             vl = subLayers.get(i);
-            vl.draw(g);
+            if (vl.drawingEnabled())
+                vl.draw(g);
         }
     }
     

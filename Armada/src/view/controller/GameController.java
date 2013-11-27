@@ -316,6 +316,8 @@ public class GameController extends ViewLayerController {
 	        break;
 	        case KeyEvent.VK_S:
 	            grid.moveCheat();
+	        case KeyEvent.VK_I:
+	            hud.toggleInventory();
 	        break;
 	    }
 	}

@@ -386,7 +386,16 @@ public class Grid extends ViewLayer {
 	    if (fade > 0.9999) fade = 1.0f;
 	    g.setColor(new Color(0.0f, 0.0f, 0.0f, fade));
 	    g.fillRect(0, 0, dsb.getWidth(), dsb.getHeight());
+	    
+	    g.setColor(Color.GRAY);
+	    if (activeE != null)
+	        //g.drawOval(activeE.getX(), activeE.getY(), activeE.getWidth(), activeE.getHeight());
+	    
+	    
+	    
+	    
 	    g.setColor(c);
+	    
 	} 
 	
 	private void drawAllDelements(Graphics g){
