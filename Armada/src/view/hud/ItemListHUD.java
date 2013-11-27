@@ -119,6 +119,7 @@ public class ItemListHUD extends HUD {
 	}*/
 	
 	public boolean click(int inX, int inY){
+	    if (!this.drawingEnabled()) return false;
 		if(p==null){
 			hm.remove(dh);
 			dh=null;

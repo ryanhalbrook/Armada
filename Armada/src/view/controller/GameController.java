@@ -159,7 +159,7 @@ public class GameController extends ViewLayerController {
 
 	
 	public void modeChanged() {
-	    ipl.showPopup("Mode: " + grid.getModeString(), new Color(0.0f, 0.5f, 0.0f));
+	    //ipl.showPopup("Mode: " + grid.getModeString(), new Color(0.0f, 0.5f, 0.0f));
 	}
     
     public DynamicSize getViewSize() {

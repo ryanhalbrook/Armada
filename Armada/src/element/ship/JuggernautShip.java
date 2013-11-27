@@ -9,7 +9,7 @@ public class JuggernautShip extends Ship {
 	private double hullBonus = .1, engineBonus = .1;
 
 	public JuggernautShip(int inX, int inY, int team) {
-		super(inX,inY, 89, 71, "juggernaut",team);
+		super(inX,inY, 195, 79, "armadaship",team);// 89 71
 		ah = new ShipAnimationHelper(this);
 		baseMaxHull = 2000;
 		maxHull=baseMaxHull;

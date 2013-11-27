@@ -17,7 +17,7 @@ import element.ship.Ship;
 
 public class ModeHUD extends HUD{
 
-    private String[] modes = {"Move (1)", "Hull (2)", "Eng (3)", "Dock(4)", "Move Fleet(5)"};
+    private String[] modes = {"Move (1)", "Hull (2)", "Eng (3)", "Dock(4)", "Move F. (5)"};
     private Color[] modeColors = {Color.GREEN, new Color(250,100,0), Color.YELLOW, Color.MAGENTA, new Color(0.0f, 0.9f, 1.0f)};
 	private float phase = -1.0f;
 	private int lastMode = 1;
@@ -29,11 +29,11 @@ public class ModeHUD extends HUD{
 	
 	Grid grid = null;
 	
-	static final int ANIMATION_TIME = 800;
+	static final int ANIMATION_TIME = 900;
 	static final int RETICLE_ANIMATION_TIME = 1000;
 	
 	public ModeHUD(Grid gr, GameController gc, Position p){
-		super(new BoundingRectangle(5,45,500,40),gc, p);
+		super(new BoundingRectangle(5,45,400,35),gc, p);
 		this.grid = gr;
 	}
 	
@@ -108,7 +108,7 @@ public class ModeHUD extends HUD{
 		if(grid == null)return;
 		this.updateLocation();
 		//System.out.println("x, y, width, height: " + x + ", " + y + ", " + width + ", " + height);
-		g.setColor(new Color(0.0f, 0.1f, 0.1f, 0.5f));
+		g.setColor(new Color(0.9f, 0.9f, 0.9f, 0.3f));
 		//g.fillRect(x, y, width, height);
 		int selection = grid.getMode();
 		
@@ -117,10 +117,7 @@ public class ModeHUD extends HUD{
 		g.setColor(Color.WHITE);
 		
 		int selectionWidth = (int)(width / 5.0f);   
-		for (int i = 0; i < 5; i++) {
-		    
-		    g.drawString(modes[i], x+i*selectionWidth+5, y+height-15);
-		}
+		
 		//System.out.println("Mode difference: " + (lastMode - grid.getMode()));
 		//System.out.println("Selection width, phase" + selectionWidth + ", " + phase);
 		float dx = (lastMode - grid.getMode()) * phase * selectionWidth;
@@ -128,8 +125,13 @@ public class ModeHUD extends HUD{
 		//System.out.println("dx: " + dx);
 		selection = lastMode;
 		int startX = (selection-1) * selectionWidth + (int)dx;
-	    g.setColor(modeColors[grid.getMode()-1]);
-		g.drawRect(x+startX, y+1, selectionWidth, height-1);
+		
+	    //g.setColor(modeColors[grid.getMode()-1]);
+		g.fillRect(x+startX, y+1, selectionWidth, height-1);
+		for (int i = 0; i < 5; i++) {
+		    g.setColor(Color.BLACK);
+		    g.drawString(modes[i], x+i*selectionWidth+5, y+height-15);
+		}
 		int clear = 20;
 		if (grid.getActiveE()!=null && grid.getActiveE() instanceof Ship) {
 			Graphics2D g2d = (Graphics2D)g;
@@ -253,7 +255,7 @@ public class ModeHUD extends HUD{
 	}
 
 	public void setDisplayLine(boolean displayLine) {
-		this.displayLine = displayLine;
+		//this.displayLine = displayLine;
 	}
 
 }
