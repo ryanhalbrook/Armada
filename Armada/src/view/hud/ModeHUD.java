@@ -29,7 +29,7 @@ public class ModeHUD extends HUD{
 	
 	Grid grid = null;
 	
-	static final int ANIMATION_TIME = 100;
+	static final int ANIMATION_TIME = 800;
 	static final int RETICLE_ANIMATION_TIME = 1000;
 	
 	public ModeHUD(Grid gr, GameController gc, Position p){
@@ -138,8 +138,8 @@ public class ModeHUD extends HUD{
 		    int shipX = grid.getActiveE().getX();
 		    int shipY = grid.getActiveE().getY();
 		    Stroke s = g2d.getStroke();
-		    float array[] = {30.0f};
-		    g2d.setStroke(new BasicStroke(4.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 5.0f, array, 0.0f));
+		    float array[] = {10.0f};
+		    g2d.setStroke(new BasicStroke(2.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 5.0f, array, 0.0f));
 		    g2d.setColor(Color.WHITE);
 		    if(grid.getMode()==1 && grid.getActiveE().canMovePath2(grid.getCurrentX() + grid.getViewRegion().getX(),grid.getCurrentY() + grid.getViewRegion().getY(),grid.getDelements()) && grid.getActiveE().canMove()){
 		    	g.setColor(Color.GREEN);
@@ -194,6 +194,9 @@ public class ModeHUD extends HUD{
 			        g.drawLine(shipX-grid.getViewRegion().getX(), shipY-grid.getViewRegion().getY(), grid.getCurrentX(), grid.getCurrentY());
 			        int baseRadius = 20;
 			        int radius = (int)(baseRadius*(rPhase));
+			        //if (radius < 5) radius = 5;
+			        float array2[] = {30.0f};
+			        g2d.setStroke(new BasicStroke(2.0f, BasicStroke.CAP_BUTT, BasicStroke.JOIN_ROUND, 5.0f, array2, 0.0f));
 			        //radius = (int)((gc.getActiveE().getWidth() + gc.getActiveE().getHeight()) / 2.0f);
 			        g.drawOval(grid.getCurrentX()-baseRadius, grid.getCurrentY()-baseRadius, baseRadius*2, baseRadius *2 );
 			        g.drawOval(grid.getCurrentX()-radius, grid.getCurrentY()-radius, radius*2, radius*2);
@@ -209,6 +212,8 @@ public class ModeHUD extends HUD{
 			                */
 			                int baseRadius = 20;
 			        int radius = (int)(baseRadius*(rPhase));
+			        if (radius < 5) radius = 5;
+			        
 			        //radius = (int)((gc.getActiveE().getWidth() + gc.getActiveE().getHeight()) / 2.0f);
 			        g.drawOval(grid.getCurrentX()-counter*50-baseRadius, grid.getCurrentY()-counter*50-baseRadius, baseRadius*2, baseRadius *2 );
 			        g.drawOval(grid.getCurrentX()-counter*50-radius, grid.getCurrentY()-counter*50-radius, radius*2, radius*2);

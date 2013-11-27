@@ -36,6 +36,7 @@ public class TurnHUD extends HUD{
 	
 	public void showTransition() {
 	    transitionPhase = 1.0f;
+	    
 	}
 	
 	public void draw(Graphics g){
