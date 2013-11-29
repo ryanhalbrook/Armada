@@ -66,7 +66,10 @@ public class StatHUD2 extends HUD {
 		}
 		g.fillRect(x, dy, (int)(w*pH)-BAR_HEIGHT, BAR_HEIGHT);
 		g.setColor(Color.WHITE);
-		g.fillRect(x + w - BAR_HEIGHT, dy, BAR_HEIGHT, BAR_HEIGHT);//triangle?
+		//g.fillRect(x + w - BAR_HEIGHT, dy, BAR_HEIGHT, BAR_HEIGHT);//triangle?
+		int[] xx = {x+w-BAR_HEIGHT, x+w-BAR_HEIGHT, x+w};
+		int[] yy = {dy,dy+BAR_HEIGHT, dy+BAR_HEIGHT};
+		g.fillPolygon(xx,yy, 3);
 		g.drawString("Hull: " + hll + "/" + mxhll, x+ BAR_HEIGHT, dy + 10);
 		dy+=BAR_HEIGHT;
 		g.fillRect(x, dy, w, (int)((double)BAR_HEIGHT*0.25));
@@ -80,7 +83,9 @@ public class StatHUD2 extends HUD {
 		}
 		g.fillRect(x, dy, (int)(w*pE)-BAR_HEIGHT, BAR_HEIGHT);
 		g.setColor(Color.WHITE);
-		g.fillRect(x + w - BAR_HEIGHT, dy, BAR_HEIGHT, BAR_HEIGHT);//triangle?
+		xx = new int[] {x+w-BAR_HEIGHT, x+w-BAR_HEIGHT, x+w};
+		yy = new int[] {dy,dy+BAR_HEIGHT, dy+BAR_HEIGHT};
+		g.fillPolygon(xx,yy, 3);
 		g.drawString("Engine: " + eng + "/" + mxeng, x+ BAR_HEIGHT, dy + 10);
 		dy+=BAR_HEIGHT;
 		g.fillRect(x, dy, w, (int)((double)BAR_HEIGHT*0.25));
