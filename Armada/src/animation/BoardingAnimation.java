@@ -211,7 +211,9 @@ public class BoardingAnimation implements Animation{
 					if( calculateBoarding(de,target)){
 						
 						target.setAlliance(de.getAlliance());
-						
+						if(target.isTrading()){
+							target.untrade();
+						}
 					}
 					
 					mode=6;
