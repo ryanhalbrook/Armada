@@ -309,10 +309,10 @@ public class GameController extends ViewLayerController {
 	            
 	            hud.getMap().toggleScale();
 	            if (hud.getMap().getScaleType() == MapHUD.Scale.SMALL) {
-	                hud.showAll();
+//	                hud.showAll();
 	            } else {
-	                hud.hideOther("MAP_HUD");
-	                hud.show("TURN_HUD");
+//	                hud.hideOther("MAP_HUD");
+//	                hud.show("TURN_HUD");
 	            }
 	        break;
 	        case KeyEvent.VK_P:
@@ -321,7 +321,7 @@ public class GameController extends ViewLayerController {
 	        case KeyEvent.VK_S:
 	            grid.moveCheat();
 	        case KeyEvent.VK_I:
-	            hud.toggleInventory();
+//	            hud.toggleInventory();
 	        break;
 	    }
 	}

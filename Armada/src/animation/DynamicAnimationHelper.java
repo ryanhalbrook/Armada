@@ -27,6 +27,9 @@ public class DynamicAnimationHelper extends AnimationHelper{
 	 */
 	public void attack(Element att,DynamicElement target,String attacked){
 		AttackAnimation aa = new AttackAnimation(att,target,attacked);
+		AnimationQueue aq = new AnimationQueue();
+		aq.add(aa);
+		new AnimationRunner(aq);
 	}
 	/**
 	 * Launches AttackAnimation
@@ -38,6 +41,9 @@ public class DynamicAnimationHelper extends AnimationHelper{
 	 */
 	public void attack(Element att,DynamicElement target,int mode,String attacked){
 		AttackAnimation aa = new AttackAnimation(att,target,mode,attacked);
+		AnimationQueue aq = new AnimationQueue();
+		aq.add(aa);
+		new AnimationRunner(aq);
 	}
 	
 	

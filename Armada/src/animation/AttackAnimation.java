@@ -7,7 +7,7 @@ import av.audio.SoundEffect;
  * @author Yun Suk Chang
  * Shows Attack Animation
  */
-public class AttackAnimation implements Runnable {
+public class AttackAnimation implements Animation {
 
 		protected Element de;
 		protected DynamicElement target;
@@ -28,8 +28,7 @@ public class AttackAnimation implements Runnable {
 			mode=1;
 			this.target=target;
 			this.attacked=attacked;
-			Thread move = new Thread(this);
-			move.start();
+			
 		}
 		/**
 		 * Constructs AttackAnimation
@@ -47,8 +46,7 @@ public class AttackAnimation implements Runnable {
 			mode=m;
 			this.target=target;
 			this.attacked=attacked;
-			Thread move = new Thread(this);
-			move.start();
+			
 		}
 		
 		
@@ -58,8 +56,8 @@ public class AttackAnimation implements Runnable {
 		 */
 		public void run() {
 			//System.out.println("moving to: " + x + ", " + y);
-			target.setTargetable(false);
-			de.setTargetable(false);
+		//	target.setTargetable(false);
+		//	de.setTargetable(false);
 			int mvTime=100;
 			int moveX=x;
 			int moveY=y;
@@ -142,8 +140,13 @@ public class AttackAnimation implements Runnable {
 			
 			}
 			
-			target.setTargetable(true);
-			de.setTargetable(true);	
+		//	target.setTargetable(true);
+		//	de.setTargetable(true);	
+		}
+		@Override
+		public Element[] getActors() {
+			Element[] elist = {de,target};
+			return elist;
 		}
 
 	

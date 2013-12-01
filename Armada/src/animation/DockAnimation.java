@@ -1,5 +1,6 @@
 package animation; import element.Bridge;
 import element.DynamicElement;
+import element.Element;
 import element.planet.Planet;
 import element.ship.Ship;
 
@@ -8,7 +9,7 @@ import element.ship.Ship;
  * @author Yun Suk Chang
  * Shows Docking Animation
  */
-public class DockAnimation implements Runnable{
+public class DockAnimation implements Animation{
 	Ship ship;
 	DynamicElement target;
 	int mode,x,y;
@@ -24,8 +25,7 @@ public class DockAnimation implements Runnable{
 		mode=1;
 		x=p.getX();
 		y=p.getY();
-		Thread dock = new Thread(this);
-		dock.start();
+		
 	}
 	/**
 	 * Constructs DockingAnimation
@@ -42,8 +42,7 @@ public class DockAnimation implements Runnable{
 			x=p.getX();
 			y=p.getY();
 		}
-		Thread dock = new Thread(this);
-		dock.start();
+		
 	}
 	@Override
 	/**
@@ -52,9 +51,8 @@ public class DockAnimation implements Runnable{
 	public void run() {
 		ship.setDocked(false);
 		ship.setDocking(true);
-		ship.setTargetable(false);
+	//	ship.setTargetable(false);
 		ship.getAH().setMoving(true);
-		
 		int mvTime=100;
 		int moveX=x;
 		int moveY=y;
@@ -139,7 +137,7 @@ public class DockAnimation implements Runnable{
 					previousMode=mode;
 					mode=0;
 					ship.setBridge(null);
-					
+
 					
 					System.out.println("mode6");
 				}
@@ -167,13 +165,18 @@ public class DockAnimation implements Runnable{
 		ship.getAH().setMoveXLeft(0);
 		ship.getAH().setMoveYLeft(0);
 		ship.getAH().setMoving(false);
-		if(previousMode==5)
+	/*	if(previousMode==5)
 			ship.setTargetable(true);
 		else
 			ship.setTargetable(false);//this works iff undocking is followed by another animation
-		ship.setDocking(false);
+	*/	ship.setDocking(false);
 		
 		
+	}
+	@Override
+	public Element[] getActors() {
+		Element[] elist = {ship};
+		return elist;
 	}
 
 }

@@ -11,7 +11,7 @@ import element.ship.Ship;
  * @author Yun Suk Chang
  * Does Move Animation
  */
-public class MoveAnimation implements Runnable {
+public class MoveAnimation implements Animation {
 
 	protected Element e;
 	protected int x,y,t,mode;//0= rotate&move, 1= rotate only, 2=move only
@@ -30,8 +30,6 @@ public class MoveAnimation implements Runnable {
 		t=100;
 		mode=0;
 		canMove=true;
-		Thread move = new Thread(this);
-		move.start();
 	}
 	/**
 	 * Creates MoveAnimation
@@ -48,8 +46,6 @@ public class MoveAnimation implements Runnable {
 		this.t=t;
 		mode=0;
 		canMove=true;
-		Thread move = new Thread(this);
-		move.start();
 	}
 	/**
 	 * Creates MoveAnimation
@@ -67,8 +63,6 @@ public class MoveAnimation implements Runnable {
 		this.t=t;
 		mode=m;
 		canMove=true;
-		Thread move = new Thread(this);
-		move.start();
 	}
 	/**
 	 * Creates special MoveAnimation for Ship
@@ -85,27 +79,15 @@ public class MoveAnimation implements Runnable {
 		mode=0;
 		canMove=(!inE.isDocking());
 	
-		Thread move = new Thread(this);
-		move.start();
+		
 	}
 	@Override
 	/**
 	 * does calculation for move animation
 	 */
 	public void run() {
-		while(!canMove){
-			if(e instanceof Ship)
-				canMove=(!((Ship)e).isDocking());
-			else
-				break;
-			
-			try {
-        		Thread.sleep(10);
-        	} catch (InterruptedException e) {
-        		e.printStackTrace();
-        	}
-		}
-		e.setTargetable(false);
+		
+		//e.setTargetable(false);
 		//System.out.println("moving to: " + x + ", " + y);
 		int mvTime=t;
 		int moveX=x;
@@ -167,7 +149,11 @@ public class MoveAnimation implements Runnable {
 		e.getAH().setMoveYLeft(0);
 		e.getAH().setMoving(false);
 
-		e.setTargetable(true);
+		//e.setTargetable(true);
 	}
-
+	@Override
+	public Element[] getActors() {
+		Element[] elist = {e};
+		return elist;
+	}
 }

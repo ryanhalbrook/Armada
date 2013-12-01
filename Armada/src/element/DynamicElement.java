@@ -27,10 +27,11 @@ public class DynamicElement extends Element {
 
 	
 
-	public DynamicElement(){}
+	public DynamicElement(){super();}
 	
 	//use this one
 	public DynamicElement(int inX, int inY, int w, int h, String img, int all){
+		super(inX,inY,w,h,null);
 		switch(all){
 		case 1:
 			setImage(img+"_red");
@@ -41,12 +42,6 @@ public class DynamicElement extends Element {
 		default:
 			break;
 		}
-		x = inX;
-		y = inY;
-		width = w;
-		height = h;
-		angle=0;
-		index=-1;
 		alliance=all;
 		targetable=true;
 		ah=new DynamicAnimationHelper(this);
@@ -57,7 +52,7 @@ public class DynamicElement extends Element {
 	}
 	
 	public DynamicElement(int inX, int inY, int w, int h, double angle, String img, int all){
-		
+		super(inX,inY,w,h,angle,null);
 		switch(all){
 		case 1:
 			setImage(img+"_red");
@@ -68,12 +63,6 @@ public class DynamicElement extends Element {
 		default:
 			break;
 		}
-		x = inX;
-		y = inY;
-		width = w;
-		height = h;
-		this.angle=angle;
-		index=-1;
 		alliance=all;
 		targetable=true;
 		ah=new DynamicAnimationHelper(this);

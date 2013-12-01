@@ -8,7 +8,7 @@ import av.audio.SoundEffect;
  * @author Yun
  * The class that does boarding animation
  */
-public class BoardingAnimation implements Runnable{
+public class BoardingAnimation implements Animation{
 
 
 
@@ -30,8 +30,7 @@ public class BoardingAnimation implements Runnable{
 		mode=1;
 		this.target=target;
 		
-		Thread board = new Thread(this);
-		board.start();
+		
 	}
 	/**
 	 * Creates BoardingAnimation
@@ -54,8 +53,7 @@ public class BoardingAnimation implements Runnable{
 		mode=m;
 		this.target=target;
 		
-		Thread move = new Thread(this);
-		move.start();
+		
 	}
 	
 	
@@ -74,7 +72,7 @@ public class BoardingAnimation implements Runnable{
 		int deltaY=moveY-de.getY();
 		int deltaX2=0,deltaY2=0,deltaX3=0,deltaY3=0;
 		
-		de.setTargetable(false);
+		//de.setTargetable(false);
 		
 /*		if(mode!=6&&Math.abs(Math.sqrt(Math.pow(deltaX, 2)+Math.pow(deltaY, 2)))+de.getWidth()/2<=10){
 			//bridge
@@ -234,7 +232,7 @@ public class BoardingAnimation implements Runnable{
 					de.setBridge(null);
 					de.setBoarding(false);
 					de.getAH().setMoving(false);
-					de.setTargetable(true);
+				//	de.setTargetable(true);
 					System.out.println("mode6");
 				}
 				else{
@@ -276,5 +274,9 @@ public class BoardingAnimation implements Runnable{
 		//stub
 		SoundEffect.PIRATEH.play();
 		return true;
+	}
+	public Element[] getActors() {
+		Element[] elist = {de,target};
+		return elist;
 	}
 }

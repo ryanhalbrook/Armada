@@ -17,12 +17,16 @@ public class Element {
 	protected double angle; //in degrees, 0 to 360
 	//orientation
 	protected String image;	//image
-	protected int index;//for Element ID in Array or ArrayList
+	protected static int ID=0;//Element ID
+	protected int id;
 	protected boolean  targetable = false;
 	protected AnimationHelper ah; 
 	protected Element owner=null;
 
-	public Element() {}
+	public Element() {
+		id=ID;
+		ID++;
+	}
 	
 	public Element(int a, int b, int w, int h, String img){
 		x = a;
@@ -31,7 +35,8 @@ public class Element {
 		height = h;
 		angle=0;
 		image=img;
-		index=-1;
+		id=ID;
+		ID++;
 		targetable = false;
 		ah = new AnimationHelper(this);
 	}
@@ -42,7 +47,8 @@ public class Element {
 		height = h;
 		angle=an;
 		image=img;
-		index=-1;
+		id=ID;
+		ID++;
 		targetable = false;
 		ah = new AnimationHelper(this);
 	}
@@ -137,11 +143,11 @@ public class Element {
 	public void setImage(String img){
 		image=img;
 	}
-	public int getIndex(){
-		return index;
+	public int getID(){
+		return id;
 	}
-	public void setIndex(int i){
-		index=i;
+	public void setID(int i){
+		id=i;
 	}
 
 }

@@ -32,7 +32,6 @@ public class AnimationHelper{
 	private int moveXLeft;//tracks how much more to move in x-direction
 	private int moveYLeft;//tracks how much more to move in y-direction
 
-	
 
 	private double[] moveVar;//for moving the ship more accurately
 	private boolean moving;
@@ -48,7 +47,6 @@ public class AnimationHelper{
 		e=el;
 		//at= new AffineTransform();
 		loadImage(e.getImage());
-		
 		angleLeft=0;
 		moveXLeft=0;
 		moveYLeft=0;
@@ -639,6 +637,9 @@ public class AnimationHelper{
 	 */
 	public void moveTo(int inX, int inY){
 		MoveAnimation move = new MoveAnimation(e,inX,inY);
+		AnimationQueue aq = new AnimationQueue();
+		aq.add(move);
+		new AnimationRunner(aq);
 		
 	}
 	/**
@@ -650,7 +651,9 @@ public class AnimationHelper{
 	 */
 	public void moveTo(int inX, int inY,int t){
 		MoveAnimation move = new MoveAnimation(e,inX,inY,t);
-		
+		AnimationQueue aq = new AnimationQueue();
+		aq.add(move);
+		new AnimationRunner(aq);
 	}
 	/**
 	 * Launches MoveAnimation
@@ -662,7 +665,9 @@ public class AnimationHelper{
 	 */
 	public void moveTo(int inX, int inY,int t,int m){
 		MoveAnimation move = new MoveAnimation(e,inX,inY,t,m);
-		
+		AnimationQueue aq = new AnimationQueue();
+		aq.add(move);
+		new AnimationRunner(aq);
 	}
 	/**
 	 * getter for angleLeft

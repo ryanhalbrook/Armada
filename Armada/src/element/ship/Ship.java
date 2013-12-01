@@ -146,10 +146,6 @@ public class Ship extends DynamicElement{
 			trader.setDocking(true);
 			trader.undock();
 		}
-		if(isDocked()){
-			docking=true;
-			undock();
-		}
 		this.getSAH().dock(this, p);
 	}
 	public void undock(){
@@ -177,10 +173,7 @@ public class Ship extends DynamicElement{
 			trader.setDocking(true);
 			trader.undock();
 		}
-		if(isDocked()){
-			docking=true;
-			undock();
-		}
+		
 		this.getSAH().board(this, target);
 		//unboard();
 	}
@@ -189,10 +182,7 @@ public class Ship extends DynamicElement{
 			trader.setDocking(true);
 			trader.undock();
 		}
-		if(isDocked()){
-			docking=true;
-			undock();
-		}
+		
 		super.moveTo(x, y);
 	}
 	public void unboard(){
@@ -360,10 +350,7 @@ public class Ship extends DynamicElement{
 			trader.undock();
 		}
 			
-		if(isDocked()){
-			docking=true;
-			undock();
-		}
+		
 		this.trading=true;
 		trader=s;
 	}
