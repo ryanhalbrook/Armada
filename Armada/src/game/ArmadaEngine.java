@@ -237,10 +237,10 @@ public class ArmadaEngine implements ChangeListener {
         if (player != 0 && !isPlayersTurn()) return MovementStatus.NOT_TURN;
         if(activeE.withinMovement(x,y) && activeE.canMovePath2(x,y, delements) && activeE instanceof Ship){
 				Ship temp = (Ship) activeE;
-				if(temp.isDocked()){
+				/*if(temp.isDocked()){
 					temp.setPlanetDocked(null);
 				}
-				if(temp.isTrading()){
+				*/if(temp.isTrading()){
 					temp.setTrading(false);
 				}
         		activeE.moveTo(x, y);
