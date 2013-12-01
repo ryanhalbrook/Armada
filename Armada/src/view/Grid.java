@@ -318,7 +318,7 @@ public class Grid extends ViewLayer {
 			}
 			return true;
 		}
-		/*
+		
 		if (mode == 5) {
 		    // Fleet move
 		    inX += viewRegion.getX(); inY += viewRegion.getY();
@@ -331,9 +331,9 @@ public class Grid extends ViewLayer {
 		            counter++;
 		        }
 		    }
+		    return true;
 		}
-		*/
-		//TODO: make a mode for teleporting (or something like that)
+		/*
 		//teleporting
 		if(mode ==5){
 			if(delements != null && delements.size() != 0){
@@ -346,7 +346,7 @@ public class Grid extends ViewLayer {
 			}
 			return true;
 		}
-		
+		*/
 		return false;
 	}
 	
