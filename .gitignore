@@ -7,6 +7,3 @@
 bin
 *.stackdump
 
-build
-sound
-image
