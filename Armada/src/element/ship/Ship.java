@@ -142,10 +142,7 @@ public class Ship extends DynamicElement{
 	}
 	public void dock(Planet p){
 		//TODO: make it "untrade"/"undock" first
-		if(trader!=null&&trader.isDocked()){
-			trader.setDocking(true);
-			trader.undock();
-		}
+		
 		this.getSAH().dock(this, p);
 	}
 	public void undock(){
@@ -167,24 +164,20 @@ public class Ship extends DynamicElement{
 			dock(inP);
 		this.planetDocked = inP;
 	}
-	
-	public void board(Ship target){
-		if(trader!=null&&trader.isDocked()){
-			trader.setDocking(true);
-			trader.undock();
+	public void moveTo(int x,int y){
+		getSAH().moveTo(x, y);
+		moved+=distanceFrom(x,y);
+		if(moved >= (int)((double)(speed)*(double)((double)engine/(double)maxEngine))){
+			canMove=false;
 		}
+	}
+	public void board(Ship target){
+		
 		
 		this.getSAH().board(this, target);
 		//unboard();
 	}
-	public void moveTo(int x,int y){
-		if(trader!=null&&trader.isDocked()){
-			trader.setDocking(true);
-			trader.undock();
-		}
-		
-		super.moveTo(x, y);
-	}
+	
 	public void unboard(){
 		if(bridge!=null)
 			this.getSAH().board(this, null,6);
@@ -345,20 +338,28 @@ public class Ship extends DynamicElement{
 	}
 	public void trade(Ship s){
 		//TODO: make it "untrade"/"undock" first
-		if(trader!=null&&trader.isDocked()){
-			trader.setDocking(true);
-			trader.undock();
-		}
-			
-		
-		this.trading=true;
+		getSAH().dock(this, s);
 		trader=s;
+		s.setTrader(this);
+		trading=true;
+		trader.setTrading(true);
+	}
+	public void untrade(){
+		if(trader==null)
+			return;
+		if(isDocked())
+			undock();
+		else
+			trader.undock();
 	}
 	public boolean isTrading(){
 		return trading;
 	}
 	public Ship getTrader(){
 		return trader;
+	}
+	public void setTrader(Ship s){
+		trader=s;
 	}
 	public void setTrading(boolean in){
 		trading = in;

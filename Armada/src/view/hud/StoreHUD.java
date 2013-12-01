@@ -38,7 +38,7 @@ public class StoreHUD extends HUD{
 	public void refresh(long previousTime, long currentTime) {
 		super.refresh(previousTime,currentTime);
 		if(gc.getActiveE()==null || !(gc.getActiveE() instanceof Ship))displaying=false;
-		else if(gc.getActiveE() instanceof Ship  && ((Ship)gc.getActiveE()).isDocked()&&gc.getActiveE().getAlliance()==gc.getGrid().getTurn() && ((Ship)gc.getActiveE()).getPlanetDocked().getAlliance() == ((Ship)gc.getActiveE()).getAlliance()){
+		else if(gc.getActiveE() instanceof Ship  && ((Ship)gc.getActiveE()).isDocked()&&gc.getActiveE().getAlliance()==gc.getGrid().getTurn() &&((Ship)gc.getActiveE()).getPlanetDocked()!=null &&((Ship)gc.getActiveE()).getPlanetDocked().getAlliance() == ((Ship)gc.getActiveE()).getAlliance()){
 			displaying=true;
 			//update();
 		}

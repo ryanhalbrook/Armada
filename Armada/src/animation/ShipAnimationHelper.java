@@ -26,10 +26,26 @@ public class ShipAnimationHelper extends DynamicAnimationHelper {
 	public void board(Ship att,Ship target){
 		BoardingAnimation ba = new BoardingAnimation(att,target);
 		AnimationQueue aq = new AnimationQueue();
-		if(att.isDocked()){
-			att.setPlanetDocked(null);
-			aq.add(new DockAnimation(att,null,6));
-		}
+		
+			if(att.getPlanetDocked()!=null){
+				att.setPlanetDocked(null);
+				aq.add(new DockAnimation(att,null,6));
+			}
+			if(att.getTrader()!=null){
+				if(att.getTrader().isDocked()){
+					att.getTrader().undock();
+				}
+				else{
+					aq.add(new DockAnimation(att,null,6));
+					att.getTrader().setTrading(false);
+					att.setTrading(false);
+					att.getTrader().setTrader(null);
+					att.setTrader(null);
+					
+				}
+				
+			}
+		
 		aq.add(ba);
 		new AnimationRunner(aq);
 	}
@@ -43,10 +59,25 @@ public class ShipAnimationHelper extends DynamicAnimationHelper {
 	public void board(Ship att,Ship target,int mode){
 		BoardingAnimation ba = new BoardingAnimation(att,target,mode);
 		AnimationQueue aq = new AnimationQueue();
-		if(att.isDocked()){
-			att.setPlanetDocked(null);
-			aq.add(new DockAnimation(att,null,6));
-		}
+		
+			if(att.getPlanetDocked()!=null){
+				att.setPlanetDocked(null);
+				aq.add(new DockAnimation(att,null,6));
+			}
+			if(att.getTrader()!=null){
+				if(att.getTrader().isDocked()){
+					att.getTrader().undock();
+				}
+				else{
+					aq.add(new DockAnimation(att,null,6));
+					att.getTrader().setTrading(false);
+					att.setTrading(false);
+					att.getTrader().setTrader(null);
+					att.setTrader(null);
+					
+				}
+			}
+		
 		aq.add(ba);
 		new AnimationRunner(aq);
 	}
@@ -59,10 +90,25 @@ public class ShipAnimationHelper extends DynamicAnimationHelper {
 	public void dock(Ship s,DynamicElement p){
 		DockAnimation da = new DockAnimation(s,p);
 		AnimationQueue aq = new AnimationQueue();
-		if(s.isDocked()){
-			s.setPlanetDocked(null);
-			aq.add(new DockAnimation(s,null,6));
-		}
+		
+			if(s.getPlanetDocked()!=null){
+				s.setPlanetDocked(null);
+				aq.add(new DockAnimation(s,null,6));
+			}
+			if(s.getTrader()!=null){
+				if(s.getTrader().isDocked()){
+					s.getTrader().undock();
+				}
+				else{
+					aq.add(new DockAnimation(s,null,6));
+					s.getTrader().setTrading(false);
+					s.setTrading(false);
+					s.getTrader().setTrader(null);
+					s.setTrader(null);
+					
+				}
+			}
+		
 		aq.add(da);
 		new AnimationRunner(aq);
 	}
@@ -76,11 +122,27 @@ public class ShipAnimationHelper extends DynamicAnimationHelper {
 	public void dock(Ship s,DynamicElement p,int mode){
 		DockAnimation da = new DockAnimation(s,p,mode);
 		AnimationQueue aq = new AnimationQueue();
-		if(s.isDocked()){
-			s.setPlanetDocked(null);
-			aq.add(new DockAnimation(s,null,6));
-		}
-		aq.add(da);
+		
+			if(s.getPlanetDocked()!=null){
+				s.setPlanetDocked(null);
+				aq.add(new DockAnimation(s,null,6));
+			}
+			if(s.getTrader()!=null){
+				if(s.getTrader().isDocked()){
+					s.getTrader().undock();
+				}
+				else{
+					aq.add(new DockAnimation(s,null,6));
+					s.getTrader().setTrading(false);
+					s.setTrading(false);
+					s.getTrader().setTrader(null);
+					s.setTrader(null);
+					
+				}
+			}
+		
+		if(p!=null && mode!=6)
+			aq.add(da);
 		new AnimationRunner(aq);
 	}
 	/**
@@ -88,13 +150,31 @@ public class ShipAnimationHelper extends DynamicAnimationHelper {
 	 * @see MoveAnimation
 	 */
 	public void moveTo(int x, int y){
+		
 		MoveAnimation ma = new MoveAnimation(this.getE(),x,y);
 		AnimationQueue aq = new AnimationQueue();
-		if(((Ship)getE()).isDocked()){
-			((Ship)getE()).setPlanetDocked(null);
-			aq.add(new DockAnimation(((Ship)getE()),null,6));
-		}
+		Ship s = (Ship)(this.getE());
+		
+			if(s.getPlanetDocked()!=null){
+				s.setPlanetDocked(null);
+				aq.add(new DockAnimation(s,null,6));
+			}
+			if(s.getTrader()!=null){
+				if(s.getTrader().isDocked()){
+					s.getTrader().undock();
+				}
+				else{
+					aq.add(new DockAnimation(s,null,6));
+					s.getTrader().setTrading(false);
+					s.setTrading(false);
+					s.getTrader().setTrader(null);
+					s.setTrader(null);
+					
+				}
+			}
+		
 		aq.add(ma);
 		new AnimationRunner(aq);
 	}
+	
 }

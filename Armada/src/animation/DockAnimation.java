@@ -84,6 +84,8 @@ public class DockAnimation implements Animation{
 					{
 						deltaX-=(int)((target.getWidth()/2+ship.getWidth()/2)*Math.cos(Math.toRadians(ship.getAngle())));
 						deltaY-=(int)((target.getWidth()/2+ship.getWidth()/2)*Math.sin(Math.toRadians(ship.getAngle())));
+						//deltaX-=(int)((10+ship.getWidth()/2)*Math.cos(Math.toRadians(ship.getAngle())));
+						//deltaY-=(int)((10+ship.getWidth()/2)*Math.sin(Math.toRadians(ship.getAngle())));
 					}
 					ship.getAH().setMoveXLeft(deltaX);
 					ship.getAH().setMoveYLeft(deltaY);

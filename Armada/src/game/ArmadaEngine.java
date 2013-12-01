@@ -240,9 +240,9 @@ public class ArmadaEngine implements ChangeListener {
 				/*if(temp.isDocked()){
 					temp.setPlanetDocked(null);
 				}
-				*/if(temp.isTrading()){
+				*//*if(temp.isTrading()){
 					temp.setTrading(false);
-				}
+				}*/
         		activeE.moveTo(x, y);
         		return MovementStatus.SUCCESS;
 		}
