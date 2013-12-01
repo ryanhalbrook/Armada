@@ -54,7 +54,7 @@ public class GameController extends ViewLayerController {
         grid = new Grid(this);
         hud = new HUDmanager(grid, this);
         viewLayer = new ViewLayer(new BoundingRectangle(0,0, dsb));
-        ipl =  new InformationPopupLayer(new BoundingRectangle(5, 45, 200, 35));
+        ipl =  new InformationPopupLayer(new BoundingRectangle(5, 125, 200, 35));
         //ArmadaHUD armadaLayer = new ArmadaHUD(new BoundingRectangle(0, 0, 100, 100), this);
         viewLayer.addSublayer(ipl);
         //viewLayer.addSublayer(armadaLayer);
@@ -320,6 +320,7 @@ public class GameController extends ViewLayerController {
 	        break;
 	        case KeyEvent.VK_S:
 	            grid.moveCheat();
+	        break;
 	        case KeyEvent.VK_I:
 //	            hud.toggleInventory();
 	        break;

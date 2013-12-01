@@ -47,7 +47,7 @@ public class StatHUD2 extends HUD {
 	}
 
 	public void draw(Graphics g){
-		if(!displaying)return;
+		if(!displaying||s==null)return;
 		int x = r.getX();
 		int y = r.getY();
 		int w = r.getWidth();
