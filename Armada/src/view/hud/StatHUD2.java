@@ -20,6 +20,7 @@ public class StatHUD2 extends HUD {
 	}
 
 	public boolean click(int inX, int inY){
+		if(!displaying)return false;
 		if(r.isIn(inX, inY)){
 			return true;
 		}
