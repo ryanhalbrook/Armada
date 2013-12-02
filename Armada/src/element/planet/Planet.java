@@ -8,6 +8,7 @@ import element.DynamicElement;
 import element.ship.Ship;
 import element.status.HealthBar;
 import game.ArmadaEngine;
+import animation.AnimationHelper;
 import animation.DynamicAnimationHelper;
 
 
@@ -144,6 +145,12 @@ public class Planet extends DynamicElement{
 			}
 		}
 		return dockedList;
+	}
+	public void draw(Graphics g, BoundingRectangle viewRect){
+		super.draw(g,viewRect);
+		if(alliance !=0){
+			AnimationHelper.draw(x, y, width/2, height/2, "fort", g,viewRect);
+		}
 	}
 	/*
 	 * There are far too few situations accounted for in this code and needs to be removed.

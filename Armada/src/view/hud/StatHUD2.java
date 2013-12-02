@@ -93,7 +93,10 @@ public class StatHUD2 extends HUD {
 		dy+=10+GAP;
 		g.drawString("Damage: " + dmg + " | Speed: " + adjspd + "/" + spd  , x, dy);
 		dy+=GAP + 4;
-		g.drawString("Movement Left: " + ml + " | Cann Attack: " + atk, x, dy);
+		if(atk)
+			g.drawString("Movement Left: " + ml + " | Can Attack: Yes", x, dy);
+		else
+			g.drawString("Movement Left: " + ml + " | Can Attack: No", x, dy);
 	}
 	
 }
