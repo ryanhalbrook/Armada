@@ -26,7 +26,7 @@ public class FighterShip extends Ship {
 		maxCargo=3;
 
 
-		this.addItem(new Item(ItemList.ItemNames.Fighter));
+		//this.addItem(new Item(ItemList.ItemNames.Fighter));
 		update();	
 	}
 	

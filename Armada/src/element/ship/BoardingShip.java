@@ -24,7 +24,7 @@ public class BoardingShip extends Ship {
 		maxCargo=5;
 
 
-		this.addItem(new Item(ItemList.ItemNames.Boarding));
+		//this.addItem(new Item(ItemList.ItemNames.Boarding));
 		update();	
 	}
 	

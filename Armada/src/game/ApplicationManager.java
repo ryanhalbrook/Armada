@@ -126,7 +126,12 @@ public class ApplicationManager implements ChangeListener {
     public void endGame() {
         swapPanel(new MainMenuPanel(this));
     }
-    
+    public void endGame(int alliance) {
+    	if(alliance ==1)
+    		swapPanel(new MainMenuPanel(this,"redwin.png"));
+    	else if(alliance==2)
+    		swapPanel(new MainMenuPanel(this,"bluewin.png"));
+    }
     /**
         Swaps the current panel for the panel given to this method.
         @param p The panel that will be switched to.

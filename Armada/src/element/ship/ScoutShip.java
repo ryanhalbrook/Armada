@@ -23,7 +23,7 @@ public class ScoutShip extends Ship{
 		range=100;
 		maxCargo=1;
 
-		this.addItem(new Item(ItemList.ItemNames.Scout));
+		//this.addItem(new Item(ItemList.ItemNames.Scout));
 		update();
 		//Some Examples of my testing
 		//this.addItem(new Item(ItemList.ItemNames.OverloadWeapons));

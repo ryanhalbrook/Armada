@@ -98,6 +98,7 @@ public class TradeHUD extends HUD{
 		if(close.isIn(inX, inY)){
 			//displaying=false;
 			s1.setTrading(false);
+			s1.untrade();
 			return true;
 		}
 		if(l1==null)return false;

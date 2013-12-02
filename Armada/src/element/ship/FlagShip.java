@@ -26,7 +26,7 @@ public class FlagShip extends Ship {
 		maxCargo=50;
 
 
-		this.addItem(new Item(ItemList.ItemNames.Flagship));
+		//this.addItem(new Item(ItemList.ItemNames.Flagship));
 		update();	
 	}
 	

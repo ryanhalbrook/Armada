@@ -12,6 +12,7 @@ import view.hud.HUDmanager;
 import view.hud.MapHUD;
 
 import java.awt.event.*;
+import java.awt.geom.AffineTransform;
 import java.awt.*;
 
 import javax.swing.*;
@@ -106,15 +107,47 @@ public class GameController extends ViewLayerController {
     }
     
     public void endGame(){
-		JFrame end = new JFrame();
-		JTextArea text = new JTextArea(500,500);
+    	am.endGame();
+		//am.endGame(grid.getWinner().getAlliance());
+    	JFrame end = new JFrame();
+		/*JTextArea text = new JTextArea(500,500);
 		text.setFont(text.getFont().deriveFont(28.0f));
 		text.setText(grid.getWinner().getPlayerName() + " has won! \n Now " + grid.getLoser().getPlayerName() +" has to clean the ceiling!" );
 		end.add(text);
-		end.setBounds(100, 100, 500, 500);
+		*/
+		if(grid.getWinner().getAlliance()==1)
+			end.add(new WinPanel("redwin.png"));
+		if(grid.getWinner().getAlliance()==2)
+			end.add(new WinPanel("bluewin.png"));
+		end.setSize(198*5,108*5+20);
+        end.setMinimumSize(new Dimension(198*5,108*5+20));
 		end.setVisible(true);
+		
 	}
-	
+	public class WinPanel extends JPanel{
+		private BufferedImage backgroundImage;
+		public WinPanel(String img){
+			super();
+			backgroundImage = ImageLoader.getInstance().getImage(img);
+		}
+		public void paintComponent(Graphics g){
+			Graphics2D g2d = (Graphics2D)g;
+	        AffineTransform at = g2d.getTransform();
+	        if (backgroundImage != null) {
+	            int imageWidth = backgroundImage.getWidth();
+	            int panelWidth = this.getWidth();
+	            
+	            double scale = panelWidth / (imageWidth * 1.0);
+	            g2d.scale(scale, scale);
+	            g2d.drawImage(backgroundImage, 0, 0, null);
+	            
+	        } else {
+	            System.out.println("Repainting");
+	            //repaint();
+	        }
+	        g2d.setTransform(at);
+		}
+	}
 	public void keyReleased(KeyEvent evt) {
 	    int keyCode = evt.getKeyCode();
 	    if (keyCode == KeyEvent.VK_CONTROL) {
