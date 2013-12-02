@@ -4,29 +4,27 @@ import item.ItemList;
 import item.ItemList.ItemNames;
 import animation.ShipAnimationHelper;
 import view.*;
-public class JuggernautShip extends Ship {
-	
-	//private double hullBonus = .1, engineBonus = .1;
+public class BoardingShip extends Ship {
 
-	public JuggernautShip(int inX, int inY, int team) {
-		super(inX,inY, 195, 79, "juggernaut",team);// 89 71
+	public BoardingShip(int inX, int inY, int team) {
+		super(inX,inY, 89, 71, "boarding",team);
 		ah = new ShipAnimationHelper(this);
-		baseMaxHull=500;
+		baseMaxHull=300;
 		maxHull=baseMaxHull;
 		hull=maxHull;
-		baseMaxEngine=500;
+		baseMaxEngine=400;
 		maxEngine=baseMaxEngine;
 		engine=maxEngine;
-		baseSpeed=550;
+		baseSpeed=750;
 		maxSpeed=baseSpeed;
 		speed=baseSpeed;
-		baseWeapons=650;
+		baseWeapons=250;
 		weapons=baseWeapons;
-		range=650;
+		range=250;
 		maxCargo=5;
 
-		
-		this.addItem(new Item(ItemList.ItemNames.Juggernaut));
+
+		this.addItem(new Item(ItemList.ItemNames.Boarding));
 		update();	
 	}
 	

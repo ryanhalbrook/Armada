@@ -6,24 +6,26 @@ import animation.ShipAnimationHelper;
 import view.*;
 public class CargoShip extends Ship {
 	
-	private double hullBonus = .1, engineBonus = .1;
+	//private double hullBonus = .1, engineBonus = .1;
 
 	public CargoShip(int inX, int inY, int team) {
-		super(inX,inY, 89, 71, "boarding",team);//just temporary until we have a cargo ship .png
+		super(inX,inY, 89, 71, "cargo",team);
 		ah = new ShipAnimationHelper(this);
-		baseMaxHull = 1500;
+		baseMaxHull=500;
 		maxHull=baseMaxHull;
 		hull=maxHull;
-		baseMaxEngine=4000;
+		baseMaxEngine=500;
 		maxEngine=baseMaxEngine;
 		engine=maxEngine;
-		baseSpeed=600;
+		baseSpeed=250;
 		maxSpeed=baseSpeed;
 		speed=baseSpeed;
-		baseWeapons=100;
-		weapons = baseWeapons;
-		range = 220;
+		baseWeapons=300;
+		weapons=baseWeapons;
+		range=300;
 		maxCargo=25;
+
+
 		this.addItem(new Item(ItemList.ItemNames.Cargo));
 		update();	
 	}
