@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class ItemList {
 	//STEP 0 : Only items that edit ship stats are supported right now.  Proc items are not supported
 	public enum ItemNames{//STEP 1 : When adding a new item, add the name here.  This is what an item's id is
-		Blank, Cargo, Juggernaut, HullPlate, WeaponsUpgrade, EnginesUpgrade, SpeedUpgrade, ScalingWeaponsUpgrade, ScalingEnginesUpgrade, ScalingHullUpgrade, ScalingSpeedUpgrade, OverloadHull, OverloadWeapons, OverloadEngines, OverloadSpeed;
+		Normal, Blank, Cargo, Juggernaut, HullPlate, WeaponsUpgrade, EnginesUpgrade, SpeedUpgrade, ScalingWeaponsUpgrade, ScalingEnginesUpgrade, ScalingHullUpgrade, ScalingSpeedUpgrade, OverloadHull, OverloadWeapons, OverloadEngines, OverloadSpeed;
 	}
 	
 	public enum ItemStats{//STEP 2 : If the item uses a stat not seen here, you will need to add it to this list.  You will also have to edit the Item class (I also have instructions there) because it does not yet support the stat if it is not here
@@ -30,9 +30,10 @@ public class ItemList {
 		
 		//Cargo
 		itemVals.put(ItemNames.Cargo.name()+ItemStats.CargoPassive.name(), 1);// using .name() converts the name to the string of its name which it is stored by in the HashMap.  There is no reason to worry about this though
-		itemVals.put(ItemNames.Cargo.name()+ItemStats.Price.name(), 0);
+		itemVals.put(ItemNames.Cargo.name()+ItemStats.Price.name(), 700);
 		itemDescriptions.put(ItemNames.Cargo.name() + ItemStats.Description, "This ship cannot be upgraded with items");
-		itemDescriptions.put(ItemNames.Cargo.name() + ItemStats.InGameName, "Cargo Passive");
+		itemDescriptions.put(ItemNames.Cargo.name() + ItemStats.InGameName, "Cargo Ship");
+		itemDescriptions.put(ItemNames.Cargo.name()+ItemStats.ImageName, "cargo_red");
 		
 		//WeaponsUpgrade
 		itemVals.put(ItemNames.WeaponsUpgrade.name() + ItemStats.WeaponsFlat, 100);
@@ -68,10 +69,16 @@ public class ItemList {
 		
 		//Juggernaut item for bonus
 		itemVals.put(ItemNames.Juggernaut.name()+ItemStats.HullPercentage.name(), 10);
-		itemVals.put(ItemNames.Juggernaut.name()+ItemStats.Price.name(), 0);
-		itemDescriptions.put(ItemNames.Juggernaut.name()+ItemStats.Description, "Increases Hull by " + ItemList.getInt(ItemNames.Juggernaut, ItemStats.HullPercentage) +"%");
-		itemDescriptions.put(ItemNames.Juggernaut.name() + ItemStats.InGameName, "Juggernaut Passive");
+		itemVals.put(ItemNames.Juggernaut.name()+ItemStats.Price.name(), 850);
+		itemDescriptions.put(ItemNames.Juggernaut.name()+ItemStats.Description, "This ship's Hull is increased by " + ItemList.getInt(ItemNames.Juggernaut, ItemStats.HullPercentage) +"%");
+		itemDescriptions.put(ItemNames.Juggernaut.name() + ItemStats.InGameName, "Juggernaut Ship");
 		itemDescriptions.put(ItemNames.Juggernaut.name()+ItemStats.ImageName, "juggernaut_red");
+		
+		//Normal/Basic ship
+		itemVals.put(ItemNames.Normal.name()+ItemStats.Price.name(), 700);
+		itemDescriptions.put(ItemNames.Normal.name()+ItemStats.Description, "Standard ship with no bonus");
+		itemDescriptions.put(ItemNames.Normal.name() + ItemStats.InGameName, "Normal Ship");
+		itemDescriptions.put(ItemNames.Normal.name()+ItemStats.ImageName, "fighter_red");
 		
 		//ScalingEnginesUpgrade
 		itemVals.put(ItemNames.ScalingEnginesUpgrade.name()+ItemStats.EnginesPercentage.name(), 15);

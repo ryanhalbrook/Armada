@@ -18,7 +18,7 @@ import element.ship.Ship;
 
 public class ItemListHUD extends HUD {
 
-	private Planet p;
+	//private Planet p;
 	private Ship s;
 	private DynamicElement de;
 	//private ArrayList<ItemButton> buttons;
@@ -32,10 +32,7 @@ public class ItemListHUD extends HUD {
 		//location = l;
 		de =gc.getActiveE();
 		hm=h;
-		if(de != null && de instanceof Planet){
-			p=(Planet)de;
-		}
-		else if(de != null && de instanceof Ship){
+		if(de != null && de instanceof Ship){
 			s=(Ship)de;
 		}
 		buttons = new ButtonPage(this);
@@ -56,22 +53,13 @@ public class ItemListHUD extends HUD {
 			buttons=new ButtonPage(this);
 			fillButtons();
 		}
-		if(de != null && de instanceof Planet){
-			p=(Planet)de;
-		}
-		else if(de != null && de instanceof Ship){
+		if(de != null && de instanceof Ship){
 			s=(Ship)de;
 		}
 		
-		if(de instanceof Planet){
-			buttons.add(new ItemButton(x+3, y+3, width-6, 20, gc, ItemList.ItemNames.EnginesUpgrade, true));
-			buttons.add(new ItemButton(x+3, y+3, width-6, 20, gc, ItemList.ItemNames.HullPlate, true));
-			buttons.add(new ItemButton(x+3, y+3, width-6, 20, gc , ItemList.ItemNames.SpeedUpgrade, true));	
-		}
-		else if(de instanceof Ship){
+		if(de instanceof Ship){
 			buttons.fillShip((Ship)de);
 		}
-		else{System.out.println("WTF");}
 		
 	}
 	
@@ -91,14 +79,10 @@ public class ItemListHUD extends HUD {
 			buttons=new ButtonPage(this);
 			fillButtons();
 		}
-		if(de != null && de instanceof Planet){
-			p=(Planet)de;
-		}
-		else if(de != null && de instanceof Ship){
+		if(de != null && de instanceof Ship){
 			s=(Ship)de;
 		}
 		else{
-			p=null;
 			return;
 		}
 		
@@ -119,14 +103,7 @@ public class ItemListHUD extends HUD {
 	}*/
 	
 	public boolean click(int inX, int inY){
-	    if (!this.drawingEnabled()) return false;
-		if(p==null){
-			hm.remove(dh);
-			dh=null;
-			if(buttons.getActiveB()!=null)buttons.getActiveB().setSelected(false);
-			buttons.unselect();
-		}
-		
+	    if (!this.drawingEnabled()) return false;		
 		return buttons.click(inX, inY);
 	}
 	

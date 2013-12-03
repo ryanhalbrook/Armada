@@ -243,6 +243,10 @@ public class ModeHUD extends HUD{
 					break;
 			}
 			g.drawOval(p.getX()-p.getWidth()/2 - grid.getViewRegion().getX(), p.getY()-p.getHeight()/2 - grid.getViewRegion().getY(), p.getWidth(), p.getHeight());
+			if(grid.getMode()==5){
+				g.setColor(new Color(0,255,0,clear));
+				g.fillOval(p.getX()-Ship.getDockRange() - grid.getViewRegion().getX()-p.getWidth()/2, grid.getActiveE().getY()-Ship.getDockRange()  - grid.getViewRegion().getY()-p.getHeight()/2, Ship.getDockRange() *2 + p.getWidth(), Ship.getDockRange() *2 + p.getHeight());
+			}
 		}
 		else{
 			g.setColor(Color.WHITE);

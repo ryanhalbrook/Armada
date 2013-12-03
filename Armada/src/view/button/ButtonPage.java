@@ -196,4 +196,11 @@ public class ButtonPage {
 		
 	}
 	
+	public void fillHomePlanet(){
+		clear();
+		add(new ItemButton(x+3, y+3, width, ButtonList.BUTTON_HEIGHT, hud.getGC(), ItemList.ItemNames.Juggernaut,true));
+		add(new ItemButton(x+3, y+3, width, ButtonList.BUTTON_HEIGHT, hud.getGC(), ItemList.ItemNames.Cargo,true));
+		add(new ItemButton(x+3, y+3, width, ButtonList.BUTTON_HEIGHT, hud.getGC(), ItemList.ItemNames.Normal,true));
+	}
+	
 }

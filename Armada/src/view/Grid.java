@@ -19,6 +19,7 @@ import element.DynamicElement;
 import element.Element;
 import element.Explosion;
 import element.Teleporter;
+import element.planet.HomePlanet;
 import element.planet.Planet;
 import element.ship.Ship;
 import game.ArmadaEngine;
@@ -46,7 +47,7 @@ public class Grid extends ViewLayer {
     private float fade = 1.0f;
     private int mode = 1;
     private int index = 0;
-    private DynamicElement activeE;
+    private DynamicElement activeE, toSpawn;
     private GameController gc = null;
     private DynamicSize dsb;
     private BoundingRectangle viewRegion = null; //The entire grid is 2000 by 2000 pixels. This is the region that the user sees.
@@ -320,16 +321,23 @@ public class Grid extends ViewLayer {
 		}
 		
 		if (mode == 5) {
-		    // Fleet move
-		    inX += viewRegion.getX(); inY += viewRegion.getY();
-		    int counter = 0;
-		    for (DynamicElement d : delements) {
-		        if (d instanceof Ship && d.getAlliance()==engine.getTurn() && d.withinMovement(inX,inY) && d.isTargetable()) {
-		            
-		            System.out.println("Moving");
-		            handleMovementStatus(engine.moveDynamicElement(d, inX+counter-counter*50, inY-counter*50));
-		            counter++;
-		        }
+			System.out.println("11111111111111111111");
+		    if(activeE instanceof HomePlanet && activeE.getAlliance()==this.getTurn()){
+		    	System.out.println("22222222222222222222222");
+		    	if(toSpawn!= null){
+		    		System.out.println("333333333333333333333333333");
+		    		toSpawn.setX(inX);
+		    		toSpawn.setY(inY);
+		    		if(toSpawn.distanceFrom(activeE) > (toSpawn.getWidth() + activeE.getWidth()) ){
+		    			System.out.println("444444444444444444444444");
+		    			engine.add(toSpawn);
+		    			this.add(toSpawn);
+		    			System.out.println(toSpawn);
+		    			System.out.println(toSpawn.getX() + " " + toSpawn.getY() + " " + toSpawn.getWidth() + " " + toSpawn.getHeight());
+		    			toSpawn=null;
+		    			mode=1;
+		    		}
+		    	}
 		    }
 		    return true;
 		}
@@ -348,6 +356,11 @@ public class Grid extends ViewLayer {
 		}
 		*/
 		return false;
+	}
+	
+	public void prepareSpawn(DynamicElement de){
+		toSpawn=de;
+		mode=5;
 	}
 	
 	private void handleMovementStatus(ArmadaEngine.MovementStatus status) {
@@ -390,10 +403,6 @@ public class Grid extends ViewLayer {
 	    g.setColor(Color.GRAY);
 	    if (activeE != null)
 	        //g.drawOval(activeE.getX(), activeE.getY(), activeE.getWidth(), activeE.getHeight());
-	    
-	    
-	    
-	    
 	    g.setColor(c);
 	    
 	} 

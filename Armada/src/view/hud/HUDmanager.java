@@ -18,7 +18,7 @@ public class HUDmanager extends ViewLayer {
 	protected GameController gc = null;
 
 	protected ArrayList<HUD> huds;
-	protected HUD mode, stat, turn, map, items,trade,store; 
+	protected HUD mode, stat, turn, map, items,trade,store, shipStore; 
 	protected Ship s1,s2;
 	
 	/**
@@ -31,9 +31,11 @@ public class HUDmanager extends ViewLayer {
 		grid = gr;
 		this.gc = gc;
 		huds = new ArrayList<HUD>();
+		
 		mode = new ModeHUD(gr, gc, HUD.Position.BOTTOM_LEFT);//0=default, 1 = top left, 2 = top right, 3 = bot left, 4 = bot right
 		stat = new StatHUD2(gc, HUD.Position.TOP_LEFT);
 		turn = new TurnHUD(gr, gc);
+		shipStore = new ShipStoreHUD(gc, HUD.Position.CENTERED);
 		store = new StoreHUD(gc, HUD.Position.CENTERED);
 		map = new MapHUD(gr, gc, HUD.Position.BOTTOM_RIGHT);
 		items= new ItemListHUD(gc, HUD.Position.TOP_LEFT, this);
@@ -46,6 +48,7 @@ public class HUDmanager extends ViewLayer {
 		this.setName("HUD");
 		
 		addHUD(store);
+		addHUD(shipStore);
 		addHUD(trade);
 		addHUD(map);
 		addHUD(stat);
