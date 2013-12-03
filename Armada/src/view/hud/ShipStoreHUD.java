@@ -83,7 +83,7 @@ public class ShipStoreHUD extends HUD{
 				return true;
 			}
 			else{
-				gc.getGrid().prepareSpawn(s);
+				gc.getGrid().prepareSpawn(s,ItemList.getInt(activeB.getId(), ItemList.ItemStats.Price));
 			}
 			//gc.getGrid().setMode(9);
 			//System.out.println("YYYAAAAYYYY");	

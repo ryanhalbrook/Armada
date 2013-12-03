@@ -21,6 +21,7 @@ import element.Explosion;
 import element.Teleporter;
 import element.planet.HomePlanet;
 import element.planet.Planet;
+import element.ship.CargoShip;
 import element.ship.Ship;
 import game.ArmadaEngine;
 import game.ArmadaEngine.AttackStatus;
@@ -45,7 +46,7 @@ public class Grid extends ViewLayer {
     
     private long startTime = -1;
     private float fade = 1.0f;
-    private int mode = 1;
+    private int mode = 1, spawnPrice;
     private int index = 0;
     private DynamicElement activeE, toSpawn;
     private GameController gc = null;
@@ -70,6 +71,7 @@ public class Grid extends ViewLayer {
     	delements = engine.getDynamicElements();
     	SoundEffect.init();
     	SoundEffect.volume=SoundEffect.Volume.LOW;
+    	
     }
     
     /**
@@ -321,20 +323,25 @@ public class Grid extends ViewLayer {
 		}
 		
 		if (mode == 5) {
-			System.out.println("11111111111111111111");
 		    if(activeE instanceof HomePlanet && activeE.getAlliance()==this.getTurn()){
-		    	System.out.println("22222222222222222222222");
 		    	if(toSpawn!= null){
-		    		System.out.println("333333333333333333333333333");
-		    		toSpawn.setX(inX);
-		    		toSpawn.setY(inY);
-		    		if(toSpawn.distanceFrom(activeE) > (toSpawn.getWidth() + activeE.getWidth()) ){
-		    			System.out.println("444444444444444444444444");
+		    		toSpawn.setX(inX+this.viewRegion.getX());
+		    		toSpawn.setY(inY+this.viewRegion.getY());
+		    		if(toSpawn.distanceFrom(activeE) > (toSpawn.getWidth()/2 + activeE.getWidth()/2) && toSpawn.distanceFrom(activeE) < activeE.getWidth()/2 + Ship.getDockRange()){
+		    			for(DynamicElement d: delements){
+		    				if(d.distanceFrom(toSpawn) < d.getWidth()/2+toSpawn.getWidth()/2){
+		    					return false;
+		    				}
+		    			}
+		    			if(!engine.getPlayerManager().canPay(activeE.getAlliance(), spawnPrice)){
+		    				return false;
+		    			}
+		    			engine.getPlayerManager().playerPays(activeE.getAlliance(), spawnPrice);
 		    			engine.add(toSpawn);
-		    			this.add(toSpawn);
-		    			System.out.println(toSpawn);
-		    			System.out.println(toSpawn.getX() + " " + toSpawn.getY() + " " + toSpawn.getWidth() + " " + toSpawn.getHeight());
+		    			System.out.println(delements.size());
+		    			//System.out.println(toSpawn.getX() + " " + toSpawn.getY() + " " + toSpawn.getWidth() + " " + toSpawn.getHeight());
 		    			toSpawn=null;
+		    			spawnPrice=0;
 		    			mode=1;
 		    		}
 		    	}
@@ -358,9 +365,10 @@ public class Grid extends ViewLayer {
 		return false;
 	}
 	
-	public void prepareSpawn(DynamicElement de){
+	public void prepareSpawn(DynamicElement de, int price){
 		toSpawn=de;
 		mode=5;
+		spawnPrice=price;
 	}
 	
 	private void handleMovementStatus(ArmadaEngine.MovementStatus status) {
