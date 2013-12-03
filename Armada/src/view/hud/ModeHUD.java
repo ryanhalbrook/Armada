@@ -17,7 +17,7 @@ import element.ship.Ship;
 
 public class ModeHUD extends HUD{
 
-    private String[] modes = {"Move (1)", "Hull (2)", "Eng (3)", "Dock(4)", "Move F. (5)"};
+    private String[] modes = {"Move (1)", "Hull (2)", "Eng (3)", "Dock (4)", "Spawn (5)"};
     private Color[] modeColors = {Color.GREEN, new Color(250,100,0), Color.YELLOW, Color.MAGENTA, new Color(0.0f, 0.9f, 1.0f)};
 	private float phase = -1.0f;
 	private int lastMode = 1;
@@ -187,7 +187,7 @@ public class ModeHUD extends HUD{
 		    	g.fillOval(grid.getActiveE().getX()-Ship.getDockRange() - grid.getViewRegion().getX(), grid.getActiveE().getY()-Ship.getDockRange()  - grid.getViewRegion().getY(), Ship.getDockRange() *2, Ship.getDockRange() *2);
 		    }
 		    else if (( grid.getMode() == 5)) {
-		        g.setColor(new Color(0.0f, 0.9f, 1.0f));
+		        //g.setColor(new Color(0.0f, 0.9f, 1.0f));
 		    }
 		    //if (grid.getCurrentX() == 0 && grid.getCurrentY() == 0) System.out.println("Current x,y = 0,0");
 		    if((grid.getCurrentX()!=0||grid.getCurrentY()!=0) && displayLine && grid.getActiveE().getAlliance()==grid.getTurn()){
@@ -202,7 +202,7 @@ public class ModeHUD extends HUD{
 			        //radius = (int)((gc.getActiveE().getWidth() + gc.getActiveE().getHeight()) / 2.0f);
 			        g.drawOval(grid.getCurrentX()-baseRadius, grid.getCurrentY()-baseRadius, baseRadius*2, baseRadius *2 );
 			        g.drawOval(grid.getCurrentX()-radius, grid.getCurrentY()-radius, radius*2, radius*2);
-			    } else {
+			    } /*else {
 			        int counter = 0;
 			        for (DynamicElement d : grid.getDelements()) {//needs to be changed to use the same logic method that actually decides if the ship can move
 			            if (d instanceof Ship && d.getAlliance()==grid.getTurn() && d.withinMovement(grid.getCurrentX(),grid.getCurrentY()) && d.isTargetable()) {
@@ -211,7 +211,7 @@ public class ModeHUD extends HUD{
 			                g.drawLine(shipX-grid.getViewRegion().getX(), shipY-grid.getViewRegion().getY(), grid.getCurrentX()-counter*50, grid.getCurrentY()-counter*50);
 			                /*int radius = 20;
 			                g.drawOval(grid.getCurrentX()-counter*50-radius, grid.getCurrentY()-counter*50-radius, radius*2, radius*2);
-			                */
+			                *//*
 			                int baseRadius = 20;
 			        int radius = (int)(baseRadius*(rPhase));
 			        if (radius < 5) radius = 5;
@@ -223,7 +223,7 @@ public class ModeHUD extends HUD{
 			            }
 			            
 			        }
-			    }
+			    }*/
 		    }
 		    g2d.setStroke(s);
 		    g.setColor(new Color(g.getColor().getRed(), g.getColor().getGreen(), g.getColor().getBlue(), 40));
