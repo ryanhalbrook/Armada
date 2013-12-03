@@ -13,6 +13,7 @@ import element.DynamicElement;
 import element.Element;
 import element.planet.Planet;
 import element.ship.CargoShip;
+import element.ship.FlagShip;
 import element.ship.JuggernautShip;
 import element.ship.NormalShip;
 import element.ship.ScoutShip;
@@ -102,7 +103,7 @@ public class ArmadaEngine implements ChangeListener {
         }
         
         // Add some ships
-		delements.add(new NormalShip(750,330,1));
+	/*	delements.add(new NormalShip(750,330,1));
 		delements.add(new NormalShip(160,330,1));
 		delements.add(new NormalShip(260,330,2));
 		delements.add(new NormalShip(60,330,2));
@@ -111,7 +112,10 @@ public class ArmadaEngine implements ChangeListener {
 		delements.add(new NormalShip(350,330,2));
 		delements.add(new NormalShip(400,330,2));
 		delements.add(new NormalShip(450,330,2));
-	}
+	*/
+        delements.add(new FlagShip(200,1900,1));
+        delements.add(new FlagShip(7400,1900,2));
+    }
     
     public ArmadaEngine() {
         pm = new PlayerManager();
@@ -121,7 +125,7 @@ public class ArmadaEngine implements ChangeListener {
         }
         
         // Add some ships
-		delements.add(new NormalShip(750,330,1));
+		/*delements.add(new NormalShip(750,330,1));
 		delements.add(new NormalShip(160,330,1));
 		delements.add(new NormalShip(450,330,2));
 		delements.add(new ScoutShip(60,330,2));
@@ -133,9 +137,11 @@ public class ArmadaEngine implements ChangeListener {
 		delements.add(new JuggernautShip(650,700,2));
 		delements.add(new CargoShip(650,900,2));
 		JuggernautShip s = new JuggernautShip(4000,700,1);
-		s.addItem(new Item(ItemList.ItemNames.HullPlate));
-		delements.add(s);
-		
+		*/
+        //s.addItem(new Item(ItemList.ItemNames.HullPlate));
+		//delements.add(s);
+        delements.add(new FlagShip(200,1900,1));
+        delements.add(new FlagShip(7400,1900,2));
     }
     
     private boolean isPlayersTurn() {

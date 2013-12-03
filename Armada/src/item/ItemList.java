@@ -6,7 +6,7 @@ import java.util.HashMap;
 public class ItemList {
 	//STEP 0 : Only items that edit ship stats are supported right now.  Proc items are not supported
 	public enum ItemNames{//STEP 1 : When adding a new item, add the name here.  This is what an item's id is
-		Normal, Blank, Cargo, Juggernaut, HullPlate, WeaponsUpgrade, EnginesUpgrade, SpeedUpgrade, ScalingWeaponsUpgrade, ScalingEnginesUpgrade, ScalingHullUpgrade, ScalingSpeedUpgrade, OverloadHull, OverloadWeapons, OverloadEngines, OverloadSpeed;
+		Scout,Flagship,Boarding,Normal, Blank, Cargo, Juggernaut, HullPlate, WeaponsUpgrade, EnginesUpgrade, SpeedUpgrade, ScalingWeaponsUpgrade, ScalingEnginesUpgrade, ScalingHullUpgrade, ScalingSpeedUpgrade, OverloadHull, OverloadWeapons, OverloadEngines, OverloadSpeed;
 	}
 	
 	public enum ItemStats{//STEP 2 : If the item uses a stat not seen here, you will need to add it to this list.  You will also have to edit the Item class (I also have instructions there) because it does not yet support the stat if it is not here
@@ -33,7 +33,7 @@ public class ItemList {
 		itemVals.put(ItemNames.Cargo.name()+ItemStats.Price.name(), 700);
 		itemDescriptions.put(ItemNames.Cargo.name() + ItemStats.Description, "This ship cannot be upgraded with items");
 		itemDescriptions.put(ItemNames.Cargo.name() + ItemStats.InGameName, "Cargo Ship");
-		itemDescriptions.put(ItemNames.Cargo.name()+ItemStats.ImageName, "cargo_red");
+		itemDescriptions.put(ItemNames.Cargo.name()+ItemStats.ImageName, "cargoship_red");
 		
 		//WeaponsUpgrade
 		itemVals.put(ItemNames.WeaponsUpgrade.name() + ItemStats.WeaponsFlat, 100);
@@ -77,8 +77,28 @@ public class ItemList {
 		//Normal/Basic ship
 		itemVals.put(ItemNames.Normal.name()+ItemStats.Price.name(), 700);
 		itemDescriptions.put(ItemNames.Normal.name()+ItemStats.Description, "Standard ship with no bonus");
-		itemDescriptions.put(ItemNames.Normal.name() + ItemStats.InGameName, "Normal Ship");
+		itemDescriptions.put(ItemNames.Normal.name() + ItemStats.InGameName, "Fighter");
 		itemDescriptions.put(ItemNames.Normal.name()+ItemStats.ImageName, "fighter_red");
+		
+		//Flagship
+		itemVals.put(ItemNames.Flagship.name()+ItemStats.Price.name(), 2000);
+		itemDescriptions.put(ItemNames.Flagship.name()+ItemStats.Description, "Flagship");
+		itemDescriptions.put(ItemNames.Flagship.name() + ItemStats.InGameName, "Flagship");
+		itemDescriptions.put(ItemNames.Flagship.name()+ItemStats.ImageName, "flagship_red");
+		
+		//Boarding ship
+		itemVals.put(ItemNames.Boarding.name()+ItemStats.Price.name(), 600);
+		itemDescriptions.put(ItemNames.Boarding.name()+ItemStats.Description, "Boarding Ship");
+		itemDescriptions.put(ItemNames.Boarding.name() + ItemStats.InGameName, "Boarding Ship");
+		itemDescriptions.put(ItemNames.Boarding.name()+ItemStats.ImageName, "boarding_red");
+		
+		//Scout ship
+		itemVals.put(ItemNames.Scout.name()+ItemStats.Price.name(), 500);
+		itemDescriptions.put(ItemNames.Scout.name()+ItemStats.Description, "Scout Ship");
+		itemDescriptions.put(ItemNames.Scout.name() + ItemStats.InGameName, "Scout Ship");
+		itemDescriptions.put(ItemNames.Scout.name()+ItemStats.ImageName, "Scout_red");
+						
+		
 		
 		//ScalingEnginesUpgrade
 		itemVals.put(ItemNames.ScalingEnginesUpgrade.name()+ItemStats.EnginesPercentage.name(), 15);

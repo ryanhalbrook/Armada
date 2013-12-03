@@ -6,9 +6,12 @@ import item.ItemList;
 import java.awt.Graphics;
 
 import element.planet.HomePlanet;
+import element.ship.BoardingShip;
 import element.ship.CargoShip;
+import element.ship.FlagShip;
 import element.ship.JuggernautShip;
 import element.ship.NormalShip;
+import element.ship.ScoutShip;
 import element.ship.Ship;
 import view.BoundingRectangle;
 import view.button.ButtonPage;
@@ -77,6 +80,15 @@ public class ShipStoreHUD extends HUD{
 					break;
 				case Normal:
 					s=new NormalShip(0,0,p.getAlliance());
+					break;
+				case Flagship:
+					s=new FlagShip(0,0,p.getAlliance());
+					break;
+				case Boarding:
+					s= new BoardingShip(0,0,p.getAlliance());
+					break;
+				case Scout:
+					s=new ScoutShip(0,0,p.getAlliance());
 					break;
 			}
 			if(s==null){
