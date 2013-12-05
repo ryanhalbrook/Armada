@@ -35,6 +35,7 @@ public class ViewLayerPanel extends JPanel implements DynamicSize, ActionListene
             this.addMouseListener(viewLayerController);
             this.addMouseMotionListener(viewLayerController);
             this.addKeyListener(viewLayerController);
+            this.addComponentListener(viewLayerController);
             refreshTimer = new Timer(30, this);
             refreshTimer.start();
         }

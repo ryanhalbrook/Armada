@@ -9,7 +9,7 @@ import view.ViewLayer;
 import java.awt.*;
 import java.util.*;
 
-public class ViewLayerController implements KeyListener, MouseListener, MouseMotionListener, ActionListener {
+public class ViewLayerController implements KeyListener, MouseListener, MouseMotionListener, ActionListener, ComponentListener {
     protected ViewLayer viewLayer = null;
     private long lastTime;
     
@@ -41,17 +41,20 @@ public class ViewLayerController implements KeyListener, MouseListener, MouseMot
         return viewLayer;
     }
     
-    public void mouseClicked(MouseEvent evt) {
-        
-    }
+    public void componentShown(ComponentEvent evt) {}
+    public void componentResized(ComponentEvent evt) {}
+    public void componentMoved(ComponentEvent evt) {}
+    public void componentHidden(ComponentEvent evt) {}
+    
+    public void mouseClicked(MouseEvent evt) {}
 	public void mouseEntered(MouseEvent evt) {}
 	public void mouseExited(MouseEvent evt) {}
 	public void mouseReleased(MouseEvent evt) {}
+	
 	public void keyTyped(KeyEvent evt) {}
-	public void keyPressed(KeyEvent evt) {
-	    
-	}
+	public void keyPressed(KeyEvent evt) {}
 	public void keyReleased(KeyEvent evt) {}
+	
 	public void mouseDragged(MouseEvent evt) {}
 	public void mouseMoved(MouseEvent evt) {}
 	public void mousePressed(MouseEvent evt) {

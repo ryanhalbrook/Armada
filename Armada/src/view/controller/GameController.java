@@ -231,6 +231,11 @@ public class GameController extends ViewLayerController {
 		int y = (int)evt.getPoint().getY();
 		viewLayer.click(x, y);
 	}
+	
+	public void componentResized(ComponentEvent evt) {
+	    viewRegion.setWidth(evt.getComponent().getWidth());
+	    viewRegion.setHeight(evt.getComponent().getHeight());
+	}
     
     public void update() {
 		viewRegion.setWidth(getViewWidth());
