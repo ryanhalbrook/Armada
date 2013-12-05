@@ -88,6 +88,7 @@ public class GameController extends ViewLayerController {
         int turn = grid.getTurn();
         if (lastTurn != turn) {
             newTurn();
+            grid.turnTimedOut();
         }
         lastTurn = turn;
         

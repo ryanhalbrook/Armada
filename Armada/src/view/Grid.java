@@ -391,6 +391,11 @@ public class Grid extends ViewLayer {
 	    if (status == ArmadaEngine.AttackStatus.UNKNOWN_FAILURE) gc.invalidMoveAttempt("Cannot attack this!");
 	}
 	
+	public void turnTimedOut() {
+	    activeE = null;
+	    mode = 1;
+	}
+	
 	public void toggleTurn() {
 	    gc.newTurn();
 	    //setMode(0);
