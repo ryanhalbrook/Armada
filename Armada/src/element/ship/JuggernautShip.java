@@ -24,7 +24,7 @@ public class JuggernautShip extends Ship {
 		weapons=baseWeapons;
 		range=650;
 		maxCargo=5;
-
+		board=.3f;
 		
 		this.addItem(new Item(ItemList.ItemNames.Juggernaut));
 		update();	

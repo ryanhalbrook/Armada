@@ -29,6 +29,7 @@ public class Ship extends DynamicElement{
 	protected Planet planetDocked;
 	protected int baseWeapons, baseSpeed, baseMaxHull, baseMaxEngine;
 	protected double perHull, perEng;
+	protected float board;
 	protected ArrayList<Item> items;
 	protected Ship trader;
 	private static final int DOCK_RANGE=200;
@@ -175,7 +176,17 @@ public class Ship extends DynamicElement{
 		
 		
 		this.getSAH().board(this, target);
-		//unboard();
+		//return true;
+	}
+	
+	public boolean calculateBoard(Ship target){
+		/*if(board==0){
+			board=0.1f;
+		}*/
+		double rand = Math.random();
+		double perc = (double)target.getEngine()/(double)target.getMaxEngine();
+		System.out.println((rand*0.5) + "+" + (rand*0.5*perc) + " = " + ((rand*0.5)+((rand*0.5)*perc)) + " < " + board + "?" + " " + ((rand*0.5)+((rand*0.5)*perc)<board));
+		return ((rand*0.5)+((rand*0.5)*perc)<board);
 	}
 	
 	public void unboard(){

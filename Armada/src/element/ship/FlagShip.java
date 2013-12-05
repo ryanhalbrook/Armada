@@ -24,7 +24,7 @@ public class FlagShip extends Ship {
 		weapons=baseWeapons;
 		range=600;
 		maxCargo=50;
-
+		board=.8f;
 
 		//this.addItem(new Item(ItemList.ItemNames.Flagship));
 		update();	

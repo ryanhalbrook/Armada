@@ -24,7 +24,7 @@ public class FighterShip extends Ship {
 		weapons=baseWeapons;
 		range=400;
 		maxCargo=3;
-
+		board = .3f;
 
 		//this.addItem(new Item(ItemList.ItemNames.Fighter));
 		update();	

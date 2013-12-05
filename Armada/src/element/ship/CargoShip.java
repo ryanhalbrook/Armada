@@ -24,6 +24,7 @@ public class CargoShip extends Ship {
 		weapons=baseWeapons;
 		range=300;
 		maxCargo=25;
+		board=.1f;
 
 
 		this.addItem(new Item(ItemList.ItemNames.Cargo));

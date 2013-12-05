@@ -274,8 +274,14 @@ public class BoardingAnimation implements Animation{
 	 */
 	private boolean calculateBoarding(Ship att, Ship target){
 		//stub
-		SoundEffect.PIRATEH.play();
-		return true;
+		if(att.calculateBoard(target)){
+			if(Math.random()>.9){
+				SoundEffect.PIRATEH.play();
+			}
+			return true;
+		}
+		
+		return false;
 	}
 	public Element[] getActors() {
 		Element[] elist = {de,target};

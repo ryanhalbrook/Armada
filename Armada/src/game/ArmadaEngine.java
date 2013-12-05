@@ -306,6 +306,7 @@ public class ArmadaEngine implements ChangeListener {
 					Planet p = (Planet)d;
 					Ship s = (Ship) activeE;
 					p.dock(s);
+					return;
 				}
 				else if(d.isIn(x,y) && d instanceof Planet && d.getAlliance() != 0 && d.getAlliance() != activeE.getAlliance()){
 					//InformationPopupLayer.getInstance().showPopup("Cannot Dock At Enemy Planets");
@@ -319,11 +320,13 @@ public class ArmadaEngine implements ChangeListener {
 					Ship s = (Ship) activeE;
 					Ship t = (Ship) d;
 					s.board(t);
+					return;
 				}
 				else if( d.isIn(x,y) && d.getAlliance() == activeE.getAlliance()){
 					Ship s = (Ship) activeE;
 					Ship t = (Ship) d;
 					s.trade(t);
+					return;
 				}
 				else if(activeE.distanceFrom(x, y) >= Ship.getDockRange() ){
 					//InformationPopupLayer.getInstance().showPopup("Out Of Range");

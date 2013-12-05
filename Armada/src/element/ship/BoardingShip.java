@@ -22,6 +22,7 @@ public class BoardingShip extends Ship {
 		weapons=baseWeapons;
 		range=250;
 		maxCargo=5;
+		board=.5f;
 
 
 		//this.addItem(new Item(ItemList.ItemNames.Boarding));
