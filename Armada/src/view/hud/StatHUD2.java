@@ -8,6 +8,9 @@ import view.BoundingRectangle;
 import view.controller.GameController;
 import view.hud.HUD.Position;
 
+import java.awt.FontMetrics;
+import java.awt.Font;
+
 public class StatHUD2 extends HUD {
 	
 	private Ship s;
@@ -49,6 +52,9 @@ public class StatHUD2 extends HUD {
 
 	public void draw(Graphics g){
 		if(!displaying||s==null)return;
+		
+		
+		
 		int x = r.getX();
 		int y = r.getY();
 		int w = r.getWidth();
@@ -71,6 +77,7 @@ public class StatHUD2 extends HUD {
 		int[] xx = {x+w-BAR_HEIGHT, x+w-BAR_HEIGHT, x+w};
 		int[] yy = {dy,dy+BAR_HEIGHT, dy+BAR_HEIGHT};
 		g.fillPolygon(xx,yy, 3);
+		g.setFont(new Font(null, Font.PLAIN, 10));
 		g.drawString("Hull: " + hll + "/" + mxhll, x+ BAR_HEIGHT, dy + 10);
 		dy+=BAR_HEIGHT;
 		g.fillRect(x, dy, w, (int)((double)BAR_HEIGHT*0.25));
@@ -87,17 +94,19 @@ public class StatHUD2 extends HUD {
 		xx = new int[] {x+w-BAR_HEIGHT, x+w-BAR_HEIGHT, x+w};
 		yy = new int[] {dy,dy+BAR_HEIGHT, dy+BAR_HEIGHT};
 		g.fillPolygon(xx,yy, 3);
+		if (s.getAlliance() == 2) g.setColor(Color.BLACK);
 		g.drawString("Engine: " + eng + "/" + mxeng, x+ BAR_HEIGHT, dy + 10);
+		g.setColor(Color.WHITE);
 		dy+=BAR_HEIGHT;
 		g.fillRect(x, dy, w, (int)((double)BAR_HEIGHT*0.25));
-		
+		g.setFont(new Font(null, Font.PLAIN, 14));
 		dy+=10+GAP;
-		g.drawString("Damage: " + dmg + " | Speed: " + adjspd + "/" + spd  , x, dy);
+		g.drawString("Speed: " + adjspd + "/" + spd  , x, dy);
 		dy+=GAP + 4;
 		if(atk)
-			g.drawString("Movement Left: " + ml + " | Can Attack: Yes", x, dy);
+			g.drawString("Fuel: " + ml + " | 1 Laser (" + dmg + " damage)", x, dy);
 		else
-			g.drawString("Movement Left: " + ml + " | Can Attack: No", x, dy);
+			g.drawString("Fuel: " + ml + " | ", x, dy);
 	}
 	
 }
