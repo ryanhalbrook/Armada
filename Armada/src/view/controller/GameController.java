@@ -235,6 +235,18 @@ public class GameController extends ViewLayerController {
 	public void componentResized(ComponentEvent evt) {
 	    viewRegion.setWidth(evt.getComponent().getWidth());
 	    viewRegion.setHeight(evt.getComponent().getHeight());
+	    forceValidViewRegion();
+	}
+	
+	public void forceValidViewRegion() {
+	    if (viewRegion.getX() < 0) viewRegion.setX(0);
+        if (viewRegion.getY() < 0) viewRegion.setY(0);
+	    if (viewRegion.getX() + getViewWidth() > GRID_WIDTH) {
+            viewRegion.setX(GRID_WIDTH - getViewWidth());
+        }
+        if (viewRegion.getY() + getViewHeight() > GRID_HEIGHT) {
+            viewRegion.setY(GRID_HEIGHT - getViewHeight());
+        }
 	}
     
     public void update() {
@@ -256,14 +268,7 @@ public class GameController extends ViewLayerController {
     public void moveViewRegion(int x, int y) {
         viewRegion.setX(viewRegion.getX()+x);
         viewRegion.setY(viewRegion.getY()+y);
-        if (viewRegion.getX() < 0) viewRegion.setX(0);
-        if (viewRegion.getY() < 0) viewRegion.setY(0);
-        if (viewRegion.getX() + getViewWidth() > GRID_WIDTH) {
-            viewRegion.setX(GRID_WIDTH - getViewWidth());
-        }
-        if (viewRegion.getY() + getViewHeight() > GRID_HEIGHT) {
-            viewRegion.setY(GRID_HEIGHT - getViewHeight());
-        }
+        forceValidViewRegion();
         int q = 0;
         if (viewRegion.getX() < GRID_WIDTH / 2.0f && viewRegion.getY() < GRID_HEIGHT / 2.0f) {
             q = 2;
