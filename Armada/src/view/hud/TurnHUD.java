@@ -40,6 +40,7 @@ public class TurnHUD extends HUD{
 	}
 	
 	public void draw(Graphics g){
+	
 	int dx = -(int)(transitionPhase * grid.getAp().getWidth());
 	int dy = -(int)(transitionPhase * BAR_HEIGHT);
 	    /*int x = r.getX();

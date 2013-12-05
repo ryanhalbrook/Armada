@@ -507,6 +507,7 @@ public class Grid extends ViewLayer {
 	public DynamicSize getAp() {
 		return this.dsb;
 	}
+	
 	public int getWidth(){
 		return getGridWidth();
 	}

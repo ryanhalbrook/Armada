@@ -14,6 +14,9 @@ import element.DynamicElement;
 import element.planet.Planet;
 import element.ship.Ship;
 
+import java.awt.Font;
+import java.awt.FontMetrics;
+
 
 public class ModeHUD extends HUD{
 
@@ -29,7 +32,7 @@ public class ModeHUD extends HUD{
 	
 	Grid grid = null;
 	
-	static final int ANIMATION_TIME = 900;
+	static final int ANIMATION_TIME = 100;
 	static final int RETICLE_ANIMATION_TIME = 1000;
 	
 	public ModeHUD(Grid gr, GameController gc, Position p){
@@ -128,9 +131,15 @@ public class ModeHUD extends HUD{
 		
 	    //g.setColor(modeColors[grid.getMode()-1]);
 		g.fillRect(x+startX, y+1, selectionWidth, height-1);
+		
+		g.setFont(new Font(null, Font.PLAIN, 14));
+		FontMetrics fm = g.getFontMetrics();
+		int fontHeight = fm.getHeight();
+		int fontWidth = 0;
 		for (int i = 0; i < 5; i++) {
 		    g.setColor(Color.BLACK);
-		    g.drawString(modes[i], x+i*selectionWidth+5, y+height-15);
+		    fontWidth = fm.stringWidth(modes[i]);
+		    g.drawString(modes[i], (int)(x+i*selectionWidth + (selectionWidth/2.0 - fontWidth/2.0)), (int)(y+height/2.0+fontHeight/2.0));
 		}
 		int clear = 20;
 		if (grid.getActiveE()!=null && grid.getActiveE() instanceof Ship) {
