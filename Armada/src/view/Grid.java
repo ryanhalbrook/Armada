@@ -481,10 +481,17 @@ public class Grid extends ViewLayer {
 	public DynamicElement getActiveE() {
 		return activeE;
 	}
+	
+	/**
+	Get the current mode as an int.
+	*/
 	public int getMode() {
 		return mode;
 	}
 	
+	/**
+	Get a string that describes the current mode.
+	*/
 	public String getModeString() {
 	    if (mode == 0) return "No Selection";
 	    if (mode == 1) return "Move";
