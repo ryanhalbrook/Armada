@@ -41,14 +41,14 @@ public class ItemList {
 		itemVals.put(ItemList.ItemNames.WeaponsUpgrade.name() + ItemStats.Price, 100);
 		itemDescriptions.put(ItemNames.WeaponsUpgrade.name() + ItemStats.Description, "Increases Weapons by " + ItemList.getInt(ItemNames.WeaponsUpgrade, ItemStats.WeaponsFlat));
 		itemDescriptions.put(ItemNames.WeaponsUpgrade.name() + ItemStats.InGameName, "Photon Blasters");
-		itemDescriptions.put(ItemNames.WeaponsUpgrade.name() + ItemStats.ImageName, "attackicon_02");
+		itemDescriptions.put(ItemNames.WeaponsUpgrade.name() + ItemStats.ImageName, "attackicon_01");
 		
 		//EngineUpgrade //Please remember to add the comment for the item name
 		itemVals.put(ItemNames.EnginesUpgrade.name()+ItemStats.EnginesFlat.name(), 100);//you had ItemStats.EnginesUpgrade - EnginesUpgrade is a name, not a stat
 		itemVals.put(ItemNames.EnginesUpgrade.name()+ItemStats.Price.name(), 100);
 		itemDescriptions.put(ItemNames.EnginesUpgrade.name()+ItemStats.Description, "Increases Engine by " + ItemList.getInt(ItemNames.EnginesUpgrade, ItemStats.EnginesFlat));
 		itemDescriptions.put(ItemNames.EnginesUpgrade.name() + ItemStats.InGameName, "Engine Reinforcements");
-		itemDescriptions.put(ItemNames.EnginesUpgrade.name() + ItemStats.ImageName, "movementicon_02");
+		itemDescriptions.put(ItemNames.EnginesUpgrade.name() + ItemStats.ImageName, "movementicon_01");
 		
 		//SpeedUpgrade
 		itemVals.put(ItemNames.SpeedUpgrade.name()+ItemStats.SpeedFlat.name(), 100);//you had ItemStats.SpeedUpgrade - SpeedUpgrade is a name, not a stat
