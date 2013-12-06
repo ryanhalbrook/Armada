@@ -18,6 +18,10 @@ import element.ship.JuggernautShip;
 import element.ship.NormalShip;
 import element.ship.ScoutShip;
 import element.ship.Ship;
+
+/**
+Class that handles most of the game logic.
+*/
 public class ArmadaEngine implements ChangeListener {
 
     int turn = 1;
@@ -36,6 +40,10 @@ public class ArmadaEngine implements ChangeListener {
     private ArrayList<Element> elements;
     private ArrayList<DynamicElement> delements;
     
+    /**
+    Callback for the networking to inform the engine that a change has occurred on another
+    system.
+    */
     public void changeOccurred() {
     
         //System.out.println("Change Occurred");
@@ -66,14 +74,25 @@ public class ArmadaEngine implements ChangeListener {
         
     }
     
+    /**
+    Describes the status of an attempted movement. This is either a success or the reason
+    for failure.
+    */
     public enum MovementStatus {
         SUCCESS, OBJECT_IN_PATH, RANGE, CANNOT_MOVE_PLANET, UNKNOWN_FAILURE, NOT_TURN;
     }
     
+    /**
+    Describes the status of an attempted attack of another element. This is either a 
+    success or the reason for failure.
+    */
     public enum AttackStatus {
         SUCCESS, OUT_OF_SHOTS, RANGE, BAD_TARGET, UNKNOWN_FAILURE;
     }
     
+    /**
+    Returns the dynamic element at the given point or null if there is none.
+    */
     private DynamicElement getDEAtPoint(int x, int y) {
         for (DynamicElement d : delements) {
 			    if(d.getX() == x && d.getY() == y && d.isTargetable()) {
@@ -83,14 +102,24 @@ public class ArmadaEngine implements ChangeListener {
 		return null;
     }
     
+    /**
+    Returns a reference to the list of DynamicElements that are part of the game's state.
+    */
     public ArrayList<DynamicElement> getDynamicElements() {
         return delements;
     }
     
+    /**
+    Returns the player manager with the players of this game.
+    */
     public PlayerManager getPlayerManager(){
 		return pm;
 	}
 	
+	/**
+	Creates an instance of ArmadaEngine with a server and the player that this
+	instance of the game.
+	*/
 	public ArmadaEngine(GameServer server, int player) {
 	    System.out.println(this);
 	    this.player = player;
@@ -117,6 +146,9 @@ public class ArmadaEngine implements ChangeListener {
         delements.add(new FlagShip(7400,1900,2));
     }
     
+    /**
+    Creates an instance of ArmadaEngine for a two player local game.
+    */
     public ArmadaEngine() {
         pm = new PlayerManager();
         delements = new ArrayList<DynamicElement>();
@@ -144,10 +176,16 @@ public class ArmadaEngine implements ChangeListener {
         delements.add(new FlagShip(7400,1900,2));
     }
     
+    /**
+    Returns true if it is the player for this instance's turn (used in networking)
+    */
     private boolean isPlayersTurn() {
         return (turn == player);
     }
     
+    /**
+    Adds a planet to the state of the game.
+    */
     public void addPlanet(int x, int y, int width, int height) {
         Planet p = new Planet();
         p.setX(x);
@@ -156,6 +194,9 @@ public class ArmadaEngine implements ChangeListener {
         p.setHeight(height);
     }
     
+    /**
+    Adds a DynamicElement to the state of the game.
+    */
     public void add(DynamicElement inDE) {
         if (inDE instanceof Planet) {
             Planet planet = (Planet)inDE;
@@ -179,24 +220,32 @@ public class ArmadaEngine implements ChangeListener {
 		else turn=1;	
 		startTurn();
 	}
-    
+    /**
+    Changes the current turn.
+    */
     public void toggleTurn() {
         System.out.println(this);
         GameStateChange gsc = new GameStateChange(null, "Turn Changed");
         if (this.gs != null) gs.commitChange(this, gsc);
 		switchTurn();		
 	}
-	
+	/**
+	Get the current turn.
+	*/
 	public int getTurn() {
 	    return turn;
 	}
-	
+	/**
+	Enable extreme speed used to debug the system and for quick demonstrations.
+	*/
 	public void enableDebugSpeed() {
 	    for(DynamicElement d: delements){
 			d.setSpeed(99999999);
 		}
 	}
-	
+	/**
+	Get the seconds left in the current turn.
+	*/
 	public double secondsRemainingForTurn() {
 	    if (lastTime == 0) {
 		    lastTime = new GregorianCalendar().getTimeInMillis();
@@ -209,12 +258,16 @@ public class ArmadaEngine implements ChangeListener {
 		if (mseconds < 0.0) toggleTurn();
         return mseconds;
     }
-    
+    /**
+    Returns the seconds that each turn starts with.
+    */
     public double maxSecondsForTurn() {
         
         return TURN_TIME;
     }
-	
+	/**
+	Initializes the state for the beginning of the turn.
+	*/
 	public void startTurn() {
 	    for (DynamicElement d : delements) {
 				d.startOfTurn();
@@ -226,7 +279,9 @@ public class ArmadaEngine implements ChangeListener {
 		
 	    mseconds = TURN_TIME;
 	}
-    
+    /**
+    Request that a dynamic element be moved.
+    */
     public MovementStatus moveDynamicElement(DynamicElement activeE, int x, int y) {
         if (gs != null) {
             GameStateChange gsc = new GameStateChange(null, "MOVE");
@@ -267,6 +322,9 @@ public class ArmadaEngine implements ChangeListener {
         return MovementStatus.UNKNOWN_FAILURE;
     }
     
+    /**
+    Request that the element at x,y have its hull attacked by activeE.
+    */
     public AttackStatus attackHull(DynamicElement activeE, int x, int y) {
         for (DynamicElement d : delements) {
 				if(d.isIn(x,y) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(x,y) && d.isTargetable()){
@@ -283,6 +341,9 @@ public class ArmadaEngine implements ChangeListener {
 		return AttackStatus.UNKNOWN_FAILURE;
     }
     
+    /**
+    Request that the element at x,y have its engine attacked by activeE.
+    */
     public AttackStatus attackEngine(DynamicElement activeE, int x, int y) {
         for (DynamicElement d : delements) {
 			if(d.isIn(x,y) && d.getAlliance()!=activeE.getAlliance() && activeE.withinRange(x,y) && d.isTargetable() && d.getEngine()>0){
@@ -299,6 +360,9 @@ public class ArmadaEngine implements ChangeListener {
 		return AttackStatus.UNKNOWN_FAILURE;
     }
     
+    /**
+    Request that activeE dock at the planet at x,y or board the ship at x,y.
+    */
     public void dock(DynamicElement activeE, int x, int y) {
         for (DynamicElement d : delements) {
 				if(d.isIn(x,y) && (d.getAlliance()==0 || d.getAlliance() == activeE.getAlliance()) && activeE.distanceFrom(x, y) < Ship.getDockRange() && d.isTargetable() && d instanceof Planet && activeE instanceof Ship){
@@ -333,11 +397,15 @@ public class ArmadaEngine implements ChangeListener {
 				}
 		}
 	}
-
+    /**
+    Returns the height of the grid in pixels.
+    */
 	public static int getGridHeight() {
 		return GRID_HEIGHT;
 	}
-
+    /**
+    Returns the width of the grid in pixels.
+    */
 	public static int getGridWidth() {
 		return GRID_WIDTH;
 	}
