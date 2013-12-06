@@ -6,10 +6,10 @@ SYSTEM REQUIREMENTS
 ===================
 
 Required Environment for Running Armada:
-- Java Runtime version 1.60 or higher
+- Java Runtime version 1.70 or higher
 
 Required Toolchain for Compiling Armada:
-- Java Compiler version 1.60 or higher
+- Java Compiler version 1.70 or higher
 - ANT recommended
 
 HOW TO COMPILE AND RUN ARMADA
