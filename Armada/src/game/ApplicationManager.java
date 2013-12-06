@@ -35,6 +35,9 @@ public class ApplicationManager implements ChangeListener {
     private JFrame window = new JFrame();
     static ApplicationManager INSTANCE;
     
+    /**
+    Get the instance of the ApplicationManager
+    */
     public static ApplicationManager getInstance(){
     	if(INSTANCE==null){
     		INSTANCE=new ApplicationManager();
@@ -78,6 +81,9 @@ public class ApplicationManager implements ChangeListener {
         swapPanel(vlp);
     }
     
+    /**
+    Start a networked game as a host.
+    */
     public void startNetworkedGame() {
         hs = new HostServer();
         gs = hs;
@@ -90,6 +96,9 @@ public class ApplicationManager implements ChangeListener {
         swapPanel(vp);
     }
     
+    /**
+    Called when networking has been set up.
+    */
     public void changeOccurred() {
         ArmadaEngine engine = new ArmadaEngine(gs, 1);
         Spawner.spawnPlanets(engine, 7);
@@ -99,7 +108,9 @@ public class ApplicationManager implements ChangeListener {
         vlp.setAntialiasingEnabled(true);
         swapPanel(vlp);
     }
-    
+    /**
+    Start a game connected to another instance that is a host.
+    */
     public void connectToNetworkedGame() {
         ps = new ProxyServer("127.0.0.1");
         if (ps == null) System.out.println("ps is null");  
@@ -111,13 +122,12 @@ public class ApplicationManager implements ChangeListener {
         swapPanel(vlp);
     }
     
+    /**
+    Shuts down the network connection.
+    */
     public void shutdownConnection() {
         gs.disconnectNetwork();
         endGame();
-    }
-    
-    public void startGameNewWay() {
-        
     }
     
     /**
@@ -126,6 +136,9 @@ public class ApplicationManager implements ChangeListener {
     public void endGame() {
         swapPanel(new MainMenuPanel(this));
     }
+    /**
+    Ends the game, showing the win screen.
+    */
     public void endGame(int alliance) {
     	if(alliance ==1)
     		swapPanel(new MainMenuPanel(this,"redwin.png"));
@@ -153,7 +166,9 @@ public class ApplicationManager implements ChangeListener {
     private void enforceDefaultWindowSize() {
         if (window != null) window.setSize(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT);
     }
-
+    /**
+    Returns the window that displays this application.
+    */
 	public JFrame getWindow() {
 		return window;
 	}
