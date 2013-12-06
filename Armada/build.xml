@@ -10,10 +10,21 @@
 <property name="sounds" location="sound" />
 <property name="documentation" location="documentation" />
 
+<target name="makejar" depends="compile" description="Create a jar file containing the game.">
+    <jar destfile="src/Armada.jar" basedir="${build}" >
+        <zipgroupfileset dir="libraries" includes="*.jar"/>
+        <manifest>
+            <attribute name="Main-Class" value="game.Game" />
+        </manifest>
+    
+    </jar>
+</target>
+
 <target name="compile" description="Create a build directory with compiled code and resources.">
     <mkdir dir="${build}" />
-    <copy todir="build/image" >
-        <fileset dir="${images}" />
+    <mkdir dir="${build}/image" />
+    <copy todir="${build}/image" >
+        <fileset dir="image" />
     </copy>
     <copy todir="build/sound" >
         <fileset dir="${sounds}" />
