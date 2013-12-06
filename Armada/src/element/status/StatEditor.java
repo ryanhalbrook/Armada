@@ -24,7 +24,8 @@ public enum StatEditor {;
 		s.resetStats();
 		if(items.size() < 1) return;
 		for(Item it: items){
-			if(it.getId()==ItemList.ItemNames.Cargo){
+			if(ItemList.keyInt(it.getId(),ItemList.ItemStats.NoBonus)){
+				
 				return;
 			}
 		}

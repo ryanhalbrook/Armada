@@ -1,15 +1,27 @@
 package animation;
 
 import element.Element;
-
+/**
+ * 
+ * @author Yun
+ * Class that runs the animations
+ */
 public class AnimationRunner implements Runnable{
 	private AnimationQueue a;
+	/**
+	 * Constructor that creates a thread for animation
+	 * @param aq AnimationQueue that contains the animations that need to be executed
+	 */
 	public AnimationRunner(AnimationQueue aq){
 		a=aq;
 		Thread t= new Thread(this);
 		t.start();
 	}
 	@Override
+	/**
+	 * runs the animations.
+	 * also manages the actor's targetability
+	 */
 	public void run() {
 		Animation ani = a.remove();
 		Element[] elist= null;

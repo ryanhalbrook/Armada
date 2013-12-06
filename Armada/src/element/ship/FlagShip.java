@@ -20,13 +20,19 @@ public class FlagShip extends Ship {
 		baseSpeed=100;
 		maxSpeed=baseSpeed;
 		speed=baseSpeed;
-		baseWeapons=600;
+		baseWeapons=500;
 		weapons=baseWeapons;
-		range=600;
+		range=300;
 		maxCargo=50;
 		board=.8f;
-
-		//this.addItem(new Item(ItemList.ItemNames.Flagship));
+		if(alliance == 1){
+			this.addItem(new Item(ItemList.ItemNames.FlagshipPassiveRed));
+		}
+		else{
+			this.addItem(new Item(ItemList.ItemNames.FlagshipPassiveBLue));
+			
+		}
+		
 		update();	
 	}
 	

@@ -75,7 +75,7 @@ public class Planet extends DynamicElement{
 	}
 	
 	private void setRandomImage(){		
-		int i = (int)(1 + (Math.random() *13) );
+		int i = (int)(1 + (Math.random() *11) );
 		imgNum = i;
 		setImage("planet/planet_" + i);
 	}

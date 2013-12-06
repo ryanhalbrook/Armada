@@ -283,6 +283,7 @@ public class BoardingAnimation implements Animation{
 		
 		return false;
 	}
+	
 	public Element[] getActors() {
 		Element[] elist = {de,target};
 		return elist;

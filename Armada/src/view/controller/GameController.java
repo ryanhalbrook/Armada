@@ -208,6 +208,11 @@ public class GameController extends ViewLayerController {
         return dsb.getHeight();
     }
     
+    public void userError(String msg) {
+    	ipl.showPopup(msg, new Color(0.8f, 0.1f, 0.1f));
+    
+    }
+    
     public void newTurn() {
         hud.getTurnHUD().showTransition();
     }

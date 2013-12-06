@@ -7,7 +7,7 @@ import view.*;
 public class BoardingShip extends Ship {
 
 	public BoardingShip(int inX, int inY, int team) {
-		super(inX,inY, 89, 71, "boarding",team);
+		super(inX,inY, 50, 50, "boarding",team);
 		ah = new ShipAnimationHelper(this);
 		baseMaxHull=300;
 		maxHull=baseMaxHull;
@@ -26,7 +26,7 @@ public class BoardingShip extends Ship {
 
 
 		//this.addItem(new Item(ItemList.ItemNames.Boarding));
-		update();	
+		update();
 	}
 	
 	

@@ -19,14 +19,10 @@ public class StatHUD2 extends HUD {
 	private final int BAR_HEIGHT = 12, TRI_DIMENSION=20, GAP = 10; 
 	
 	public StatHUD2(GameController gc, Position p){
-		super(new BoundingRectangle(5,45,300,125),gc, p);
+		super(new BoundingRectangle(5,45,300,0),gc, p);
 	}
 
 	public boolean click(int inX, int inY){
-		if(!displaying)return false;
-		if(r.isIn(inX, inY)){
-			return true;
-		}
 		return false;
 	}
 	
@@ -47,6 +43,9 @@ public class StatHUD2 extends HUD {
 			eng=s.getEngine();
 			mxeng = s.getMaxEngine();
 			atk = s.canAttack();
+		}
+		else{
+			displaying=false;
 		}
 	}
 

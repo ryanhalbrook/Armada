@@ -77,9 +77,10 @@ public class ButtonPage {
 		activeL=lists.get(page);
 		if(activeL==null)return;
 		updateButtons();
+		drawTop(g);	
 		activeL.draw(g);
 		//if(lists.size()>1){
-			drawTop(g);	
+			
 		//}
 		
 	}

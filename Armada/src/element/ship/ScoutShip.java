@@ -21,7 +21,7 @@ public class ScoutShip extends Ship{
 		baseWeapons=100;
 		weapons=baseWeapons;
 		range=100;
-		maxCargo=1;
+		maxCargo=3;
 		board=.1f;
 		//this.addItem(new Item(ItemList.ItemNames.Scout));
 		update();

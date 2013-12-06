@@ -9,7 +9,7 @@ public class CargoShip extends Ship {
 	//private double hullBonus = .1, engineBonus = .1;
 
 	public CargoShip(int inX, int inY, int team) {
-		super(inX,inY, 89, 71, "cargoship",team);
+		super(inX,inY, 60, 50, "cargoship",team);
 		ah = new ShipAnimationHelper(this);
 		baseMaxHull=500;
 		maxHull=baseMaxHull;

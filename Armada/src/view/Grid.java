@@ -330,10 +330,12 @@ public class Grid extends ViewLayer {
 		    		if(toSpawn.distanceFrom(activeE) > (toSpawn.getWidth()/2 + activeE.getWidth()/2) && toSpawn.distanceFrom(activeE) < activeE.getWidth()/2 + Ship.getDockRange()){
 		    			for(DynamicElement d: delements){
 		    				if(d.distanceFrom(toSpawn) < d.getWidth()/2+toSpawn.getWidth()/2){
+		    					gc.userError("Cannot spawn: Something is in the way.");
 		    					return false;
 		    				}
 		    			}
 		    			if(!engine.getPlayerManager().canPay(activeE.getAlliance(), spawnPrice)){
+		    				gc.userError("Cannot spawn: Insufficient Funds");
 		    				return false;
 		    			}
 		    			engine.getPlayerManager().playerPays(activeE.getAlliance(), spawnPrice);
