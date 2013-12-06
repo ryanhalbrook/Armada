@@ -6,7 +6,8 @@ import java.awt.Graphics;
 /**
 Class representing a view layer on screen. Handles clicks and gets drawn. The order that you
 add sublayers is important because the first layer added will be the first to be allowed
-to respond to mouse clicks and the last to be drawn.
+to respond to mouse clicks and the last to be drawn. Each ViewLayer represents a view hierarchy
+composed of this ViewLayer and 0 to many sublayers.
 */
 public class ViewLayer {
     /** Enables/Disables debugging statements */
@@ -16,17 +17,25 @@ public class ViewLayer {
     /** A name for this layer. Intended for debugging purposes. */
     protected String name;  
     private boolean drawingEnabled = true;
-    
+    ArrayList<ViewLayer> subLayers;
+    /**
+    Sets whether this layer should be drawn.
+    */
     public void setDrawingEnabled(boolean enabled) {
         this.drawingEnabled = enabled;
     }
     
+    /**
+    True if this layer is set to draw itself, and false otherwise.
+    */
     public boolean drawingEnabled() {
         return drawingEnabled;
     }
     
-    ArrayList<ViewLayer> subLayers;
-    
+    /**
+    Returns the rectangular region that this layer should be considered to take up.
+    This region is used mostly for click detection.    
+    */
     public BoundingRectangle getBoundingRectangle() {
         return r;
     }
