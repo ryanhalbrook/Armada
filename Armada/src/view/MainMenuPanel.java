@@ -33,6 +33,9 @@ public class MainMenuPanel extends JPanel implements ActionListener{
     BufferedImage backgroundImage;
     static final String IMAGE_NAME = "ArmadaBackground";
     
+    /**
+    Creates a new instance of MainMenuPanel.
+    */
     public MainMenuPanel(ApplicationManager am) {
         this.am = am;
         
@@ -96,6 +99,10 @@ public class MainMenuPanel extends JPanel implements ActionListener{
         if (backgroundImage == null) System.out.println("Failed to load main menu image");
     }
     // Respond to button clicks here.
+    
+    /**
+    Handles button clicks.
+    */
     public void actionPerformed(ActionEvent evt) {
         if (launchingGame) return;
         if (evt.getSource() == startButton2) {
@@ -114,7 +121,9 @@ public class MainMenuPanel extends JPanel implements ActionListener{
         }
     }
     
-    // Draws the background image.
+    /**
+    Draws the background image.
+    */
     public void paintComponent(Graphics g) {
         Graphics2D g2d = (Graphics2D)g;
         AffineTransform at = g2d.getTransform();
@@ -133,6 +142,9 @@ public class MainMenuPanel extends JPanel implements ActionListener{
         g2d.setTransform(at);
     }
     
+    /**
+    Preloads Resources.
+    */
     private class ResourceLoader implements Runnable {
         public void run() {
         String[] list = PreloadImageList.getList();

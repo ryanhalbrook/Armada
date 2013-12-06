@@ -2,6 +2,9 @@ package game;
 import av.visual.ImageLoader;
 import java.util.ArrayList;
 
+/**
+A list of images that should be preloaded before the game starts.
+*/
 public class PreloadImageList {
     private static String[] list =  {
         "planet/planet_1.png",
@@ -23,7 +26,10 @@ public class PreloadImageList {
         "juggernaut_blue.png",
         "juggernaut_red.png"
     };
-
+    
+    /**
+    Returns the list of image paths that should be preloaded.
+    */
     public static String[] getList() {
         return list;
     }

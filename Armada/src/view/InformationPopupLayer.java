@@ -23,14 +23,21 @@ public class InformationPopupLayer extends ViewLayer {
     }
     */
     
+    /**
+    Creates a new information layer instance at the specified position and size.
+    */
     public InformationPopupLayer(BoundingRectangle b) {
         super(b);
     }
-    
+    /**
+    Show a message.
+    */
     public void showPopup(String text) {
         showPopup(text, null);
     }
-    
+    /**
+    Shows a message with the specified background color.
+    */
     public void showPopup(String text, Color backgroundColor) {
         if (backgroundColor == null) {
             red = DEFAULT_RED;
@@ -45,6 +52,9 @@ public class InformationPopupLayer extends ViewLayer {
         phase = 0.0f;
     }
     
+    /**
+    Updates the stage of the animation.
+    */
     public void refresh(long previousTime, long currentTime) {
         //System.out.println("Refresh");
         int delta = (int)(currentTime - previousTime);
@@ -52,8 +62,15 @@ public class InformationPopupLayer extends ViewLayer {
         if (phase < 1.0f) phase += step;
     }
     
+    /**
+    Returns false to indicate that this layer does not capture clicks.
+    */
     public boolean click(int x, int y) { return false; }
     
+    /**
+    Draws the popup in its current stage into the Graphics object. Nothing should should
+    appear if no message was added in a while.
+    */
     public void draw(Graphics g) {
     	if(text != null){
     		r.width=g.getFontMetrics().stringWidth(text) + 50;
