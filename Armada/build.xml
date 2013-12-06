@@ -19,7 +19,7 @@
     
     </jar>
 </target>
-
+<!--"/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/jfxrt.jar -->
 <target name="compile" description="Create a build directory with compiled code and resources.">
     <mkdir dir="${build}" />
     <mkdir dir="${build}/image" />
@@ -29,16 +29,17 @@
     <copy todir="build/sound" >
         <fileset dir="${sounds}" />
     </copy>
-    <javac classpath="/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/jfxrt.jar" srcdir="${src}" destdir="${build}" includeantruntime="false" />
+    <javac classpath="libraries/jfxrt.jar" srcdir="${src}" destdir="${build}" includeantruntime="false" />
 </target>
-
+<!--"/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/"> -->
 <target name="run" depends="compile" description="Run the Armada Game">
     <java classpath="${build}" classname="game.Game" fork="true">
         <classpath>
             <fileset dir= "${build}">
                 <include name="**/*.class" />
             </fileset>
-            <fileset dir= "/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/">
+            <fileset dir="libraries/" >
+            
                 <include name="jfxrt.jar" />
             </fileset>
         </classpath>
