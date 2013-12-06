@@ -18,7 +18,11 @@ import view.button.ButtonPage;
 import view.button.ItemButton;
 import view.controller.GameController;
 import view.hud.HUD.Position;
-
+/**
+ * Allows the selection/buying/spawning of ships from a HomePlanet
+ * @author Aaron
+ *
+ */
 public class ShipStoreHUD extends HUD{
 
 	private ButtonPage shipList;

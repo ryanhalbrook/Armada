@@ -17,7 +17,11 @@ import element.ship.Ship;
 import java.awt.Font;
 import java.awt.FontMetrics;
 
-
+/**
+ * Displays range indicator depending on the mode, color depending on mode, line indicator depending on mode, and what mode is selected.
+ * @author Aaron
+ *
+ */
 public class ModeHUD extends HUD{
 
     private String[] modes = {"Move (1)", "Hull (2)", "Eng (3)", "Dock (4)", "Spawn (5)"};
@@ -40,14 +44,10 @@ public class ModeHUD extends HUD{
 		this.grid = gr;
 	}
 	
+	/**
+	 * Changes the display line depending on the time in order to make an animation
+	 */
 	public void refresh(long previousTime, long currentTime) {
-	    /*
-	    if (lastMode == -1) {
-	        startTime = currentTime;
-	        lastMode = grid.getMode();
-	        return;
-	    }
-	    */
 	    if (rAnimationStart == -1) {
 	        rAnimationStart = currentTime;
 	    } else {
@@ -88,6 +88,9 @@ public class ModeHUD extends HUD{
 	    }
 	}
 	
+	/**
+	 * Sets the mode depending on the position of the HUD and input location
+	 */
 	public boolean click(int inX, int inY){
 		if(r.isIn(inX, inY)){
 		    //System.out.println("You clicked the Turn HUD");
@@ -101,6 +104,9 @@ public class ModeHUD extends HUD{
 		return false;
 	}
 	
+	/***
+	 * Draws this HUD.  Draws the range indicators, line, and what mode is selected.
+	 */
 	public void draw(Graphics g){
 	    int x = r.getX();
 	    int y = r.getY();

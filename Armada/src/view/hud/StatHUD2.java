@@ -10,7 +10,11 @@ import view.hud.HUD.Position;
 
 import java.awt.FontMetrics;
 import java.awt.Font;
-
+/**
+ * Displays Stats of a Ship if there is one selected
+ * @author Aaron
+ *
+ */
 public class StatHUD2 extends HUD {
 	
 	private Ship s;

@@ -16,7 +16,11 @@ import element.ship.Ship;
 import animation.AnimationHelper;
 
 
-
+/***
+ * Provides an interface for trading between ships of the same alliance
+ * @author Aaron
+ *
+ */
 public class TradeHUD extends HUD{
 	
 	private ButtonPage l1,l2;

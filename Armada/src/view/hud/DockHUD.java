@@ -10,6 +10,12 @@ import java.util.ArrayList;
 
 import element.planet.Planet;
 
+
+/**
+ * This is not used in the final draft
+ * @author Aaron
+ *
+ */
 public class DockHUD extends HUD{
 	
 	private Planet p;
@@ -41,9 +47,6 @@ public class DockHUD extends HUD{
 			//InformationPopupLayer.getInstance().showPopup("There are no docked ships");
 			return;
 		}
-		
-		
-		
 		fillButtons();
 		updateHeight();
 		g.setColor(new Color(50,100,210, 75));

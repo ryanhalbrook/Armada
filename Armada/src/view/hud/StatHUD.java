@@ -13,7 +13,11 @@ import element.DynamicElement;
 import element.planet.Planet;
 import element.ship.Ship;
 
-
+/**
+ * Unused in final version
+ * @author Aaron
+ *
+ */
 public class StatHUD extends HUD{
 	
 	private ArrayList<Button> buttons;

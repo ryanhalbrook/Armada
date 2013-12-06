@@ -15,7 +15,11 @@ import element.DynamicElement;
 import element.planet.Planet;
 import element.ship.Ship;
 
-
+/**
+ * This displays the items of the selected Ship
+ * @author Aaron
+ *
+ */
 public class ItemListHUD extends HUD {
 
 	//private Planet p;
@@ -39,6 +43,9 @@ public class ItemListHUD extends HUD {
 		fillButtons();
 	}
 	
+	/**
+	 * Makes/fills the ButtonPage with ItemButtons cooresponding to the items of the selected Ship s;
+	 */
 	public void fillButtons(){
 	    int x = r.getX();
 	    int y = r.getY();
@@ -63,6 +70,9 @@ public class ItemListHUD extends HUD {
 		
 	}
 	
+	/**
+	 * Determines if this needs to be displayed.
+	 */
 	public void refresh(long previousTime, long currentTime) {
 		super.refresh(previousTime, currentTime);
 		if(gc.getGrid().getActiveE() == null){
@@ -73,6 +83,9 @@ public class ItemListHUD extends HUD {
 		}
 	}
 	
+	/**
+	 * Displays this HUD at the set location
+	 */
 	public void draw(Graphics g){
 		if(gc.getActiveE() != de || de==null){
 			de =gc.getActiveE();
@@ -95,19 +108,19 @@ public class ItemListHUD extends HUD {
 			dh.draw(g);
 		}
 	}
-	/*
-	public void drawButtons(Graphics g){
-		for(Button b: buttons){
-			b.draw(g);
-		}
-	}*/
 	
+	/**
+	 * returns true if a button is clicked
+	 */
 	public boolean click(int inX, int inY){
 	    if (!this.drawingEnabled()) return false;		
 		return buttons.click(inX, inY);
 	}
 	
-	
+	/**
+	 * Returns selected ItemButton's Item ID.
+	 * @return
+	 */
 	public ItemList.ItemNames getItemId(){
 		if(buttons.getActiveB()!=null){
 			return buttons.getActiveB().getId();

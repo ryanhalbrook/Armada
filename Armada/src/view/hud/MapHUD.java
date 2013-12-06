@@ -39,18 +39,12 @@ public class MapHUD extends HUD{
 		setName("Map Layer");
 	}
 	
-	/*
-	public MapHUD(Grid gr, int l, BoundingRectangle r){
-		super(new BoundingRectangle(0,0,250,125),gr);
-		inputLocation=l;
-		location = l;
-		des = grid.getDelements();
-		setName("Map Layer");
-	}
-    */
+	/**
+	 * Moves the location of what is displayed, determined by where on the MapHUD the click is.  Returns false if the click is off the map
+	 */
     public boolean click(int inX, int inY){
 		if(r.isIn(inX, inY)){
-		    System.out.println("You clicked the map");
+		    //System.out.println("You clicked the map");
 			moveMap(inX,inY);
 			return true;
 		}
@@ -118,7 +112,12 @@ public class MapHUD extends HUD{
 		}
 		
 	}
-
+	
+	/**
+	 * Moves the displayed location depending on input click
+	 * @param inX X position of click
+	 * @param inY Y position of click
+	 */
 	public void moveMap(int inX, int inY){
 	/*
 	    inX += 10;
@@ -139,10 +138,19 @@ public class MapHUD extends HUD{
 		//grid.getViewRegion().setY(yy);
 	}
 	
+	/**
+	 * Returns true if the input position is within this HUD
+	 * @param inX X position of click
+	 * @param inY Y position of click
+	 */
 	public boolean isIn(int inX, int inY){
 		return r.isIn(inX, inY);
 	}
 	
+	
+	/**
+	 * Handles the changing size of the MapHUD if it is expanding or shrinking
+	 */
 	public void refresh(long previousTime, long currentTime) {
 	    
 	    super.refresh(previousTime, currentTime);
@@ -160,10 +168,6 @@ public class MapHUD extends HUD{
 	    }
 	    if (expanding) {
 	        position = HUD.Position.CENTERED;
-	    	//location=10;
-	    	//this.r.setX(grid.getAp().getWidth()/2-r.width/2);
-	    	//this.r.setY(grid.getAp().getHeight()/2 - r.height/2);
-	    	//System.out.println("2: " + location);
 	        scale += step;
 	        if (scale > .8) {
 	            scale = .8;
@@ -172,6 +176,9 @@ public class MapHUD extends HUD{
 	    }
 	}
 
+	/**
+	 * Switches between shrinking/expanding
+	 */
 	public void toggleScale(){
 	    if (shrinking || expanding) return;
 		if(scale > 0.5){
@@ -186,10 +193,18 @@ public class MapHUD extends HUD{
 		}
 	}
 	
+	/**
+	 * returns current map scale
+	 * @return mapScale
+	 */
 	public Scale getScaleType() {
 	    return mapScale;
 	}
 	
+	/**
+	 * unused
+	 * @param g input Graphics
+	 */
 	public void drawRange(Graphics g){//abandoned until I can find a way to make it so that if the range is outside the map it doesn't show
 		if(grid.getActiveE()==null)return;
 		Ship temp;
@@ -212,10 +227,17 @@ public class MapHUD extends HUD{
 		
 	}
 	
+	/***
+	 * returns scale
+	 * @return scale
+	 */
 	public double getScale() {
 		return scale;
 	}
-
+	/**
+	 * sets scale
+	 * @param scale The double to set scale to
+	 */
 	public void setScale(double scale) {
 		this.scale = scale;
 	}

@@ -5,8 +5,10 @@ import view.controller.GameController;
 import java.awt.Graphics;
 
 /**
-    Represents a Heads Up Display that displays information about the state of the game.
-*/
+ * Represents a Heads Up Display that displays information about the state of the game.
+ * @author Aaron
+ *
+ */
 public class HUD extends ViewLayer {
 
 	protected GameController gc = null;

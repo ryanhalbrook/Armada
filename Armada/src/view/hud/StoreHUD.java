@@ -18,7 +18,9 @@ import animation.AnimationHelper;
 
 //import HUD.Position;
 
-
+/**
+ * Provides an interface for buying items when a ship is docked at a Planet of the same alliance
+ */
 public class StoreHUD extends HUD{
 	
 	//private ButtonList shipList;//, shopList;
