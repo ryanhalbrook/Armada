@@ -112,7 +112,7 @@ public class ItemList {
 		itemVals.put(ItemNames.Scout.name()+ItemStats.Price.name(), 500);
 		itemDescriptions.put(ItemNames.Scout.name()+ItemStats.Description, "Scout Ship");
 		itemDescriptions.put(ItemNames.Scout.name() + ItemStats.InGameName, "Scout Ship");
-		itemDescriptions.put(ItemNames.Scout.name()+ItemStats.ImageName, "Scout_red");
+		itemDescriptions.put(ItemNames.Scout.name()+ItemStats.ImageName, "scout_red");
 		
 		//ScalingEnginesUpgrade
 		itemVals.put(ItemNames.ScalingEnginesUpgrade.name()+ItemStats.EnginesPercentage.name(), 15);
