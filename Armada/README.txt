@@ -1,4 +1,4 @@
-Project Armada README
+﻿Project Armada README
 Revision: 001
 *********************
 
@@ -11,6 +11,8 @@ Required Environment for Running Armada:
 Required Toolchain for Compiling Armada:
 - Java Compiler version 1.70 or higher
 - ANT recommended
+
+Windows 7 is recommended
 
 HOW TO COMPILE AND RUN ARMADA
 =============================
@@ -71,14 +73,16 @@ SYSTEM USE CONTROLS
 ===================
 -Display Navigation
 	+(Arrow Keys): shift display in direction of arrow key press
-	+(m): maximizes mini-map to make “mini-map click/drag” more visually efficient. pressing the“m” key again toggles the maximization off. 
+	+(m): maximizes mini-map to make “mini-map click/drag” more visually efficient. pressing the“m” key again toggles the maximization off.
 	+“Mini-Map Click/Drag”: navigate display by clicking/dragging on mini-map 
 	+”Edge Scrolling”: when mouse is in border of display, it will shift in direction of the occupied border
 -Gameplay
 	+(1): when ship selected, move to specified location within range
 	+(2): when ship selected, attack hull of specified enemy object within range
 	+(3): when ship selected, attack engine of specified enemy ship within range
-	+(4): when ship selected, dock neutral planet or planet in possession within range
+	+(4): when ship selected, attempt board on a enemy ship, trade with a friendly ship, dock neutral planet or planet in possession within range 
+		(the mode is disabled when ship does an action that requires changing its coordinate or using its bridge)
 	+(esc): end current turn
 	+(spacebar): toggle through objects in possession 
+	+(p): pauses the background music
 	+(q): quit current game 
