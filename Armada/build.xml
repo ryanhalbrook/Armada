@@ -29,7 +29,7 @@
     <copy todir="build/sound" >
         <fileset dir="${sounds}" />
     </copy>
-    <javac classpath="libraries/jfxrt.jar" srcdir="${src}" destdir="${build}" includeantruntime="false" />
+    <javac srcdir="${src}" destdir="${build}" includeantruntime="false" />
 </target>
 <!--"/Library/Java/JavaVirtualMachines/jdk1.7.0_45.jdk/Contents/Home/jre/lib/"> -->
 <target name="run" depends="compile" description="Run the Armada Game">
@@ -38,7 +38,7 @@
             <fileset dir= "${build}">
                 <include name="**/*.class" />
             </fileset>
-            <fileset dir="libraries/" >
+            <fileset dir="./" >
             
                 <include name="jfxrt.jar" />
             </fileset>

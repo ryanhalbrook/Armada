@@ -41,10 +41,11 @@ public enum SoundEffect {
    
    /** Constructor that creates each element of the enum with its own sound file. */
    SoundEffect(String soundFileName) {
+    
       try {
          // Use URL (instead of File) to read from disk and JAR.
          URL url = this.getClass().getClassLoader().getResource("sound/"+soundFileName);
-
+	if (url == null) return;
          // Set up an audio input stream piped from the sound file.
          AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(url);
          // Get a clip resource.
