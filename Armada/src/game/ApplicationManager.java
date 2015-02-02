@@ -52,11 +52,21 @@ public class ApplicationManager implements ChangeListener {
     */
     private ApplicationManager() {
         mainPanel = new MainMenuPanel(this);
+	mainPanel.setBackground(Color.BLACK);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setTitle("Armada");
         window.add(mainPanel);
         enforceDefaultWindowSize();
         window.setMinimumSize(new Dimension(MIN_WINDOW_WIDTH, MIN_WINDOW_HEIGHT));
+	GraphicsDevice gd =
+            GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+
+	if (gd.isFullScreenSupported()) {
+	    window.setUndecorated(true);
+	    gd.setFullScreenWindow(window);
+	} else {
+	    System.err.println("Full screen not supported");
+	}
     }
     
     /**

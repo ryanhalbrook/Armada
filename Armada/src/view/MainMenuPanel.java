@@ -31,7 +31,7 @@ public class MainMenuPanel extends JPanel implements ActionListener{
     private String message = "";
     
     BufferedImage backgroundImage;
-    static final String IMAGE_NAME = "ArmadaBackground";
+    static final String IMAGE_NAME = "ArmadaBackground2";
     
     /**
     Creates a new instance of MainMenuPanel.
@@ -40,15 +40,20 @@ public class MainMenuPanel extends JPanel implements ActionListener{
         this.am = am;
         
         progressBar.setValue(0);
-        
+	JPanel progressPanel = new JPanel();
+	progressPanel.setLayout(new BoxLayout(progressPanel, BoxLayout.PAGE_AXIS));
+	progressPanel.add(progressBar);
+	progressPanel.setPreferredSize(new Dimension(100, 50)); 
         // Setup the buttons
         startButton.addActionListener(this);
+	startButton.setPreferredSize(new Dimension(500, 30));
         exitButton.addActionListener(this);
         startButton2.addActionListener(this);
         networkedGameHostButton.addActionListener(this);
         networkedGameClientButton.addActionListener(this);
-        JPanel buttonsPanel = new JPanel(new GridLayout(4,1));
-        buttonsPanel.setPreferredSize(new Dimension(50, 500));
+        JPanel buttonsPanel = new JPanel();//new JPanel(new GridLayout(4,1));
+	buttonsPanel.setLayout(new BoxLayout(buttonsPanel, BoxLayout.PAGE_AXIS));
+        buttonsPanel.setPreferredSize(new Dimension(500, 500));
         this.setLayout(new BorderLayout());
         buttonsPanel.add(startButton2);
         buttonsPanel.add(networkedGameHostButton);
@@ -129,9 +134,15 @@ public class MainMenuPanel extends JPanel implements ActionListener{
         AffineTransform at = g2d.getTransform();
         if (backgroundImage != null) {
             int imageWidth = backgroundImage.getWidth();
+	    int imageHeight = backgroundImage.getHeight();
             int panelWidth = this.getWidth();
-            
-            double scale = panelWidth / (imageWidth * 1.0);
+	    int panelHeight = this.getHeight();
+	    double scale = 1.0; 
+            if (panelWidth - imageWidth > panelHeight - imageHeight) {
+		scale = panelWidth / (imageWidth * 1.0);
+	    } else {
+		scale = panelHeight / (imageHeight * 1.0);
+	    }	
             g2d.scale(scale, scale);
             g2d.drawImage(backgroundImage, 0, 0, null);
             
