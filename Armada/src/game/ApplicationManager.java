@@ -64,6 +64,7 @@ public class ApplicationManager implements ChangeListener {
 	if (gd.isFullScreenSupported()) {
 	    window.setUndecorated(true);
 	    gd.setFullScreenWindow(window);
+	    mainPanel.repaint();
 	} else {
 	    System.err.println("Full screen not supported");
 	}

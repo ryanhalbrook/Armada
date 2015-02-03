@@ -22,28 +22,21 @@ A class representing the main menu of the system.
 public class MainMenuPanel extends JPanel implements ActionListener{
     private boolean launchingGame = false;
     ApplicationManager am;
-    private JProgressBar progressBar = new JProgressBar(0, PreloadImageList.getList().length);
     JButton startButton = new JButton("Start Game Old Way");
     JButton startButton2 = new JButton("Single Player");
     JButton exitButton = new JButton("Quit Game");
     JButton networkedGameHostButton = new JButton("New Multiplayer Host");
     JButton networkedGameClientButton = new JButton("Connect to Multiplayer Host");
     private String message = "";
-    
+    private float progress = 0.0f;
     BufferedImage backgroundImage;
-    static final String IMAGE_NAME = "ArmadaBackground2";
-    
+    static final String IMAGE_NAME = "ArmadaBackground";
     /**
     Creates a new instance of MainMenuPanel.
     */
     public MainMenuPanel(ApplicationManager am) {
         this.am = am;
         
-        progressBar.setValue(0);
-	JPanel progressPanel = new JPanel();
-	progressPanel.setLayout(new BoxLayout(progressPanel, BoxLayout.PAGE_AXIS));
-	progressPanel.add(progressBar);
-	progressPanel.setPreferredSize(new Dimension(100, 50)); 
         // Setup the buttons
         startButton.addActionListener(this);
 	startButton.setPreferredSize(new Dimension(500, 30));
@@ -63,8 +56,13 @@ public class MainMenuPanel extends JPanel implements ActionListener{
         //buttonsPanel.add(startButton);
         buttonsPanel.setBorder(new EmptyBorder(100,400,250,10));
         buttonsPanel.setOpaque(false);
-        this.add(buttonsPanel, BorderLayout.NORTH);
-        this.add(progressBar, BorderLayout.SOUTH);
+	this.setLayout(null);
+	int offsetx = 550;
+	int offsety = 250;
+	startButton2.setBounds(offsetx, offsety, 200, 25);
+	exitButton.setBounds(offsetx, offsety + 30, 200, 25);
+	this.add(startButton2);
+	this.add(exitButton);
         
         // Load the background image
         File f = new File(IMAGE_NAME+ ".jpg");
@@ -75,7 +73,6 @@ public class MainMenuPanel extends JPanel implements ActionListener{
     public MainMenuPanel(ApplicationManager am,String img) {
         this.am = am;
         
-        progressBar.setValue(0);
         
         // Setup the buttons
         startButton.addActionListener(this);
@@ -95,7 +92,6 @@ public class MainMenuPanel extends JPanel implements ActionListener{
         buttonsPanel.setBorder(new EmptyBorder(100,400,250,10));
         buttonsPanel.setOpaque(false);
         this.add(buttonsPanel, BorderLayout.NORTH);
-        this.add(progressBar, BorderLayout.SOUTH);
         
         // Load the background image
         File f = new File(IMAGE_NAME+ ".jpg");
@@ -116,7 +112,7 @@ public class MainMenuPanel extends JPanel implements ActionListener{
             startButton2.setLabel(message);
             Thread resourceLoaderThread = new Thread(new ResourceLoader());
             resourceLoaderThread.start();
-            
+	    repaint();    
         } else if (evt.getSource() == networkedGameHostButton) {
             am.startNetworkedGame();
         } else if (evt.getSource() == networkedGameClientButton) {
@@ -150,7 +146,26 @@ public class MainMenuPanel extends JPanel implements ActionListener{
             System.out.println("Repainting");
             //repaint();
         }
+	g2d.setColor(new Color(0.5f, 0.5f, 0.5f, 0.7f));
+	System.out.println("Width: " + this.getWidth() + "; height: " + this.getHeight());
+	
         g2d.setTransform(at);
+	if (launchingGame) {
+	g2d.fillRect(this.getWidth()/2 - 250, this.getHeight() - 100, 500, 50);
+	g2d.setColor(Color.WHITE);
+	System.out.println("P: " + progress);
+	//progress = 1.0f;
+	g2d.fillRect((int)(this.getWidth()/2 - (int)(500.0 * progress / 2.0f)), this.getHeight() - 100, (int)(500.0*progress), 50);
+	//System.sleep(100);
+	    try {
+	    Thread.sleep(10);
+	    } catch (Exception e) {
+    
+	    }
+	    repaint();
+	}
+	
+	
     }
     
     /**
@@ -161,7 +176,9 @@ public class MainMenuPanel extends JPanel implements ActionListener{
         String[] list = PreloadImageList.getList();
             BufferedImage img = null;
             for (int i = 0; i < list.length; i++) {
-                progressBar.setValue(i+1);
+		progress = (float)((i*1.0+1.0) / (1.0*list.length));
+		
+		System.out.println("Progress: " + progress);
                 ImageLoader.getInstance().preloadImageAsync(list[i]);
                 
                 boolean quit = false;
